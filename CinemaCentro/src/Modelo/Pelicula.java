@@ -122,61 +122,28 @@ public class Pelicula {
         this.Estado = Estado;
     }
 
+   
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + this.id_Pelicula;
-        hash = 97 * hash + Objects.hashCode(this.Titulo);
-        hash = 97 * hash + Objects.hashCode(this.Director);
-        hash = 97 * hash + Objects.hashCode(this.Reparto);
-        hash = 97 * hash + Objects.hashCode(this.Pais_Origen);
-        hash = 97 * hash + Objects.hashCode(this.Genero);
-        hash = 97 * hash + this.enCartelera;
-        hash = 97 * hash + Objects.hashCode(this.Estreno);
-        hash = 97 * hash + this.Estado;
-        return hash;
+        
+        return Objects.hashCode(this.id_Pelicula);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object a){
+        if(a == this){
             return true;
         }
-        if (obj == null) {
+        if(a.getClass() != this.getClass() || this.id_Pelicula == 0){
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Pelicula other = (Pelicula) obj;
-        if (this.id_Pelicula != other.id_Pelicula) {
-            return false;
-        }
-        if (this.enCartelera != other.enCartelera) {
-            return false;
-        }
-        if (this.Estado != other.Estado) {
-            return false;
-        }
-        if (!Objects.equals(this.Titulo, other.Titulo)) {
-            return false;
-        }
-        if (!Objects.equals(this.Director, other.Director)) {
-            return false;
-        }
-        if (!Objects.equals(this.Reparto, other.Reparto)) {
-            return false;
-        }
-        if (!Objects.equals(this.Pais_Origen, other.Pais_Origen)) {
-            return false;
-        }
-        if (!Objects.equals(this.Genero, other.Genero)) {
-            return false;
-        }
-        if (!Objects.equals(this.Estreno, other.Estreno)) {
-            return false;
-        }
-        return true;
+        Pelicula peli = (Pelicula) a;
+        return  peli.id_Pelicula == this.id_Pelicula;
+    }
+
+    @Override
+    public String toString() {
+        return "Pelicula{" + "id_Pelicula=" + id_Pelicula + ", Titulo=" + Titulo + ", Director=" + Director + ", Reparto=" + Reparto + ", Pais_Origen=" + Pais_Origen + ", Genero=" + Genero + ", enCartelera=" + enCartelera + ", Estreno=" + Estreno + ", Estado=" + Estado + '}';
     }
     
     
