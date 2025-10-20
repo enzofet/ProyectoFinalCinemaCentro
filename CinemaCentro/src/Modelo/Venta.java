@@ -113,55 +113,23 @@ public class Venta {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 71 * hash + this.id_Venta;
-        hash = 71 * hash + this.id_Cliente;
-        hash = 71 * hash + Objects.hashCode(this.Medio_Pago);
-        hash = 71 * hash + this.Cantidad_Entradas;
-        hash = 71 * hash + (int) (Double.doubleToLongBits(this.Importe_Total) ^ (Double.doubleToLongBits(this.Importe_Total) >>> 32));
-        hash = 71 * hash + Objects.hashCode(this.Medio_Compra);
-        hash = 71 * hash + this.Token;
-        hash = 71 * hash + Objects.hashCode(this.Fecha_Venta);
-        return hash;
+        return Objects.hashCode(this.id_Venta);
+    }
+
+    public boolean equals(Object a){
+        if(a == this){
+            return true;
+        }
+        if(a.getClass() != this.getClass() || this.id_Venta == 0){
+            return false;
+        }
+        Venta vent = (Venta) a;
+        return vent.id_Venta  == this.id_Venta;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Venta other = (Venta) obj;
-        if (this.id_Venta != other.id_Venta) {
-            return false;
-        }
-        if (this.id_Cliente != other.id_Cliente) {
-            return false;
-        }
-        if (this.Cantidad_Entradas != other.Cantidad_Entradas) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.Importe_Total) != Double.doubleToLongBits(other.Importe_Total)) {
-            return false;
-        }
-        if (this.Token != other.Token) {
-            return false;
-        }
-        if (!Objects.equals(this.Medio_Pago, other.Medio_Pago)) {
-            return false;
-        }
-        if (!Objects.equals(this.Medio_Compra, other.Medio_Compra)) {
-            return false;
-        }
-        if (!Objects.equals(this.Fecha_Venta, other.Fecha_Venta)) {
-            return false;
-        }
-        return true;
+    public String toString() {
+        return "Venta{" + "id_Venta=" + id_Venta + ", id_Cliente=" + id_Cliente + ", Medio_Pago=" + Medio_Pago + ", Cantidad_Entradas=" + Cantidad_Entradas + ", Importe_Total=" + Importe_Total + ", Medio_Compra=" + Medio_Compra + ", Token=" + Token + ", Fecha_Venta=" + Fecha_Venta + '}';
     }
     
     
