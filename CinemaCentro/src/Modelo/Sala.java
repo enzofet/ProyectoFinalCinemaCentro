@@ -5,6 +5,10 @@
  */
 package Modelo;
 
+import java.util.Objects;
+
+
+
 /**
  *
  * @author Naiara
@@ -62,39 +66,24 @@ public class Sala {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + this.nro_Sala;
-        hash = 89 * hash + this.Capacidad;
-        hash = 89 * hash + this.Estado;
-        hash = 89 * hash + this.Apta3D;
-        return hash;
+        return Objects.hashCode(this.nro_Sala);
+    }
+
+    
+    public boolean equals(Object a){
+        if(a == this){
+            return true;
+        }
+        if(a.getClass() != this.getClass() || this.nro_Sala == 0){
+            return false;
+        }
+        Sala sal = (Sala) a;
+        return  sal.nro_Sala == this.nro_Sala;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Sala other = (Sala) obj;
-        if (this.nro_Sala != other.nro_Sala) {
-            return false;
-        }
-        if (this.Capacidad != other.Capacidad) {
-            return false;
-        }
-        if (this.Estado != other.Estado) {
-            return false;
-        }
-        if (this.Apta3D != other.Apta3D) {
-            return false;
-        }
-        return true;
+    public String toString() {
+        return "Sala{" + "nro_Sala=" + nro_Sala + ", Capacidad=" + Capacidad + ", Estado=" + Estado + ", Apta3D=" + Apta3D + '}';
     }
     
     
