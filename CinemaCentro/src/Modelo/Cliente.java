@@ -16,7 +16,7 @@ public class Cliente {
     
     private int id_cliente;
     private int dni;
-    private LocalDate fecha_nac;
+    private LocalDate fecha_nacimiento;
     private String nombre;
     private String apellido;
     private boolean estado;
@@ -25,19 +25,19 @@ public class Cliente {
         this.id_cliente=-1;
     }
     
-    public Cliente(int dni, LocalDate fecha_nac, String nombre, String apellido, boolean estado){
+    public Cliente(int dni, LocalDate fecha_nacimiento, String nombre, String apellido, boolean estado){
         this.id_cliente = -1;
         this.dni = dni;
-        this.fecha_nac = fecha_nac;
+        this.fecha_nacimiento = fecha_nacimiento;
         this.nombre = nombre;
         this.apellido = apellido;
         this.estado = estado;
     }
     
-    public Cliente(int id_cliente, int dni, LocalDate fecha_nac, String nombre, String apellido, boolean estado){
+    public Cliente(int id_cliente, int dni, LocalDate fecha_nacimiento, String nombre, String apellido, boolean estado){
         this.id_cliente = id_cliente;
         this.dni = dni;
-        this.fecha_nac = fecha_nac;
+        this.fecha_nacimiento = fecha_nacimiento;
         this.nombre = nombre;
         this.apellido = apellido;
         this.estado = estado;
@@ -59,12 +59,12 @@ public class Cliente {
         this.dni = dni;
     }
 
-    public LocalDate getFecha_nac() {
-        return fecha_nac;
+    public LocalDate getFecha_nacimiento() {
+        return fecha_nacimiento;
     }
 
-    public void setFecha_nac(LocalDate fecha_nac) {
-        this.fecha_nac = fecha_nac;
+    public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
     }
 
     public String getNombre() {
@@ -110,7 +110,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente: \n" + "\tid_cliente: " + id_cliente + "\n \tDNI: " + dni  + "\n \tNombre: " + nombre + "\n \tApellido: " + apellido + "\n \tFecha de nacimiento: " + fecha_nac + "\n \tEstado: " + estado;
+        return "Cliente: \n" + "\tid_cliente: " + id_cliente + "\n \tDNI: " + dni  + "\n \tNombre: " + nombre + "\n \tApellido: " + apellido + "\n \tFecha de nacimiento: " + fecha_nacimiento + "\n \tEstado: " + estado;
     }
 
     
