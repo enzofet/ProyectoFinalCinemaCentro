@@ -112,8 +112,4 @@ public class Cliente {
     public String toString() {
         return "Cliente: \n" + "\tid_cliente: " + id_cliente + "\n \tDNI: " + dni  + "\n \tNombre: " + nombre + "\n \tApellido: " + apellido + "\n \tFecha de nacimiento: " + fecha_nacimiento + "\n \tEstado: " + estado;
     }
-
-    
-    
-    
 }
