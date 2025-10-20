@@ -89,7 +89,8 @@ CREATE TABLE `detalleticket` (
   `id_funcion` int(11) DEFAULT NULL,
   `id_asiento` int(11) DEFAULT NULL,
   `id_venta` int(11) DEFAULT NULL,
-  `fecha_emision` date DEFAULT NULL
+  `fecha_emision` date DEFAULT NULL,
+  `estado` tinyint(1) NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
