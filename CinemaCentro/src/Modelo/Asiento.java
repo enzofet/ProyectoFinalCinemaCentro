@@ -79,15 +79,14 @@ public class Asiento {
         Asiento asiento = (Asiento)a;
         return asiento.id_asiento == this.id_asiento;
     }
-    
-    public int HashCode(){
+
+    @Override
+    public int hashCode() {
         return Objects.hash(id_asiento);
     }
 
     @Override
     public String toString() {
-        return "Asiento: \n" + "Id_asiento: " + id_asiento + "\n \tNúmero Asiento: " + numero_asiento + "\n \tFila Asiento: " + fila_asiento + "\n \tEstado: " + estado;
+        return "Asiento: \n" + "\tId_asiento: " + id_asiento + "\n \tNúmero Asiento: " + numero_asiento + "\n \tFila Asiento: " + fila_asiento + "\n \tEstado: " + estado;
     }
-    
-    
 }
