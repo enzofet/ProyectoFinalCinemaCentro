@@ -19,25 +19,28 @@ public class Cliente {
     private LocalDate fecha_nac;
     private String nombre;
     private String apellido;
+    private boolean estado;
     
     public Cliente(){
         this.id_cliente=-1;
     }
     
-    public Cliente(int dni, LocalDate fecha_nac, String nombre, String apellido){
+    public Cliente(int dni, LocalDate fecha_nac, String nombre, String apellido, boolean estado){
         this.id_cliente = -1;
         this.dni = dni;
         this.fecha_nac = fecha_nac;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.estado = estado;
     }
     
-    public Cliente(int id_cliente, int dni, LocalDate fecha_nac, String nombre, String apellido){
+    public Cliente(int id_cliente, int dni, LocalDate fecha_nac, String nombre, String apellido, boolean estado){
         this.id_cliente = id_cliente;
         this.dni = dni;
         this.fecha_nac = fecha_nac;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.estado = estado;
     }
 
     public int getId_cliente() {
@@ -78,6 +81,14 @@ public class Cliente {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }    
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
     
     @Override
@@ -99,7 +110,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente: \n" + "\tid_cliente: " + id_cliente + "\n \tDNI: " + dni  + "\n \tNombre: " + nombre + "\n \tApellido: " + apellido + "\n \tFecha de nacimiento: " + fecha_nac;
+        return "Cliente: \n" + "\tid_cliente: " + id_cliente + "\n \tDNI: " + dni  + "\n \tNombre: " + nombre + "\n \tApellido: " + apellido + "\n \tFecha de nacimiento: " + fecha_nac + "\n \tEstado: " + estado;
     }
 
     
