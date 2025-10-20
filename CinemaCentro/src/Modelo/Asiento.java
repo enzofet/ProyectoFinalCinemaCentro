@@ -30,7 +30,7 @@ public class Asiento {
     }
     
     public Asiento(int numero_asiento, char fila_asiento, boolean estado){
-        this.id_asiento = id_asiento;
+        this.id_asiento = -1;
         this.numero_asiento = numero_asiento;
         this.fila_asiento = fila_asiento;
         this.estado = estado;
