@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-10-2025 a las 22:26:36
+-- Tiempo de generación: 20-10-2025 a las 22:47:00
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -74,7 +74,8 @@ CREATE TABLE `cliente` (
   `dni` int(11) DEFAULT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
-  `fecha_nacimiento` date NOT NULL
+  `fecha_nacimiento` date NOT NULL,
+  `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -88,7 +89,8 @@ CREATE TABLE `detalleticket` (
   `id_funcion` int(11) DEFAULT NULL,
   `id_asiento` int(11) DEFAULT NULL,
   `id_venta` int(11) DEFAULT NULL,
-  `fecha_emision` date DEFAULT NULL
+  `fecha_emision` date DEFAULT NULL,
+  `estado` tinyint(1) NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -107,7 +109,8 @@ CREATE TABLE `funcion` (
   `hora_fin` time NOT NULL,
   `precio_entrada` double NOT NULL,
   `fecha_funcion` date NOT NULL,
-  `subtitulada` tinyint(1) NOT NULL
+  `subtitulada` tinyint(1) NOT NULL,
+  `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -124,7 +127,8 @@ CREATE TABLE `pelicula` (
   `pais_origen` varchar(50) NOT NULL,
   `genero` varchar(50) NOT NULL,
   `enCartelera` tinyint(1) NOT NULL,
-  `estreno` date NOT NULL
+  `estreno` date NOT NULL,
+  `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
