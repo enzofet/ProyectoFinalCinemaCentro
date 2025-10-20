@@ -20,7 +20,7 @@ Este es el Proyecto Final para el Sistema de CinemaCentro. El objetivo de este p
 ## Funcionalidades ⚙️
 - [Proximamente.]
 
-![Vista Diseñador](./main/VistaDiseñadorUniversidadULP.png)
+![Vista Diseñador](https://github.com/enzofet/ProyectoFinalCinemaCentro/blob/main/VisteDise%C3%B1ador-CinemaCentro.png)
 
 ## Para clonar: 📦
 Clona el repositorio:
