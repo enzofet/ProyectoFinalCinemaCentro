@@ -6,6 +6,7 @@
 package Modelo;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  *
@@ -15,29 +16,100 @@ public class Cliente {
     
     private int id_cliente;
     private int dni;
-    private LocalDate fecha_nac;
+    private LocalDate fecha_nacimiento;
     private String nombre;
     private String apellido;
+    private boolean estado;
     
     public Cliente(){
         this.id_cliente=-1;
     }
     
-    public Cliente(int dni, LocalDate fecha_nac, String nombre, String apellido){
+    public Cliente(int dni, LocalDate fecha_nacimiento, String nombre, String apellido, boolean estado){
         this.id_cliente = -1;
         this.dni = dni;
-        this.fecha_nac = fecha_nac;
+        this.fecha_nacimiento = fecha_nacimiento;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.estado = estado;
     }
     
-    public Cliente(int id_cliente, int dni, LocalDate fecha_nac, String nombre, String apellido){
+    public Cliente(int id_cliente, int dni, LocalDate fecha_nacimiento, String nombre, String apellido, boolean estado){
         this.id_cliente = id_cliente;
         this.dni = dni;
-        this.fecha_nac = fecha_nac;
+        this.fecha_nacimiento = fecha_nacimiento;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.estado = estado;
+    }
+
+    public int getId_cliente() {
+        return id_cliente;
+    }
+
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
+    }
+
+    public int getDni() {
+        return dni;
+    }
+
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
+
+    public LocalDate getFecha_nacimiento() {
+        return fecha_nacimiento;
+    }
+
+    public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }    
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
     
-    
+    @Override
+    public boolean equals(Object a) {
+        if(a == this){
+            return true;
+        }
+        if(a.getClass() != this.getClass() || this.dni == 0){
+            return false;
+        }
+        Cliente cliente = (Cliente) a;
+        return cliente.dni == this.dni;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this.id_cliente);
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente: \n" + "\tid_cliente: " + id_cliente + "\n \tDNI: " + dni  + "\n \tNombre: " + nombre + "\n \tApellido: " + apellido + "\n \tFecha de nacimiento: " + fecha_nacimiento + "\n \tEstado: " + estado;
+    }
 }
