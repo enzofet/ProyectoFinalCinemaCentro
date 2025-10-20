@@ -147,67 +147,25 @@ public class Funcion {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + this.id_Funcion;
-        hash = 59 * hash + this.id_pelicula;
-        hash = 59 * hash + this.nro_Sala;
-        hash = 59 * hash + Objects.hashCode(this.idioma);
-        hash = 59 * hash + this.es3D;
-        hash = 59 * hash + Objects.hashCode(this.Hora_Inicio);
-        hash = 59 * hash + Objects.hashCode(this.Hora_Fin);
-        hash = 59 * hash + Objects.hashCode(this.Precio_Entrada);
-        hash = 59 * hash + Objects.hashCode(this.Fecha_Funcion);
-        hash = 59 * hash + this.Subtitulada;
-        hash = 59 * hash + this.Estado;
-        return hash;
+        return Objects.hashCode(this.id_Funcion);
+    }
+
+    
+    @Override
+    public boolean equals(Object a){
+        if(a == this){
+            return true;
+        }
+        if(a.getClass() != this.getClass() || this.id_Funcion == 0){
+            return false;
+        }
+        Funcion funci = (Funcion) a;
+        return  funci.id_Funcion == this.id_Funcion;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Funcion other = (Funcion) obj;
-        if (this.id_Funcion != other.id_Funcion) {
-            return false;
-        }
-        if (this.id_pelicula != other.id_pelicula) {
-            return false;
-        }
-        if (this.nro_Sala != other.nro_Sala) {
-            return false;
-        }
-        if (this.es3D != other.es3D) {
-            return false;
-        }
-        if (this.Subtitulada != other.Subtitulada) {
-            return false;
-        }
-        if (this.Estado != other.Estado) {
-            return false;
-        }
-        if (!Objects.equals(this.idioma, other.idioma)) {
-            return false;
-        }
-        if (!Objects.equals(this.Hora_Inicio, other.Hora_Inicio)) {
-            return false;
-        }
-        if (!Objects.equals(this.Hora_Fin, other.Hora_Fin)) {
-            return false;
-        }
-        if (!Objects.equals(this.Precio_Entrada, other.Precio_Entrada)) {
-            return false;
-        }
-        if (!Objects.equals(this.Fecha_Funcion, other.Fecha_Funcion)) {
-            return false;
-        }
-        return true;
+    public String toString() {
+        return "Funcion{" + "id_Funcion=" + id_Funcion + ", id_pelicula=" + id_pelicula + ", nro_Sala=" + nro_Sala + ", idioma=" + idioma + ", es3D=" + es3D + ", Hora_Inicio=" + Hora_Inicio + ", Hora_Fin=" + Hora_Fin + ", Precio_Entrada=" + Precio_Entrada + ", Fecha_Funcion=" + Fecha_Funcion + ", Subtitulada=" + Subtitulada + ", Estado=" + Estado + '}';
     }
     
     
