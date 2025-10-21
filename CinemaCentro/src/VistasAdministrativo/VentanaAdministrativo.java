@@ -5,6 +5,10 @@
  */
 package VistasAdministrativo;
 
+import Controlador.PeliculaDAO;
+import Modelo.Pelicula;
+import java.time.LocalDate;
+
 /**
  *
  * @author Enzo_2
@@ -14,10 +18,13 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
     /**
      * Creates new form VentanaAdministrativo
      */
+    PeliculaDAO maniPeli = new PeliculaDAO();
+    
     public VentanaAdministrativo() {
         initComponents();
         this.setSize(1200, 700);
         this.setResizable(false);
+        
     }
 
     /**

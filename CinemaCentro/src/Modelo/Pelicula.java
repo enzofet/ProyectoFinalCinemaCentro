@@ -5,7 +5,7 @@
  */
 package Modelo;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -19,15 +19,15 @@ public class Pelicula {
     private String Reparto;
     private String Pais_Origen;
     private String Genero;
-    private int enCartelera;
-    private Date Estreno;
-    private int Estado;
+    private boolean enCartelera;
+    private LocalDate Estreno;
+    private boolean Estado;
 
     public Pelicula() {
         this.id_Pelicula=-1;
     }
 
-    public Pelicula(int id_Pelicula, String Titulo, String Director, String Reparto, String Pais_Origen, String Genero, int enCartelera, Date Estreno, int Estado) {
+    public Pelicula(int id_Pelicula, String Titulo, String Director, String Reparto, String Pais_Origen, String Genero, boolean enCartelera, LocalDate Estreno, boolean Estado) {
         this.id_Pelicula = id_Pelicula;
         this.Titulo = Titulo;
         this.Director = Director;
@@ -39,7 +39,7 @@ public class Pelicula {
         this.Estado = Estado;
     }
 
-    public Pelicula(String Titulo, String Director, String Reparto, String Pais_Origen, String Genero, int enCartelera, Date Estreno, int Estado) {
+    public Pelicula(String Titulo, String Director, String Reparto, String Pais_Origen, String Genero, boolean enCartelera, LocalDate Estreno, boolean Estado) {
         this.Titulo = Titulo;
         this.Director = Director;
         this.Reparto = Reparto;
@@ -98,29 +98,33 @@ public class Pelicula {
         this.Genero = Genero;
     }
 
-    public int getEnCartelera() {
+    public boolean isEnCartelera() {
         return enCartelera;
     }
 
-    public void setEnCartelera(int enCartelera) {
+    public void setEnCartelera(boolean enCartelera) {
         this.enCartelera = enCartelera;
     }
 
-    public Date getEstreno() {
+    
+
+    public LocalDate getEstreno() {
         return Estreno;
     }
 
-    public void setEstreno(Date Estreno) {
+    public void setEstreno(LocalDate Estreno) {
         this.Estreno = Estreno;
     }
 
-    public int getEstado() {
+    public boolean isEstado() {
         return Estado;
     }
 
-    public void setEstado(int Estado) {
+    public void setEstado(boolean Estado) {
         this.Estado = Estado;
     }
+
+    
 
    
     @Override

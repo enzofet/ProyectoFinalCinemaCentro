@@ -49,8 +49,8 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         lblSinopsis = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtSinopsis = new javax.swing.JTextArea();
-        txtCartelera = new javax.swing.JTextField();
-        txtEstreno = new javax.swing.JTextField();
+        cmbEnCartelera = new javax.swing.JComboBox<>();
+        cmbEstreno = new javax.swing.JComboBox<>();
         pnlControles = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
         btnAlta = new javax.swing.JButton();
@@ -127,8 +127,8 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(txtSinopsis);
 
         pnlPeliculaS.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 130, 370, 110));
-        pnlPeliculaS.add(txtCartelera, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 190, -1));
-        pnlPeliculaS.add(txtEstreno, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 190, -1));
+        pnlPeliculaS.add(cmbEnCartelera, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 90, -1));
+        pnlPeliculaS.add(cmbEstreno, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 80, -1));
 
         btnAgregar.setText("Agregar pelicula");
 
@@ -262,6 +262,8 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JCheckBox checkEdicion;
+    private javax.swing.JComboBox<String> cmbEnCartelera;
+    private javax.swing.JComboBox<String> cmbEstreno;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -281,9 +283,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnlFiltros;
     private javax.swing.JPanel pnlPeliculaS;
     private javax.swing.JPanel pnlPeliculas;
-    private javax.swing.JTextField txtCartelera;
     private javax.swing.JTextField txtDirector;
-    private javax.swing.JTextField txtEstreno;
     private javax.swing.JTextField txtGeneros;
     private javax.swing.JTextField txtPaisOrigen;
     private javax.swing.JTextArea txtReparto;
