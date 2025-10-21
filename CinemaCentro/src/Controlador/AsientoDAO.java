@@ -10,14 +10,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import org.mariadb.jdbc.Statement;
 
 /**
  *
  * @author Gonzalo Achucarro
  */
-public class AsientoDAO {
-    public void agregarAsiento ( Asiento asiento) throws SQLException{
+public class AsientoDAO {    
+    public void agregarAsiento ( Asiento asiento){
         String sql = "INSERT TO asiento ( nro_asiento, fila_asiento, estado) VALUES (?,?,?,?)";
         Connection con = ConexionBD.getConnection();
         
@@ -40,8 +42,6 @@ public class AsientoDAO {
         }
     }
 
-
-
     public void actualizarAsiento(Asiento asiento) {
         String sql = "UPDATE administrativo SET  nro_asiento=?, fila_asiento = ?, estado = ? WHERE id_asiento= ?";
         Connection con = ConexionBD.getConnection();
@@ -60,5 +60,26 @@ public class AsientoDAO {
             e.printStackTrace();
         }
 
+    }
+    
+    public List<Asiento> listarAsientosPorSala(int nro_sala){
+        String sql = "SELECT * FROM sala WHERE nro_sala = ?";
+        Connection con = ConexionBD.getConnection();
+        List<Asiento> listaPorSala = new ArrayList<>();
+        Asiento asiento = null;
+        try (PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, nro_sala);
+            try(ResultSet rs = ps.executeQuery()){
+                asiento = new Asiento();
+                asiento.setId_asiento(rs.getInt("id_asiento"));
+                asiento.setFila_asiento(rs.getString("fila_asiento").charAt(0));
+                asiento.setNumero_asiento(rs.getInt("numero_asiento"));
+                asiento.setEstado(rs.getBoolean("estado"));
+                listaPorSala.add(asiento);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return listaPorSala;
     }
 }
