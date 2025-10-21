@@ -156,4 +156,33 @@ public class PeliculaDAO {
         
         return listaPeliculas;
     }
+    
+    public Pelicula buscarPorId(int id) throws Exception{
+        String sql = "SELECT * FROM pelicula WHERE id_pelicula = ?";
+        Connection con = ConexionBD.getConnection();
+        Pelicula peli = null;
+        try(PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, id);
+            try(ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    peli = new Pelicula();
+                    peli.setId_Pelicula(rs.getInt("id_pelicula"));
+                    peli.setTitulo(rs.getString("titulo"));
+                    peli.setDirector(rs.getString("director"));
+                    peli.setReparto(rs.getString("reparto"));
+                    peli.setPais_Origen(rs.getString("pais_origen"));
+                    peli.setGenero(rs.getString("genero"));
+                    peli.setEnCartelera(rs.getBoolean("enCartelera"));
+                    peli.setEstreno(rs.getDate("estreno").toLocalDate());
+                    peli.setEstado(rs.getBoolean("estado"));
+                } else {
+                    throw new Exception("No se ha encontrado la pelicula.");
+                }
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+            throw new Exception("Error relacionado a la base de datos.");
+        }
+        return peli;
+    }
 }
