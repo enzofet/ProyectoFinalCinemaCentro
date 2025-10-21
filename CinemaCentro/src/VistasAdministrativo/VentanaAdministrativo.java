@@ -16,6 +16,8 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
      */
     public VentanaAdministrativo() {
         initComponents();
+        this.setSize(1200, 700);
+        this.setResizable(false);
     }
 
     /**
@@ -27,21 +29,112 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        escritorioAdmin = new javax.swing.JDesktopPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        btnGestionPeliculas = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        btnGestionFunciones = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout escritorioAdminLayout = new javax.swing.GroupLayout(escritorioAdmin);
+        escritorioAdmin.setLayout(escritorioAdminLayout);
+        escritorioAdminLayout.setHorizontalGroup(
+            escritorioAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 521, Short.MAX_VALUE)
+        );
+        escritorioAdminLayout.setVerticalGroup(
+            escritorioAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 397, Short.MAX_VALUE)
+        );
+
+        jMenu1.setText("Peliculas");
+
+        btnGestionPeliculas.setText("Gestion de peliculas");
+        btnGestionPeliculas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionPeliculasActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnGestionPeliculas);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Funciones");
+
+        btnGestionFunciones.setText("Gestión de funciones");
+        btnGestionFunciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionFuncionesActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnGestionFunciones);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Salas");
+
+        jMenuItem2.setText("Gestión de salas");
+        jMenu3.add(jMenuItem2);
+
+        jMenuItem1.setText("Modificar asientos");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu5.setText("Ventas");
+        jMenuBar1.add(jMenu5);
+
+        jMenu6.setText("Taquilla");
+        jMenuBar1.add(jMenu6);
+
+        jMenu4.setText("Salir");
+        jMenuBar1.add(jMenu4);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(escritorioAdmin)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(escritorioAdmin)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGestionPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionPeliculasActionPerformed
+        escritorioAdmin.removeAll();
+        escritorioAdmin.repaint();
+        PeliculasInternal ventanaPeliculas = new PeliculasInternal();
+        escritorioAdmin.add(ventanaPeliculas);
+        ventanaPeliculas.setVisible(true);
+        ventanaPeliculas.moveToFront();
+    }//GEN-LAST:event_btnGestionPeliculasActionPerformed
+
+    private void btnGestionFuncionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionFuncionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGestionFuncionesActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +172,17 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnGestionFunciones;
+    private javax.swing.JMenuItem btnGestionPeliculas;
+    private javax.swing.JDesktopPane escritorioAdmin;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 }
