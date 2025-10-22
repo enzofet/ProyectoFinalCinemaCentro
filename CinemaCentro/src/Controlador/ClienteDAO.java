@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class ClienteDAO {
     public void agregarCliente(Cliente cliente) throws Exception{
-        String sql= "INSERT INTO cliente (dni, fecha_nacimiento, nombre, apellido, estado) VALUES (?, ?, ?, ?, ?)";
+        String sql= "INSERT INTO cliente (dni, fecha_nacimiento, nombre, apellido, estado, password) VALUES (?, ?, ?, ?, ?, ?)";
         Connection conn = ConexionBD.getConnection();
         
         try(PreparedStatement ps= conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
@@ -30,6 +30,7 @@ public class ClienteDAO {
             ps.setString(3, cliente.getNombre());
             ps.setString(4, cliente.getApellido());
             ps.setBoolean(5, cliente.isEstado());
+            ps.setString(6, cliente.getPassword());
             
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -52,10 +53,8 @@ public class ClienteDAO {
             ps.setInt(1, id);
             
             int filas = ps.executeUpdate();
-            if(filas > 0){
-                System.out.println("El cliente con id '" + id +"' se ha eliminado con éxito." );
-            } else {
-                System.out.println("El cliente con id '" + id +"' no se ha podido eliminar." );
+            if(filas == 0){
+                throw new Exception("No se pudo registrar el cliente.");
             }
         } catch (SQLException e){
             e.printStackTrace();
@@ -63,8 +62,9 @@ public class ClienteDAO {
         } 
     }
     
-    public void actualizarCliente(Cliente cliente) throws Exception{
-        String sql = "UPDATE cliente SET dni=?, fecha_nacimiento=?, nombre=?, apellido=?, estado=? WHERE id_cliente=?";
+    public void actualizarCliente(int id, Cliente cliente) throws Exception{
+        String sql = "UPDATE cliente SET dni= ?, fecha_nacimiento = ?, nombre = ?, apellido = ?,"
+                + " estado = ?, password = ? WHERE id_cliente=?";
         Connection conn = ConexionBD.getConnection();
         
         try(PreparedStatement ps = conn.prepareStatement(sql)){
@@ -73,16 +73,16 @@ public class ClienteDAO {
             ps.setString(3, cliente.getNombre());
             ps.setString(4, cliente.getApellido());
             ps.setBoolean(5, cliente.isEstado());
-            ps.setInt(6, cliente.getId_cliente());
+            ps.setString(6, cliente.getPassword());
+            ps.setInt(7, cliente.getId_cliente());
             
             int filas = ps.executeUpdate();
-            if(filas > 0){
-                System.out.println("Cliente actualizo ID: " + cliente.getId_cliente());
-            } else {
-                System.out.println("No se encontro el cliente con ID: " + cliente.getId_cliente());
-            } 
+            if(filas == 0){
+                throw new Exception("No se pudo registrar el cliente.");
+            }  
         }catch(SQLException e){
             e.printStackTrace();
+            throw new Exception("Error relacionado a la base de datos.");
         }
     }
     
@@ -103,6 +103,7 @@ public class ClienteDAO {
                     cliente.setNombre(rs.getString("nombre"));
                     cliente.setApellido(rs.getString("apellido"));
                     cliente.setEstado(rs.getBoolean("estado"));
+                    cliente.setPassword(rs.getString("password"));
                 } else {
                     throw new Exception("No se ha encontrado el cliente.");
                 }
@@ -117,18 +118,20 @@ public class ClienteDAO {
     public List<Cliente> listarClientes() throws Exception{
         String sql = "SELECT * FROM cliente";
         Connection conn = ConexionBD.getConnection();
+        Cliente client = null;
         
         List<Cliente> listaCliente = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
-                    Cliente client = new Cliente();
+                    client = new Cliente();
                     client.setId_cliente(rs.getInt("id_cliente"));
                     client.setDni(rs.getInt("dni"));
                     client.setFecha_nacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
                     client.setNombre(rs.getString("nombre"));
                     client.setApellido(rs.getString("apellido"));
                     client.setEstado(rs.getBoolean("estado"));
+                    client.setPassword(rs.getString("password"));
                     listaCliente.add(client);
                 }
             }
@@ -140,7 +143,7 @@ public class ClienteDAO {
     }
     
     public void darAltaCliente(int id) throws Exception{
-        String sql = "UPDATE cliente SET estado = false WHERE id_cliente = ?";
+        String sql = "UPDATE cliente SET estado = true WHERE id_cliente = ?";
         Connection conn = ConexionBD.getConnection();
 
         try(PreparedStatement ps = conn.prepareStatement(sql)){
@@ -156,7 +159,7 @@ public class ClienteDAO {
     }
     
     public void darBajaCliente(int id)throws Exception{
-        String sql = "UPDATE cliente SET estado = true WHERE id_cliente = ?";
+        String sql = "UPDATE cliente SET estado = false WHERE id_cliente = ?";
         Connection conn = ConexionBD.getConnection();
 
         try(PreparedStatement ps = conn.prepareStatement(sql)){

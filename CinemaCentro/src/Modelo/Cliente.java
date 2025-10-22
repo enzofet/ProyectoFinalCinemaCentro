@@ -19,29 +19,34 @@ public class Cliente {
     private LocalDate fecha_nacimiento;
     private String nombre;
     private String apellido;
+    private String password;
     private boolean estado;
     
     public Cliente(){
         this.id_cliente=-1;
     }
     
-    public Cliente(int dni, LocalDate fecha_nacimiento, String nombre, String apellido, boolean estado){
+    public Cliente(int dni, LocalDate fecha_nacimiento, String nombre, String apellido,String password, boolean estado){
         this.id_cliente = -1;
         this.dni = dni;
         this.fecha_nacimiento = fecha_nacimiento;
         this.nombre = nombre;
         this.apellido = apellido;
         this.estado = estado;
+        this.password = password;
     }
     
-    public Cliente(int id_cliente, int dni, LocalDate fecha_nacimiento, String nombre, String apellido, boolean estado){
+    public Cliente(int id_cliente, int dni, LocalDate fecha_nacimiento, String nombre, String apellido,String password, boolean estado){
         this.id_cliente = id_cliente;
         this.dni = dni;
         this.fecha_nacimiento = fecha_nacimiento;
         this.nombre = nombre;
         this.apellido = apellido;
         this.estado = estado;
+        this.password = password;
     }
+    
+    
 
     public int getId_cliente() {
         return id_cliente;
@@ -90,6 +95,16 @@ public class Cliente {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    
     
     @Override
     public boolean equals(Object a) {

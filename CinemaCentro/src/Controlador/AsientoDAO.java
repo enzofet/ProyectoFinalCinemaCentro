@@ -18,20 +18,21 @@ import org.mariadb.jdbc.Statement;
  *
  * @author Gonzalo Achucarro
  */
-public class AsientoDAO {    
-    public void agregarAsiento ( Asiento asiento){
+public class AsientoDAO {
+
+    public void agregarAsiento(Asiento asiento) {
         String sql = "INSERT TO asiento ( nro_asiento, fila_asiento, estado) VALUES (?,?,?,?)";
         Connection con = ConexionBD.getConnection();
-        
-             try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+        try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, asiento.getNumero_asiento());
             ps.setInt(2, asiento.getFila_asiento());
             ps.setBoolean(3, asiento.isEstado());
-           
+
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-               asiento.setId_asiento(1);
+                asiento.setId_asiento(1);
                 System.out.println("Asiento creado con éxito");
             } else {
                 System.out.println("Error al intentar crear asiento");
@@ -61,29 +62,31 @@ public class AsientoDAO {
         }
 
     }
-    
-    public List<Asiento> listarAsientosPorSala(int nro_sala){
+
+    public List<Asiento> listarAsientosPorSala(int nro_sala) {
         String sql = "SELECT * FROM sala WHERE nro_sala = ?";
         Connection con = ConexionBD.getConnection();
         List<Asiento> listaPorSala = new ArrayList<>();
         Asiento asiento = null;
-        try (PreparedStatement ps = con.prepareStatement(sql)){
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, nro_sala);
-            try(ResultSet rs = ps.executeQuery()){
+            try (ResultSet rs = ps.executeQuery()) {
+                while(rs.next()){
                 asiento = new Asiento();
                 asiento.setId_asiento(rs.getInt("id_asiento"));
                 asiento.setFila_asiento(rs.getString("fila_asiento").charAt(0));
                 asiento.setNumero_asiento(rs.getInt("numero_asiento"));
                 asiento.setEstado(rs.getBoolean("estado"));
                 listaPorSala.add(asiento);
+                }   
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return listaPorSala;
     }
 
-     public void eliminarAsiento(int id) {
+    public void eliminarAsiento(int id) {
 
         String sql = "DELETE FROM asiento WHERE id_asiento = ?";
         Connection con = ConexionBD.getConnection();
@@ -102,29 +105,22 @@ public class AsientoDAO {
         }
     }
 
-    public List<Asiento> BuscarAsientosDisp(int nro_sala){
+    public List<Asiento> BuscarAsientosDisp(int nro_sala) {
         String sql = "SELECT * FROM asiento WHERE nro_sala = ? AND estado = true";
         List<Asiento> listaDisponibles = new ArrayList<>();
         Connection con = ConexionBD.getConnection();
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, nro_sala);
-        ResultSet rs = ps.executeQuery();
-            while (rs.next()){
-                Asiento asiento = new Asiento();
-                asiento.setId_asiento(rs.getInt("id_asiento"));
-                asiento.setNumero_asiento(rs.getInt("nro asiento"));
-                asiento.setFila_asiento(rs.getString("fila_asiento"));
-                asiento.setEstado(rs.getBoolean("estado"));
-                listaDisponibles.add(asiento);
-                
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            try(ResultSet rs = ps.executeQuery()){
+                while(rs.next()){
+                    
+                }
             }
+        } catch (SQLException e) {
+
+        }
+
         return listaDisponibles;
-        
+
     }
-        
-    
-
-
-    
-       
-       
+}
