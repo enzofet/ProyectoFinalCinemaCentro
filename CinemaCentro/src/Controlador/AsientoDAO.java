@@ -48,7 +48,7 @@ public class AsientoDAO {
         try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, asiento.getNumero_asiento());
             ps.setInt(2, asiento.getId_asiento());
-            ps.setBoolean(3, true);
+            ps.setBoolean(3, asiento.isEstado());
             int filas = ps.executeUpdate();
             if (filas > 0) {
                 System.out.println("Actualización realizada con éxito del asiento : " + asiento.getId_asiento());
@@ -82,4 +82,49 @@ public class AsientoDAO {
         }
         return listaPorSala;
     }
-}
+
+     public void eliminarAsiento(int id) {
+
+        String sql = "DELETE FROM asiento WHERE id_asiento = ?";
+        Connection con = ConexionBD.getConnection();
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                System.out.println("Se eliminó con éxito el asiento:" + id);
+            } else {
+                System.out.println("No se encontró el asiento: " + id);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Asiento> BuscarAsientosDisp(int nro_sala){
+        String sql = "SELECT * FROM asiento WHERE nro_sala = ? AND estado = true";
+        List<Asiento> listaDisponibles = new ArrayList<>();
+        Connection con = ConexionBD.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, nro_sala);
+        ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Asiento asiento = new Asiento();
+                asiento.setId_asiento(rs.getInt("id_asiento"));
+                asiento.setNumero_asiento(rs.getInt("nro asiento"));
+                asiento.setFila_asiento(rs.getString("fila_asiento"));
+                asiento.setEstado(rs.getBoolean("estado"));
+                listaDisponibles.add(asiento);
+                
+            }
+        return listaDisponibles;
+        
+    }
+        
+    
+
+
+    
+       
+       
