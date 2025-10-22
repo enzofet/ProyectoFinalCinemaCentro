@@ -28,16 +28,199 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         pnlFunciones = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTablePeliculas = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableHorarios = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        jRadioButton2D = new javax.swing.JRadioButton();
+        jRadioButton3D = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        jComboBoxIdioma = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableSala = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextPaneDescripcion = new javax.swing.JTextPane();
+        jLabel7 = new javax.swing.JLabel();
+        jButtonConfirmar = new javax.swing.JButton();
+
+        jLabel1.setFont(new java.awt.Font("Engravers MT", 1, 18)); // NOI18N
+        jLabel1.setText("Funciones");
+
+        jLabel2.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        jLabel2.setText("Horarios");
+
+        jLabel3.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        jLabel3.setText("sala");
+
+        jTablePeliculas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(jTablePeliculas);
+
+        jTableHorarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTableHorarios);
+
+        jLabel4.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        jLabel4.setText("Tipo");
+
+        jRadioButton2D.setText("2D");
+
+        jRadioButton3D.setText("3D");
+
+        jLabel5.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        jLabel5.setText("idioma");
+
+        jComboBoxIdioma.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jComboBoxIdioma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel6.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        jLabel6.setText("Peliculas");
+
+        jTableSala.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(jTableSala);
+
+        jScrollPane4.setViewportView(jTextPaneDescripcion);
+
+        jLabel7.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        jLabel7.setText("Descripcion  de la funcion");
+
+        jButtonConfirmar.setText("Confirmar");
 
         javax.swing.GroupLayout pnlFuncionesLayout = new javax.swing.GroupLayout(pnlFunciones);
         pnlFunciones.setLayout(pnlFuncionesLayout);
         pnlFuncionesLayout.setHorizontalGroup(
             pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 697, Short.MAX_VALUE)
+            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(jLabel6))
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(jLabel3))
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(30, 30, 30)
+                        .addComponent(jComboBoxIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton2D)
+                            .addComponent(jRadioButton3D))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addGap(235, 235, 235)
+                        .addComponent(jLabel1))
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(44, 44, 44)
+                        .addComponent(jButtonConfirmar)))
+                .addContainerGap(63, Short.MAX_VALUE))
+            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlFuncionesLayout.setVerticalGroup(
             pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 513, Short.MAX_VALUE)
+            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addGap(85, 85, 85)
+                                .addComponent(jLabel4)
+                                .addGap(84, 84, 84))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButton2D)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButton3D)
+                                .addGap(58, 58, 58)))
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))))
+                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(42, Short.MAX_VALUE))
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(52, 52, 52))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonConfirmar)
+                                .addGap(71, 71, 71))))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -56,6 +239,25 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonConfirmar;
+    private javax.swing.JComboBox<String> jComboBoxIdioma;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JRadioButton jRadioButton2D;
+    private javax.swing.JRadioButton jRadioButton3D;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTableHorarios;
+    private javax.swing.JTable jTablePeliculas;
+    private javax.swing.JTable jTableSala;
+    private javax.swing.JTextPane jTextPaneDescripcion;
     private javax.swing.JPanel pnlFunciones;
     // End of variables declaration//GEN-END:variables
 }
