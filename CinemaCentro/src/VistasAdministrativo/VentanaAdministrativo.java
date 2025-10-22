@@ -5,8 +5,6 @@
  */
 package VistasAdministrativo;
 
-import java.util.List;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
