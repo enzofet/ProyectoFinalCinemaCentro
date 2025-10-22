@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -20,14 +21,14 @@ public class Venta {
     private double Importe_Total;
     private String Medio_Compra;
     private int Token;
-    private Date Fecha_Venta;
+    private LocalDate Fecha_Venta;
 
     public Venta() {
         this.id_Venta=-1;
         this.id_Cliente=-1;
     }
 
-    public Venta(int id_Venta, int id_Cliente, String Medio_Pago, int Cantidad_Entradas, double Importe_Total, String Medio_Compra, int Token, Date Fecha_Venta) {
+    public Venta(int id_Venta, int id_Cliente, String Medio_Pago, int Cantidad_Entradas, double Importe_Total, String Medio_Compra, int Token, LocalDate Fecha_Venta) {
         this.id_Venta = id_Venta;
         this.id_Cliente = id_Cliente;
         this.Medio_Pago = Medio_Pago;
@@ -38,7 +39,7 @@ public class Venta {
         this.Fecha_Venta = Fecha_Venta;
     }
 
-    public Venta(String Medio_Pago, int Cantidad_Entradas, double Importe_Total, String Medio_Compra, int Token, Date Fecha_Venta) {
+    public Venta(String Medio_Pago, int Cantidad_Entradas, double Importe_Total, String Medio_Compra, int Token, LocalDate Fecha_Venta) {
         this.Medio_Pago = Medio_Pago;
         this.Cantidad_Entradas = Cantidad_Entradas;
         this.Importe_Total = Importe_Total;
@@ -103,11 +104,11 @@ public class Venta {
         this.Token = Token;
     }
 
-    public Date getFecha_Venta() {
+    public LocalDate getFecha_Venta() {
         return Fecha_Venta;
     }
 
-    public void setFecha_Venta(Date Fecha_Venta) {
+    public void setFecha_Venta(LocalDate Fecha_Venta) {
         this.Fecha_Venta = Fecha_Venta;
     }
 
