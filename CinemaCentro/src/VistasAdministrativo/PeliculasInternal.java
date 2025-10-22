@@ -28,6 +28,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         pnlPeliculas = new javax.swing.JPanel();
+        lblTituloPanel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         pnlPeliculaS = new javax.swing.JPanel();
@@ -56,7 +57,10 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         btnModificar = new javax.swing.JButton();
         pnlFiltros = new javax.swing.JPanel();
         btnSalir = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+
+        lblTituloPanel.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        lblTituloPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloPanel.setText("REGISTRAR PELICULAS");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -253,10 +257,6 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("REGISTRAR PELICULAS");
-
         javax.swing.GroupLayout pnlPeliculasLayout = new javax.swing.GroupLayout(pnlPeliculas);
         pnlPeliculas.setLayout(pnlPeliculasLayout);
         pnlPeliculasLayout.setHorizontalGroup(
@@ -264,7 +264,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
             .addGroup(pnlPeliculasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTituloPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlPeliculasLayout.createSequentialGroup()
                         .addComponent(pnlPeliculaS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -281,7 +281,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
             pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPeliculasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblTituloPanel)
                 .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlPeliculasLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -343,7 +343,6 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbEnCartelera;
     private javax.swing.JComboBox<String> cmbEstreno;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
@@ -356,6 +355,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblPaisOrigen;
     private javax.swing.JLabel lblReparto;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblTituloPanel;
     private javax.swing.JPanel pnlControles;
     private javax.swing.JPanel pnlFiltros;
     private javax.swing.JPanel pnlPeliculaS;
