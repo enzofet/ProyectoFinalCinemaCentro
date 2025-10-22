@@ -101,7 +101,7 @@ public class ClienteDAO {
                     cliente.setDni(rs.getInt("dni"));
                     cliente.setFecha_nacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
                     cliente.setNombre(rs.getString("nombre"));
-                    cliente.setApellido(rs.getString("apellido"));
+                    cliente.setApellido(rs.getString("pais_origen"));
                     cliente.setEstado(rs.getBoolean("estado"));
                 } else {
                     throw new Exception("No se ha encontrado el cliente.");
@@ -127,7 +127,7 @@ public class ClienteDAO {
                     client.setDni(rs.getInt("dni"));
                     client.setFecha_nacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
                     client.setNombre(rs.getString("nombre"));
-                    client.setApellido(rs.getString("apellido"));
+                    client.setApellido(rs.getString("pais_origen"));
                     client.setEstado(rs.getBoolean("estado"));
                     listaCliente.add(client);
                 }
