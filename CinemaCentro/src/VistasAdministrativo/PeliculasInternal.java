@@ -57,9 +57,8 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         btnEliminar = new javax.swing.JButton();
         btnBaja = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
-        checkEdicion = new javax.swing.JCheckBox();
         pnlFiltros = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -74,160 +73,240 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        pnlPeliculaS.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         txtReparto.setColumns(20);
         txtReparto.setRows(5);
         jScrollPane2.setViewportView(txtReparto);
 
-        pnlPeliculaS.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 300, 60));
-
         lblTitulo.setText("Titulo:");
-        pnlPeliculaS.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 27));
 
         lblDirector.setText("Director:");
-        pnlPeliculaS.add(lblDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         lblReparto.setText("Reparto:");
-        pnlPeliculaS.add(lblReparto, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, -1, -1));
 
         txtDirector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDirectorActionPerformed(evt);
             }
         });
-        pnlPeliculaS.add(txtDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 211, -1));
-        pnlPeliculaS.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 211, -1));
 
         lblPaisOrigen.setText("País de origen:");
-        pnlPeliculaS.add(lblPaisOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 90, -1));
 
         lblCartelera.setText("En cartelera:");
-        pnlPeliculaS.add(lblCartelera, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
 
         lblGeneros.setText("Genero/s:");
-        pnlPeliculaS.add(lblGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 60, -1));
 
         lblEstreno.setText("Estreno:");
-        pnlPeliculaS.add(lblEstreno, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 70, -1));
 
         lblEstado.setText("Estado:");
-        pnlPeliculaS.add(lblEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, -1, -1));
-        pnlPeliculaS.add(txtPaisOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 190, -1));
-        pnlPeliculaS.add(txtGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 210, -1));
 
         lblEstadoS.setText("ESTADOEJEMPLO");
-        pnlPeliculaS.add(lblEstadoS, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 110, -1));
 
         lblSinopsis.setText("Sinopsis:");
-        pnlPeliculaS.add(lblSinopsis, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, -1, -1));
 
         txtSinopsis.setColumns(20);
         txtSinopsis.setRows(5);
         jScrollPane3.setViewportView(txtSinopsis);
 
-        pnlPeliculaS.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 130, 370, 110));
-        pnlPeliculaS.add(cmbEnCartelera, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 90, -1));
-        pnlPeliculaS.add(cmbEstreno, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 80, -1));
+        javax.swing.GroupLayout pnlPeliculaSLayout = new javax.swing.GroupLayout(pnlPeliculaS);
+        pnlPeliculaS.setLayout(pnlPeliculaSLayout);
+        pnlPeliculaSLayout.setHorizontalGroup(
+            pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(pnlPeliculaSLayout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addComponent(lblSinopsis)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPeliculaSLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblTitulo)
+                    .addComponent(lblDirector)
+                    .addComponent(lblPaisOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCartelera))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTitulo)
+                    .addComponent(txtDirector)
+                    .addComponent(txtPaisOrigen)
+                    .addComponent(txtGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlPeliculaSLayout.createSequentialGroup()
+                        .addComponent(cmbEnCartelera, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblEstreno)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbEstreno, 0, 1, Short.MAX_VALUE)))
+                .addGap(6, 6, 6))
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPeliculaSLayout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addComponent(lblEstado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblEstadoS, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPeliculaSLayout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(lblReparto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(6, 6, 6))
+        );
 
-        btnAgregar.setText("Agregar pelicula");
+        pnlPeliculaSLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblEstadoS, txtGeneros});
 
-        btnAlta.setText("Dar de alta pelicula");
+        pnlPeliculaSLayout.setVerticalGroup(
+            pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPeliculaSLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlPeliculaSLayout.createSequentialGroup()
+                        .addComponent(txtTitulo)
+                        .addGap(5, 5, 5)))
+                .addGap(10, 10, 10)
+                .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDirector)
+                    .addComponent(txtDirector))
+                .addGap(18, 18, 18)
+                .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPaisOrigen)
+                    .addComponent(txtPaisOrigen))
+                .addGap(19, 19, 19)
+                .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGeneros)
+                    .addComponent(txtGeneros))
+                .addGap(18, 18, 18)
+                .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCartelera)
+                    .addComponent(cmbEnCartelera)
+                    .addComponent(lblEstreno)
+                    .addComponent(cmbEstreno))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(pnlPeliculaSLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(lblReparto)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEstadoS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblEstado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblSinopsis)
+                    .addComponent(jScrollPane3))
+                .addContainerGap())
+        );
+
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/agregar.png"))); // NOI18N
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-alta.png"))); // NOI18N
         btnAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAltaActionPerformed(evt);
             }
         });
 
-        btnEliminar.setText("Eliminar pelicula");
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
 
-        btnBaja.setText("Dar de baja pelicula");
+        btnBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-baja.png"))); // NOI18N
 
-        btnModificar.setText("Modificar pelicula");
-
-        checkEdicion.setText("Habilitar modificación de pelicula");
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/modificar.png"))); // NOI18N
 
         javax.swing.GroupLayout pnlControlesLayout = new javax.swing.GroupLayout(pnlControles);
         pnlControles.setLayout(pnlControlesLayout);
         pnlControlesLayout.setHorizontalGroup(
             pnlControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlControlesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAlta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(checkEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23))
+            .addGroup(pnlControlesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnModificar)
+                    .addComponent(btnBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        pnlControlesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAgregar, btnAlta, btnBaja, btnEliminar, btnModificar});
+
         pnlControlesLayout.setVerticalGroup(
             pnlControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlControlesLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addComponent(btnAgregar)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEliminar)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAlta)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBaja)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnModificar)
-                .addGap(18, 18, 18)
-                .addComponent(checkEdicion)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel1.setText("ACA VAN FILTROS QUE LOS HACEMOS AL FINAL");
+        pnlControlesLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAgregar, btnAlta, btnBaja, btnEliminar, btnModificar});
 
         javax.swing.GroupLayout pnlFiltrosLayout = new javax.swing.GroupLayout(pnlFiltros);
         pnlFiltros.setLayout(pnlFiltrosLayout);
         pnlFiltrosLayout.setHorizontalGroup(
             pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFiltrosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         pnlFiltrosLayout.setVerticalGroup(
             pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFiltrosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 38, Short.MAX_VALUE)
         );
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlPeliculasLayout = new javax.swing.GroupLayout(pnlPeliculas);
         pnlPeliculas.setLayout(pnlPeliculasLayout);
         pnlPeliculasLayout.setHorizontalGroup(
             pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPeliculasLayout.createSequentialGroup()
-                .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlPeliculasLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pnlPeliculaS, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
-                    .addGroup(pnlPeliculasLayout.createSequentialGroup()
-                        .addComponent(pnlControles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
-                            .addComponent(pnlFiltros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(18, 18, 18))
+            .addGroup(pnlPeliculasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlPeliculaS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlControles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+                    .addComponent(pnlFiltros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlPeliculasLayout.setVerticalGroup(
             pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPeliculasLayout.createSequentialGroup()
                 .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlPeliculasLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
                         .addComponent(pnlFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pnlControles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlPeliculaS, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlPeliculasLayout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSalir))
+                            .addGroup(pnlPeliculasLayout.createSequentialGroup()
+                                .addGap(104, 104, 104)
+                                .addComponent(pnlControles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(pnlPeliculasLayout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(pnlPeliculaS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -254,6 +333,14 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDirectorActionPerformed
 
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -261,10 +348,9 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBaja;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JCheckBox checkEdicion;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbEnCartelera;
     private javax.swing.JComboBox<String> cmbEstreno;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
