@@ -14,8 +14,10 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     /**
      * Creates new form PeliculasInternal
      */
+    String[] cabeceras = {"id_pelicula", "Titulo", "Director"};
     public PeliculasInternal() {
         initComponents();
+        tblPeliculas.setModel(VentanaAdministrativo.armarCabeceras(cabeceras));
     }
 
     /**
@@ -30,7 +32,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         pnlPeliculas = new javax.swing.JPanel();
         lblTituloPanel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPeliculas = new javax.swing.JTable();
         pnlPeliculaS = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtReparto = new javax.swing.JTextArea();
@@ -62,7 +64,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         lblTituloPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloPanel.setText("REGISTRAR PELICULAS");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPeliculas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -73,7 +75,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPeliculas);
 
         txtReparto.setColumns(20);
         txtReparto.setRows(5);
@@ -108,36 +110,37 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         pnlPeliculaSLayout.setHorizontalGroup(
             pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPeliculaSLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblTitulo)
-                    .addComponent(lblDirector)
-                    .addComponent(lblPaisOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCartelera))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTitulo)
-                    .addComponent(txtDirector)
-                    .addComponent(txtPaisOrigen)
-                    .addComponent(txtGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlPeliculaSLayout.createSequentialGroup()
-                        .addComponent(cmbEnCartelera, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblEstreno)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbEstreno, 0, 1, Short.MAX_VALUE)))
-                .addGap(6, 6, 6))
-            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPeliculaSLayout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addComponent(lblEstado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblEstadoS, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPeliculaSLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(lblReparto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPeliculaSLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblTitulo)
+                            .addComponent(lblDirector)
+                            .addComponent(lblPaisOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCartelera))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTitulo)
+                            .addComponent(txtDirector)
+                            .addComponent(txtPaisOrigen)
+                            .addComponent(txtGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlPeliculaSLayout.createSequentialGroup()
+                                .addComponent(cmbEnCartelera, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblEstreno)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbEstreno, 0, 1, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPeliculaSLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(lblReparto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addGap(6, 6, 6))
         );
 
@@ -345,7 +348,6 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cmbEstreno;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblCartelera;
     private javax.swing.JLabel lblDirector;
     private javax.swing.JLabel lblEstado;
@@ -360,6 +362,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnlFiltros;
     private javax.swing.JPanel pnlPeliculaS;
     private javax.swing.JPanel pnlPeliculas;
+    private javax.swing.JTable tblPeliculas;
     private javax.swing.JTextField txtDirector;
     private javax.swing.JTextField txtGeneros;
     private javax.swing.JTextField txtPaisOrigen;

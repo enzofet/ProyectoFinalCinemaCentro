@@ -5,9 +5,9 @@
  */
 package VistasAdministrativo;
 
-import Controlador.PeliculaDAO;
-import Modelo.Pelicula;
-import java.time.LocalDate;
+import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,7 +18,24 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
     /**
      * Creates new form VentanaAdministrativo
      */
-    PeliculaDAO maniPeli = new PeliculaDAO();
+    
+    /*Creas la cabecera según el tamaño del Array de cabeceras y la hace no editable*/
+    
+    public static DefaultTableModel armarCabeceras(String[] cabeceras){
+        DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+        
+        for (String cabecera : cabeceras) {
+            modelo.addColumn(cabecera);
+        }
+        
+        return modelo;
+        
+    }
     
     public VentanaAdministrativo() {
         initComponents();
