@@ -27,6 +27,7 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         pnlFunciones = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -47,6 +48,10 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         jTextPaneDescripcion = new javax.swing.JTextPane();
         jLabel7 = new javax.swing.JLabel();
         jButtonConfirmar = new javax.swing.JButton();
+        btndarAlta = new javax.swing.JButton();
+        btneliminar = new javax.swing.JButton();
+        btnmodificar = new javax.swing.JButton();
+        btndarbaja = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Engravers MT", 1, 18)); // NOI18N
         jLabel1.setText("Funciones");
@@ -86,8 +91,15 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
         jLabel4.setText("Tipo");
 
+        buttonGroup1.add(jRadioButton2D);
         jRadioButton2D.setText("2D");
+        jRadioButton2D.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2DActionPerformed(evt);
+            }
+        });
 
+        buttonGroup1.add(jRadioButton3D);
         jRadioButton3D.setText("3D");
 
         jLabel5.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
@@ -119,6 +131,14 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
 
         jButtonConfirmar.setText("Confirmar");
 
+        btndarAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-alta.png"))); // NOI18N
+
+        btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
+
+        btnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/modificar.png"))); // NOI18N
+
+        btndarbaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-baja.png"))); // NOI18N
+
         javax.swing.GroupLayout pnlFuncionesLayout = new javax.swing.GroupLayout(pnlFunciones);
         pnlFunciones.setLayout(pnlFuncionesLayout);
         pnlFuncionesLayout.setHorizontalGroup(
@@ -126,50 +146,64 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
             .addGroup(pnlFuncionesLayout.createSequentialGroup()
                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jLabel6))
-                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(jLabel3))
-                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(30, 30, 30)
-                        .addComponent(jComboBoxIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton2D)
-                            .addComponent(jRadioButton3D))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
                         .addGap(235, 235, 235)
                         .addComponent(jLabel1))
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
-                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addGap(44, 44, 44)
-                        .addComponent(jButtonConfirmar)))
-                .addContainerGap(63, Short.MAX_VALUE))
-            .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonConfirmar))
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))
+                                .addGap(55, 55, 55)
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                        .addComponent(btneliminar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnmodificar))
+                                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                        .addComponent(btndarAlta)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btndarbaja))))))
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addGap(66, 66, 66)
+                                .addComponent(jLabel6))
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addGap(106, 106, 106)
+                                .addComponent(jLabel3))
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addGap(76, 76, 76)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jRadioButton2D)
+                                    .addComponent(jRadioButton3D)))
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(30, 30, 30)
+                                .addComponent(jComboBoxIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(52, 52, 52))
         );
         pnlFuncionesLayout.setVerticalGroup(
             pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,15 +212,19 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel3)
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel2))
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
                         .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlFuncionesLayout.createSequentialGroup()
@@ -204,23 +242,26 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                             .addComponent(jLabel5))))
                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(42, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7)
                         .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(52, 52, 52))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btndarbaja)
+                                    .addComponent(btndarAlta))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonConfirmar)
-                                .addGap(71, 71, 71))))))
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnmodificar)
+                                    .addComponent(btneliminar))))
+                        .addGap(36, 36, 36)
+                        .addComponent(jButtonConfirmar)
+                        .addGap(51, 51, 51))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -237,8 +278,17 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jRadioButton2DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2DActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2DActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btndarAlta;
+    private javax.swing.JButton btndarbaja;
+    private javax.swing.JButton btneliminar;
+    private javax.swing.JButton btnmodificar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JComboBox<String> jComboBoxIdioma;
     private javax.swing.JLabel jLabel1;
@@ -260,4 +310,5 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     private javax.swing.JTextPane jTextPaneDescripcion;
     private javax.swing.JPanel pnlFunciones;
     // End of variables declaration//GEN-END:variables
+
 }
