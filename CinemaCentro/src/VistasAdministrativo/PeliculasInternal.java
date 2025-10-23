@@ -5,6 +5,15 @@
  */
 package VistasAdministrativo;
 
+import Controlador.PeliculaDAO;
+import Modelo.Pelicula;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Enzo_2
@@ -15,6 +24,8 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
      * Creates new form PeliculasInternal
      */
     String[] cabeceras = {"id_pelicula", "Titulo", "Director"};
+    private PeliculaDAO peliculaDAO = new PeliculaDAO();
+
     public PeliculasInternal() {
         initComponents();
         tblPeliculas.setModel(VentanaAdministrativo.armarCabeceras(cabeceras));
@@ -50,7 +61,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         txtGeneros = new javax.swing.JTextField();
         lblEstadoS = new javax.swing.JLabel();
         cmbEnCartelera = new javax.swing.JComboBox<>();
-        cmbEstreno = new javax.swing.JComboBox<>();
+        txtEstreno = new javax.swing.JTextField();
         pnlControles = new javax.swing.JPanel();
         btnAgregar = new javax.swing.JButton();
         btnAlta = new javax.swing.JButton();
@@ -75,6 +86,11 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
 
             }
         ));
+        tblPeliculas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPeliculasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPeliculas);
 
         txtReparto.setColumns(20);
@@ -105,26 +121,42 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
 
         lblEstadoS.setText("ESTADOEJEMPLO");
 
+        cmbEnCartelera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
+        cmbEnCartelera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEnCarteleraActionPerformed(evt);
+            }
+        });
+
+        txtEstreno.setText("yyyy-MM-dd");
+        txtEstreno.setToolTipText("yyyy-MM-dd");
+
         javax.swing.GroupLayout pnlPeliculaSLayout = new javax.swing.GroupLayout(pnlPeliculaS);
         pnlPeliculaS.setLayout(pnlPeliculaSLayout);
         pnlPeliculaSLayout.setHorizontalGroup(
             pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPeliculaSLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addGap(4, 4, 4)
                 .addComponent(lblEstado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblEstadoS, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPeliculaSLayout.createSequentialGroup()
+                .addComponent(lblReparto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(6, 6, 6))
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPeliculaSLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPeliculaSLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTitulo)
-                            .addComponent(lblDirector)
-                            .addComponent(lblPaisOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCartelera))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lblTitulo)
+                    .addComponent(lblDirector)
+                    .addComponent(lblPaisOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCartelera)
+                    .addComponent(lblEstreno))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPeliculaSLayout.createSequentialGroup()
                         .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTitulo)
                             .addComponent(txtDirector)
@@ -132,16 +164,11 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                             .addComponent(txtGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlPeliculaSLayout.createSequentialGroup()
                                 .addComponent(cmbEnCartelera, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblEstreno)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbEstreno, 0, 1, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPeliculaSLayout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(lblReparto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(6, 6, 6))
+                                .addGap(90, 90, 90)))
+                        .addGap(6, 6, 6))
+                    .addGroup(pnlPeliculaSLayout.createSequentialGroup()
+                        .addComponent(txtEstreno)
+                        .addContainerGap())))
         );
 
         pnlPeliculaSLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblEstadoS, txtGeneros});
@@ -170,9 +197,11 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCartelera)
-                    .addComponent(cmbEnCartelera)
-                    .addComponent(lblEstreno)
-                    .addComponent(cmbEstreno))
+                    .addComponent(cmbEnCartelera))
+                .addGap(17, 17, 17)
+                .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEstreno))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -184,7 +213,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                 .addGroup(pnlPeliculaSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEstadoS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblEstado))
-                .addGap(104, 104, 104))
+                .addGap(65, 65, 65))
         );
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/agregar.png"))); // NOI18N
@@ -202,10 +231,25 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         });
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-baja.png"))); // NOI18N
+        btnBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBajaActionPerformed(evt);
+            }
+        });
 
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/modificar.png"))); // NOI18N
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlControlesLayout = new javax.swing.GroupLayout(pnlControles);
         pnlControles.setLayout(pnlControlesLayout);
@@ -321,7 +365,19 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
-        // TODO add your handling code here:
+        int fila = tblPeliculas.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione una película para dar de alta.");
+            return;
+        }
+        try {
+            int id = Integer.parseInt(tblPeliculas.getValueAt(fila, 0).toString());
+            peliculaDAO.darAlta(id);
+            JOptionPane.showMessageDialog(this, "Película dada de alta.");
+            cargarTablaPeliculas();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al dar de alta: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnAltaActionPerformed
 
     private void txtDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDirectorActionPerformed
@@ -329,13 +385,165 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtDirectorActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        try {
+            String titulo = txtTitulo.getText();
+            String director = txtDirector.getText();
+            String reparto = txtReparto.getText();
+            String pais = txtPaisOrigen.getText();
+            String genero = txtGeneros.getText();
+
+            boolean enCartelera = cmbEnCartelera.getSelectedItem().toString().equalsIgnoreCase("Si");
+
+            LocalDate estreno;
+
+            try {
+                DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                estreno = LocalDate.parse(txtEstreno.getText(), formato);
+            } catch (DateTimeParseException e) {
+                JOptionPane.showMessageDialog(this, "Formato de fecha invalido. Usá el formato yyyy-MM-dd (por ejemplo: 2025-16-08).");
+                return;
+            }
+
+            boolean estado = true;
+
+            Pelicula peli = new Pelicula(titulo, director, reparto, pais, genero, enCartelera, estreno, estado);
+            peliculaDAO.agregarPelicula(peli);
+
+            JOptionPane.showMessageDialog(this, "Pelicula agregada correctamente.");
+            cargarTablaPeliculas();
+            limpiarCampos();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al agregar pelicula: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int fila = tblPeliculas.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione una película para eliminar.");
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(tblPeliculas.getValueAt(fila, 0).toString());
+            peliculaDAO.eliminarPelicula(id);
+            JOptionPane.showMessageDialog(this, "Película eliminada correctamente.");
+            cargarTablaPeliculas();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
+        int fila = tblPeliculas.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione una película para dar de baja.");
+            return;
+        }
+        try {
+            int id = Integer.parseInt(tblPeliculas.getValueAt(fila, 0).toString());
+            peliculaDAO.darBaja(id);
+            JOptionPane.showMessageDialog(this, "Película dada de baja.");
+            cargarTablaPeliculas();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al dar de baja: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnBajaActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        int fila = tblPeliculas.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione una pelicula para modificar.");
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(tblPeliculas.getValueAt(fila, 0).toString());
+            String titulo = txtTitulo.getText();
+            String director = txtDirector.getText();
+            String reparto = txtReparto.getText();
+            String pais = txtPaisOrigen.getText();
+            String genero = txtGeneros.getText();
+
+            boolean enCartelera = cmbEnCartelera.getSelectedItem().toString().equalsIgnoreCase("Si");
+
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate estreno = LocalDate.parse(txtEstreno.getText(), formato);
+
+            boolean estado = lblEstadoS.getText().equalsIgnoreCase("Activo");
+
+            Pelicula peli = new Pelicula(id, titulo, director, reparto, pais, genero, enCartelera, estreno, estado);
+            peliculaDAO.modificarPelicula(id, peli);
+
+            JOptionPane.showMessageDialog(this, "Película modificada correctamente.");
+            cargarTablaPeliculas();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al modificar la pelicula" + e.getMessage());
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void cmbEnCarteleraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEnCarteleraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEnCarteleraActionPerformed
+
+    private void tblPeliculasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPeliculasMouseClicked
+        int fila = tblPeliculas.getSelectedRow();
+        if (fila != -1) {
+            try {
+                int id = Integer.parseInt(tblPeliculas.getValueAt(fila, 0).toString());
+                Pelicula peli = peliculaDAO.buscarPorId(id);
+
+                if (peli != null) {
+                    txtTitulo.setText(peli.getTitulo());
+                    txtDirector.setText(peli.getDirector());
+                    txtReparto.setText(peli.getReparto());
+                    txtPaisOrigen.setText(peli.getPais_Origen());
+                    txtGeneros.setText(peli.getGenero());
+                    txtEstreno.setText(peli.getEstreno().toString());
+                    cmbEnCartelera.setSelectedItem(peli.isEnCartelera() ? "Sí" : "No");
+                    lblEstadoS.setText(peli.isEstado() ? "Activo" : "Inactivo");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this,
+                        "Error al cargar los datos de la película: " + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_tblPeliculasMouseClicked
+
+    private void limpiarCampos() {
+        txtTitulo.setText("");
+        txtDirector.setText("");
+        txtReparto.setText("");
+        txtPaisOrigen.setText("");
+        txtGeneros.setText("");
+        txtEstreno.setText("");
+        cmbEnCartelera.setSelectedIndex(-1);
+    }
+
+    private void cargarTablaPeliculas() {
+        try {
+            List<Pelicula> peliculas = peliculaDAO.listarTodasPeliculas();
+            DefaultTableModel model = VentanaAdministrativo.armarCabeceras(cabeceras);
+            for (Pelicula p : peliculas) {
+                model.addRow(new Object[]{
+                    p.getId_Pelicula(),
+                    p.getTitulo(),
+                    p.getDirector(),
+                    p.isEnCartelera() ? "Sí" : "No",
+                    p.getEstreno(),
+                    p.isEstado() ? "Activo" : "Inactivo"
+                });
+            }
+            tblPeliculas.setModel(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar la tabla: " + e.getMessage());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -345,7 +553,6 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbEnCartelera;
-    private javax.swing.JComboBox<String> cmbEstreno;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCartelera;
@@ -364,6 +571,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnlPeliculas;
     private javax.swing.JTable tblPeliculas;
     private javax.swing.JTextField txtDirector;
+    private javax.swing.JTextField txtEstreno;
     private javax.swing.JTextField txtGeneros;
     private javax.swing.JTextField txtPaisOrigen;
     private javax.swing.JTextArea txtReparto;

@@ -149,8 +149,5 @@ public class Pelicula {
     public String toString() {
         return "Pelicula{" + "id_Pelicula=" + id_Pelicula + ", Titulo=" + Titulo + ", Director=" + Director + ", Reparto=" + Reparto + ", Pais_Origen=" + Pais_Origen + ", Genero=" + Genero + ", enCartelera=" + enCartelera + ", Estreno=" + Estreno + ", Estado=" + Estado + '}';
     }
-    
-    
-    
-    
+
 }
