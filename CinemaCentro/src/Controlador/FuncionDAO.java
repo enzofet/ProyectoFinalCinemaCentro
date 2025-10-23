@@ -22,8 +22,8 @@ import java.util.List;
 public class FuncionDAO {
     
     public void agregarFuncion(Funcion funcion) throws Exception{
-        String sql= "INSERT INTO funcion (nro_Sala, idioma, es3D, Hora_Inicio, Hora_Fin, Precio_Entrada, " 
-        + "Fecha_Funcion, Subtitulada, Estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql= "INSERT INTO funcion (nro_Sala, idioma, es3D, hora_inicio, hora_fin, precio_entrada, " 
+        + "fecha_funcion, subtitulada, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection conn = ConexionBD.getConnection();
         
         try(PreparedStatement ps= conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
@@ -42,7 +42,7 @@ public class FuncionDAO {
             if(rs.next()){
                 funcion.setId_Funcion(rs.getInt(1));
             } else {
-                System.out.println("No se pudo agregar la funcion");
+                throw new Exception("Error al agregar una función nueva.");
             }
         }catch(SQLException e){
             e.printStackTrace();

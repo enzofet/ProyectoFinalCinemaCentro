@@ -5,6 +5,11 @@
  */
 package VistasAdministrativo;
 
+import Controlador.AsientoDAO;
+import Modelo.Asiento;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Enzo_2
@@ -15,9 +20,13 @@ public class DialogAsientos extends javax.swing.JDialog {
      * Creates new form DialogAsientos
      */
      
+    AsientoDAO maniAsi = new AsientoDAO();
+    List<Asiento> listaAsientos = maniAsi.listarAsientosPorSala(1);
+    
     public DialogAsientos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        rellenarTabla();
     }
 
     /**
@@ -36,6 +45,8 @@ public class DialogAsientos extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -70,10 +81,11 @@ public class DialogAsientos extends javax.swing.JDialog {
             }
         ));
         tblAsientos.setCellSelectionEnabled(true);
-        tblAsientos.setFocusable(false);
+        tblAsientos.setRowHeight(23);
         jScrollPane1.setViewportView(tblAsientos);
 
         pnlPantalla.setBackground(new java.awt.Color(102, 0, 0));
+        pnlPantalla.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setText("PANTALLA");
 
@@ -91,12 +103,33 @@ public class DialogAsientos extends javax.swing.JDialog {
             .addGroup(pnlPantallaLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(jLabel1)
-                .addContainerGap(341, Short.MAX_VALUE))
+                .addContainerGap(495, Short.MAX_VALUE))
         );
 
         jLabel2.setText("Sala numero:");
 
         jLabel3.setText("NUMEROSALA");
+
+        jPanel1.setBackground(new java.awt.Color(102, 0, 0));
+
+        jLabel4.setText("ENTRADA");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(375, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(190, 190, 190))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout pnlAsientosLayout = new javax.swing.GroupLayout(pnlAsientos);
         pnlAsientos.setLayout(pnlAsientosLayout);
@@ -107,26 +140,31 @@ public class DialogAsientos extends javax.swing.JDialog {
                 .addComponent(pnlPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlAsientosLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel3))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlAsientosLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlAsientosLayout.setVerticalGroup(
             pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAsientosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlAsientosLayout.createSequentialGroup()
-                        .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -142,7 +180,24 @@ public class DialogAsientos extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public void rellenarTabla(){
+        DefaultTableModel modelo = (DefaultTableModel) tblAsientos.getModel();
+        
+        int columnas = modelo.getColumnCount();
+        char fila = '\u0000';
+        for(int i = 0; i < columnas; i++){
+            fila = modelo.getColumnName(i).charAt(0);
+            int contador = 0;
+            for(Asiento a : listaAsientos){
+                if(a.getFila_asiento() == fila){
+                    modelo.setValueAt(a.getNumero_asiento(), contador, i);
+                    contador++;
+                }
+            }
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -189,6 +244,8 @@ public class DialogAsientos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlAsientos;
     private javax.swing.JPanel pnlPantalla;

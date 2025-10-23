@@ -64,7 +64,7 @@ public class AsientoDAO {
     }
 
     public List<Asiento> listarAsientosPorSala(int nro_sala) {
-        String sql = "SELECT * FROM sala WHERE nro_sala = ?";
+        String sql = "SELECT * FROM asiento WHERE nro_sala = ?";
         Connection con = ConexionBD.getConnection();
         List<Asiento> listaPorSala = new ArrayList<>();
         Asiento asiento = null;
