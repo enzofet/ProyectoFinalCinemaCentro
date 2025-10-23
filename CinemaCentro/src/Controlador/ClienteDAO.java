@@ -173,4 +173,34 @@ public class ClienteDAO {
             throw new Exception("Error relacionado a la base de datos.");
         }
     }
+    
+    public Cliente validarCredenciales(int dni, String password) throws Exception{
+        String sql = "SELECT * FROM cliente WHERE dni = ? AND password";
+        Connection conn = ConexionBD.getConnection();
+        
+        Cliente cliente = null;
+        try(PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, dni);
+            ps.setString(2, password);
+            try(ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    cliente = new Cliente();
+                    cliente.setId_cliente(rs.getInt("id_cliente"));
+                    cliente.setDni(rs.getInt("dni"));
+                    cliente.setFecha_nacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
+                    cliente.setNombre(rs.getString("nombre"));
+                    cliente.setApellido(rs.getString("apellido"));
+                    cliente.setEstado(rs.getBoolean("estado"));
+                    cliente.setPassword(rs.getString("password"));
+                } else {
+                    throw new Exception("No se ha podido validar sus credenciales, reviselas o verifique que este "
+                            + "registrado.");
+                }
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+            throw new Exception("Error relacionado a la base de datos.");
+        }
+        return cliente;
+    }
 }

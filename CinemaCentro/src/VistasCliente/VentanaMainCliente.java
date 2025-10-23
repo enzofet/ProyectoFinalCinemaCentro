@@ -5,6 +5,8 @@
  */
 package VistasCliente;
 
+import Modelo.Cliente;
+
 /**
  *
  * @author Enzo_2
@@ -14,7 +16,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
     /**
      * Creates new form LoginCliente
      */
-    public VentanaMainCliente() {
+    public VentanaMainCliente(Cliente cliente) {
         initComponents();
     }
 
@@ -316,7 +318,8 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaMainCliente().setVisible(true);
+                Cliente cliente = null;
+                new VentanaMainCliente(cliente).setVisible(true);
             }
         });
     }
