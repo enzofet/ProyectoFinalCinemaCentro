@@ -6,7 +6,7 @@
 package Modelo;
 
 import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -22,7 +22,7 @@ public class Funcion {
     private Time Hora_Inicio;
     private Time Hora_Fin;
     private Double Precio_Entrada;
-    private Date Fecha_Funcion;
+    private LocalDate Fecha_Funcion;
     private int Subtitulada;
     private int Estado;
 
@@ -31,7 +31,7 @@ public class Funcion {
         this.id_pelicula=-1;
     }
 
-    public Funcion(int nro_Sala, String idioma, int es3D, Time Hora_Inicio, Time Hora_Fin, Double Precio_Entrada, Date Fecha_Funcion, int Subtitulada, int Estado) {
+    public Funcion(int nro_Sala, String idioma, int es3D, Time Hora_Inicio, Time Hora_Fin, Double Precio_Entrada, LocalDate Fecha_Funcion, int Subtitulada, int Estado) {
         this.nro_Sala = nro_Sala;
         this.idioma = idioma;
         this.es3D = es3D;
@@ -43,7 +43,7 @@ public class Funcion {
         this.Estado = Estado;
     }
 
-    public Funcion(int id_Funcion, int id_pelicula, int nro_Sala, String idioma, int es3D, Time Hora_Inicio, Time Hora_Fin, Double Precio_Entrada, Date Fecha_Funcion, int Subtitulada, int Estado) {
+    public Funcion(int id_Funcion, int id_pelicula, int nro_Sala, String idioma, int es3D, Time Hora_Inicio, Time Hora_Fin, Double Precio_Entrada, LocalDate Fecha_Funcion, int Subtitulada, int Estado) {
         this.id_Funcion = id_Funcion;
         this.id_pelicula = id_pelicula;
         this.nro_Sala = nro_Sala;
@@ -121,11 +121,11 @@ public class Funcion {
         this.Precio_Entrada = Precio_Entrada;
     }
 
-    public Date getFecha_Funcion() {
+    public LocalDate getFecha_Funcion() {
         return Fecha_Funcion;
     }
 
-    public void setFecha_Funcion(Date Fecha_Funcion) {
+    public void setFecha_Funcion(LocalDate Fecha_Funcion) {
         this.Fecha_Funcion = Fecha_Funcion;
     }
 
