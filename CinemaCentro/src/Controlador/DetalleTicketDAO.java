@@ -142,4 +142,20 @@ public class DetalleTicketDAO {
             e.printStackTrace();
         }
     }
+    
+    public void eliminarTicket(int id_ticket) throws Exception{
+        String sql = "DELETE FROM detalleticket WHERE id_ticket = ?";
+        Connection con = ConexionBD.getConnection();
+        
+        try(PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, id_ticket);
+            
+            int fila = ps.executeUpdate();
+            if(fila == 0){
+                throw new Exception("Error al eliminar el ticket");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 }
