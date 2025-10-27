@@ -92,4 +92,54 @@ public class DetalleTicketDAO {
         }
         return listaTickets;
     }
+    
+    public void modificarTicket(int id_ticket, DetalleTicket ticket) throws Exception{
+        String sql = "UPDATE detalleticket SET id_funcion = ?, id_asiento = ?, id_venta = ?";
+        Connection con = ConexionBD.getConnection();
+        
+        try(PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, ticket.getId_funcion());
+            ps.setInt(2, ticket.getId_asiento());
+            ps.setInt(3, ticket.getId_venta());
+            int fila = ps.executeUpdate();
+            if(fila == 0){
+                throw new Exception("Error al actualizar el ticket");
+            }
+            
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void darAlta(int id_ticket) throws Exception{
+        String sql = "UPDATE detalleticket SET estado = true WHERE id_ticket = ?";
+        Connection con = ConexionBD.getConnection();
+        
+        try(PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, id_ticket);
+            
+            int fila  = ps.executeUpdate();
+            if(fila == 0){
+                throw new Exception("Error al dar de alta el ticket");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void darBaja(int id_ticket) throws Exception{
+        String sql = "UPDATE detalleticket SET estado = false WHERE id_ticket = ?";
+        Connection con = ConexionBD.getConnection();
+        
+        try(PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, id_ticket);
+            
+            int fila  = ps.executeUpdate();
+            if(fila == 0){
+                throw new Exception("Error al dar de baja el ticket");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 }
