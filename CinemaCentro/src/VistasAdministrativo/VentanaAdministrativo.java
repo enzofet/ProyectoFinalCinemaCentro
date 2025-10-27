@@ -54,16 +54,16 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
 
         escritorioAdmin = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menuPeliculas = new javax.swing.JMenu();
         btnGestionPeliculas = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        menuFunciones = new javax.swing.JMenu();
         btnGestionFunciones = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        menuSalas = new javax.swing.JMenu();
+        menuGestionSalas = new javax.swing.JMenuItem();
+        menuModificarAsientos = new javax.swing.JMenuItem();
+        menuVentas = new javax.swing.JMenu();
+        menuTaquilla = new javax.swing.JMenu();
+        menuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,7 +78,7 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
             .addGap(0, 397, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Peliculas");
+        menuPeliculas.setText("Peliculas");
 
         btnGestionPeliculas.setText("Gestion de peliculas");
         btnGestionPeliculas.addActionListener(new java.awt.event.ActionListener() {
@@ -86,11 +86,11 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
                 btnGestionPeliculasActionPerformed(evt);
             }
         });
-        jMenu1.add(btnGestionPeliculas);
+        menuPeliculas.add(btnGestionPeliculas);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuPeliculas);
 
-        jMenu2.setText("Funciones");
+        menuFunciones.setText("Funciones");
 
         btnGestionFunciones.setText("Gestión de funciones");
         btnGestionFunciones.addActionListener(new java.awt.event.ActionListener() {
@@ -98,33 +98,33 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
                 btnGestionFuncionesActionPerformed(evt);
             }
         });
-        jMenu2.add(btnGestionFunciones);
+        menuFunciones.add(btnGestionFunciones);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(menuFunciones);
 
-        jMenu3.setText("Salas");
+        menuSalas.setText("Salas");
 
-        jMenuItem2.setText("Gestión de salas");
-        jMenu3.add(jMenuItem2);
+        menuGestionSalas.setText("Gestión de salas");
+        menuSalas.add(menuGestionSalas);
 
-        jMenuItem1.setText("Modificar asientos");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuModificarAsientos.setText("Modificar asientos");
+        menuModificarAsientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menuModificarAsientosActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
+        menuSalas.add(menuModificarAsientos);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(menuSalas);
 
-        jMenu5.setText("Ventas");
-        jMenuBar1.add(jMenu5);
+        menuVentas.setText("Ventas");
+        jMenuBar1.add(menuVentas);
 
-        jMenu6.setText("Taquilla");
-        jMenuBar1.add(jMenu6);
+        menuTaquilla.setText("Taquilla");
+        jMenuBar1.add(menuTaquilla);
 
-        jMenu4.setText("Salir");
-        jMenuBar1.add(jMenu4);
+        menuSalir.setText("Salir");
+        jMenuBar1.add(menuSalir);
 
         setJMenuBar(jMenuBar1);
 
@@ -160,9 +160,9 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
         ventanaIns.moveToFront();
     }//GEN-LAST:event_btnGestionFuncionesActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void menuModificarAsientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarAsientosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_menuModificarAsientosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,14 +203,14 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnGestionFunciones;
     private javax.swing.JMenuItem btnGestionPeliculas;
     private javax.swing.JDesktopPane escritorioAdmin;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenu menuFunciones;
+    private javax.swing.JMenuItem menuGestionSalas;
+    private javax.swing.JMenuItem menuModificarAsientos;
+    private javax.swing.JMenu menuPeliculas;
+    private javax.swing.JMenu menuSalas;
+    private javax.swing.JMenu menuSalir;
+    private javax.swing.JMenu menuTaquilla;
+    private javax.swing.JMenu menuVentas;
     // End of variables declaration//GEN-END:variables
 }
