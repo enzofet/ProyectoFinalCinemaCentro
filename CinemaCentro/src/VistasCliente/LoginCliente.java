@@ -14,7 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import static jdk.nashorn.internal.runtime.regexp.joni.constants.AsmConstants.S;
 
 /**
  *
@@ -27,10 +26,11 @@ public class LoginCliente extends javax.swing.JFrame {
      */
     fondopanel fondo = new fondopanel();
     ClienteDAO maniCliente = new ClienteDAO();
-
+    
     public LoginCliente() {
         this.setContentPane(fondo);
         initComponents();
+        
     }
 
     /**
