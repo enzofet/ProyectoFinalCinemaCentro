@@ -6,13 +6,13 @@
 package Controlador;
 
 import Modelo.Pelicula;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,6 +137,7 @@ public class PeliculaDAO {
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
                     Pelicula peli = new Pelicula();
+                    peli.setId_Pelicula(rs.getInt("id_pelicula"));
                     peli.setTitulo(rs.getString("titulo"));
                     peli.setDirector(rs.getString("director"));
                     peli.setReparto(rs.getString("reparto"));
@@ -184,5 +185,23 @@ public class PeliculaDAO {
             throw new Exception("Error relacionado a la base de datos.");
         }
         return peli;
+    }
+    
+    public String[] listarLoQueQuiereNaiara(int id_pelicula){
+        String sql = "SELECT titulo, genero WHERE id_pelicula = ?";
+        Connection con = ConexionBD.getConnection();
+        String[] lista = null;
+        try(PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, id_pelicula);
+            try(ResultSet rs = ps.executeQuery()){
+                String titulo = rs.getString("titulo");
+                String genero = rs.getString("genero");
+                lista[0] = titulo;
+                lista[1] = genero;
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        return lista;
     }
 }
