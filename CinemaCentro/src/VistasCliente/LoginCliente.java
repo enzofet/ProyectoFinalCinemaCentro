@@ -6,9 +6,12 @@
 package VistasCliente;
 
 import Controlador.ClienteDAO;
+import Controlador.PeliculaDAO;
 import Modelo.Cliente;
+import Modelo.Pelicula;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -26,10 +29,16 @@ public class LoginCliente extends javax.swing.JFrame {
      */
     fondopanel fondo = new fondopanel();
     ClienteDAO maniCliente = new ClienteDAO();
-    
+    PeliculaDAO peli = new PeliculaDAO();
+    ArrayList<String[]> listapeli = peli.listarTituloyGenero();
     public LoginCliente() {
         this.setContentPane(fondo);
         initComponents();
+        for(Object[] o : listapeli){
+            System.out.println(o[0]);
+            System.out.println(o[1]);
+            System.out.println(o[2]);
+        }
         
     }
 
