@@ -5,6 +5,10 @@
  */
 package VistasAdministrativo;
 
+import Controlador.FuncionDAO;
+import Controlador.PeliculaDAO;
+import Controlador.SalaDAO;
+
 /**
  *
  * @author Enzo_2
@@ -14,9 +18,20 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     /**
      * Creates new form FuncionesInternal
      */
+    String[] cabeceras = {"id_pelicula", "Titulo"};
+    private PeliculaDAO peliculaDAO = new PeliculaDAO();
+    String[] cabecerass = {"Sala"};
+    private SalaDAO salaDAO = new SalaDAO();
+    String [] cabeceraa = {"Horarios"};
+    private FuncionDAO funciondao = new FuncionDAO();
     public FuncionesInternal() {
         initComponents();
+        tblpeliculas.setModel(VentanaAdministrativo.armarCabeceras(cabeceras));
+        jTableSala.setModel(VentanaAdministrativo.armarCabeceras(cabecerass));
+        jTableHorarios.setModel(VentanaAdministrativo.armarCabeceras(cabeceraa));
     }
+    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,7 +48,7 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTablePeliculas = new javax.swing.JTable();
+        tblpeliculas = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableHorarios = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
@@ -44,14 +59,14 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableSala = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextPaneDescripcion = new javax.swing.JTextPane();
         jLabel7 = new javax.swing.JLabel();
         jButtonConfirmar = new javax.swing.JButton();
         btndarAlta = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
         btndarbaja = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tbldescripcion = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Engravers MT", 1, 18)); // NOI18N
         jLabel1.setText("Funciones");
@@ -62,7 +77,7 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
         jLabel3.setText("sala");
 
-        jTablePeliculas.setModel(new javax.swing.table.DefaultTableModel(
+        tblpeliculas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -73,7 +88,7 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTablePeliculas);
+        jScrollPane1.setViewportView(tblpeliculas);
 
         jTableHorarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -124,8 +139,6 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         ));
         jScrollPane3.setViewportView(jTableSala);
 
-        jScrollPane4.setViewportView(jTextPaneDescripcion);
-
         jLabel7.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
         jLabel7.setText("Descripcion  de la funcion");
 
@@ -138,6 +151,19 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         btnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/modificar.png"))); // NOI18N
 
         btndarbaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-baja.png"))); // NOI18N
+
+        tbldescripcion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane5.setViewportView(tbldescripcion);
 
         javax.swing.GroupLayout pnlFuncionesLayout = new javax.swing.GroupLayout(pnlFunciones);
         pnlFunciones.setLayout(pnlFuncionesLayout);
@@ -164,9 +190,9 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                             .addGroup(pnlFuncionesLayout.createSequentialGroup()
                                 .addGap(27, 27, 27)
                                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7))
-                                .addGap(55, 55, 55)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(59, 59, 59)
                                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
                                         .addComponent(btneliminar)
@@ -245,22 +271,20 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(22, 22, 22)
                         .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addGap(45, 45, 45)
                                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btndarbaja)
                                     .addComponent(btndarAlta))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnmodificar)
-                                    .addComponent(btneliminar))))
-                        .addGap(36, 36, 36)
-                        .addComponent(jButtonConfirmar)
+                                    .addComponent(btneliminar))
+                                .addGap(44, 44, 44)
+                                .addComponent(jButtonConfirmar)))
                         .addGap(51, 51, 51))))
         );
 
@@ -303,12 +327,12 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTableHorarios;
-    private javax.swing.JTable jTablePeliculas;
     private javax.swing.JTable jTableSala;
-    private javax.swing.JTextPane jTextPaneDescripcion;
     private javax.swing.JPanel pnlFunciones;
+    private javax.swing.JTable tbldescripcion;
+    private javax.swing.JTable tblpeliculas;
     // End of variables declaration//GEN-END:variables
 
 }

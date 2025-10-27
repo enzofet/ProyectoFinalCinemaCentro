@@ -5,6 +5,7 @@
  */
 package VistasAdministrativo;
 
+import Modelo.Funcion;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -151,7 +152,12 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionPeliculasActionPerformed
 
     private void btnGestionFuncionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionFuncionesActionPerformed
-        // TODO add your handling code here:
+      escritorioAdmin.removeAll();
+        escritorioAdmin.repaint();
+        FuncionesInternal ventanaIns = new FuncionesInternal();
+        escritorioAdmin.add(ventanaIns);
+        ventanaIns.setVisible(true);
+        ventanaIns.moveToFront();
     }//GEN-LAST:event_btnGestionFuncionesActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

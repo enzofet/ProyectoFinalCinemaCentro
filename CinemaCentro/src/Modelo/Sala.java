@@ -16,22 +16,24 @@ import java.util.Objects;
 public class Sala {
     
     private int nro_Sala;
-    private int Capacidad;
-    private int Estado;
-    private int Apta3D;
+    private int capacidad;
+    private int estado;
+    private boolean apta3D;
 
     public Sala() {
     }
 
     
     
-    public Sala(int nro_Sala, int Capacidad, int Estado, int Apta3D) {
+    public Sala(int nro_Sala, int Capacidad, int Estado, boolean Apta3D) {
         this.nro_Sala = nro_Sala;
-        this.Capacidad = Capacidad;
-        this.Estado = Estado;
-        this.Apta3D = Apta3D;
+        this.capacidad = Capacidad;
+        this.estado = Estado;
+        this.apta3D = Apta3D;
     }
 
+    
+    
     public int getNro_Sala() {
         return nro_Sala;
     }
@@ -41,27 +43,27 @@ public class Sala {
     }
 
     public int getCapacidad() {
-        return Capacidad;
+        return capacidad;
     }
 
     public void setCapacidad(int Capacidad) {
-        this.Capacidad = Capacidad;
+        this.capacidad = Capacidad;
     }
 
     public int getEstado() {
-        return Estado;
+        return estado;
     }
 
     public void setEstado(int Estado) {
-        this.Estado = Estado;
+        this.estado = Estado;
     }
 
-    public int getApta3D() {
-        return Apta3D;
+    public boolean isApta3D() {
+        return apta3D;
     }
 
-    public void setApta3D(int Apta3D) {
-        this.Apta3D = Apta3D;
+    public void setApta3D(boolean Apta3D) {
+        this.apta3D = Apta3D;
     }
 
     @Override
@@ -83,7 +85,7 @@ public class Sala {
 
     @Override
     public String toString() {
-        return "Sala{" + "nro_Sala=" + nro_Sala + ", Capacidad=" + Capacidad + ", Estado=" + Estado + ", Apta3D=" + Apta3D + '}';
+        return "Sala{" + "nro_Sala=" + nro_Sala + ", Capacidad=" + capacidad + ", Estado=" + estado + ", Apta3D=" + apta3D + '}';
     }
     
     

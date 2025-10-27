@@ -18,20 +18,20 @@ public class Funcion {
     private int id_pelicula;
     private int nro_Sala;
     private String idioma;
-    private int es3D;
+    private boolean es3D;
     private Time Hora_Inicio;
     private Time Hora_Fin;
-    private Double Precio_Entrada;
+    private double Precio_Entrada;
     private LocalDate Fecha_Funcion;
-    private int Subtitulada;
-    private int Estado;
+    private boolean Subtitulada;
+    private boolean Estado;
 
     public Funcion() {
         this.id_Funcion=-1;
         this.id_pelicula=-1;
     }
 
-    public Funcion(int nro_Sala, String idioma, int es3D, Time Hora_Inicio, Time Hora_Fin, Double Precio_Entrada, LocalDate Fecha_Funcion, int Subtitulada, int Estado) {
+    public Funcion(int nro_Sala, String idioma, boolean es3D, Time Hora_Inicio, Time Hora_Fin, double Precio_Entrada, LocalDate Fecha_Funcion, boolean Subtitulada, boolean Estado) {
         this.nro_Sala = nro_Sala;
         this.idioma = idioma;
         this.es3D = es3D;
@@ -43,7 +43,7 @@ public class Funcion {
         this.Estado = Estado;
     }
 
-    public Funcion(int id_Funcion, int id_pelicula, int nro_Sala, String idioma, int es3D, Time Hora_Inicio, Time Hora_Fin, Double Precio_Entrada, LocalDate Fecha_Funcion, int Subtitulada, int Estado) {
+    public Funcion(int id_Funcion, int id_pelicula, int nro_Sala, String idioma, boolean es3D, Time Hora_Inicio, Time Hora_Fin, Double Precio_Entrada, LocalDate Fecha_Funcion, boolean Subtitulada, boolean Estado) {
         this.id_Funcion = id_Funcion;
         this.id_pelicula = id_pelicula;
         this.nro_Sala = nro_Sala;
@@ -89,11 +89,11 @@ public class Funcion {
         this.idioma = idioma;
     }
 
-    public int getEs3D() {
+    public boolean isEs3D() {
         return es3D;
     }
 
-    public void setEs3D(int es3D) {
+    public void setEs3D(boolean es3D) {
         this.es3D = es3D;
     }
 
@@ -129,19 +129,19 @@ public class Funcion {
         this.Fecha_Funcion = Fecha_Funcion;
     }
 
-    public int getSubtitulada() {
+    public boolean isSubtitulada() {
         return Subtitulada;
     }
 
-    public void setSubtitulada(int Subtitulada) {
+    public void setSubtitulada(boolean Subtitulada) {
         this.Subtitulada = Subtitulada;
     }
 
-    public int getEstado() {
+    public boolean isEstado() {
         return Estado;
     }
 
-    public void setEstado(int Estado) {
+    public void setEstado(boolean Estado) {
         this.Estado = Estado;
     }
 

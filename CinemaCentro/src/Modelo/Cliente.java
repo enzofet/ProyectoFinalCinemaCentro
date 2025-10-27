@@ -16,10 +16,10 @@ public class Cliente {
     
     private int id_cliente;
     private int dni;
-    private LocalDate fecha_nacimiento;
+    private String password;
     private String nombre;
     private String apellido;
-    private String password;
+    private LocalDate fecha_nacimiento;
     private boolean estado;
     
     public Cliente(){
