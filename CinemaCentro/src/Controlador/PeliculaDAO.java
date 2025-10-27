@@ -6,7 +6,6 @@
 package Controlador;
 
 import Modelo.Pelicula;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -187,18 +186,18 @@ public class PeliculaDAO {
         return peli;
     }
     
-    public ArrayList<Pelicula> listarTituloyGenero(){
+    public ArrayList<String[]> listarTituloyGenero(){
         String sql = "SELECT id_pelicula, titulo, genero FROM pelicula";
         Connection con = ConexionBD.getConnection();
-        ArrayList<Pelicula> lista = null;
+        ArrayList<String[]> lista = new ArrayList<>();
+        
         try(PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
-                    Pelicula peli = new Pelicula();
-                    peli.setId_Pelicula(rs.getInt("id_pelicula"));
-                    peli.setTitulo(rs.getString("titulo"));
-                    peli.setGenero(rs.getString("genero"));
-                    lista.add(peli);
+                    
+                    String[] atributos = {Integer.toString(rs.getInt("id_pelicula")), 
+                        rs.getString("titulo"), rs.getString("genero")};
+                    lista.add(atributos);
                 }
             }
         }catch(SQLException e){
