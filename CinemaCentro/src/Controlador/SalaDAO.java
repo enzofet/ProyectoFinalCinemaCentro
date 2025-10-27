@@ -27,7 +27,7 @@ public class SalaDAO {
             ps.setInt(1, sala.getNro_Sala());
             ps.setInt(2, sala.getCapacidad());
             ps.setInt(3, sala.getEstado());
-            ps.setInt(3, sala.getApta3D());
+            ps.setBoolean(3, sala.isApta3D());
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -68,7 +68,7 @@ public class SalaDAO {
             ps.setInt(1, sala.getNro_Sala());
             ps.setInt(2, sala.getCapacidad());
             ps.setInt(3, sala.getEstado());
-            ps.setInt(3, sala.getApta3D());
+            ps.setBoolean(3, sala.isApta3D());
 
             int filas = ps.executeUpdate();
             if (filas == 0) {
@@ -95,7 +95,7 @@ public class SalaDAO {
                     sala.setNro_Sala(rs.getInt("nro_sala"));
                     sala.setCapacidad(rs.getInt("capacidad"));
                     sala.setEstado(rs.getInt("estado"));
-                    sala.setApta3D(rs.getInt("apta3D"));
+                    sala.setApta3D(rs.getBoolean("apta3D"));
                 } else {
                     throw new Exception("No se a encontrado la sala");
                 }
@@ -122,7 +122,7 @@ public class SalaDAO {
                     sala.setNro_Sala(rs.getInt("nro_sala"));
                     sala.setCapacidad(rs.getInt("capacidad"));
                     sala.setEstado(rs.getInt("estado"));
-                    sala.setApta3D(rs.getInt("apta3D"));
+                    sala.setApta3D(rs.getBoolean("apta3D"));
                     listarsalas.add(sala);
 
                 }

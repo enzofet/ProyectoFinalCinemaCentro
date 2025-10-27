@@ -14,6 +14,7 @@ import java.util.Objects;
 public class Asiento {
     
     private int id_asiento;
+    private int nro_sala;
     private int numero_asiento;
     private char fila_asiento;
     private boolean estado;
@@ -22,18 +23,20 @@ public class Asiento {
         this.id_asiento = -1;
     }
 
-    public Asiento(int id_asiento, int numero_asiento, char fila_asiento, boolean estado) {
+    public Asiento(int id_asiento,int nro_sala, int numero_asiento, char fila_asiento, boolean estado) {
         this.id_asiento = id_asiento;
         this.numero_asiento = numero_asiento;
         this.fila_asiento = fila_asiento;
         this.estado = estado;
+        this.nro_sala = nro_sala;
     }
     
-    public Asiento(int numero_asiento, char fila_asiento, boolean estado){
+    public Asiento(int numero_asiento,int nro_sala, char fila_asiento, boolean estado){
         this.id_asiento = -1;
         this.numero_asiento = numero_asiento;
         this.fila_asiento = fila_asiento;
         this.estado = estado;
+        this.nro_sala = nro_sala;
     }
 
     public int getId_asiento() {
@@ -67,7 +70,15 @@ public class Asiento {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
+
+    public int getNro_sala() {
+        return nro_sala;
+    }
+
+    public void setNro_sala(int nro_sala) {
+        this.nro_sala = nro_sala;
+    }
+      
     @Override
     public boolean equals(Object a){
         if(this == a){

@@ -29,13 +29,13 @@ public class FuncionDAO {
         try(PreparedStatement ps= conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
             ps.setInt(1, funcion.getNro_Sala());
             ps.setString(2, funcion.getIdioma());
-            ps.setInt(3, funcion.getEs3D());
+            ps.setBoolean(3, funcion.isEs3D());
             ps.setTime(4, funcion.getHora_Inicio());
             ps.setTime(5, funcion.getHora_Fin());
             ps.setDouble(6, funcion.getPrecio_Entrada());
             ps.setDate(7, Date.valueOf(funcion.getFecha_Funcion()));
-            ps.setInt(8, funcion.getSubtitulada());
-            ps.setInt(9, funcion.getEstado());
+            ps.setBoolean(8, funcion.isSubtitulada());
+            ps.setBoolean(9, funcion.isEstado());
             
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -74,13 +74,13 @@ public class FuncionDAO {
         try(PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, funcion.getNro_Sala());
             ps.setString(2, funcion.getIdioma());
-            ps.setInt(3, funcion.getEs3D());
+            ps.setBoolean(3, funcion.isEs3D());
             ps.setTime(4, funcion.getHora_Inicio());
             ps.setTime(5, funcion.getHora_Fin());
             ps.setDouble(6, funcion.getPrecio_Entrada());
             ps.setDate(7, Date.valueOf(funcion.getFecha_Funcion()));
-            ps.setInt(8, funcion.getSubtitulada());
-            ps.setInt(9, funcion.getEstado());
+            ps.setBoolean(8, funcion.isSubtitulada());
+            ps.setBoolean(9, funcion.isEstado());
             ps.setInt(10, funcion.getId_Funcion());
             
             int filas = ps.executeUpdate();
@@ -107,13 +107,13 @@ public class FuncionDAO {
                     fun.setId_Funcion(rs.getInt("id_Funcion"));
                     fun.setNro_Sala(rs.getInt("nro_Sala"));
                     fun.setIdioma(rs.getString("idioma"));
-                    fun.setEs3D(rs.getInt("es3D"));
+                    fun.setEs3D(rs.getBoolean("es3D"));
                     fun.setHora_Inicio(rs.getTime("Hora_Inicio"));
                     fun.setHora_Fin(rs.getTime("Hora_Fin"));
                     fun.setPrecio_Entrada(rs.getDouble("Precio_Entrada"));
                     fun.setFecha_Funcion(rs.getDate("Fecha_Funcion").toLocalDate());
-                    fun.setSubtitulada(rs.getInt("Subtitulada"));
-                    fun.setEstado(rs.getInt("Estado"));
+                    fun.setSubtitulada(rs.getBoolean("Subtitulada"));
+                    fun.setEstado(rs.getBoolean("Estado"));
                 }else{
                     throw new Exception("No se ha encontrado la funcion");
                 }
@@ -139,13 +139,13 @@ public class FuncionDAO {
                     fun.setId_pelicula(rs.getInt("id_pelicula"));
                     fun.setNro_Sala(rs.getInt("nro_Sala"));
                     fun.setIdioma(rs.getString("idioma"));
-                    fun.setEs3D(rs.getInt("es3D"));
+                    fun.setEs3D(rs.getBoolean("es3D"));
                     fun.setHora_Inicio(rs.getTime("Hora_Inicio"));
                     fun.setHora_Fin(rs.getTime("Hora_Fin"));
                     fun.setPrecio_Entrada(rs.getDouble("Precio_Entrada"));
                     fun.setFecha_Funcion(rs.getDate("Fecha_Funcion").toLocalDate());
-                    fun.setSubtitulada(rs.getInt("Subtitulada"));
-                    fun.setEstado(rs.getInt("Estado"));
+                    fun.setSubtitulada(rs.getBoolean("Subtitulada"));
+                    fun.setEstado(rs.getBoolean("Estado"));
                 }
             }
         } catch (SQLException e){
