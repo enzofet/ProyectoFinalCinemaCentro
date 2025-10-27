@@ -27,6 +27,12 @@ public class Pelicula {
         this.id_Pelicula=-1;
     }
 
+    public Pelicula(int id_Pelicula, String Titulo, String Genero) {
+        this.id_Pelicula = id_Pelicula;
+        this.Titulo = Titulo;
+        this.Genero = Genero;
+    }
+
     public Pelicula(int id_Pelicula, String Titulo, String Director, String Reparto, String Pais_Origen, String Genero, boolean enCartelera, LocalDate Estreno, boolean Estado) {
         this.id_Pelicula = id_Pelicula;
         this.Titulo = Titulo;
