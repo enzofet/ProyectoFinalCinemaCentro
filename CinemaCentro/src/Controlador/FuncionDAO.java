@@ -40,7 +40,7 @@ public class FuncionDAO {
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if(rs.next()){
-                funcion.setId_Funcion(rs.getInt(1));
+                funcion.setId_Funcion(rs.getInt("id_funcion"));
             } else {
                 throw new Exception("Error al agregar una función nueva.");
             }
@@ -67,8 +67,8 @@ public class FuncionDAO {
     }
     
     public void actualizarFuncion(int id, Funcion funcion) throws Exception{
-        String sql = "UPDATE funcion SET nro_Sala= ?, idioma= ?, es3D = ?, Hora_Inicio = ?, Hora_Fin=?, "
-            + " Precio_Entrada=?, Fecha_Funcion =?, Subtitulada =?, Estado =? WHERE id_Funcion=?";
+        String sql = "UPDATE funcion SET nro_Sala= ?, idioma= ?, es3D = ?, hora_inicio = ?, hora_fin=?, "
+            + " precio_entrada=?, fecha_funcion =?, subtitulada =?, estado =? WHERE id_funcion=?";
         Connection conn = ConexionBD.getConnection();
         
         try(PreparedStatement ps = conn.prepareStatement(sql)){

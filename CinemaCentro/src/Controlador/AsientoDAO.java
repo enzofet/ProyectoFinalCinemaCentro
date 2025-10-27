@@ -71,14 +71,14 @@ public class AsientoDAO {
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, nro_sala);
             try (ResultSet rs = ps.executeQuery()) {
-                while(rs.next()){
-                asiento = new Asiento();
-                asiento.setId_asiento(rs.getInt("id_asiento"));
-                asiento.setFila_asiento(rs.getString("fila_asiento").charAt(0));
-                asiento.setNumero_asiento(rs.getInt("numero_asiento"));
-                asiento.setEstado(rs.getBoolean("estado"));
-                listaPorSala.add(asiento);
-                }   
+                while (rs.next()) {
+                    asiento = new Asiento();
+                    asiento.setId_asiento(rs.getInt("id_asiento"));
+                    asiento.setFila_asiento(rs.getString("fila_asiento").charAt(0));
+                    asiento.setNumero_asiento(rs.getInt("numero_asiento"));
+                    asiento.setEstado(rs.getBoolean("estado"));
+                    listaPorSala.add(asiento);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -111,9 +111,9 @@ public class AsientoDAO {
         Connection con = ConexionBD.getConnection();
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            try(ResultSet rs = ps.executeQuery()){
-                while(rs.next()){
-                    
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+
                 }
             }
         } catch (SQLException e) {
@@ -122,5 +122,22 @@ public class AsientoDAO {
 
         return listaDisponibles;
 
+    }
+
+    public int cantidadAsientosLibres(int nto_sala) throws Exception {
+        String sql = "SELECT COUNT(estado) AS asientoslibres FROM asiento WHERE nro_sala = ? AND estado = true";
+        Connection con = ConexionBD.getConnection();
+        int cantidad = 0;
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            try(ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    cantidad = rs.getInt("asientoslibres");
+                } 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+             throw new Exception("Error relacionado a la base de datos.");
+        }
+        return cantidad;
     }
 }
