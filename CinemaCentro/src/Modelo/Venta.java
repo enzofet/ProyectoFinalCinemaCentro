@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelo;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -14,123 +8,135 @@ import java.util.Objects;
  * @author Naiara
  */
 public class Venta {
-    private int id_Venta;
-    private int id_Cliente;
-    private String Medio_Pago;
-    private int Cantidad_Entradas;
-    private double Importe_Total;
-    private String Medio_Compra;
-    private int Token;
-    private LocalDate Fecha_Venta;
+    private int id_venta;
+    private int id_cliente;
+    private String medio_pago;
+    private int cantidad_entradas;
+    private double importe_total;
+    private String medio_compra;
+    private Integer token;
+    private LocalDate fecha_venta;
 
     public Venta() {
-        this.id_Venta=-1;
-        this.id_Cliente=-1;
+        this.id_venta=-1;
+        this.id_cliente=-1;
     }
 
-    public Venta(int id_Venta, int id_Cliente, String Medio_Pago, int Cantidad_Entradas, double Importe_Total, String Medio_Compra, int Token, LocalDate Fecha_Venta) {
-        this.id_Venta = id_Venta;
-        this.id_Cliente = id_Cliente;
-        this.Medio_Pago = Medio_Pago;
-        this.Cantidad_Entradas = Cantidad_Entradas;
-        this.Importe_Total = Importe_Total;
-        this.Medio_Compra = Medio_Compra;
-        this.Token = Token;
-        this.Fecha_Venta = Fecha_Venta;
+    public Venta(int id_venta, int id_cliente, String medio_pago, int cantidad_entradas, double importe_total, String medio_compra, LocalDate fecha_venta) {
+        this.id_venta = id_venta;
+        this.id_cliente = id_cliente;
+        this.medio_pago = medio_pago;
+        this.cantidad_entradas = cantidad_entradas;
+        this.importe_total = importe_total;
+        this.medio_compra = medio_compra;
+        this.fecha_venta = fecha_venta;
+    }
+    
+    
+
+    public Venta(int id_Venta, int id_Cliente, String Medio_Pago, int Cantidad_Entradas, double Importe_Total, String Medio_Compra, int Token, LocalDate fecha_venta) {
+        this.id_venta = id_Venta;
+        this.id_cliente = id_Cliente;
+        this.medio_pago = Medio_Pago;
+        this.cantidad_entradas = Cantidad_Entradas;
+        this.importe_total = Importe_Total;
+        this.medio_compra = Medio_Compra;
+        this.token = Token;
+        this.fecha_venta = fecha_venta;
     }
 
-    public Venta(String Medio_Pago, int Cantidad_Entradas, double Importe_Total, String Medio_Compra, int Token, LocalDate Fecha_Venta) {
-        this.Medio_Pago = Medio_Pago;
-        this.Cantidad_Entradas = Cantidad_Entradas;
-        this.Importe_Total = Importe_Total;
-        this.Medio_Compra = Medio_Compra;
-        this.Token = Token;
-        this.Fecha_Venta = Fecha_Venta;
+    public Venta(String Medio_Pago, int Cantidad_Entradas, double Importe_Total, String Medio_Compra, int Token, LocalDate fecha_venta) {
+        this.medio_pago = Medio_Pago;
+        this.cantidad_entradas = Cantidad_Entradas;
+        this.importe_total = Importe_Total;
+        this.medio_compra = Medio_Compra;
+        this.token = Token;
+        this.fecha_venta = fecha_venta;
     }
 
     public int getId_Venta() {
-        return id_Venta;
+        return id_venta;
     }
 
     public void setId_Venta(int id_Venta) {
-        this.id_Venta = id_Venta;
+        this.id_venta = id_Venta;
     }
 
     public int getId_Cliente() {
-        return id_Cliente;
+        return id_cliente;
     }
 
     public void setId_Cliente(int id_Cliente) {
-        this.id_Cliente = id_Cliente;
+        this.id_cliente = id_Cliente;
     }
 
     public String getMedio_Pago() {
-        return Medio_Pago;
+        return medio_pago;
     }
 
     public void setMedio_Pago(String Medio_Pago) {
-        this.Medio_Pago = Medio_Pago;
+        this.medio_pago = Medio_Pago;
     }
 
     public int getCantidad_Entradas() {
-        return Cantidad_Entradas;
+        return cantidad_entradas;
     }
 
     public void setCantidad_Entradas(int Cantidad_Entradas) {
-        this.Cantidad_Entradas = Cantidad_Entradas;
+        this.cantidad_entradas = Cantidad_Entradas;
     }
 
     public double getImporte_Total() {
-        return Importe_Total;
+        return importe_total;
     }
 
     public void setImporte_Total(double Importe_Total) {
-        this.Importe_Total = Importe_Total;
+        this.importe_total = Importe_Total;
     }
 
     public String getMedio_Compra() {
-        return Medio_Compra;
+        return medio_compra;
     }
 
     public void setMedio_Compra(String Medio_Compra) {
-        this.Medio_Compra = Medio_Compra;
+        this.medio_compra = Medio_Compra;
     }
 
     public int getToken() {
-        return Token;
+        return token;
     }
 
     public void setToken(int Token) {
-        this.Token = Token;
+        this.token = Token;
     }
 
     public LocalDate getFecha_Venta() {
-        return Fecha_Venta;
+        return fecha_venta;
     }
 
     public void setFecha_Venta(LocalDate Fecha_Venta) {
-        this.Fecha_Venta = Fecha_Venta;
+        this.fecha_venta = Fecha_Venta;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.id_Venta);
+        return Objects.hashCode(this.id_venta);
     }
 
     public boolean equals(Object a){
         if(a == this){
             return true;
         }
-        if(a.getClass() != this.getClass() || this.id_Venta == 0){
+        if(a.getClass() != this.getClass() || this.id_venta == 0){
             return false;
         }
         Venta vent = (Venta) a;
-        return vent.id_Venta  == this.id_Venta;
+        return vent.id_venta  == this.id_venta;
     }
 
     @Override
     public String toString() {
-        return "Venta{" + "id_Venta=" + id_Venta + ", id_Cliente=" + id_Cliente + ", Medio_Pago=" + Medio_Pago + ", Cantidad_Entradas=" + Cantidad_Entradas + ", Importe_Total=" + Importe_Total + ", Medio_Compra=" + Medio_Compra + ", Token=" + Token + ", Fecha_Venta=" + Fecha_Venta + '}';
+        return "Venta{" + "id_Venta=" + id_venta + ", id_Cliente=" + id_cliente + ", Medio_Pago=" + medio_pago + ", Cantidad_Entradas=" + cantidad_entradas + ", Importe_Total=" + importe_total + ", Medio_Compra=" + medio_compra + ", Token=" + token + ", Fecha_Venta=" + fecha_venta + '}';
     }
     
     
