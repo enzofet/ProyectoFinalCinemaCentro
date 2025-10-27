@@ -71,84 +71,104 @@ public class DialogAsientos extends javax.swing.JDialog {
 
         pnlAsientos.setBackground(new java.awt.Color(102, 0, 0));
         pnlAsientos.setForeground(new java.awt.Color(102, 0, 0));
+        pnlAsientos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblCinema.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         lblCinema.setForeground(new java.awt.Color(255, 255, 255));
         lblCinema.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCinema.setText("CinemaCentro");
         lblCinema.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlAsientos.add(lblCinema, new org.netbeans.lib.awtextra.AbsoluteConstraints(756, 6, -1, 59));
 
         lblSala.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblSala.setForeground(new java.awt.Color(255, 255, 255));
         lblSala.setText("SALA N°:");
+        pnlAsientos.add(lblSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, -1, -1));
 
         lblNroSala.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblNroSala.setForeground(new java.awt.Color(255, 255, 255));
         lblNroSala.setText("NUMEROSALA");
+        pnlAsientos.add(lblNroSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(87, 6, -1, -1));
 
         lblNombrePelicula.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblNombrePelicula.setForeground(new java.awt.Color(255, 255, 255));
         lblNombrePelicula.setText("NOMBREPELICULA");
+        pnlAsientos.add(lblNombrePelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(288, 6, -1, -1));
 
         lblPelicula.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblPelicula.setForeground(new java.awt.Color(255, 255, 255));
         lblPelicula.setText("PELICULA:");
+        pnlAsientos.add(lblPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 6, -1, -1));
 
         lblHorarioInicio.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblHorarioInicio.setForeground(new java.awt.Color(255, 255, 255));
         lblHorarioInicio.setText("HORARIOINICIO");
+        pnlAsientos.add(lblHorarioInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 29, -1, -1));
 
         lblEmpieza.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblEmpieza.setForeground(new java.awt.Color(255, 255, 255));
         lblEmpieza.setText("EMPIEZA:");
+        pnlAsientos.add(lblEmpieza, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 29, -1, -1));
 
         lblAsientos.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblAsientos.setForeground(new java.awt.Color(255, 255, 255));
         lblAsientos.setText("ASIENTOS:");
+        pnlAsientos.add(lblAsientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, 29, -1, -1));
 
         lblAsientosLibres.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblAsientosLibres.setForeground(new java.awt.Color(255, 255, 255));
         lblAsientosLibres.setText("ASIENTOSLIBRES");
+        pnlAsientos.add(lblAsientosLibres, new org.netbeans.lib.awtextra.AbsoluteConstraints(531, 29, -1, -1));
 
         lblFinaliza.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblFinaliza.setForeground(new java.awt.Color(255, 255, 255));
         lblFinaliza.setText("FINALIZA:");
+        pnlAsientos.add(lblFinaliza, new org.netbeans.lib.awtextra.AbsoluteConstraints(213, 29, -1, -1));
 
         lblHorarioFin.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblHorarioFin.setForeground(new java.awt.Color(255, 255, 255));
         lblHorarioFin.setText("HORARIOFINAL");
+        pnlAsientos.add(lblHorarioFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 29, -1, -1));
 
         lblTipoPelicula.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblTipoPelicula.setForeground(new java.awt.Color(255, 255, 255));
         lblTipoPelicula.setText("ES 2D/3D:");
+        pnlAsientos.add(lblTipoPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(443, 6, -1, -1));
 
         lblEsTipo.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblEsTipo.setForeground(new java.awt.Color(255, 255, 255));
         lblEsTipo.setText("ES2D/3D");
+        pnlAsientos.add(lblEsTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(521, 6, -1, -1));
 
         lblIdioma.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblIdioma.setForeground(new java.awt.Color(255, 255, 255));
         lblIdioma.setText("IDIOMA:");
+        pnlAsientos.add(lblIdioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(227, 52, -1, -1));
 
         lblIdiomaPelicula.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblIdiomaPelicula.setForeground(new java.awt.Color(255, 255, 255));
         lblIdiomaPelicula.setText("IDIOMAPELICULA");
+        pnlAsientos.add(lblIdiomaPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(293, 52, -1, -1));
 
         lblGenero.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblGenero.setForeground(new java.awt.Color(255, 255, 255));
         lblGenero.setText("GENERO:");
+        pnlAsientos.add(lblGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 52, -1, -1));
 
         lblGeneroPelicula.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblGeneroPelicula.setForeground(new java.awt.Color(255, 255, 255));
         lblGeneroPelicula.setText("GENEROPELICULA");
+        pnlAsientos.add(lblGeneroPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(87, 52, -1, -1));
 
         lblSub.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblSub.setForeground(new java.awt.Color(255, 255, 255));
         lblSub.setText("SUBTITULADA:");
+        pnlAsientos.add(lblSub, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 6, -1, -1));
 
         lblEstadoSub.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblEstadoSub.setForeground(new java.awt.Color(255, 255, 255));
         lblEstadoSub.setText("SI/NO");
+        pnlAsientos.add(lblEstadoSub, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 6, -1, -1));
 
         tblAsientos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -184,6 +204,8 @@ public class DialogAsientos extends javax.swing.JDialog {
         tblAsientos.setRowHeight(23);
         jScrollPane1.setViewportView(tblAsientos);
 
+        pnlAsientos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 970, 560));
+
         pnlPantalla.setBackground(new java.awt.Color(102, 0, 0));
         pnlPantalla.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -202,8 +224,12 @@ public class DialogAsientos extends javax.swing.JDialog {
         );
         pnlPantallaLayout.setVerticalGroup(
             pnlPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblPantalla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlPantallaLayout.createSequentialGroup()
+                .addComponent(lblPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        pnlAsientos.add(pnlPantalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 163, -1, -1));
 
         pnlEntrada.setBackground(new java.awt.Color(102, 0, 0));
 
@@ -217,129 +243,35 @@ public class DialogAsientos extends javax.swing.JDialog {
         pnlEntrada.setLayout(pnlEntradaLayout);
         pnlEntradaLayout.setHorizontalGroup(
             pnlEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEntradaLayout.createSequentialGroup()
+                .addContainerGap(172, Short.MAX_VALUE)
+                .addComponent(lblEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(152, 152, 152))
         );
         pnlEntradaLayout.setVerticalGroup(
             pnlEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEntradaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 4, Short.MAX_VALUE)
+                .addComponent(lblEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        pnlAsientos.add(pnlEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, 23));
 
         btnSalir.setBackground(new java.awt.Color(255, 255, 255));
         btnSalir.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnSalir.setText("SALIR");
-
-        javax.swing.GroupLayout pnlAsientosLayout = new javax.swing.GroupLayout(pnlAsientos);
-        pnlAsientos.setLayout(pnlAsientosLayout);
-        pnlAsientosLayout.setHorizontalGroup(
-            pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAsientosLayout.createSequentialGroup()
-                .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlAsientosLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlAsientosLayout.createSequentialGroup()
-                                .addComponent(lblGenero)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblGeneroPelicula)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblIdioma)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblIdiomaPelicula))
-                            .addGroup(pnlAsientosLayout.createSequentialGroup()
-                                .addComponent(lblSala)
-                                .addGap(4, 4, 4)
-                                .addComponent(lblNroSala)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblPelicula)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblNombrePelicula))
-                            .addGroup(pnlAsientosLayout.createSequentialGroup()
-                                .addComponent(lblTipoPelicula)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblEsTipo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblSub)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblEstadoSub))
-                            .addGroup(pnlAsientosLayout.createSequentialGroup()
-                                .addComponent(lblAsientos)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblAsientosLibres))
-                            .addGroup(pnlAsientosLayout.createSequentialGroup()
-                                .addComponent(lblEmpieza)
-                                .addGap(4, 4, 4)
-                                .addComponent(lblHorarioInicio)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblFinaliza)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblHorarioFin))))
-                    .addGroup(pnlAsientosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSalir)
-                            .addGroup(pnlAsientosLayout.createSequentialGroup()
-                                .addComponent(pnlPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(pnlEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(lblCinema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        pnlAsientosLayout.setVerticalGroup(
-            pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAsientosLayout.createSequentialGroup()
-                .addComponent(lblCinema, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNroSala)
-                    .addComponent(lblPelicula)
-                    .addComponent(lblNombrePelicula)
-                    .addComponent(lblSala))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEmpieza)
-                    .addComponent(lblHorarioInicio)
-                    .addComponent(lblFinaliza)
-                    .addComponent(lblHorarioFin))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblGenero)
-                    .addComponent(lblGeneroPelicula)
-                    .addComponent(lblIdioma)
-                    .addComponent(lblIdiomaPelicula))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTipoPelicula)
-                    .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblEsTipo)
-                        .addComponent(lblSub)
-                        .addComponent(lblEstadoSub)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAsientos)
-                    .addComponent(lblAsientosLibres))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlAsientosLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(pnlPantalla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSalir)
-                .addGap(26, 26, 26))
-        );
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        pnlAsientos.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 680, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlAsientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,6 +280,10 @@ public class DialogAsientos extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalirActionPerformed
     
     public void rellenarTabla(){
         DefaultTableModel modelo = (DefaultTableModel) tblAsientos.getModel();
