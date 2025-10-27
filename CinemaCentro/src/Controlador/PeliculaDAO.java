@@ -187,6 +187,26 @@ public class PeliculaDAO {
         return peli;
     }
     
+    public ArrayList<Pelicula> listarTituloyGenero(){
+        String sql = "SELECT id_pelicula, titulo, genero FROM pelicula";
+        Connection con = ConexionBD.getConnection();
+        ArrayList<Pelicula> lista = null;
+        try(PreparedStatement ps = con.prepareStatement(sql)){
+            try(ResultSet rs = ps.executeQuery()){
+                while(rs.next()){
+                    Pelicula peli = new Pelicula();
+                    peli.setId_Pelicula(rs.getInt("id_pelicula"));
+                    peli.setTitulo(rs.getString("titulo"));
+                    peli.setGenero(rs.getString("genero"));
+                    lista.add(peli);
+                }
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return lista;
+    }
+    
     public String[] listarLoQueQuiereNaiara(int id_pelicula){
         String sql = "SELECT titulo, genero WHERE id_pelicula = ?";
         Connection con = ConexionBD.getConnection();
