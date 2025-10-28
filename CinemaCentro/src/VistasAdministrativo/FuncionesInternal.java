@@ -24,8 +24,6 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     /**
      * Creates new form FuncionesInternal
      */
-    private PeliculaDAO pelIns = new PeliculaDAO();
-    private Pelicula pelicula;
     List<Pelicula> ListarPeliculas;
     String[] cabeceras = {"id_pelicula", "Titulo"};
     private PeliculaDAO peliculaDAO = new PeliculaDAO();
@@ -39,6 +37,8 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         tblpeliculas.setModel(VentanaAdministrativo.armarCabeceras(cabeceras));
         jTableSala.setModel(VentanaAdministrativo.armarCabeceras(cabecerass));
         jTableHorarios.setModel(VentanaAdministrativo.armarCabeceras(cabeceraa));
+        tblpeliculas.setModel(VentanaAdministrativo.armarCabeceras(cabeceras));
+        rellenarTablaPelicula();
     }
 
     /**
@@ -345,28 +345,20 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblpeliculas;
     // End of variables declaration//GEN-END:variables
 
-    private void rellenarTablaPelicula(JTable tabla) throws Exception {
-
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-        ListarPeliculas = pelIns.listarTodasPeliculas();
-        modelo.setRowCount(0);
-        List<Pelicula> listarPeliculaFiltrada = new ArrayList<>();
-        List<Pelicula> listarPeliculas = pelIns.listarTodasPeliculas();
+    private void rellenarTablaPelicula() {
 
         try {
-
-            for (Pelicula p : listarPeliculas) {
-                if (p.isEstado() && !listarPeliculaFiltrada.contains(p)) {
-                    listarPeliculaFiltrada.add(p);
-                }
+            List<Pelicula> pelis = peliculaDAO.listarTodasPeliculas();
+            DefaultTableModel model = VentanaAdministrativo.armarCabeceras(cabeceras);
+            for (Pelicula p : pelis) {
+                model.addRow(new Object[]{
+                    p.getId_Pelicula(),
+                    p.getTitulo()
+                });
             }
-
-            for (Pelicula p : listarPeliculaFiltrada) {
-                modelo.addRow(new Object[]{p.getId_Pelicula(),p.getTitulo()});
-            }
-
+            tblpeliculas.setModel(model);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(tabla, "Error al cargar las peliculas");
+            JOptionPane.showMessageDialog(this, "Error al cargar la tabla: " + e.getMessage());
         }
 
     }
