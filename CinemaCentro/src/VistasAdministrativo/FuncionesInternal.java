@@ -8,6 +8,12 @@ package VistasAdministrativo;
 import Controlador.FuncionDAO;
 import Controlador.PeliculaDAO;
 import Controlador.SalaDAO;
+import Modelo.Pelicula;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,20 +24,22 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     /**
      * Creates new form FuncionesInternal
      */
+    private PeliculaDAO pelIns = new PeliculaDAO();
+    private Pelicula pelicula;
+    List<Pelicula> ListarPeliculas;
     String[] cabeceras = {"id_pelicula", "Titulo"};
     private PeliculaDAO peliculaDAO = new PeliculaDAO();
     String[] cabecerass = {"Sala"};
     private SalaDAO salaDAO = new SalaDAO();
-    String [] cabeceraa = {"Horarios"};
+    String[] cabeceraa = {"Horarios"};
     private FuncionDAO funciondao = new FuncionDAO();
+
     public FuncionesInternal() {
         initComponents();
         tblpeliculas.setModel(VentanaAdministrativo.armarCabeceras(cabeceras));
         jTableSala.setModel(VentanaAdministrativo.armarCabeceras(cabecerass));
         jTableHorarios.setModel(VentanaAdministrativo.armarCabeceras(cabeceraa));
     }
-    
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,7 +69,6 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         jTableSala = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jButtonConfirmar = new javax.swing.JButton();
-        btndarAlta = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
         btndarbaja = new javax.swing.JButton();
@@ -122,6 +129,11 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
 
         jComboBoxIdioma.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jComboBoxIdioma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxIdioma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxIdiomaActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
         jLabel6.setText("Peliculas");
@@ -143,8 +155,6 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         jLabel7.setText("Descripcion  de la funcion");
 
         jButtonConfirmar.setText("Confirmar");
-
-        btndarAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-alta.png"))); // NOI18N
 
         btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
 
@@ -192,16 +202,13 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
                                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(59, 59, 59)
+                                .addGap(31, 31, 31)
                                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                        .addComponent(btneliminar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnmodificar))
-                                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                        .addComponent(btndarAlta)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btndarbaja))))))
+                                    .addComponent(btndarbaja)
+                                    .addComponent(btnmodificar))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btneliminar)
+                                .addGap(28, 28, 28))))
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
                         .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlFuncionesLayout.createSequentialGroup()
@@ -271,18 +278,18 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(22, 22, 22)
                         .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btndarbaja)
-                                    .addComponent(btndarAlta))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7)
+                                .addGap(22, 22, 22)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addGap(39, 39, 39)
                                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnmodificar)
+                                    .addComponent(btndarbaja)
                                     .addComponent(btneliminar))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnmodificar)
                                 .addGap(44, 44, 44)
                                 .addComponent(jButtonConfirmar)))
                         .addGap(51, 51, 51))))
@@ -306,9 +313,12 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton2DActionPerformed
 
+    private void jComboBoxIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxIdiomaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxIdiomaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btndarAlta;
     private javax.swing.JButton btndarbaja;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnmodificar;
@@ -334,5 +344,31 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbldescripcion;
     private javax.swing.JTable tblpeliculas;
     // End of variables declaration//GEN-END:variables
+
+    private void rellenarTablaPelicula(JTable tabla) throws Exception {
+
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        ListarPeliculas = pelIns.listarTodasPeliculas();
+        modelo.setRowCount(0);
+        List<Pelicula> listarPeliculaFiltrada = new ArrayList<>();
+        List<Pelicula> listarPeliculas = pelIns.listarTodasPeliculas();
+
+        try {
+
+            for (Pelicula p : listarPeliculas) {
+                if (p.isEstado() && !listarPeliculaFiltrada.contains(p)) {
+                    listarPeliculaFiltrada.add(p);
+                }
+            }
+
+            for (Pelicula p : listarPeliculaFiltrada) {
+                modelo.addRow(new Object[]{p.getId_Pelicula(),p.getTitulo()});
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(tabla, "Error al cargar las peliculas");
+        }
+
+    }
 
 }
