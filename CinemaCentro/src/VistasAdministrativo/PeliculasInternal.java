@@ -84,7 +84,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
 
         pnlPeliculas.setBackground(new java.awt.Color(102, 0, 0));
 
-        lblTituloPanel.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        lblTituloPanel.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
         lblTituloPanel.setForeground(new java.awt.Color(255, 255, 255));
         lblTituloPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloPanel.setText("REGISTRAR PELICULAS");
@@ -102,6 +102,8 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
 
             }
         ));
+        tblPeliculas.setGridColor(new java.awt.Color(255, 255, 255));
+        tblPeliculas.setSelectionForeground(new java.awt.Color(255, 255, 255));
         tblPeliculas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblPeliculasMouseClicked(evt);
@@ -348,30 +350,39 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
 
         pnlFiltros.setBackground(new java.awt.Color(102, 0, 0));
 
+        jLabel1.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Filtro 1");
 
+        jLabel2.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Filtro 2");
 
+        jLabel3.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Filtro 3");
 
+        jRadioButton1.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
         jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton1.setText("op1");
 
+        jRadioButton2.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
         jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton2.setText("op2");
 
+        jRadioButton3.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
         jRadioButton3.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton3.setText("op1");
 
+        jRadioButton4.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
         jRadioButton4.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton4.setText("op2");
 
+        jRadioButton5.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
         jRadioButton5.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton5.setText("op1");
 
+        jRadioButton6.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
         jRadioButton6.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton6.setText("op2");
 
@@ -424,7 +435,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
             }
         });
 
-        lblTituloPanel1.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
+        lblTituloPanel1.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         lblTituloPanel1.setForeground(new java.awt.Color(255, 255, 255));
         lblTituloPanel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloPanel1.setText("CinemaCentro");
@@ -455,7 +466,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTituloPanel)
-                    .addComponent(lblTituloPanel1))
+                    .addComponent(lblTituloPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

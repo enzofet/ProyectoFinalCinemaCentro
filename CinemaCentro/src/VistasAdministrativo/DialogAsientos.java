@@ -78,7 +78,7 @@ public class DialogAsientos extends javax.swing.JDialog {
         lblCinema.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCinema.setText("CinemaCentro");
         lblCinema.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        pnlAsientos.add(lblCinema, new org.netbeans.lib.awtextra.AbsoluteConstraints(756, 6, -1, 59));
+        pnlAsientos.add(lblCinema, new org.netbeans.lib.awtextra.AbsoluteConstraints(756, 35, -1, 30));
 
         lblSala.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblSala.setForeground(new java.awt.Color(255, 255, 255));
@@ -259,6 +259,7 @@ public class DialogAsientos extends javax.swing.JDialog {
 
         btnSalir.setBackground(new java.awt.Color(255, 255, 255));
         btnSalir.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setText("SALIR");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
