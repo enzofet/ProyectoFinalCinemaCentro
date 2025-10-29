@@ -186,24 +186,28 @@ public class PeliculaDAO {
         return peli;
     }
     
-    public ArrayList<String[]> listarTituloyGenero(){
+    public ArrayList<Pelicula> listarTituloyGenero(){
         String sql = "SELECT id_pelicula, titulo, genero FROM pelicula";
         Connection con = ConexionBD.getConnection();
-        ArrayList<String[]> lista = new ArrayList<>();
+        Pelicula pelicula;
+        ArrayList <Pelicula> peliculas = new ArrayList<>();        
         
         try(PreparedStatement ps = con.prepareStatement(sql)){
-            try(ResultSet rs = ps.executeQuery()){
-                while(rs.next()){
-                    
-                    String[] atributos = {Integer.toString(rs.getInt("id_pelicula")), 
-                        rs.getString("titulo"), rs.getString("genero")};
-                    lista.add(atributos);
-                }
+            try(ResultSet rs=ps.executeQuery()){
+               while(rs.next()){
+                   pelicula = new Pelicula();
+                   pelicula.setId_Pelicula(rs.getInt("id_pelicula"));
+                   pelicula.setTitulo(rs.getString("titulo"));
+                   pelicula.setGenero(rs.getString("genero"));
+                   
+                   peliculas.add(pelicula);
+               }
             }
-        }catch(SQLException e){
-            e.printStackTrace();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-        return lista;
+        return peliculas;
     }
     
     public String[] listarLoQueQuiereNaiara(int id_pelicula){
