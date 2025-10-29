@@ -30,15 +30,11 @@ public class LoginCliente extends javax.swing.JFrame {
     fondopanel fondo = new fondopanel();
     ClienteDAO maniCliente = new ClienteDAO();
     PeliculaDAO peli = new PeliculaDAO();
-    ArrayList<String[]> listapeli = peli.listarTituloyGenero();
+   
     public LoginCliente() {
         this.setContentPane(fondo);
         initComponents();
-        for(Object[] o : listapeli){
-            System.out.println(o[0]);
-            System.out.println(o[1]);
-            System.out.println(o[2]);
-        }
+       
         
     }
 
