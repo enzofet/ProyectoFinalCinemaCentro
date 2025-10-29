@@ -5,9 +5,18 @@
  */
 package VistasCliente;
 
+import Controlador.PeliculaDAO;
 import Modelo.Cliente;
+import Modelo.Pelicula;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -15,12 +24,59 @@ import javax.swing.SwingUtilities;
  */
 public class VentanaMainCliente extends javax.swing.JFrame {
 
+    private PeliculaDAO maniPeli = new PeliculaDAO();
+    static String[] columnas = {"id_pelicula", "titulo", "genero"};
+    static DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
+        @Override
+        public boolean isCellEditable(int a, int b) {
+            return false;
+        }
+
+    };
+
     /**
      * Creates new form LoginCliente
      */
     public VentanaMainCliente(Cliente cliente) {
         initComponents();
+        armarCabeceraPelicula(jTPeli);
     }
+
+    //Relleno de tabla pelicula
+    private void refreshTabla() {
+        
+        List<Pelicula> lista;
+        modelo.setRowCount(0);
+        try {
+            lista = maniPeli.listarTodasPeliculas();
+            for (Pelicula peli : lista) {
+                modelo.addRow(new Object[]{
+                    peli.getId_Pelicula(),
+                    peli.getTitulo(),
+                    peli.getGenero()
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    //Cabecera y relleno de tabla pelicula
+    private void armarCabeceraPelicula(JTable tabla){
+        
+        //Cabecera
+        tabla.setModel(modelo);
+        TableColumnModel modeloColumnas = tabla.getColumnModel();
+        TableColumn columnID = modeloColumnas.getColumn(0);
+        columnID.setMinWidth(0);
+        columnID.setPreferredWidth(0);
+        columnID.setMaxWidth(0);
+        columnID.setResizable(false);
+        
+        //relleno
+        refreshTabla();
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,7 +98,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTPeli = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -94,7 +150,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTPeli.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -105,7 +161,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jTPeli);
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -365,8 +421,8 @@ public class VentanaMainCliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JTable jTPeli;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;

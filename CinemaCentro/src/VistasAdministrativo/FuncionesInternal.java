@@ -26,11 +26,12 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     /**
      * Creates new form FuncionesInternal
      */
-    List<Pelicula> ListarPeliculas;
     String[] cabeceras = {"id_pelicula", "Titulo"};
     private PeliculaDAO peliculaDAO = new PeliculaDAO();
+    
     String[] cabecerass = {"Sala"};
     private SalaDAO salaDAO = new SalaDAO();
+    
     String[] cabeceraa = {"Horarios"};
     private FuncionDAO funciondao = new FuncionDAO();
 
@@ -39,7 +40,6 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         tblpeliculas.setModel(VentanaAdministrativo.armarCabeceras(cabeceras));
         jTableSala.setModel(VentanaAdministrativo.armarCabeceras(cabecerass));
         jTableHorarios.setModel(VentanaAdministrativo.armarCabeceras(cabeceraa));
-        tblpeliculas.setModel(VentanaAdministrativo.armarCabeceras(cabeceras));
         rellenarTablaPelicula();
         rellenarTablaSala();
         rellenartablaHorario();
@@ -369,7 +369,7 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     private void rellenarTablaSala() {
         try {
             List<Sala> salas = salaDAO.listarsalas();
-            DefaultTableModel model = VentanaAdministrativo.armarCabeceras(cabeceras);
+            DefaultTableModel model = VentanaAdministrativo.armarCabeceras(cabecerass);
             for (Sala s : salas) {
                 model.addRow(new Object[]{
                     s.getNro_Sala()
@@ -384,7 +384,7 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     private void rellenartablaHorario(){
         try{
             List<Funcion>funci = funciondao.listarFunciones();
-            DefaultTableModel model = VentanaAdministrativo.armarCabeceras(cabeceras);
+            DefaultTableModel model = VentanaAdministrativo.armarCabeceras(cabeceraa);
             for (Funcion f : funci){
                 model.addRow(new Object[]{
                     f.getHora_Inicio()
