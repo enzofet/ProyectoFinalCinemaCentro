@@ -110,7 +110,7 @@ public class PeliculaDAO {
     }
 
     public void darBaja(int id) throws Exception {
-        String sql = "UPDATE pelicula SET estado = false WHERE id_pelicula = ?";
+        String sql = "UPDATE pelicula SET estado = false, enCartelera = false WHERE id_pelicula = ?";
         Connection con = ConexionBD.getConnection();
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
