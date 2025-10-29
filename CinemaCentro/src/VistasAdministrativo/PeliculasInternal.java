@@ -558,6 +558,9 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         try {
+            
+            if(!validarCampos()) return;
+            
             String titulo = txtTitulo.getText();
             String director = txtDirector.getText();
             String reparto = txtReparto.getText();
@@ -635,6 +638,9 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         }
 
         try {
+            
+            if(!validarCampos()) return;
+            
             int id = Integer.parseInt(tblPeliculas.getValueAt(fila, 0).toString());
             String titulo = txtTitulo.getText();
             String director = txtDirector.getText();
@@ -805,6 +811,53 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         }
 }
 
+    private boolean validarCampos(){
+        if(txtTitulo.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "El titulo es obligatorio.");
+            txtTitulo.requestFocus();
+            return false;
+        }
+        if(txtDirector.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "El director es obligatorio.");
+            txtDirector.requestFocus();
+            return false;
+        }
+        if(txtReparto.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "El reparto es obligatorio.");
+            txtReparto.requestFocus();
+            return false;
+        }
+        if(txtPaisOrigen.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "El pais de origen es obligatorio.");
+            txtPaisOrigen.requestFocus();
+            return false;
+        }
+        if(txtGeneros.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "El genero es obligatorio.");
+            txtGeneros.requestFocus();
+            return false;
+        }
+        if(txtEstreno.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "La fecha de estreno es obligatoria.");
+            txtEstreno.requestFocus();
+            return false;
+        }
+        if(cmbEnCartelera.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar si la pelicula está en cartelera o no.");
+            cmbEnCartelera.requestFocus();
+            return false;
+        }
+        
+        try{
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate.parse(txtEstreno.getText(), formato);
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Formato de fecha invalido. Usá yyyy-MM-dd.");
+            txtEstreno.requestFocus();
+            return false;
+        }
+        return true;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAlta;

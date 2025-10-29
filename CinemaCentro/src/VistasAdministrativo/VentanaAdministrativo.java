@@ -124,6 +124,11 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
         jMenuBar1.add(menuTaquilla);
 
         menuSalir.setText("Salir");
+        menuSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSalirActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(menuSalir);
 
         setJMenuBar(jMenuBar1);
@@ -163,6 +168,10 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
     private void menuModificarAsientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarAsientosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuModificarAsientosActionPerformed
+
+    private void menuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSalirActionPerformed
+            dispose();
+    }//GEN-LAST:event_menuSalirActionPerformed
 
     /**
      * @param args the command line arguments
