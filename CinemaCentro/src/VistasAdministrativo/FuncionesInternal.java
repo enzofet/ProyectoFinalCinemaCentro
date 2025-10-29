@@ -41,6 +41,8 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         jTableHorarios.setModel(VentanaAdministrativo.armarCabeceras(cabeceraa));
         tblpeliculas.setModel(VentanaAdministrativo.armarCabeceras(cabeceras));
         rellenarTablaPelicula();
+        rellenarTablaSala();
+        rellenartablaHorario();
     }
 
     /**
@@ -360,7 +362,7 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
             }
             tblpeliculas.setModel(model);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar la tabla: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar la tabla peliculas: " + e.getMessage());
         }
     }
 
@@ -375,8 +377,23 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
             }
             jTableSala.setModel(model);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar la tabla: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar la tabla salas : " + e.getMessage());
         }
     }
-   
+    
+    private void rellenartablaHorario(){
+        try{
+            List<Funcion>funci = funciondao.listarFunciones();
+            DefaultTableModel model = VentanaAdministrativo.armarCabeceras(cabeceras);
+            for (Funcion f : funci){
+                model.addRow(new Object[]{
+                    f.getHora_Inicio()
+                });
+            }
+            jTableHorarios.setModel(model);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error al cargar la tabla horarios: " + e.getMessage());
+        }
+    }
+    
 } 
