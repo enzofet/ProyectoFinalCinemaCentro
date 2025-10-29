@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package VistasAdministrativo;
 
 import Controlador.PeliculaDAO;
@@ -10,20 +5,17 @@ import Modelo.Pelicula;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Enzo_2
- */
 public class PeliculasInternal extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form PeliculasInternal
      */
-    String[] cabeceras = {"ID", "Titulo", "Director","En Cartelera","Estreno","Estado"};
+    String[] cabeceras = {"ID", "Titulo", "Director", "En Cartelera", "Estreno", "Estado"};
     private PeliculaDAO peliculaDAO = new PeliculaDAO();
 
     public PeliculasInternal() {
@@ -41,6 +33,9 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btngEstado = new javax.swing.ButtonGroup();
+        btngCartelera = new javax.swing.ButtonGroup();
+        btngVerTodo = new javax.swing.ButtonGroup();
         pnlPeliculas = new javax.swing.JPanel();
         lblTituloPanel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -70,17 +65,17 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         btnBaja = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         pnlFiltros = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
+        lblFiltroEstado = new javax.swing.JLabel();
+        lblFiltroCartelera = new javax.swing.JLabel();
+        rbtnEstadoActivo = new javax.swing.JRadioButton();
+        rbtnEstadoInactivo = new javax.swing.JRadioButton();
+        rbtnCarteleraSi = new javax.swing.JRadioButton();
+        rbtnCarteleraNo = new javax.swing.JRadioButton();
+        rbtnEstadoTodas = new javax.swing.JRadioButton();
+        rbtnTodasCartelera = new javax.swing.JRadioButton();
+        rbtnVerTodo = new javax.swing.JRadioButton();
         btnSalir = new javax.swing.JButton();
-        lblTituloPanel1 = new javax.swing.JLabel();
+        lblCinemaCentro = new javax.swing.JLabel();
 
         pnlPeliculas.setBackground(new java.awt.Color(102, 0, 0));
 
@@ -350,82 +345,124 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
 
         pnlFiltros.setBackground(new java.awt.Color(102, 0, 0));
 
-        jLabel1.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Filtro 1");
+        lblFiltroEstado.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        lblFiltroEstado.setForeground(new java.awt.Color(255, 255, 255));
+        lblFiltroEstado.setText("Estado:");
 
-        jLabel2.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Filtro 2");
+        lblFiltroCartelera.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        lblFiltroCartelera.setForeground(new java.awt.Color(255, 255, 255));
+        lblFiltroCartelera.setText("En Cartelera:");
 
-        jLabel3.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Filtro 3");
+        btngEstado.add(rbtnEstadoActivo);
+        rbtnEstadoActivo.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        rbtnEstadoActivo.setForeground(new java.awt.Color(255, 255, 255));
+        rbtnEstadoActivo.setText("Activo");
+        rbtnEstadoActivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnEstadoActivoActionPerformed(evt);
+            }
+        });
 
-        jRadioButton1.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton1.setText("op1");
+        btngEstado.add(rbtnEstadoInactivo);
+        rbtnEstadoInactivo.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        rbtnEstadoInactivo.setForeground(new java.awt.Color(255, 255, 255));
+        rbtnEstadoInactivo.setText("Inactivo");
+        rbtnEstadoInactivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnEstadoInactivoActionPerformed(evt);
+            }
+        });
 
-        jRadioButton2.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton2.setText("op2");
+        btngCartelera.add(rbtnCarteleraSi);
+        rbtnCarteleraSi.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        rbtnCarteleraSi.setForeground(new java.awt.Color(255, 255, 255));
+        rbtnCarteleraSi.setText("Si");
+        rbtnCarteleraSi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnCarteleraSiActionPerformed(evt);
+            }
+        });
 
-        jRadioButton3.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton3.setText("op1");
+        btngCartelera.add(rbtnCarteleraNo);
+        rbtnCarteleraNo.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        rbtnCarteleraNo.setForeground(new java.awt.Color(255, 255, 255));
+        rbtnCarteleraNo.setText("No");
+        rbtnCarteleraNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnCarteleraNoActionPerformed(evt);
+            }
+        });
 
-        jRadioButton4.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
-        jRadioButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton4.setText("op2");
+        btngEstado.add(rbtnEstadoTodas);
+        rbtnEstadoTodas.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        rbtnEstadoTodas.setForeground(new java.awt.Color(255, 255, 255));
+        rbtnEstadoTodas.setText("Todas");
+        rbtnEstadoTodas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnEstadoTodasActionPerformed(evt);
+            }
+        });
 
-        jRadioButton5.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
-        jRadioButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton5.setText("op1");
+        btngCartelera.add(rbtnTodasCartelera);
+        rbtnTodasCartelera.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        rbtnTodasCartelera.setForeground(new java.awt.Color(255, 255, 255));
+        rbtnTodasCartelera.setText("Todas");
+        rbtnTodasCartelera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnTodasCarteleraActionPerformed(evt);
+            }
+        });
 
-        jRadioButton6.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
-        jRadioButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton6.setText("op2");
+        btngVerTodo.add(rbtnVerTodo);
+        rbtnVerTodo.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        rbtnVerTodo.setForeground(new java.awt.Color(255, 255, 255));
+        rbtnVerTodo.setText("Ver Todo");
+        rbtnVerTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnVerTodoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlFiltrosLayout = new javax.swing.GroupLayout(pnlFiltros);
         pnlFiltros.setLayout(pnlFiltrosLayout);
         pnlFiltrosLayout.setHorizontalGroup(
             pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFiltrosLayout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFiltrosLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(rbtnVerTodo)
+                .addGap(24, 24, 24)
+                .addComponent(lblFiltroEstado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(rbtnEstadoTodas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton3)
+                .addComponent(rbtnEstadoActivo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton4)
+                .addComponent(rbtnEstadoInactivo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(lblFiltroCartelera)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(rbtnTodasCartelera)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton5)
+                .addComponent(rbtnCarteleraSi)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton6)
-                .addGap(56, 56, 56))
+                .addComponent(rbtnCarteleraNo)
+                .addGap(20, 20, 20))
         );
         pnlFiltrosLayout.setVerticalGroup(
             pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFiltrosLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFiltrosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton5)
-                    .addComponent(jRadioButton6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblFiltroEstado)
+                    .addComponent(lblFiltroCartelera)
+                    .addComponent(rbtnEstadoActivo)
+                    .addComponent(rbtnEstadoInactivo)
+                    .addComponent(rbtnCarteleraSi)
+                    .addComponent(rbtnCarteleraNo)
+                    .addComponent(rbtnEstadoTodas)
+                    .addComponent(rbtnTodasCartelera)
+                    .addComponent(rbtnVerTodo))
+                .addContainerGap())
         );
 
         btnSalir.setText("Salir");
@@ -435,10 +472,10 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
             }
         });
 
-        lblTituloPanel1.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
-        lblTituloPanel1.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloPanel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloPanel1.setText("CinemaCentro");
+        lblCinemaCentro.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
+        lblCinemaCentro.setForeground(new java.awt.Color(255, 255, 255));
+        lblCinemaCentro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCinemaCentro.setText("CinemaCentro");
 
         javax.swing.GroupLayout pnlPeliculasLayout = new javax.swing.GroupLayout(pnlPeliculas);
         pnlPeliculas.setLayout(pnlPeliculasLayout);
@@ -454,7 +491,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                     .addGroup(pnlPeliculasLayout.createSequentialGroup()
                         .addComponent(lblTituloPanel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblTituloPanel1))
+                        .addComponent(lblCinemaCentro))
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(pnlFiltros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -466,7 +503,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTituloPanel)
-                    .addComponent(lblTituloPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblCinemaCentro, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -623,7 +660,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void cmbEnCarteleraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEnCarteleraActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_cmbEnCarteleraActionPerformed
 
     private void tblPeliculasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPeliculasMouseClicked
@@ -649,6 +686,42 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_tblPeliculasMouseClicked
+
+    private void rbtnEstadoActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnEstadoActivoActionPerformed
+        btngVerTodo.clearSelection();
+        aplicarFiltros();
+    }//GEN-LAST:event_rbtnEstadoActivoActionPerformed
+
+    private void rbtnEstadoTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnEstadoTodasActionPerformed
+        btngVerTodo.clearSelection();
+        aplicarFiltros();
+    }//GEN-LAST:event_rbtnEstadoTodasActionPerformed
+
+    private void rbtnEstadoInactivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnEstadoInactivoActionPerformed
+        btngVerTodo.clearSelection();
+        aplicarFiltros();
+    }//GEN-LAST:event_rbtnEstadoInactivoActionPerformed
+
+    private void rbtnTodasCarteleraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnTodasCarteleraActionPerformed
+        btngVerTodo.clearSelection();
+        aplicarFiltros();
+    }//GEN-LAST:event_rbtnTodasCarteleraActionPerformed
+
+    private void rbtnCarteleraSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnCarteleraSiActionPerformed
+        btngVerTodo.clearSelection();
+        aplicarFiltros();
+    }//GEN-LAST:event_rbtnCarteleraSiActionPerformed
+
+    private void rbtnCarteleraNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnCarteleraNoActionPerformed
+        btngVerTodo.clearSelection();
+        aplicarFiltros();
+    }//GEN-LAST:event_rbtnCarteleraNoActionPerformed
+
+    private void rbtnVerTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnVerTodoActionPerformed
+        btngEstado.clearSelection();
+        btngCartelera.clearSelection();
+        aplicarFiltros();
+    }//GEN-LAST:event_rbtnVerTodoActionPerformed
 
     private void limpiarCampos() {
         txtTitulo.setText("");
@@ -680,6 +753,58 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         }
     }
 
+    private void cargarTabla(List<Pelicula> lista) {
+        DefaultTableModel modelo = (DefaultTableModel) tblPeliculas.getModel();
+        modelo.setRowCount(0);
+
+        for (Pelicula p : lista) {
+            modelo.addRow(new Object[]{
+                p.getId_Pelicula(),
+                p.getTitulo(),
+                p.getDirector(),
+                p.isEnCartelera() ? "Sí" : "No",
+                p.getEstreno(),
+                p.isEstado() ? "Activo" : "Inactivo",
+                p.getGenero(),
+                p.getPais_Origen(),
+            });
+        }
+    }
+    
+    private void aplicarFiltros() {
+        try {
+            List<Pelicula> todas = peliculaDAO.listarTodasPeliculas();
+            List<Pelicula> filtradas = new ArrayList<>();
+
+            Boolean filtroEstado = null; // null = todas
+            if (rbtnEstadoActivo.isSelected()) filtroEstado = true;
+            else if (rbtnEstadoInactivo.isSelected()) filtroEstado = false;
+
+            Boolean filtroCartelera = null; // null = todas
+            if (rbtnCarteleraSi.isSelected()) filtroCartelera = true;
+            else if (rbtnCarteleraNo.isSelected()) filtroCartelera = false;
+
+            for (Pelicula p : todas) {
+                boolean cumple = true;
+                
+                if (filtroEstado != null && p.isEstado() != filtroEstado) {
+                    cumple = false;
+                }
+
+                if (filtroCartelera != null && p.isEnCartelera() != filtroCartelera) {
+                    cumple = false;
+                }
+
+                if (cumple) filtradas.add(p);
+            }
+
+            cargarTabla(filtradas);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+}
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAlta;
@@ -687,33 +812,36 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.ButtonGroup btngCartelera;
+    private javax.swing.ButtonGroup btngEstado;
+    private javax.swing.ButtonGroup btngVerTodo;
     private javax.swing.JComboBox<String> cmbEnCartelera;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCartelera;
+    private javax.swing.JLabel lblCinemaCentro;
     private javax.swing.JLabel lblDirector;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblEstadoS;
     private javax.swing.JLabel lblEstreno;
+    private javax.swing.JLabel lblFiltroCartelera;
+    private javax.swing.JLabel lblFiltroEstado;
     private javax.swing.JLabel lblGeneros;
     private javax.swing.JLabel lblPaisOrigen;
     private javax.swing.JLabel lblReparto;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTituloPanel;
-    private javax.swing.JLabel lblTituloPanel1;
     private javax.swing.JPanel pnlControles;
     private javax.swing.JPanel pnlFiltros;
     private javax.swing.JPanel pnlPeliculaS;
     private javax.swing.JPanel pnlPeliculas;
+    private javax.swing.JRadioButton rbtnCarteleraNo;
+    private javax.swing.JRadioButton rbtnCarteleraSi;
+    private javax.swing.JRadioButton rbtnEstadoActivo;
+    private javax.swing.JRadioButton rbtnEstadoInactivo;
+    private javax.swing.JRadioButton rbtnEstadoTodas;
+    private javax.swing.JRadioButton rbtnTodasCartelera;
+    private javax.swing.JRadioButton rbtnVerTodo;
     private javax.swing.JTable tblPeliculas;
     private javax.swing.JTextField txtDirector;
     private javax.swing.JTextField txtEstreno;
