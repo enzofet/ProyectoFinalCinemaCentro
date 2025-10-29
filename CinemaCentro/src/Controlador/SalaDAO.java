@@ -26,16 +26,15 @@ public class SalaDAO {
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, sala.getNro_Sala());
             ps.setInt(2, sala.getCapacidad());
-            ps.setInt(3, sala.getEstado());
+            ps.setBoolean(3, sala.isEstado());
             ps.setBoolean(3, sala.isApta3D());
 
             ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                sala.setEstado(rs.getInt(1));
-            } else {
-                System.out.println("sala no disponible");
+            int filas = ps.executeUpdate();
+             if (filas == 0) {
+                throw new Exception("No se pudo agregar la sala");
             }
+            
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
@@ -67,7 +66,7 @@ public class SalaDAO {
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, sala.getNro_Sala());
             ps.setInt(2, sala.getCapacidad());
-            ps.setInt(3, sala.getEstado());
+            ps.setBoolean(3, sala.isEstado());
             ps.setBoolean(3, sala.isApta3D());
 
             int filas = ps.executeUpdate();
@@ -94,7 +93,7 @@ public class SalaDAO {
                     sala = new Sala();
                     sala.setNro_Sala(rs.getInt("nro_sala"));
                     sala.setCapacidad(rs.getInt("capacidad"));
-                    sala.setEstado(rs.getInt("estado"));
+                    sala.setEstado(rs.getBoolean("estado"));
                     sala.setApta3D(rs.getBoolean("apta3D"));
                 } else {
                     throw new Exception("No se a encontrado la sala");
@@ -121,7 +120,7 @@ public class SalaDAO {
                     sala = new Sala();
                     sala.setNro_Sala(rs.getInt("nro_sala"));
                     sala.setCapacidad(rs.getInt("capacidad"));
-                    sala.setEstado(rs.getInt("estado"));
+                    sala.setEstado(rs.getBoolean("estado"));
                     sala.setApta3D(rs.getBoolean("apta3D"));
                     listarsalas.add(sala);
 

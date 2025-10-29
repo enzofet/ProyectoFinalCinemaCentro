@@ -17,7 +17,7 @@ public class Sala {
     
     private int nro_Sala;
     private int capacidad;
-    private int estado;
+    private boolean estado;
     private boolean apta3D;
 
     public Sala() {
@@ -25,7 +25,7 @@ public class Sala {
 
     
     
-    public Sala(int nro_Sala, int Capacidad, int Estado, boolean Apta3D) {
+    public Sala(int nro_Sala, int Capacidad, boolean Estado, boolean Apta3D) {
         this.nro_Sala = nro_Sala;
         this.capacidad = Capacidad;
         this.estado = Estado;
@@ -50,11 +50,11 @@ public class Sala {
         this.capacidad = Capacidad;
     }
 
-    public int getEstado() {
+    public boolean isEstado() {
         return estado;
     }
 
-    public void setEstado(int Estado) {
+    public void setEstado(boolean Estado) {
         this.estado = Estado;
     }
 

@@ -5,7 +5,6 @@
  */
 package VistasAdministrativo;
 
-import Modelo.Funcion;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -60,9 +59,9 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
         btnGestionFunciones = new javax.swing.JMenuItem();
         menuSalas = new javax.swing.JMenu();
         menuGestionSalas = new javax.swing.JMenuItem();
-        menuModificarAsientos = new javax.swing.JMenuItem();
         menuVentas = new javax.swing.JMenu();
         menuTaquilla = new javax.swing.JMenu();
+        btnVentaTaquilla = new javax.swing.JMenuItem();
         menuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -105,15 +104,12 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
         menuSalas.setText("Salas");
 
         menuGestionSalas.setText("Gestión de salas");
-        menuSalas.add(menuGestionSalas);
-
-        menuModificarAsientos.setText("Modificar asientos");
-        menuModificarAsientos.addActionListener(new java.awt.event.ActionListener() {
+        menuGestionSalas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuModificarAsientosActionPerformed(evt);
+                menuGestionSalasActionPerformed(evt);
             }
         });
-        menuSalas.add(menuModificarAsientos);
+        menuSalas.add(menuGestionSalas);
 
         jMenuBar1.add(menuSalas);
 
@@ -121,6 +117,15 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
         jMenuBar1.add(menuVentas);
 
         menuTaquilla.setText("Taquilla");
+
+        btnVentaTaquilla.setText("Venta taquilla");
+        btnVentaTaquilla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentaTaquillaActionPerformed(evt);
+            }
+        });
+        menuTaquilla.add(btnVentaTaquilla);
+
         jMenuBar1.add(menuTaquilla);
 
         menuSalir.setText("Salir");
@@ -160,9 +165,23 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
         ventanaIns.moveToFront();
     }//GEN-LAST:event_btnGestionFuncionesActionPerformed
 
-    private void menuModificarAsientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarAsientosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuModificarAsientosActionPerformed
+    private void menuGestionSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGestionSalasActionPerformed
+        escritorioAdmin.removeAll();
+        escritorioAdmin.repaint();
+        SalasInternal ventanaSalas = new SalasInternal();
+        escritorioAdmin.add(ventanaSalas);
+        ventanaSalas.setVisible(true);
+        ventanaSalas.moveToFront();
+    }//GEN-LAST:event_menuGestionSalasActionPerformed
+
+    private void btnVentaTaquillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaTaquillaActionPerformed
+        escritorioAdmin.removeAll();
+        escritorioAdmin.repaint();
+        TaquillaInternal ventanaTaquilla = new TaquillaInternal();
+        escritorioAdmin.add(ventanaTaquilla);
+        ventanaTaquilla.setVisible(true);
+        ventanaTaquilla.moveToFront();
+    }//GEN-LAST:event_btnVentaTaquillaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,11 +221,11 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnGestionFunciones;
     private javax.swing.JMenuItem btnGestionPeliculas;
+    private javax.swing.JMenuItem btnVentaTaquilla;
     private javax.swing.JDesktopPane escritorioAdmin;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu menuFunciones;
     private javax.swing.JMenuItem menuGestionSalas;
-    private javax.swing.JMenuItem menuModificarAsientos;
     private javax.swing.JMenu menuPeliculas;
     private javax.swing.JMenu menuSalas;
     private javax.swing.JMenu menuSalir;

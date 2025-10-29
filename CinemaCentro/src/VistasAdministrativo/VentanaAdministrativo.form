@@ -43,13 +43,8 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de salas"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuModificarAsientos">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Modificar asientos"/>
-              </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuModificarAsientosActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuGestionSalasActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -63,6 +58,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Taquilla"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="btnVentaTaquilla">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Venta taquilla"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVentaTaquillaActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuSalir">
           <Properties>
