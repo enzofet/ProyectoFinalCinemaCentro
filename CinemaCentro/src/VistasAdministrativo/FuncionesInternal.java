@@ -8,7 +8,9 @@ package VistasAdministrativo;
 import Controlador.FuncionDAO;
 import Controlador.PeliculaDAO;
 import Controlador.SalaDAO;
+import Modelo.Funcion;
 import Modelo.Pelicula;
+import Modelo.Sala;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -360,7 +362,21 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al cargar la tabla: " + e.getMessage());
         }
-
     }
 
-}
+    private void rellenarTablaSala() {
+        try {
+            List<Sala> salas = salaDAO.listarsalas();
+            DefaultTableModel model = VentanaAdministrativo.armarCabeceras(cabeceras);
+            for (Sala s : salas) {
+                model.addRow(new Object[]{
+                    s.getNro_Sala()
+                });
+            }
+            jTableSala.setModel(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar la tabla: " + e.getMessage());
+        }
+    }
+   
+} 
