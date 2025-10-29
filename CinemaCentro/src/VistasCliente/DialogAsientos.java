@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package VistasAdministrativo;
+package VistasCliente;
 
 import Controlador.AsientoDAO;
 import Modelo.Asiento;
@@ -35,7 +35,7 @@ public class DialogAsientos extends javax.swing.JDialog {
         rellenarTabla();
         tblAsientos.setCellSelectionEnabled(true);
         tblAsientos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        agregarListener(tblAsientos);
+        agregarListener(tblAsientos);    
     }
 
     /**
@@ -77,8 +77,8 @@ public class DialogAsientos extends javax.swing.JDialog {
         btnSalir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lblFilaS = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         lblNumeroS = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -91,7 +91,7 @@ public class DialogAsientos extends javax.swing.JDialog {
         lblCinema.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCinema.setText("CinemaCentro");
         lblCinema.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        pnlAsientos.add(lblCinema, new org.netbeans.lib.awtextra.AbsoluteConstraints(756, 35, -1, 30));
+        pnlAsientos.add(lblCinema, new org.netbeans.lib.awtextra.AbsoluteConstraints(756, 6, -1, 59));
 
         lblSala.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblSala.setForeground(new java.awt.Color(255, 255, 255));
@@ -272,7 +272,6 @@ public class DialogAsientos extends javax.swing.JDialog {
 
         btnSalir.setBackground(new java.awt.Color(255, 255, 255));
         btnSalir.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setText("SALIR");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,14 +289,14 @@ public class DialogAsientos extends javax.swing.JDialog {
         lblFilaS.setForeground(new java.awt.Color(255, 255, 255));
         pnlAsientos.add(lblFilaS, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 680, 30, 20));
 
+        lblNumeroS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblNumeroS.setForeground(new java.awt.Color(255, 255, 255));
+        pnlAsientos.add(lblNumeroS, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 680, 30, 20));
+
         jLabel4.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Numero de asiento seleccionado:");
         pnlAsientos.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 680, -1, -1));
-
-        lblNumeroS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        lblNumeroS.setForeground(new java.awt.Color(255, 255, 255));
-        pnlAsientos.add(lblNumeroS, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 680, 30, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -314,7 +313,7 @@ public class DialogAsientos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
     
     public void rellenarTabla(){
@@ -397,6 +396,7 @@ public class DialogAsientos extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DialogAsientos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
