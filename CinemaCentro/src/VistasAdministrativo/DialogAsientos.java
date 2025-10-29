@@ -8,6 +8,10 @@ package VistasAdministrativo;
 import Controlador.AsientoDAO;
 import Modelo.Asiento;
 import java.util.List;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,11 +26,16 @@ public class DialogAsientos extends javax.swing.JDialog {
      
     AsientoDAO maniAsi = new AsientoDAO();
     List<Asiento> listaAsientos = maniAsi.listarAsientosPorSala(1);
-    
+    int nro_sala = 0;
+    char fila = '\u0000';
+    int numero = 0;
     public DialogAsientos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         rellenarTabla();
+        tblAsientos.setCellSelectionEnabled(true);
+        tblAsientos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        agregarListener(tblAsientos);
     }
 
     /**
@@ -66,6 +75,10 @@ public class DialogAsientos extends javax.swing.JDialog {
         pnlEntrada = new javax.swing.JPanel();
         lblEntrada = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        lblFilaS = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblNumeroS = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -267,6 +280,24 @@ public class DialogAsientos extends javax.swing.JDialog {
         });
         pnlAsientos.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 680, -1, -1));
 
+        jLabel1.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Fila seleccionada:");
+        pnlAsientos.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 680, -1, -1));
+
+        lblFilaS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblFilaS.setForeground(new java.awt.Color(255, 255, 255));
+        pnlAsientos.add(lblFilaS, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 680, 30, 20));
+
+        jLabel4.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Numero de asiento seleccionado:");
+        pnlAsientos.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 680, -1, -1));
+
+        lblNumeroS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblNumeroS.setForeground(new java.awt.Color(255, 255, 255));
+        pnlAsientos.add(lblNumeroS, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 680, 30, 20));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -295,11 +326,49 @@ public class DialogAsientos extends javax.swing.JDialog {
             int contador = 0;
             for(Asiento a : listaAsientos){
                 if(a.getFila_asiento() == fila){
-                    modelo.setValueAt(a.getNumero_asiento(), contador, i);
+                    modelo.setValueAt(a.getNumero_asiento() + " " + parsearBoolean(a.isEstado()), contador, i);
                     contador++;
                 }
             }
         }
+    }
+    
+    public String parsearBoolean(boolean estado){
+        if(estado){
+            return "Libre";
+        } 
+            return "Ocupado";
+    } 
+    
+    public boolean parsearString(String estado){
+        return estado.equalsIgnoreCase("Libre");
+    }
+    
+    public void agregarListener(JTable tabla){
+        tabla.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent evento){
+                if(evento.getValueIsAdjusting()){
+                return;
+                }
+
+                int columnaS = tabla.getSelectedColumn();
+                int filaS = tabla.getSelectedRow();
+                String comprobacion = (String) tabla.getValueAt(filaS, columnaS);
+                if(comprobacion == null){
+                    return;
+                }
+                
+                if(columnaS != -1 && filaS != -1){
+                    String valores = (String) tabla.getValueAt(filaS, columnaS);
+                    fila = ((String) tabla.getColumnName(columnaS)).charAt(0);
+                    String[] valoresCortados = valores.split(" ");
+                    numero = Integer.parseInt(valoresCortados[0]);
+                    lblFilaS.setText(String.valueOf(fila));
+                    lblNumeroS.setText(Integer.toString(numero));
+                } 
+            }
+        });
     }
     
     /**
@@ -347,6 +416,8 @@ public class DialogAsientos extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAsientos;
     private javax.swing.JLabel lblAsientosLibres;
@@ -355,6 +426,7 @@ public class DialogAsientos extends javax.swing.JDialog {
     private javax.swing.JLabel lblEntrada;
     private javax.swing.JLabel lblEsTipo;
     private javax.swing.JLabel lblEstadoSub;
+    private javax.swing.JLabel lblFilaS;
     private javax.swing.JLabel lblFinaliza;
     private javax.swing.JLabel lblGenero;
     private javax.swing.JLabel lblGeneroPelicula;
@@ -364,6 +436,7 @@ public class DialogAsientos extends javax.swing.JDialog {
     private javax.swing.JLabel lblIdiomaPelicula;
     private javax.swing.JLabel lblNombrePelicula;
     private javax.swing.JLabel lblNroSala;
+    private javax.swing.JLabel lblNumeroS;
     private javax.swing.JLabel lblPantalla;
     private javax.swing.JLabel lblPelicula;
     private javax.swing.JLabel lblSala;
