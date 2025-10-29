@@ -67,11 +67,8 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         lblImporteTotal = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        pnlTaquilla.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         lblCarteleraActual.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblCarteleraActual.setText("Cartelera actual: ");
-        pnlTaquilla.add(lblCarteleraActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         tblCartelera.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -86,8 +83,6 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblCartelera);
 
-        pnlTaquilla.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 33, 861, 140));
-
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -101,91 +96,63 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        pnlTaquilla.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 201, 861, 134));
-
         lblFuncionesxPelicula.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblFuncionesxPelicula.setText("Funciones disponibles para la pelicula seleccionada");
-        pnlTaquilla.add(lblFuncionesxPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
         lblPelicula.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblPelicula.setText("Pelicula");
-        pnlTaquilla.add(lblPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, -1, -1));
 
         lblPrecioEntradaIndividual.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblPrecioEntradaIndividual.setText("Precio entrada individual");
-        pnlTaquilla.add(lblPrecioEntradaIndividual, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, -1, -1));
-        pnlTaquilla.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, -1, -1));
 
         lblPeliculaS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        pnlTaquilla.add(lblPeliculaS, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 350, 130, 20));
 
         lblGeneros.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblGeneros.setText("Genero/s");
-        pnlTaquilla.add(lblGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, -1, -1));
 
         lblGenerosS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        pnlTaquilla.add(lblGenerosS, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 130, 20));
 
         lblNumeroSala.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblNumeroSala.setText("Número de sala");
-        pnlTaquilla.add(lblNumeroSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, -1, -1));
 
         lblidioma.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblidioma.setText("Idioma");
-        pnlTaquilla.add(lblidioma, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
 
         lbl3D.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lbl3D.setText("3D");
-        pnlTaquilla.add(lbl3D, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, -1, -1));
 
         lblHorarioInicio.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblHorarioInicio.setText("Horario de inicio");
-        pnlTaquilla.add(lblHorarioInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, -1, -1));
 
         lblHorarioFin.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblHorarioFin.setText("Horario de finalización");
-        pnlTaquilla.add(lblHorarioFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, -1, -1));
 
         lblNumeroSalaS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        pnlTaquilla.add(lblNumeroSalaS, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, 130, 20));
 
         lblIdiomaS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        pnlTaquilla.add(lblIdiomaS, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 440, 120, 20));
 
         lbl3DS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        pnlTaquilla.add(lbl3DS, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 470, 130, 20));
 
         lblHorarioInicioS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        pnlTaquilla.add(lblHorarioInicioS, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 380, 70, 20));
 
         lblHorarioFinS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        pnlTaquilla.add(lblHorarioFinS, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 410, 70, 20));
 
         lblFechaFuncion.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblFechaFuncion.setText("Fecha de la funcion");
-        pnlTaquilla.add(lblFechaFuncion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 440, -1, -1));
 
         lblSubtitulada.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblSubtitulada.setText("Subtitulada");
-        pnlTaquilla.add(lblSubtitulada, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, -1, -1));
 
         lblSubtituladaS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        pnlTaquilla.add(lblSubtituladaS, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 500, 140, 20));
-        pnlTaquilla.add(txtCantidadBoletos, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 70, -1));
 
         lblCantidadBoletos.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblCantidadBoletos.setText("Cantidad de boletos");
-        pnlTaquilla.add(lblCantidadBoletos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 470, -1, -1));
 
         lblFechaS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        pnlTaquilla.add(lblFechaS, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 440, 70, 20));
 
         lblPrecioEntradaIndividualS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        pnlTaquilla.add(lblPrecioEntradaIndividualS, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 350, 70, 20));
 
         jScrollPane3.setViewportView(listAsientosS);
-
-        pnlTaquilla.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 380, 150, 200));
 
         btnConfirmacion.setText("Confirmar cantidad de boletos");
         btnConfirmacion.addActionListener(new java.awt.event.ActionListener() {
@@ -193,18 +160,152 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 btnConfirmacionActionPerformed(evt);
             }
         });
-        pnlTaquilla.add(btnConfirmacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 540, -1, -1));
 
         lblAsientosSeleccionados.setText("Asientos seleccionados");
-        pnlTaquilla.add(lblAsientosSeleccionados, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 350, -1, -1));
 
         lblImporteT.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblImporteT.setText("Importe total");
-        pnlTaquilla.add(lblImporteT, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 500, 130, -1));
-        pnlTaquilla.add(lblImporteTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 500, 70, 20));
 
         jButton1.setText("Realizar compra");
-        pnlTaquilla.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 380, 150, -1));
+
+        javax.swing.GroupLayout pnlTaquillaLayout = new javax.swing.GroupLayout(pnlTaquilla);
+        pnlTaquilla.setLayout(pnlTaquillaLayout);
+        pnlTaquillaLayout.setHorizontalGroup(
+            pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lblCarteleraActual))
+            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lblFuncionesxPelicula))
+            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lblPelicula)
+                .addGap(65, 65, 65)
+                .addComponent(lblPeliculaS, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(lblPrecioEntradaIndividual)
+                .addGap(30, 30, 30)
+                .addComponent(lblPrecioEntradaIndividualS, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(lblAsientosSeleccionados))
+            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblGeneros)
+                    .addComponent(lblNumeroSala)
+                    .addComponent(lblidioma)
+                    .addComponent(lbl3D)
+                    .addComponent(lblSubtitulada))
+                .addGap(21, 21, 21)
+                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblGenerosS, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNumeroSalaS, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblIdiomaS, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl3DS, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSubtituladaS, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                        .addComponent(lblHorarioInicio)
+                        .addGap(78, 78, 78)
+                        .addComponent(lblHorarioInicioS, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                        .addComponent(lblHorarioFin)
+                        .addGap(44, 44, 44)
+                        .addComponent(lblHorarioFinS, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                        .addComponent(lblFechaFuncion)
+                        .addGap(61, 61, 61)
+                        .addComponent(lblFechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                        .addComponent(lblCantidadBoletos)
+                        .addGap(38, 38, 38)
+                        .addComponent(txtCantidadBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                        .addComponent(lblImporteT, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(lblImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(btnConfirmacion)))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        pnlTaquillaLayout.setVerticalGroup(
+            pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lblCarteleraActual)
+                .addGap(7, 7, 7)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addComponent(lblFuncionesxPelicula)
+                .addGap(5, 5, 5)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPelicula)
+                    .addComponent(lblPeliculaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPrecioEntradaIndividual)
+                    .addComponent(lblPrecioEntradaIndividualS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAsientosSeleccionados))
+                .addGap(10, 10, 10)
+                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                        .addComponent(lblGeneros)
+                        .addGap(14, 14, 14)
+                        .addComponent(lblNumeroSala)
+                        .addGap(14, 14, 14)
+                        .addComponent(lblidioma)
+                        .addGap(14, 14, 14)
+                        .addComponent(lbl3D)
+                        .addGap(14, 14, 14)
+                        .addComponent(lblSubtitulada))
+                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                        .addComponent(lblGenerosS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblNumeroSalaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblIdiomaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(lbl3DS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblSubtituladaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblHorarioInicio)
+                            .addComponent(lblHorarioInicioS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblHorarioFin)
+                            .addComponent(lblHorarioFinS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFechaFuncion)
+                            .addComponent(lblFechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(lblCantidadBoletos))
+                            .addComponent(txtCantidadBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblImporteT)
+                            .addComponent(lblImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addComponent(btnConfirmacion))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -214,7 +315,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTaquilla, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
+            .addComponent(pnlTaquilla, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
