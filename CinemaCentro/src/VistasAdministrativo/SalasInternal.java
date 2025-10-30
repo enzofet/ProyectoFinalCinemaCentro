@@ -8,6 +8,9 @@ package VistasAdministrativo;
 import Controlador.SalaDAO;
 import Modelo.Sala;
 import java.util.List;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,12 +23,13 @@ public class SalasInternal extends javax.swing.JInternalFrame {
      * Creates new form SalasInternal
      */
     SalaDAO maniSalas = new SalaDAO();
-
+    private int nro_sala = -1;
     public SalasInternal() {
         initComponents();
         rellenarCabeceras();
         deshabilitarBotones();
         rellenarTabla();
+        agregarListenerTablaSala(tblSalas);
     }
 
     /**
@@ -305,7 +309,25 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         cmbEstado.setEnabled(true);
         checkApta3D.setEnabled(true);
     }
-
+    
+    public void agregarListenerTablaSala(JTable tabla){
+        tblSalas.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent evento){
+                if(evento.getValueIsAdjusting()){
+                    return;
+                }
+                
+                int filaS =  tabla.getSelectedRow();
+                if(filaS != -1){
+                    nro_sala = (int) tabla.getValueAt(filaS, 0);
+                    txtNumero.setText(Integer.toString((int) tabla.getValueAt(filaS, 0)));
+                    txtCapacidad.setText(Integer.toString((int) tabla.getValueAt(filaS, 1)));
+                    
+                }
+            }
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAlta;
