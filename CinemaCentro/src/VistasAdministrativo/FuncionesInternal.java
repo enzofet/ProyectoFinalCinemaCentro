@@ -11,6 +11,7 @@ import Controlador.SalaDAO;
 import Modelo.Funcion;
 import Modelo.Pelicula;
 import Modelo.Sala;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -28,11 +29,11 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
      */
     String[] cabeceras = {"id_pelicula", "Titulo"};
     private PeliculaDAO peliculaDAO = new PeliculaDAO();
-    
+
     String[] cabecerass = {"Sala"};
     private SalaDAO salaDAO = new SalaDAO();
-    
-    String[] cabeceraa = {"Horarios"};
+
+    String[] cabeceraa = {"Horarios inicio", "Horarios fin"};
     private FuncionDAO funciondao = new FuncionDAO();
 
     public FuncionesInternal() {
@@ -43,6 +44,7 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         rellenarTablaPelicula();
         rellenarTablaSala();
         rellenartablaHorario();
+        cargarDescripcion();
     }
 
     /**
@@ -76,8 +78,8 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         btneliminar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
         btndarbaja = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tbldescripcion = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtDescrip = new javax.swing.JTextArea();
 
         jLabel1.setFont(new java.awt.Font("Engravers MT", 1, 18)); // NOI18N
         jLabel1.setText("Funciones");
@@ -166,18 +168,9 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
 
         btndarbaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-baja.png"))); // NOI18N
 
-        tbldescripcion.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane5.setViewportView(tbldescripcion);
+        txtDescrip.setColumns(20);
+        txtDescrip.setRows(5);
+        jScrollPane4.setViewportView(txtDescrip);
 
         javax.swing.GroupLayout pnlFuncionesLayout = new javax.swing.GroupLayout(pnlFunciones);
         pnlFunciones.setLayout(pnlFuncionesLayout);
@@ -205,8 +198,8 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                                 .addGap(27, 27, 27)
                                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
-                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(31, 31, 31)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(35, 35, 35)
                                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btndarbaja)
                                     .addComponent(btnmodificar))
@@ -285,8 +278,8 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                         .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlFuncionesLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addGap(22, 22, 22)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlFuncionesLayout.createSequentialGroup()
                                 .addGap(39, 39, 39)
                                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,12 +334,12 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTableHorarios;
     private javax.swing.JTable jTableSala;
     private javax.swing.JPanel pnlFunciones;
-    private javax.swing.JTable tbldescripcion;
     private javax.swing.JTable tblpeliculas;
+    private javax.swing.JTextArea txtDescrip;
     // End of variables declaration//GEN-END:variables
 
     private void rellenarTablaPelicula() {
@@ -380,20 +373,48 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error al cargar la tabla salas : " + e.getMessage());
         }
     }
-    
-    private void rellenartablaHorario(){
-        try{
-            List<Funcion>funci = funciondao.listarFunciones();
+
+    private void rellenartablaHorario() {
+        try {
+            List<Funcion> funci = funciondao.listarFunciones();
             DefaultTableModel model = VentanaAdministrativo.armarCabeceras(cabeceraa);
-            for (Funcion f : funci){
+            for (Funcion f : funci) {
                 model.addRow(new Object[]{
-                    f.getHora_Inicio()
+                    f.getHora_Inicio(),
+                    f.getHora_Fin()
                 });
             }
             jTableHorarios.setModel(model);
-        }catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al cargar la tabla horarios: " + e.getMessage());
         }
     }
-    
-} 
+
+    private void cargarDescripcion() {
+        int filaPelicula = tblpeliculas.getSelectedRow();
+        int filaSala = jTableSala.getSelectedRow();
+        int filaHorario = jTableHorarios.getSelectedRow();
+
+        if (filaPelicula == -1 || filaSala == -1 || filaHorario == -1) {
+            return;
+        }
+        int idPelicula = (int) tblpeliculas.getValueAt(filaPelicula, 0);
+        int nroSala = (int) jTableSala.getValueAt(filaSala, 0);
+        String horaInicioStr = (String) jTableHorarios.getValueAt(filaHorario, 0);
+
+        try {
+            Time horaInicio = Time.valueOf(horaInicioStr);
+
+            Funcion funcion = funciondao.buscarFuncion(idPelicula, nroSala, horaInicio);
+
+            if (funcion != null) {
+                txtDescrip.setText(funcion.getDescripcion());
+            } else {
+                txtDescrip.setText("No se encontró descripción para esta combinación.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al buscar la función: " + e.getMessage());
+        }
+    }
+
+}

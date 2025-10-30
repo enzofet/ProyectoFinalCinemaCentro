@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,13 +21,13 @@ import java.util.List;
  * @author Gonzalo Achucarro
  */
 public class FuncionDAO {
-    
-    public void agregarFuncion(Funcion funcion) throws Exception{
-        String sql= "INSERT INTO funcion (nro_Sala, idioma, es3D, hora_inicio, hora_fin, precio_entrada, " 
-        + "fecha_funcion, subtitulada, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    public void agregarFuncion(Funcion funcion) throws Exception {
+        String sql = "INSERT INTO funcion (nro_Sala, idioma, es3D, hora_inicio, hora_fin, precio_entrada, "
+                + "fecha_funcion, subtitulada, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection conn = ConexionBD.getConnection();
-        
-        try(PreparedStatement ps= conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+
+        try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, funcion.getNro_Sala());
             ps.setString(2, funcion.getIdioma());
             ps.setBoolean(3, funcion.isEs3D());
@@ -36,42 +37,42 @@ public class FuncionDAO {
             ps.setDate(7, Date.valueOf(funcion.getFecha_Funcion()));
             ps.setBoolean(8, funcion.isSubtitulada());
             ps.setBoolean(9, funcion.isEstado());
-            
+
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-            if(rs.next()){
+            if (rs.next()) {
                 funcion.setId_Funcion(rs.getInt("id_funcion"));
             } else {
                 throw new Exception("Error al agregar una función nueva.");
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
         }
     }
-    
-    public void eliminarFuncion(int id) throws Exception{
+
+    public void eliminarFuncion(int id) throws Exception {
         String sql = "DELETE FROM funcion WHERE id_Funcion = ?";
         Connection conn = ConexionBD.getConnection();
-        
-        try(PreparedStatement ps = conn.prepareStatement(sql)){
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             int filas = ps.executeUpdate();
-            if(filas == 0){
+            if (filas == 0) {
                 throw new Exception("No se pudo eliminar la funcion.");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
-        } 
+        }
     }
-    
-    public void actualizarFuncion(int id, Funcion funcion) throws Exception{
+
+    public void actualizarFuncion(int id, Funcion funcion) throws Exception {
         String sql = "UPDATE funcion SET nro_Sala= ?, idioma= ?, es3D = ?, hora_inicio = ?, hora_fin=?, "
-            + " precio_entrada=?, fecha_funcion =?, subtitulada =?, estado =? WHERE id_funcion=?";
+                + " precio_entrada=?, fecha_funcion =?, subtitulada =?, estado =? WHERE id_funcion=?";
         Connection conn = ConexionBD.getConnection();
-        
-        try(PreparedStatement ps = conn.prepareStatement(sql)){
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, funcion.getNro_Sala());
             ps.setString(2, funcion.getIdioma());
             ps.setBoolean(3, funcion.isEs3D());
@@ -82,27 +83,26 @@ public class FuncionDAO {
             ps.setBoolean(8, funcion.isSubtitulada());
             ps.setBoolean(9, funcion.isEstado());
             ps.setInt(10, funcion.getId_Funcion());
-            
+
             int filas = ps.executeUpdate();
-            if(filas == 0){
+            if (filas == 0) {
                 throw new Exception("No se pudo registrar la funcion.");
-            }  
-        }catch(SQLException e){
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
         }
     }
-    
-    
-    public Funcion buscarFuncionPorId(int id) throws Exception{
+
+    public Funcion buscarFuncionPorId(int id) throws Exception {
         String sql = "SELECT * FROM funcion WHERE id_Funcion = ?";
         Connection conn = ConexionBD.getConnection();
-        
+
         Funcion fun = null;
-        try(PreparedStatement ps = conn.prepareStatement(sql)){
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
-            try(ResultSet rs = ps.executeQuery()){
-                if(rs.next()){
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
                     fun = new Funcion();
                     fun.setId_Funcion(rs.getInt("id_Funcion"));
                     fun.setNro_Sala(rs.getInt("nro_Sala"));
@@ -114,26 +114,26 @@ public class FuncionDAO {
                     fun.setFecha_Funcion(rs.getDate("Fecha_Funcion").toLocalDate());
                     fun.setSubtitulada(rs.getBoolean("Subtitulada"));
                     fun.setEstado(rs.getBoolean("Estado"));
-                }else{
+                } else {
                     throw new Exception("No se ha encontrado la funcion");
                 }
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
         }
         return fun;
     }
-    
-    public List<Funcion> listarFunciones() throws Exception{
+
+    public List<Funcion> listarFunciones() throws Exception {
         String sql = "SELECT * FROM funcion";
         Connection conn = ConexionBD.getConnection();
         Funcion fun = null;
-        
+
         List<Funcion> listafuncion = new ArrayList<>();
-        try (PreparedStatement ps = conn.prepareStatement(sql)){
-            try(ResultSet rs = ps.executeQuery()){
-                while(rs.next()){
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
                     fun = new Funcion();
                     fun.setId_Funcion(rs.getInt("id_Funcion"));
                     fun.setId_pelicula(rs.getInt("id_pelicula"));
@@ -148,42 +148,53 @@ public class FuncionDAO {
                     fun.setEstado(rs.getBoolean("Estado"));
                 }
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
         }
         return listafuncion;
     }
-    
-    public void darAltaFuncion(int id) throws Exception{
+
+    public void darAltaFuncion(int id) throws Exception {
         String sql = "UPDATE funcion SET Estado = true WHERE id_Funcion = ?";
         Connection conn = ConexionBD.getConnection();
 
-        try(PreparedStatement ps = conn.prepareStatement(sql)){
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             int fila = ps.executeUpdate();
-            if (fila == 0){
+            if (fila == 0) {
                 throw new Exception("Error al dar de alta la funcion.");
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
         }
     }
-    
-    public void darBajaFuncion(int id)throws Exception{
+
+    public void darBajaFuncion(int id) throws Exception {
         String sql = "UPDATE funcion SET Estado = false WHERE id_Funcion = ?";
         Connection conn = ConexionBD.getConnection();
 
-        try(PreparedStatement ps = conn.prepareStatement(sql)){
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             int fila = ps.executeUpdate();
-            if (fila == 0){
+            if (fila == 0) {
                 throw new Exception("Error al dar de baja la funcion.");
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
         }
+    }
+
+    public Funcion buscarFuncion(int id_Pelicula, int nro_Sala, Time Hora_Inicio) throws Exception {
+        for (Funcion f : listarFunciones()) {
+            if (f.getId_pelicula() == id_Pelicula
+                    && f.getNro_Sala() == nro_Sala
+                    && f.getHora_Inicio().equals(Hora_Inicio)) {
+                return f;
+            }
+        }
+        return null;
     }
 }
