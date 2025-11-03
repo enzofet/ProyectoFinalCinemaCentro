@@ -5,7 +5,18 @@
  */
 package VistasAdministrativo;
 
+import Controlador.FuncionDAO;
+import Controlador.PeliculaDAO;
+import Modelo.Funcion;
+import Modelo.Pelicula;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -16,8 +27,21 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
     /**
      * Creates new form TaquillaInternal
      */
+    PeliculaDAO maniPeli = new PeliculaDAO();
+    FuncionDAO maniFuncion = new FuncionDAO();
+    String[] cabeceraCartelera = {"id_pelicula", "Titulo", "Director", "Reparto", "Pais de origen", "Genero/s"};
+    String[] cabeceraFunciones = {"id_funcion", "Número de sala", "Idioma", "3D", "Hora de inicio", "Hora finalización", "Precio de entrada",
+        "Fecha de función", "Subtitulada"};
+    List<Pelicula> listaCartelera = maniPeli.listarPeliculasEnCartelera();
+    List<Funcion> listaFuncionPorPelicula;
+    int id_peliculaS = -1;
     public TaquillaInternal() {
         initComponents();
+        tblCartelera.setModel(VentanaAdministrativo.armarCabeceras(cabeceraCartelera));
+        tblFunciones.setModel(VentanaAdministrativo.armarCabeceras(cabeceraFunciones));
+        ocultarIDs();
+        rellenarTablaPelicula();
+        agregarListenerCartelera();
     }
 
     /**
@@ -34,7 +58,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCartelera = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblFunciones = new javax.swing.JTable();
         lblFuncionesxPelicula = new javax.swing.JLabel();
         lblPelicula = new javax.swing.JLabel();
         lblPrecioEntradaIndividual = new javax.swing.JLabel();
@@ -83,7 +107,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblCartelera);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblFunciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -94,7 +118,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblFunciones);
 
         lblFuncionesxPelicula.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblFuncionesxPelicula.setText("Funciones disponibles para la pelicula seleccionada");
@@ -323,12 +347,87 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
     private void btnConfirmacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmacionActionPerformed
         try {
             int cantidad = Integer.parseInt(txtCantidadBoletos.getText());
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un numero valido.");
         }
- 
+
     }//GEN-LAST:event_btnConfirmacionActionPerformed
 
+    public void ocultarIDs() {
+
+        TableColumnModel modeloColumnasP = tblCartelera.getColumnModel();
+        TableColumnModel modeloColumnasF = tblFunciones.getColumnModel();
+        TableColumn columnaP = modeloColumnasP.getColumn(0);
+        TableColumn columnaF = modeloColumnasF.getColumn(0);
+        columnaP.setMaxWidth(0);
+        columnaP.setMinWidth(0);
+        columnaP.setPreferredWidth(0);
+        columnaP.setResizable(false);
+
+        columnaF.setMaxWidth(0);
+        columnaF.setMinWidth(0);
+        columnaF.setPreferredWidth(0);
+        columnaF.setResizable(false);
+    }
+
+    public void rellenarTablaPelicula() {
+        DefaultTableModel modelo = (DefaultTableModel) tblCartelera.getModel();
+        modelo.setRowCount(0);
+        for (Pelicula p : listaCartelera) {
+            modelo.addRow(new Object[]{p.getId_Pelicula(),
+                p.getTitulo(),
+                p.getDirector(),
+                p.getReparto(),
+                p.getPais_Origen(),
+                p.getGenero()
+            });
+        }
+    }
+
+    public void rellenarTablaFunciones(int id_pelicula) {
+        DefaultTableModel modelo = (DefaultTableModel) tblFunciones.getModel();
+        modelo.setRowCount(0);
+        listaFuncionPorPelicula = new ArrayList<>();
+        try {
+            listaFuncionPorPelicula = maniFuncion.listadoPorId(id_pelicula);
+            String[] cabeceraFunciones = {"id_funcion", "Número de sala", "Idioma", "3D", "Hora de inicio", "Hora finalización", "Precio de entrada",
+        "Fecha de función", "Subtitulada"};
+            for (Funcion f : listaFuncionPorPelicula) {
+                modelo.addRow(new Object[]{f.getId_Funcion(),
+                    f.getNro_Sala(),
+                    f.getIdioma(),
+                    f.isEs3D(),
+                    f.getHora_Inicio(),
+                    f.getHora_Fin(),
+                    f.getPrecio_Entrada(),
+                    f.getFecha_Funcion(),
+                    f.isSubtitulada()
+                });
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+    
+    public void agregarListenerCartelera(){
+        tblCartelera.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            @Override 
+            public void valueChanged(ListSelectionEvent evento){
+                if(evento.getValueIsAdjusting()){
+                    return;
+                }
+                int filaS = tblCartelera.getSelectedRow();
+                if(filaS != -1){
+                    id_peliculaS = (int)tblCartelera.getValueAt(filaS, 0);
+                    rellenarTablaFunciones(id_peliculaS);
+                    lblPeliculaS.setText((String) tblCartelera.getValueAt(filaS, 1));
+                    lblGenerosS.setText((String) tblCartelera.getValueAt(filaS, 5));
+                    
+                }
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmacion;
@@ -337,7 +436,6 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lbl3D;
     private javax.swing.JLabel lbl3DS;
     private javax.swing.JLabel lblAsientosSeleccionados;
@@ -367,6 +465,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
     private javax.swing.JList<String> listAsientosS;
     private javax.swing.JPanel pnlTaquilla;
     private javax.swing.JTable tblCartelera;
+    private javax.swing.JTable tblFunciones;
     private javax.swing.JTextField txtCantidadBoletos;
     // End of variables declaration//GEN-END:variables
 }

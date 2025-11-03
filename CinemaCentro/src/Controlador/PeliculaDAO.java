@@ -161,6 +161,7 @@ public class PeliculaDAO {
         String sql = "SELECT * FROM pelicula WHERE id_pelicula = ?";
         Connection con = ConexionBD.getConnection();
         Pelicula peli = null;
+        
         try(PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, id);
             try(ResultSet rs = ps.executeQuery()){
@@ -185,4 +186,31 @@ public class PeliculaDAO {
         }
         return peli;
     }
+    
+    public List<Pelicula> listarPeliculasEnCartelera(){
+        String sql = "SELECT * FROM pelicula WHERE enCartelera = true";
+        Connection con = ConexionBD.getConnection();
+        List<Pelicula> listaCartelera = new ArrayList<>();
+        try(PreparedStatement ps = con.prepareStatement(sql)){
+            try(ResultSet rs = ps.executeQuery()){
+                while(rs.next()){
+                    Pelicula peli = new Pelicula();
+                    peli.setId_Pelicula(rs.getInt("id_pelicula"));
+                    peli.setTitulo(rs.getString("titulo"));
+                    peli.setDirector(rs.getString("director"));
+                    peli.setReparto(rs.getString("reparto"));
+                    peli.setPais_Origen(rs.getString("pais_origen"));
+                    peli.setGenero(rs.getString("genero"));
+                    peli.setEnCartelera(rs.getBoolean("enCartelera"));
+                    peli.setEstreno(rs.getDate("estreno").toLocalDate());
+                    peli.setEstado(rs.getBoolean("estado"));
+                    listaCartelera.add(peli);
+                }
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return listaCartelera;
+    }
+    
 }
