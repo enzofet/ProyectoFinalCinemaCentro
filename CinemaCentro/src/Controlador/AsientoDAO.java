@@ -21,21 +21,18 @@ import org.mariadb.jdbc.Statement;
 public class AsientoDAO {
 
     public void agregarAsiento(Asiento asiento) {
-        String sql = "INSERT TO asiento ( nro_asiento, fila_asiento, estado) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO asiento (numero_asiento, nro_sala, fila_asiento, estado) VALUES (?, ?, ?, ?)";
         Connection con = ConexionBD.getConnection();
-
         try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, asiento.getNumero_asiento());
-            ps.setInt(2, asiento.getFila_asiento());
-            ps.setBoolean(3, asiento.isEstado());
+            ps.setInt(2, asiento.getNro_sala());
+            ps.setString(3, String.valueOf(asiento.getFila_asiento()));
+            ps.setBoolean(4, asiento.isEstado());
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 asiento.setId_asiento(1);
-                System.out.println("Asiento creado con éxito");
-            } else {
-                System.out.println("Error al intentar crear asiento");
             }
 
         } catch (SQLException e) {
@@ -129,15 +126,45 @@ public class AsientoDAO {
         Connection con = ConexionBD.getConnection();
         int cantidad = 0;
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            try(ResultSet rs = ps.executeQuery()){
-                if(rs.next()){
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
                     cantidad = rs.getInt("asientoslibres");
-                } 
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-             throw new Exception("Error relacionado a la base de datos.");
+            throw new Exception("Error relacionado a la base de datos.");
         }
         return cantidad;
     }
+
+    public boolean agregarListaAsientos(List<Asiento> listaAsientos) {
+        String sql = "INSERT INTO asiento (numero_asiento, nro_sala, fila_asiento, estado) VALUES (?, ?, ?, ?)";
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = ConexionBD.getConnection();
+            ps = con.prepareStatement(sql);
+            for (Asiento a : listaAsientos) {
+                ps.setInt(1, a.getNumero_asiento());
+                ps.setInt(2, a.getNro_sala());
+                ps.setString(3, String.valueOf(a.getFila_asiento()));
+                ps.setBoolean(4, a.isEstado());
+                ps.executeUpdate();
+            }
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                ps.close();
+                con.close();
+            } catch (SQLException a){
+                a.printStackTrace();
+            }
+        }
+    }
+
 }
