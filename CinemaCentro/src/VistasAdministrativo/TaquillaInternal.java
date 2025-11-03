@@ -9,7 +9,6 @@ import Controlador.FuncionDAO;
 import Controlador.PeliculaDAO;
 import Modelo.Funcion;
 import Modelo.Pelicula;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -35,6 +34,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
     List<Pelicula> listaCartelera = maniPeli.listarPeliculasEnCartelera();
     List<Funcion> listaFuncionPorPelicula;
     int id_peliculaS = -1;
+    int id_funcion = -1;
     public TaquillaInternal() {
         initComponents();
         tblCartelera.setModel(VentanaAdministrativo.armarCabeceras(cabeceraCartelera));
@@ -42,6 +42,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         ocultarIDs();
         rellenarTablaPelicula();
         agregarListenerCartelera();
+        agregarListenerFunciones();
     }
 
     /**
@@ -387,11 +388,9 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
     public void rellenarTablaFunciones(int id_pelicula) {
         DefaultTableModel modelo = (DefaultTableModel) tblFunciones.getModel();
         modelo.setRowCount(0);
-        listaFuncionPorPelicula = new ArrayList<>();
         try {
             listaFuncionPorPelicula = maniFuncion.listadoPorId(id_pelicula);
-            String[] cabeceraFunciones = {"id_funcion", "Número de sala", "Idioma", "3D", "Hora de inicio", "Hora finalización", "Precio de entrada",
-        "Fecha de función", "Subtitulada"};
+           
             for (Funcion f : listaFuncionPorPelicula) {
                 modelo.addRow(new Object[]{f.getId_Funcion(),
                     f.getNro_Sala(),
@@ -419,7 +418,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 }
                 int filaS = tblCartelera.getSelectedRow();
                 if(filaS != -1){
-                    id_peliculaS = (int)tblCartelera.getValueAt(filaS, 0);
+                    id_peliculaS = (int) tblCartelera.getValueAt(filaS, 0);
                     rellenarTablaFunciones(id_peliculaS);
                     lblPeliculaS.setText((String) tblCartelera.getValueAt(filaS, 1));
                     lblGenerosS.setText((String) tblCartelera.getValueAt(filaS, 5));
@@ -427,6 +426,47 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 }
             }
         });
+    }
+    
+    public void agregarListenerFunciones(){
+        tblFunciones.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent evento){
+                if(evento.getValueIsAdjusting()){
+                    return;
+                }
+                int filaS = tblFunciones.getSelectedRow();
+                if(filaS != -1){
+                    id_funcion = (int) tblFunciones.getValueAt(filaS, 0);
+                    lblNumeroSalaS.setText(Integer.toString((int)tblFunciones.getValueAt(filaS, 1)));
+                    lblIdiomaS.setText((String) tblFunciones.getValueAt(filaS, 2));
+                    lbl3DS.setText((String) tblFunciones.getValueAt(filaS, 3));
+                    lblSubtituladaS.setText((String) tblFunciones.getValueAt(filaS, 4));
+                    lblHorarioInicioS.setText((String) tblFunciones.getValueAt(filaS, 5));
+                    lblHorarioFinS.setText((String) tblFunciones.getValueAt(filaS, 6));
+                    lblFechaS.setText((String) tblFunciones.getValueAt(filaS, 7));  
+                } else {
+                    lblNumeroSalaS.setText("");
+                    lblIdiomaS.setText("");
+                    lbl3DS.setText("");
+                    lblSubtituladaS.setText("");
+                    lblHorarioInicioS.setText("");
+                    lblHorarioFinS.setText("");
+                    lblFechaS.setText("");  
+                }
+            }
+        });
+    }
+    
+     public String parsearBoolean(boolean estado){
+        if(estado){
+            return "Si";
+        } 
+            return "No";
+    } 
+    
+    public boolean parsearString(String estado){
+        return estado.equalsIgnoreCase("Activo");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
