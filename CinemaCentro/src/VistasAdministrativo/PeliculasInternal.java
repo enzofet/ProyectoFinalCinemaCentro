@@ -66,14 +66,14 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         btnModificar = new javax.swing.JButton();
         pnlFiltros = new javax.swing.JPanel();
         lblFiltroEstado = new javax.swing.JLabel();
-        lblFiltroCartelera = new javax.swing.JLabel();
         rbtnEstadoActivo = new javax.swing.JRadioButton();
         rbtnEstadoInactivo = new javax.swing.JRadioButton();
+        rbtnEstadoTodas = new javax.swing.JRadioButton();
+        rbtnVerTodo = new javax.swing.JRadioButton();
+        rbtnTodasCartelera = new javax.swing.JRadioButton();
+        lblFiltroCartelera = new javax.swing.JLabel();
         rbtnCarteleraSi = new javax.swing.JRadioButton();
         rbtnCarteleraNo = new javax.swing.JRadioButton();
-        rbtnEstadoTodas = new javax.swing.JRadioButton();
-        rbtnTodasCartelera = new javax.swing.JRadioButton();
-        rbtnVerTodo = new javax.swing.JRadioButton();
         btnSalir = new javax.swing.JButton();
         lblCinemaCentro = new javax.swing.JLabel();
 
@@ -173,10 +173,12 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         lblEstadoS.setForeground(new java.awt.Color(255, 255, 255));
         lblEstadoS.setText("ESTADOEJEMPLO");
 
-        cmbEnCartelera.setBackground(new java.awt.Color(102, 0, 0));
+        cmbEnCartelera.setBackground(new java.awt.Color(255, 255, 255));
         cmbEnCartelera.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         cmbEnCartelera.setForeground(new java.awt.Color(255, 255, 255));
         cmbEnCartelera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
+        cmbEnCartelera.setSelectedIndex(-1);
+        cmbEnCartelera.setToolTipText("");
         cmbEnCartelera.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbEnCarteleraActionPerformed(evt);
@@ -349,10 +351,6 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         lblFiltroEstado.setForeground(new java.awt.Color(255, 255, 255));
         lblFiltroEstado.setText("Estado:");
 
-        lblFiltroCartelera.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
-        lblFiltroCartelera.setForeground(new java.awt.Color(255, 255, 255));
-        lblFiltroCartelera.setText("En Cartelera:");
-
         btngEstado.add(rbtnEstadoActivo);
         rbtnEstadoActivo.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
         rbtnEstadoActivo.setForeground(new java.awt.Color(255, 255, 255));
@@ -372,6 +370,40 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                 rbtnEstadoInactivoActionPerformed(evt);
             }
         });
+
+        btngEstado.add(rbtnEstadoTodas);
+        rbtnEstadoTodas.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        rbtnEstadoTodas.setForeground(new java.awt.Color(255, 255, 255));
+        rbtnEstadoTodas.setText("Todas");
+        rbtnEstadoTodas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnEstadoTodasActionPerformed(evt);
+            }
+        });
+
+        btngVerTodo.add(rbtnVerTodo);
+        rbtnVerTodo.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        rbtnVerTodo.setForeground(new java.awt.Color(255, 255, 255));
+        rbtnVerTodo.setText("Ver Todo");
+        rbtnVerTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnVerTodoActionPerformed(evt);
+            }
+        });
+
+        btngCartelera.add(rbtnTodasCartelera);
+        rbtnTodasCartelera.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        rbtnTodasCartelera.setForeground(new java.awt.Color(255, 255, 255));
+        rbtnTodasCartelera.setText("Todas");
+        rbtnTodasCartelera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnTodasCarteleraActionPerformed(evt);
+            }
+        });
+
+        lblFiltroCartelera.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        lblFiltroCartelera.setForeground(new java.awt.Color(255, 255, 255));
+        lblFiltroCartelera.setText("En Cartelera:");
 
         btngCartelera.add(rbtnCarteleraSi);
         rbtnCarteleraSi.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
@@ -393,36 +425,6 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
             }
         });
 
-        btngEstado.add(rbtnEstadoTodas);
-        rbtnEstadoTodas.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
-        rbtnEstadoTodas.setForeground(new java.awt.Color(255, 255, 255));
-        rbtnEstadoTodas.setText("Todas");
-        rbtnEstadoTodas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnEstadoTodasActionPerformed(evt);
-            }
-        });
-
-        btngCartelera.add(rbtnTodasCartelera);
-        rbtnTodasCartelera.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
-        rbtnTodasCartelera.setForeground(new java.awt.Color(255, 255, 255));
-        rbtnTodasCartelera.setText("Todas");
-        rbtnTodasCartelera.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnTodasCarteleraActionPerformed(evt);
-            }
-        });
-
-        btngVerTodo.add(rbtnVerTodo);
-        rbtnVerTodo.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
-        rbtnVerTodo.setForeground(new java.awt.Color(255, 255, 255));
-        rbtnVerTodo.setText("Ver Todo");
-        rbtnVerTodo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtnVerTodoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnlFiltrosLayout = new javax.swing.GroupLayout(pnlFiltros);
         pnlFiltros.setLayout(pnlFiltrosLayout);
         pnlFiltrosLayout.setHorizontalGroup(
@@ -430,15 +432,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFiltrosLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(rbtnVerTodo)
-                .addGap(24, 24, 24)
-                .addComponent(lblFiltroEstado)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtnEstadoTodas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtnEstadoActivo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtnEstadoInactivo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblFiltroCartelera)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbtnTodasCartelera)
@@ -446,22 +440,32 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                 .addComponent(rbtnCarteleraSi)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbtnCarteleraNo)
-                .addGap(20, 20, 20))
+                .addGap(18, 18, 18)
+                .addComponent(lblFiltroEstado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rbtnEstadoTodas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rbtnEstadoActivo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rbtnEstadoInactivo)
+                .addContainerGap())
         );
         pnlFiltrosLayout.setVerticalGroup(
             pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFiltrosLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblFiltroEstado)
-                    .addComponent(lblFiltroCartelera)
-                    .addComponent(rbtnEstadoActivo)
-                    .addComponent(rbtnEstadoInactivo)
-                    .addComponent(rbtnCarteleraSi)
-                    .addComponent(rbtnCarteleraNo)
-                    .addComponent(rbtnEstadoTodas)
-                    .addComponent(rbtnTodasCartelera)
-                    .addComponent(rbtnVerTodo))
+                .addGroup(pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblFiltroCartelera)
+                        .addComponent(rbtnCarteleraSi)
+                        .addComponent(rbtnCarteleraNo)
+                        .addComponent(rbtnTodasCartelera))
+                    .addGroup(pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblFiltroEstado)
+                        .addComponent(rbtnEstadoActivo)
+                        .addComponent(rbtnEstadoInactivo)
+                        .addComponent(rbtnEstadoTodas)
+                        .addComponent(rbtnVerTodo)))
                 .addContainerGap())
         );
 
@@ -486,11 +490,11 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                 .addComponent(pnlPeliculaS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlControles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlPeliculasLayout.createSequentialGroup()
                         .addComponent(lblTituloPanel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
                         .addComponent(lblCinemaCentro))
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -509,17 +513,19 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlPeliculasLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSalir))
-                    .addGroup(pnlPeliculasLayout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(pnlControles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPeliculasLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pnlPeliculaS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                        .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlPeliculasLayout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSalir))
+                            .addGroup(pnlPeliculasLayout.createSequentialGroup()
+                                .addGap(104, 104, 104)
+                                .addComponent(pnlControles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPeliculasLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(pnlPeliculaS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -754,8 +760,17 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                 });
             }
             tblPeliculas.setModel(model);
+            ocultarID();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al cargar la tabla: " + e.getMessage());
+        }
+    }
+    
+    private void ocultarID(){
+        if (tblPeliculas.getColumnCount() > 0) {
+            tblPeliculas.getColumnModel().getColumn(0).setMinWidth(0);
+            tblPeliculas.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblPeliculas.getColumnModel().getColumn(0).setWidth(0);
         }
     }
 
@@ -775,6 +790,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                 p.getPais_Origen(),
             });
         }
+        ocultarID();
     }
     
     private void aplicarFiltros() {
