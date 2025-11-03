@@ -188,6 +188,36 @@ public class FuncionDAO {
         }
     }
 
+    public ArrayList<Funcion> listadoPorId(int id) throws Exception {
+        String sql = "SELECT * FROM funcion WHERE id_pelicula = ?";
+        Connection con = ConexionBD.getConnection();
+        Funcion fun = new Funcion();
+        ArrayList<Funcion> funcionesId = new ArrayList<>();
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    fun = new Funcion();
+                    fun.setId_Funcion(rs.getInt("id_Funcion"));
+                    fun.setId_pelicula(rs.getInt("id_pelicula"));
+                    fun.setNro_Sala(rs.getInt("nro_Sala"));
+                    fun.setIdioma(rs.getString("idioma"));
+                    fun.setEs3D(rs.getBoolean("es3D"));
+                    fun.setHora_Inicio(rs.getTime("Hora_Inicio"));
+                    fun.setHora_Fin(rs.getTime("Hora_Fin"));
+                    fun.setPrecio_Entrada(rs.getDouble("Precio_Entrada"));
+                    fun.setFecha_Funcion(rs.getDate("Fecha_Funcion").toLocalDate());
+                    fun.setSubtitulada(rs.getBoolean("Subtitulada"));
+                    fun.setEstado(rs.getBoolean("Estado"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Error relacionado a la base de datos.");
+        }
+        return funcionesId;
+    }
+
     public Funcion buscarFuncion(int id_Pelicula, int nro_Sala, Time Hora_Inicio) throws Exception {
         for (Funcion f : listarFunciones()) {
             if (f.getId_pelicula() == id_Pelicula
