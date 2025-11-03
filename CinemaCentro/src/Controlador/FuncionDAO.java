@@ -209,6 +209,7 @@ public class FuncionDAO {
                     fun.setFecha_Funcion(rs.getDate("Fecha_Funcion").toLocalDate());
                     fun.setSubtitulada(rs.getBoolean("Subtitulada"));
                     fun.setEstado(rs.getBoolean("Estado"));
+                    funcionesId.add(fun);
                 }
             }
         } catch (SQLException e) {
