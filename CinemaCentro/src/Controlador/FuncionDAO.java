@@ -191,13 +191,13 @@ public class FuncionDAO {
     public ArrayList<Funcion> listadoPorId(int id) throws Exception {
         String sql = "SELECT * FROM funcion WHERE id_pelicula = ?";
         Connection con = ConexionBD.getConnection();
-        Funcion fun = new Funcion();
         ArrayList<Funcion> funcionesId = new ArrayList<>();
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    fun = new Funcion();
+                    Funcion fun = new Funcion();
                     fun.setId_Funcion(rs.getInt("id_Funcion"));
                     fun.setId_pelicula(rs.getInt("id_pelicula"));
                     fun.setNro_Sala(rs.getInt("nro_Sala"));
