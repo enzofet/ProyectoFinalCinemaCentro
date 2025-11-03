@@ -57,38 +57,57 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         pnlFunciones = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        lblCinemaCentro = new javax.swing.JLabel();
+        lblFunciones = new javax.swing.JLabel();
+        lblHorarios = new javax.swing.JLabel();
+        lblSala = new javax.swing.JLabel();
+        scrollPanePeliculas = new javax.swing.JScrollPane();
         tblpeliculas = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        scrollPaneSala = new javax.swing.JScrollPane();
+        jTableSala = new javax.swing.JTable();
+        scrollPaneHorarios = new javax.swing.JScrollPane();
         jTableHorarios = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
+        lblDescripcionFuncion = new javax.swing.JLabel();
+        scrollPaneDesc = new javax.swing.JScrollPane();
+        jtableDescripcion = new javax.swing.JTable();
+        lblTipoPelicula = new javax.swing.JLabel();
         jRadioButton2D = new javax.swing.JRadioButton();
         jRadioButton3D = new javax.swing.JRadioButton();
-        jLabel5 = new javax.swing.JLabel();
+        lblIdioma = new javax.swing.JLabel();
         jComboBoxIdioma = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTableSala = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
-        jButtonConfirmar = new javax.swing.JButton();
+        lblPelicula = new javax.swing.JLabel();
+        btnConfirmar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
         btndarbaja = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jtableDescripcion = new javax.swing.JTable();
+        lblSubtitulada = new javax.swing.JLabel();
+        jComboBoxSubtitulada = new javax.swing.JComboBox<>();
+        txtFechaFuncion = new javax.swing.JTextField();
+        lblFecha = new javax.swing.JLabel();
+        lblEstado = new javax.swing.JLabel();
+        lblEstadoFuncion = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Engravers MT", 1, 18)); // NOI18N
-        jLabel1.setText("Funciones");
+        pnlFunciones.setBackground(new java.awt.Color(102, 0, 0));
 
-        jLabel2.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
-        jLabel2.setText("Horarios");
+        lblCinemaCentro.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
+        lblCinemaCentro.setForeground(new java.awt.Color(255, 255, 255));
+        lblCinemaCentro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCinemaCentro.setText("CinemaCentro");
 
-        jLabel3.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
-        jLabel3.setText("sala");
+        lblFunciones.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
+        lblFunciones.setForeground(new java.awt.Color(255, 255, 255));
+        lblFunciones.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFunciones.setText("Registrar Funciones");
 
+        lblHorarios.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        lblHorarios.setForeground(new java.awt.Color(255, 255, 255));
+        lblHorarios.setText("Horarios:");
+
+        lblSala.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        lblSala.setForeground(new java.awt.Color(255, 255, 255));
+        lblSala.setText("Sala:");
+
+        tblpeliculas.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         tblpeliculas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -100,49 +119,9 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tblpeliculas);
+        scrollPanePeliculas.setViewportView(tblpeliculas);
 
-        jTableHorarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane2.setViewportView(jTableHorarios);
-
-        jLabel4.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
-        jLabel4.setText("Tipo");
-
-        buttonGroup1.add(jRadioButton2D);
-        jRadioButton2D.setText("2D");
-        jRadioButton2D.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2DActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(jRadioButton3D);
-        jRadioButton3D.setText("3D");
-
-        jLabel5.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
-        jLabel5.setText("idioma");
-
-        jComboBoxIdioma.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jComboBoxIdioma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxIdioma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxIdiomaActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
-        jLabel6.setText("Peliculas");
-
+        jTableSala.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jTableSala.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -154,19 +133,27 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane3.setViewportView(jTableSala);
+        scrollPaneSala.setViewportView(jTableSala);
 
-        jLabel7.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
-        jLabel7.setText("Descripcion  de la funcion");
+        jTableHorarios.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
+        jTableHorarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
 
-        jButtonConfirmar.setText("Confirmar");
+            }
+        ));
+        scrollPaneHorarios.setViewportView(jTableHorarios);
 
-        btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
+        lblDescripcionFuncion.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        lblDescripcionFuncion.setForeground(new java.awt.Color(255, 255, 255));
+        lblDescripcionFuncion.setText("Descripción de la Función:");
 
-        btnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/modificar.png"))); // NOI18N
-
-        btndarbaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-baja.png"))); // NOI18N
-
+        jtableDescripcion.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jtableDescripcion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -178,137 +165,223 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane5.setViewportView(jtableDescripcion);
+        scrollPaneDesc.setViewportView(jtableDescripcion);
+
+        lblTipoPelicula.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        lblTipoPelicula.setForeground(new java.awt.Color(255, 255, 255));
+        lblTipoPelicula.setText("Tipo:");
+
+        buttonGroup1.add(jRadioButton2D);
+        jRadioButton2D.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        jRadioButton2D.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton2D.setText("2D");
+        jRadioButton2D.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2DActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton3D);
+        jRadioButton3D.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        jRadioButton3D.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton3D.setText("3D");
+
+        lblIdioma.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        lblIdioma.setForeground(new java.awt.Color(255, 255, 255));
+        lblIdioma.setText("Idioma:");
+
+        jComboBoxIdioma.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jComboBoxIdioma.setForeground(new java.awt.Color(255, 255, 255));
+        jComboBoxIdioma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español", "Inglés" }));
+        jComboBoxIdioma.setSelectedIndex(-1);
+        jComboBoxIdioma.setToolTipText("Elija idioma");
+        jComboBoxIdioma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxIdiomaActionPerformed(evt);
+            }
+        });
+
+        lblPelicula.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        lblPelicula.setForeground(new java.awt.Color(255, 255, 255));
+        lblPelicula.setText("Peliculas:");
+
+        btnConfirmar.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        btnConfirmar.setText("Confirmar");
+
+        btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
+
+        btnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/modificar.png"))); // NOI18N
+
+        btndarbaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-baja.png"))); // NOI18N
+
+        lblSubtitulada.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        lblSubtitulada.setForeground(new java.awt.Color(255, 255, 255));
+        lblSubtitulada.setText("Subtitulada:");
+
+        jComboBoxSubtitulada.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jComboBoxSubtitulada.setForeground(new java.awt.Color(255, 255, 255));
+        jComboBoxSubtitulada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español", "Inglés" }));
+        jComboBoxSubtitulada.setSelectedIndex(-1);
+        jComboBoxSubtitulada.setToolTipText("Elija idioma");
+        jComboBoxSubtitulada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxSubtituladaActionPerformed(evt);
+            }
+        });
+
+        txtFechaFuncion.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        txtFechaFuncion.setText("yyyy-MM-dd");
+        txtFechaFuncion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFechaFuncionActionPerformed(evt);
+            }
+        });
+
+        lblFecha.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        lblFecha.setForeground(new java.awt.Color(255, 255, 255));
+        lblFecha.setText("Fecha de Función:");
+
+        lblEstado.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        lblEstado.setForeground(new java.awt.Color(255, 255, 255));
+        lblEstado.setText("Estado:");
+
+        lblEstadoFuncion.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        lblEstadoFuncion.setForeground(new java.awt.Color(255, 255, 255));
+        lblEstadoFuncion.setText("ESTADOFUNCION");
 
         javax.swing.GroupLayout pnlFuncionesLayout = new javax.swing.GroupLayout(pnlFunciones);
         pnlFunciones.setLayout(pnlFuncionesLayout);
         pnlFuncionesLayout.setHorizontalGroup(
             pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addGap(235, 235, 235)
-                        .addComponent(jLabel1))
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPelicula)
+                            .addComponent(scrollPanePeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scrollPaneSala, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSala))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addComponent(lblHorarios)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(scrollPaneHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(lblFunciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(lblEstado)
+                                                    .addComponent(lblFecha))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(lblEstadoFuncion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(txtFechaFuncion)))
+                                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                                .addComponent(lblIdioma)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jComboBoxIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                                .addComponent(lblSubtitulada)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jComboBoxSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addContainerGap())
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
+                                        .addComponent(lblTipoPelicula)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jRadioButton2D)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jRadioButton3D)
+                                        .addGap(58, 58, 58))))))
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jLabel2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
-                                .addGap(119, 119, 119)
-                                .addComponent(jButtonConfirmar))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCinemaCentro, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnConfirmar, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(scrollPaneDesc)
                             .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addGap(64, 64, 64)
-                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btndarbaja)
-                                    .addComponent(btnmodificar))
+                                .addComponent(lblDescripcionFuncion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btndarbaja)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btneliminar)
-                                .addGap(28, 28, 28))))
-                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addGap(66, 66, 66)
-                                .addComponent(jLabel6))
-                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addGap(106, 106, 106)
-                                .addComponent(jLabel3))
-                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addGap(76, 76, 76)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButton2D)
-                                    .addComponent(jRadioButton3D)))
-                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(30, 30, 30)
-                                .addComponent(jComboBoxIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(52, 52, 52))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnmodificar)))
+                        .addContainerGap())))
         );
         pnlFuncionesLayout.setVerticalGroup(
             pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFuncionesLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel1)
+                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblCinemaCentro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblFunciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblHorarios)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addComponent(jLabel6)
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblIdioma)
+                                    .addComponent(jComboBoxIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2))
-                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addGap(85, 85, 85)
-                                .addComponent(jLabel4)
-                                .addGap(84, 84, 84))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblSubtitulada)
+                                    .addComponent(jComboBoxSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2D)
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblTipoPelicula)
+                                    .addComponent(jRadioButton2D)
+                                    .addComponent(jRadioButton3D))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton3D)
-                                .addGap(58, 58, 58)))
-                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))))
-                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtFechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblFecha))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblEstado)
+                                    .addComponent(lblEstadoFuncion))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btndarbaja)
-                                    .addComponent(btneliminar))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnmodificar)
-                                .addGap(44, 44, 44)
-                                .addComponent(jButtonConfirmar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(16, 16, 16)))
-                        .addGap(51, 51, 51))))
+                                    .addComponent(btneliminar)
+                                    .addComponent(btnmodificar)))
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addComponent(scrollPaneHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(22, 22, 22)
+                                .addComponent(lblDescripcionFuncion))))
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPelicula)
+                            .addComponent(lblSala))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scrollPanePeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(scrollPaneSala, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnConfirmar)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlFunciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(pnlFunciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,32 +399,47 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxIdiomaActionPerformed
 
+    private void jComboBoxSubtituladaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSubtituladaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxSubtituladaActionPerformed
+
+    private void txtFechaFuncionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaFuncionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaFuncionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btndarbaja;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnmodificar;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButtonConfirmar;
     private javax.swing.JComboBox<String> jComboBoxIdioma;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JComboBox<String> jComboBoxSubtitulada;
     private javax.swing.JRadioButton jRadioButton2D;
     private javax.swing.JRadioButton jRadioButton3D;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTableHorarios;
     private javax.swing.JTable jTableSala;
     private javax.swing.JTable jtableDescripcion;
+    private javax.swing.JLabel lblCinemaCentro;
+    private javax.swing.JLabel lblDescripcionFuncion;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblEstadoFuncion;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblFunciones;
+    private javax.swing.JLabel lblHorarios;
+    private javax.swing.JLabel lblIdioma;
+    private javax.swing.JLabel lblPelicula;
+    private javax.swing.JLabel lblSala;
+    private javax.swing.JLabel lblSubtitulada;
+    private javax.swing.JLabel lblTipoPelicula;
     private javax.swing.JPanel pnlFunciones;
+    private javax.swing.JScrollPane scrollPaneDesc;
+    private javax.swing.JScrollPane scrollPaneHorarios;
+    private javax.swing.JScrollPane scrollPanePeliculas;
+    private javax.swing.JScrollPane scrollPaneSala;
     private javax.swing.JTable tblpeliculas;
+    private javax.swing.JTextField txtFechaFuncion;
     // End of variables declaration//GEN-END:variables
 
     private void rellenarTablaPelicula() {
@@ -366,6 +454,7 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                 });
             }
             tblpeliculas.setModel(model);
+            ocultarID();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al cargar la tabla peliculas: " );
         }
@@ -402,5 +491,11 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         }
     }
 
-    
+    private void ocultarID(){
+        if (tblpeliculas.getColumnCount() > 0) {
+            tblpeliculas.getColumnModel().getColumn(0).setMinWidth(0);
+            tblpeliculas.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblpeliculas.getColumnModel().getColumn(0).setWidth(0);
+        }
+    }
 }
