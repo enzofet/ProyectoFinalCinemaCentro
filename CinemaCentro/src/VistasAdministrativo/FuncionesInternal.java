@@ -44,7 +44,6 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         rellenarTablaPelicula();
         rellenarTablaSala();
         rellenartablaHorario();
-        cargarDescripcion();
     }
 
     /**
@@ -78,8 +77,8 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         btneliminar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
         btndarbaja = new javax.swing.JButton();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        txtDescrip = new javax.swing.JTextArea();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jtableDescripcion = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Engravers MT", 1, 18)); // NOI18N
         jLabel1.setText("Funciones");
@@ -168,9 +167,18 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
 
         btndarbaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-baja.png"))); // NOI18N
 
-        txtDescrip.setColumns(20);
-        txtDescrip.setRows(5);
-        jScrollPane4.setViewportView(txtDescrip);
+        jtableDescripcion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane5.setViewportView(jtableDescripcion);
 
         javax.swing.GroupLayout pnlFuncionesLayout = new javax.swing.GroupLayout(pnlFunciones);
         pnlFunciones.setLayout(pnlFuncionesLayout);
@@ -190,16 +198,16 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(119, 119, 119)
                                 .addComponent(jButtonConfirmar))
                             .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(35, 35, 35)
+                                .addGap(64, 64, 64)
                                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btndarbaja)
                                     .addComponent(btnmodificar))
@@ -275,20 +283,21 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addGap(39, 39, 39)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
                                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btndarbaja)
                                     .addComponent(btneliminar))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnmodificar)
                                 .addGap(44, 44, 44)
-                                .addComponent(jButtonConfirmar)))
+                                .addComponent(jButtonConfirmar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(16, 16, 16)))
                         .addGap(51, 51, 51))))
         );
 
@@ -296,7 +305,10 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlFunciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlFunciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,12 +346,12 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTableHorarios;
     private javax.swing.JTable jTableSala;
+    private javax.swing.JTable jtableDescripcion;
     private javax.swing.JPanel pnlFunciones;
     private javax.swing.JTable tblpeliculas;
-    private javax.swing.JTextArea txtDescrip;
     // End of variables declaration//GEN-END:variables
 
     private void rellenarTablaPelicula() {
@@ -355,7 +367,7 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
             }
             tblpeliculas.setModel(model);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar la tabla peliculas: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar la tabla peliculas: " );
         }
     }
 
@@ -370,7 +382,7 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
             }
             jTableSala.setModel(model);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar la tabla salas : " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar la tabla salas : " );
         }
     }
 
@@ -386,35 +398,9 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
             }
             jTableHorarios.setModel(model);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar la tabla horarios: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar la tabla horarios: ");
         }
     }
 
-    private void cargarDescripcion() {
-        int filaPelicula = tblpeliculas.getSelectedRow();
-        int filaSala = jTableSala.getSelectedRow();
-        int filaHorario = jTableHorarios.getSelectedRow();
-
-        if (filaPelicula == -1 || filaSala == -1 || filaHorario == -1) {
-            return;
-        }
-        int idPelicula = (int) tblpeliculas.getValueAt(filaPelicula, 0);
-        int nroSala = (int) jTableSala.getValueAt(filaSala, 0);
-        String horaInicioStr = (String) jTableHorarios.getValueAt(filaHorario, 0);
-
-        try {
-            Time horaInicio = Time.valueOf(horaInicioStr);
-
-            Funcion funcion = funciondao.buscarFuncion(idPelicula, nroSala, horaInicio);
-
-            if (funcion != null) {
-                txtDescrip.setText(funcion.getDescripcion());
-            } else {
-                txtDescrip.setText("No se encontró descripción para esta combinación.");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al buscar la función: " + e.getMessage());
-        }
-    }
-
+    
 }
