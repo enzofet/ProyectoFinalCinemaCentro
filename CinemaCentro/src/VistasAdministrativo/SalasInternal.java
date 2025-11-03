@@ -8,7 +8,11 @@ package VistasAdministrativo;
 import Controlador.SalaDAO;
 import Modelo.Sala;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -30,6 +34,7 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         deshabilitarBotones();
         rellenarTabla();
         agregarListenerTablaSala(tblSalas);
+        txtEstado.setEnabled(false);
     }
 
     /**
@@ -58,8 +63,10 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         btnAlta = new javax.swing.JButton();
         btnBaja = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        cmbEstado = new javax.swing.JComboBox<>();
         lblSalasActuales = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JTextField();
 
         lblNumero.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblNumero.setText("Numero de sala:");
@@ -88,6 +95,11 @@ public class SalasInternal extends javax.swing.JInternalFrame {
 
         btnAgregar.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         btnAgregar.setText("Agregar sala");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         checkEdicion.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         checkEdicion.setText("Habilitar modificación");
@@ -99,23 +111,38 @@ public class SalasInternal extends javax.swing.JInternalFrame {
 
         btnEliminar.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         btnEliminar.setText("Eliminar sala");
-
-        btnModificar.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        btnModificar.setText("Modificar sala");
-
-        checkApta3D.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        checkApta3D.setText("Seleccionar si es apta");
-        checkApta3D.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkApta3DActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
 
+        btnModificar.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        btnModificar.setText("Modificar sala");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        checkApta3D.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        checkApta3D.setText("Seleccionar si es apta");
+
         btnAlta.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         btnAlta.setText("Dar de alta sala");
+        btnAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltaActionPerformed(evt);
+            }
+        });
 
         btnBaja.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         btnBaja.setText("Dar de baja sala");
+        btnBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBajaActionPerformed(evt);
+            }
+        });
 
         btnSalir.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         btnSalir.setText("Salir");
@@ -127,6 +154,10 @@ public class SalasInternal extends javax.swing.JInternalFrame {
 
         lblSalasActuales.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblSalasActuales.setText("Salas actuales:");
+
+        jLabel1.setText("Minimo: 170");
+
+        jLabel2.setText("Maximo: 230");
 
         javax.swing.GroupLayout pnlSalasLayout = new javax.swing.GroupLayout(pnlSalas);
         pnlSalas.setLayout(pnlSalasLayout);
@@ -165,11 +196,15 @@ public class SalasInternal extends javax.swing.JInternalFrame {
                                         .addComponent(lblApta3D))
                                     .addGap(18, 18, 18)
                                     .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(pnlSalasLayout.createSequentialGroup()
+                                            .addComponent(jLabel1)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel2))
                                         .addComponent(txtCapacidad)
                                         .addGroup(pnlSalasLayout.createSequentialGroup()
                                             .addComponent(checkApta3D)
                                             .addGap(0, 0, Short.MAX_VALUE))
-                                        .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addComponent(txtEstado))))
                             .addComponent(checkEdicion))
                         .addGap(18, 18, 18)
                         .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,15 +223,19 @@ public class SalasInternal extends javax.swing.JInternalFrame {
                         .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNumero)
                             .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(5, 5, 5)
                         .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblCapacidad)
                             .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(38, 38, 38)
+                        .addGap(39, 39, 39)
                         .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblEstado)
-                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)
+                            .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
                         .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblApta3D)
                             .addComponent(checkApta3D))
@@ -237,10 +276,6 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void checkApta3DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkApta3DActionPerformed
-
-    }//GEN-LAST:event_checkApta3DActionPerformed
-
     private void checkEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEdicionActionPerformed
         if (checkEdicion.isSelected()) {
             habilitarBotones();
@@ -252,6 +287,77 @@ public class SalasInternal extends javax.swing.JInternalFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        try {
+            int seleccion = JOptionPane.showConfirmDialog(this, "¿Desea eliminar la sala seleccionada? Esta acción eliminara todos los asientos"
+                    + " relacionados a esta sala.", "Confirmación", YES_NO_OPTION);
+            if(seleccion == 0){
+                maniSalas.eliminarSala(nro_sala);
+                JOptionPane.showMessageDialog(this, "Eliminado correctamente");
+            }
+            
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", WIDTH);
+        } finally {
+            rellenarTabla();
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
+        try {
+            maniSalas.darAltaSala(nro_sala);
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", WIDTH);
+        } finally {
+            rellenarTabla();
+        }
+    }//GEN-LAST:event_btnAltaActionPerformed
+
+    private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
+        try {
+            maniSalas.darBajaSala(nro_sala);
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", WIDTH);
+        } finally {
+            rellenarTabla();
+        }
+    }//GEN-LAST:event_btnBajaActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        String txtNum = txtNumero.getText();
+        String txtCap = txtCapacidad.getText();
+        boolean es3d = checkApta3D.isSelected();
+        boolean estado = parsearString(txtEstado.getText());
+        try {
+            int numeroSala = Integer.parseInt(txtNum);
+            int capacidad = Integer.parseInt(txtCap);
+            if(capacidad < 170 || capacidad > 230){
+                JOptionPane.showMessageDialog(this, "Ingrese entre los valores validos la capacidad.");
+                return;
+            }
+            Sala salaNueva = new Sala(numeroSala, capacidad, estado, es3d);
+            maniSalas.actualizarSala(nro_sala, salaNueva);
+        } catch (NumberFormatException a){
+            JOptionPane.showMessageDialog(this, "Ingrese un número valido");
+        } 
+        
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", WIDTH);
+        } 
+        
+        finally {
+            rellenarTabla();
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
+        DialogCrearSala ventanaCrearSala = new DialogCrearSala(padre, true);
+        ventanaCrearSala.setVisible(true);
+        ventanaCrearSala.setLocationRelativeTo(padre);
+        rellenarTabla();
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     public void rellenarCabeceras() {
         DefaultTableModel modelo = new DefaultTableModel() {
@@ -270,6 +376,7 @@ public class SalasInternal extends javax.swing.JInternalFrame {
     public void rellenarTabla() {
         try {
             DefaultTableModel modelo = (DefaultTableModel) tblSalas.getModel();
+            modelo.setRowCount(0);
             List<Sala> listaSalas = maniSalas.listarsalas();
             for (Sala s : listaSalas) {
                 modelo.addRow(new Object[] {s.getNro_Sala(), 
@@ -299,14 +406,12 @@ public class SalasInternal extends javax.swing.JInternalFrame {
     public void deshabilitarBotones() {
         txtNumero.setEnabled(false);
         txtCapacidad.setEnabled(false);
-        cmbEstado.setEnabled(false);
         checkApta3D.setEnabled(false);
     }
 
     public void habilitarBotones() {
         txtNumero.setEnabled(true);
         txtCapacidad.setEnabled(true);
-        cmbEstado.setEnabled(true);
         checkApta3D.setEnabled(true);
     }
     
@@ -323,7 +428,12 @@ public class SalasInternal extends javax.swing.JInternalFrame {
                     nro_sala = (int) tabla.getValueAt(filaS, 0);
                     txtNumero.setText(Integer.toString((int) tabla.getValueAt(filaS, 0)));
                     txtCapacidad.setText(Integer.toString((int) tabla.getValueAt(filaS, 1)));
-                    
+                    txtEstado.setText((String) tabla.getValueAt(filaS, 2));
+                    if(parsearString((String)tabla.getValueAt(filaS, 3))){
+                        checkApta3D.setSelected(true);
+                    } else {
+                        checkApta3D.setSelected(false);
+                    }
                 }
             }
         });
@@ -337,7 +447,8 @@ public class SalasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JCheckBox checkApta3D;
     private javax.swing.JCheckBox checkEdicion;
-    private javax.swing.JComboBox<String> cmbEstado;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblApta3D;
     private javax.swing.JLabel lblCapacidad;
@@ -347,6 +458,7 @@ public class SalasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnlSalas;
     private javax.swing.JTable tblSalas;
     private javax.swing.JTextField txtCapacidad;
+    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtNumero;
     // End of variables declaration//GEN-END:variables
 }

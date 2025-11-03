@@ -27,9 +27,8 @@ public class SalaDAO {
             ps.setInt(1, sala.getNro_Sala());
             ps.setInt(2, sala.getCapacidad());
             ps.setBoolean(3, sala.isEstado());
-            ps.setBoolean(3, sala.isApta3D());
+            ps.setBoolean(4, sala.isApta3D());
 
-            ps.executeUpdate();
             int filas = ps.executeUpdate();
              if (filas == 0) {
                 throw new Exception("No se pudo agregar la sala");
@@ -50,7 +49,7 @@ public class SalaDAO {
 
             int filas = ps.executeUpdate();
             if (filas == 0) {
-                throw new Exception("no se pudo encontrar la sala");
+                throw new Exception("No se pudo encontrar la sala.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -60,18 +59,18 @@ public class SalaDAO {
     }
 
     public void actualizarSala(int nro_sala, Sala sala) throws Exception {
-        String sql = "UPDATE sala SET nro_sala=?, capacidad=? , estado=?,apto3D=?";
+        String sql = "UPDATE sala SET capacidad=? , estado=?,apta3D=? WHERE nro_sala = ?";
         Connection conn = ConexionBD.getConnection();
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, sala.getNro_Sala());
-            ps.setInt(2, sala.getCapacidad());
-            ps.setBoolean(3, sala.isEstado());
+            ps.setInt(1, sala.getCapacidad());
+            ps.setBoolean(2, sala.isEstado());
             ps.setBoolean(3, sala.isApta3D());
+            ps.setInt(4, sala.getNro_Sala());
 
             int filas = ps.executeUpdate();
             if (filas == 0) {
-                throw new Exception("no se pudo actualizar la sala");
+                throw new Exception("No se pudo actualizar la sala");
             }
         } catch (SQLException e) {
             e.printStackTrace();
