@@ -84,8 +84,8 @@
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Component id="lblFechaFuncion" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="61" pref="61" max="-2" attributes="0"/>
-                                          <Component id="lblFechaS" min="-2" pref="70" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="lblFechaS" min="-2" pref="113" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="10" pref="10" max="-2" attributes="0"/>

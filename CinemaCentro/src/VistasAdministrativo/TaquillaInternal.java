@@ -242,8 +242,8 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                                         .addComponent(lblHorarioFinS, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(pnlTaquillaLayout.createSequentialGroup()
                                         .addComponent(lblFechaFuncion)
-                                        .addGap(61, 61, 61)
-                                        .addComponent(lblFechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblFechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(pnlTaquillaLayout.createSequentialGroup()
                                         .addGap(10, 10, 10)
                                         .addComponent(btnConfirmacion)))
@@ -395,12 +395,12 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 modelo.addRow(new Object[]{f.getId_Funcion(),
                     f.getNro_Sala(),
                     f.getIdioma(),
-                    f.isEs3D(),
+                    parsearBoolean(f.isEs3D()),
                     f.getHora_Inicio(),
                     f.getHora_Fin(),
                     f.getPrecio_Entrada(),
                     f.getFecha_Funcion(),
-                    f.isSubtitulada()
+                    parsearBoolean(f.isSubtitulada())
                 });
             }
         } catch(Exception e){
@@ -437,14 +437,17 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 }
                 int filaS = tblFunciones.getSelectedRow();
                 if(filaS != -1){
+                    
                     id_funcion = (int) tblFunciones.getValueAt(filaS, 0);
                     lblNumeroSalaS.setText(Integer.toString((int)tblFunciones.getValueAt(filaS, 1)));
-                    lblIdiomaS.setText((String) tblFunciones.getValueAt(filaS, 2));
-                    lbl3DS.setText((String) tblFunciones.getValueAt(filaS, 3));
-                    lblSubtituladaS.setText((String) tblFunciones.getValueAt(filaS, 4));
-                    lblHorarioInicioS.setText((String) tblFunciones.getValueAt(filaS, 5));
-                    lblHorarioFinS.setText((String) tblFunciones.getValueAt(filaS, 6));
-                    lblFechaS.setText((String) tblFunciones.getValueAt(filaS, 7));  
+                    lblIdiomaS.setText(tblFunciones.getValueAt(filaS, 2).toString());
+                    lbl3DS.setText(tblFunciones.getValueAt(filaS, 3).toString());
+                    lblHorarioInicioS.setText(tblFunciones.getValueAt(filaS, 4).toString());
+                    lblHorarioFinS.setText(tblFunciones.getValueAt(filaS, 5).toString());
+                    lblPrecioEntradaIndividualS.setText(tblFunciones.getValueAt(filaS, 6).toString());
+                    lblFechaS.setText(tblFunciones.getValueAt(filaS, 7).toString());
+                    lblSubtituladaS.setText(tblFunciones.getValueAt(filaS, 8).toString());
+                    
                 } else {
                     lblNumeroSalaS.setText("");
                     lblIdiomaS.setText("");
@@ -466,7 +469,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
     } 
     
     public boolean parsearString(String estado){
-        return estado.equalsIgnoreCase("Activo");
+        return estado.equalsIgnoreCase("Si");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
