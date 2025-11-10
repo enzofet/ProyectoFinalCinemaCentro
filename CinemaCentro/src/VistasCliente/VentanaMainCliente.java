@@ -47,15 +47,11 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         }
     };
 
-    /**
-     * Creates new form LoginCliente
-     */
     public VentanaMainCliente(Cliente cliente) {
         initComponents();
         armarCabeceraPelicula(jTPeli);
     }
 
-    //Relleno de tablas (peli y funcion)
     private void tablaPeli() {
 
         List<Pelicula> lista;
@@ -258,9 +254,9 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbPelicula)
-                    .addComponent(jbFuncion))
+                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbFuncion, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jbPelicula))
                 .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlLoginLayout.createSequentialGroup()
                         .addGap(19, 19, 19)
@@ -280,7 +276,6 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                             .addComponent(jButton1))
                         .addContainerGap(58, Short.MAX_VALUE))
                     .addGroup(pnlLoginLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)
