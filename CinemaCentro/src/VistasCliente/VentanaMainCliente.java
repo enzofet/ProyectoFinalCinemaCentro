@@ -10,6 +10,7 @@ import Controlador.PeliculaDAO;
 import Modelo.Cliente;
 import Modelo.Funcion;
 import Modelo.Pelicula;
+import VistasAdministrativo.DialogAsientos;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -24,6 +25,8 @@ import javax.swing.table.TableColumnModel;
  * @author Enzo_2
  */
 public class VentanaMainCliente extends javax.swing.JFrame {
+    
+    int idSala = 0;
 
     int idFun = 0;
     private FuncionDAO maniFun = new FuncionDAO();
@@ -48,10 +51,10 @@ public class VentanaMainCliente extends javax.swing.JFrame {
     public VentanaMainCliente(Cliente cliente) {
         initComponents();
         armarCabeceraPelicula(jTPeli);
+        armarCabeceraFuncion(jTFuncion);
     }
 
     private void tablaPeli() {
-
         List<Pelicula> lista;
         modeloPeli.setRowCount(0);
         try {
@@ -78,7 +81,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                 modeloFun.addRow(new Object[]{
                     fun.getId_Funcion(),
                     fun.getFecha_Funcion(),
-                    "Inicio: " + fun.getHora_Inicio() + "\nFin: " + fun.getHora_Fin(),
+                    "Inicio: " + fun.getHora_Inicio() + " / Fin: " + fun.getHora_Fin(),
                     fun.getNro_Sala(),
                     fun.isEs3D(),
                     fun.getIdioma()
@@ -113,6 +116,9 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         columnID.setPreferredWidth(0);
         columnID.setMaxWidth(0);
         columnID.setResizable(false);
+        
+        TableColumn columnHora = modeloColumnas.getColumn(2);
+        columnHora.setMinWidth(140);
     }
 
     /**
@@ -220,22 +226,25 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 757, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jbFuncion))))
                     .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pnlLoginLayout.createSequentialGroup()
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(102, 102, 102)
-                            .addComponent(jBButaca))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 757, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jbCantidad)))
+                        .addGroup(pnlLoginLayout.createSequentialGroup()
+                            .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jbCantidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlLoginLayout.createSequentialGroup()
+                                    .addGap(81, 81, 81)
+                                    .addComponent(lblButaca))
+                                .addGroup(pnlLoginLayout.createSequentialGroup()
+                                    .addGap(73, 73, 73)
+                                    .addComponent(jBButaca))))))
                 .addContainerGap(100, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLoginLayout.createSequentialGroup()
-                .addGap(252, 252, 252)
-                .addComponent(lblButaca)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlLoginLayout.createSequentialGroup()
-                        .addComponent(jBComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59))))
+                    .addComponent(jBComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(59, 59, 59))
         );
         pnlLoginLayout.setVerticalGroup(
             pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,21 +260,20 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(88, 88, 88)
-                .addComponent(jBComprar)
                 .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlLoginLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jbCantidad)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jBComprar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbSalir))
                     .addGroup(pnlLoginLayout.createSequentialGroup()
+                        .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbCantidad)
+                            .addComponent(lblButaca))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jbSalir)
-                            .addComponent(lblButaca))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBButaca)))
-                .addGap(54, 107, Short.MAX_VALUE))
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBButaca))))
+                .addGap(87, 143, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -284,7 +292,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
     private void jBButacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBButacaActionPerformed
         JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-        DialogAsientos ventanaAsientos = new DialogAsientos(padre, true);
+        DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, 5);
         ventanaAsientos.setVisible(true);
     }//GEN-LAST:event_jBButacaActionPerformed
 
@@ -300,9 +308,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
             idPeli = (int) jTPeli.getValueAt(filaSelec, 0);
             
             tablaFun();
-            
-        }
-        
+        }        
     }//GEN-LAST:event_jTPeliMouseClicked
 
     /**
