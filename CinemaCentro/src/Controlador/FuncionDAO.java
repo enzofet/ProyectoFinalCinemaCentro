@@ -23,36 +23,39 @@ import java.util.List;
 public class FuncionDAO {
 
     public void agregarFuncion(Funcion funcion) throws Exception {
-        String sql = "INSERT INTO funcion (nro_Sala, idioma, es3D, hora_inicio, hora_fin, precio_entrada, "
-                + "fecha_funcion, subtitulada, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO funcion (id_pelicula, nro_sala, idioma, es3D, hora_inicio, hora_fin, precio_entrada, "
+                + "fecha_funcion, subtitulada, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection conn = ConexionBD.getConnection();
 
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setInt(1, funcion.getNro_Sala());
-            ps.setString(2, funcion.getIdioma());
-            ps.setBoolean(3, funcion.isEs3D());
-            ps.setTime(4, funcion.getHora_Inicio());
-            ps.setTime(5, funcion.getHora_Fin());
-            ps.setDouble(6, funcion.getPrecio_Entrada());
-            ps.setDate(7, Date.valueOf(funcion.getFecha_Funcion()));
-            ps.setBoolean(8, funcion.isSubtitulada());
-            ps.setBoolean(9, funcion.isEstado());
+            ps.setInt(1, funcion.getId_pelicula());
+            ps.setInt(2, funcion.getNro_Sala());
+            ps.setString(3, funcion.getIdioma());
+            ps.setBoolean(4, funcion.isEs3D());
+            ps.setTime(5, funcion.getHora_Inicio());
+            ps.setTime(6, funcion.getHora_Fin());
+            ps.setDouble(7, funcion.getPrecio_Entrada());
+            ps.setDate(8, Date.valueOf(funcion.getFecha_Funcion()));
+            ps.setBoolean(9, funcion.isSubtitulada());
+            ps.setBoolean(10, funcion.isEstado());
 
             ps.executeUpdate();
+
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                funcion.setId_Funcion(rs.getInt("id_funcion"));
+                funcion.setId_Funcion(rs.getInt(1));
             } else {
-                throw new Exception("Error al agregar una función nueva.");
+                throw new Exception("Error al agregar una función nueva - no se generó ID.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new Exception("Error relacionado a la base de datos.");
+            throw new Exception("Error al agregar función: " + e.getMessage()
+                    + ". Valores: id_pelicula=" + funcion.getId_pelicula());
         }
     }
 
     public void eliminarFuncion(int id) throws Exception {
-        String sql = "DELETE FROM funcion WHERE id_Funcion = ?";
+        String sql = "DELETE FROM funcion WHERE id_funcion = ?";
         Connection conn = ConexionBD.getConnection();
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -68,34 +71,38 @@ public class FuncionDAO {
     }
 
     public void actualizarFuncion(int id, Funcion funcion) throws Exception {
-        String sql = "UPDATE funcion SET nro_Sala= ?, idioma= ?, es3D = ?, hora_inicio = ?, hora_fin=?, "
-                + " precio_entrada=?, fecha_funcion =?, subtitulada =?, estado =? WHERE id_funcion=?";
+        String sql = "UPDATE funcion SET id_pelicula=?, nro_sala=?, idioma=?, es3D=?, hora_inicio=?, hora_fin=?, "
+                + "precio_entrada=?, fecha_funcion=?, subtitulada=?, estado=? WHERE id_funcion=?";
         Connection conn = ConexionBD.getConnection();
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, funcion.getNro_Sala());
-            ps.setString(2, funcion.getIdioma());
-            ps.setBoolean(3, funcion.isEs3D());
-            ps.setTime(4, funcion.getHora_Inicio());
-            ps.setTime(5, funcion.getHora_Fin());
-            ps.setDouble(6, funcion.getPrecio_Entrada());
-            ps.setDate(7, Date.valueOf(funcion.getFecha_Funcion()));
-            ps.setBoolean(8, funcion.isSubtitulada());
-            ps.setBoolean(9, funcion.isEstado());
-            ps.setInt(10, funcion.getId_Funcion());
+            ps.setInt(1, funcion.getId_pelicula());
+            ps.setInt(2, funcion.getNro_Sala());
+            ps.setString(3, funcion.getIdioma());
+            ps.setBoolean(4, funcion.isEs3D());
+            ps.setTime(5, funcion.getHora_Inicio());
+            ps.setTime(6, funcion.getHora_Fin());
+            ps.setDouble(7, funcion.getPrecio_Entrada());
+            ps.setDate(8, Date.valueOf(funcion.getFecha_Funcion()));
+            ps.setBoolean(9, funcion.isSubtitulada());
+            ps.setBoolean(10, funcion.isEstado());
+            ps.setInt(11, id);
 
             int filas = ps.executeUpdate();
+
             if (filas == 0) {
-                throw new Exception("No se pudo registrar la funcion.");
+                throw new Exception("No se pudo actualizar la función. No se encontró el registro.");
+            } else {
+                System.out.println("Función actualizada correctamente");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new Exception("Error relacionado a la base de datos.");
+            throw new Exception("Error al actualizar función: " + e.getMessage());
         }
     }
 
     public Funcion buscarFuncionPorId(int id) throws Exception {
-        String sql = "SELECT * FROM funcion WHERE id_Funcion = ?";
+        String sql = "SELECT * FROM funcion WHERE id_funcion = ?";
         Connection conn = ConexionBD.getConnection();
 
         Funcion fun = null;
@@ -104,16 +111,17 @@ public class FuncionDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     fun = new Funcion();
-                    fun.setId_Funcion(rs.getInt("id_Funcion"));
-                    fun.setNro_Sala(rs.getInt("nro_Sala"));
+                    fun.setId_Funcion(rs.getInt("id_funcion"));
+                    fun.setId_pelicula(rs.getInt("id_pelicula"));
+                    fun.setNro_Sala(rs.getInt("nro_sala"));
                     fun.setIdioma(rs.getString("idioma"));
                     fun.setEs3D(rs.getBoolean("es3D"));
-                    fun.setHora_Inicio(rs.getTime("Hora_Inicio"));
-                    fun.setHora_Fin(rs.getTime("Hora_Fin"));
-                    fun.setPrecio_Entrada(rs.getDouble("Precio_Entrada"));
-                    fun.setFecha_Funcion(rs.getDate("Fecha_Funcion").toLocalDate());
-                    fun.setSubtitulada(rs.getBoolean("Subtitulada"));
-                    fun.setEstado(rs.getBoolean("Estado"));
+                    fun.setHora_Inicio(rs.getTime("hora_inicio"));
+                    fun.setHora_Fin(rs.getTime("hora_fin"));
+                    fun.setPrecio_Entrada(rs.getDouble("precio_entrada"));
+                    fun.setFecha_Funcion(rs.getDate("fecha_funcion").toLocalDate());
+                    fun.setSubtitulada(rs.getBoolean("subtitulada"));
+                    fun.setEstado(rs.getBoolean("estado"));
                 } else {
                     throw new Exception("No se ha encontrado la funcion");
                 }
@@ -135,17 +143,17 @@ public class FuncionDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     fun = new Funcion();
-                    fun.setId_Funcion(rs.getInt("id_Funcion"));
+                    fun.setId_Funcion(rs.getInt("id_funcion"));
                     fun.setId_pelicula(rs.getInt("id_pelicula"));
-                    fun.setNro_Sala(rs.getInt("nro_Sala"));
+                    fun.setNro_Sala(rs.getInt("nro_sala"));
                     fun.setIdioma(rs.getString("idioma"));
                     fun.setEs3D(rs.getBoolean("es3D"));
-                    fun.setHora_Inicio(rs.getTime("Hora_Inicio"));
-                    fun.setHora_Fin(rs.getTime("Hora_Fin"));
-                    fun.setPrecio_Entrada(rs.getDouble("Precio_Entrada"));
-                    fun.setFecha_Funcion(rs.getDate("Fecha_Funcion").toLocalDate());
-                    fun.setSubtitulada(rs.getBoolean("Subtitulada"));
-                    fun.setEstado(rs.getBoolean("Estado"));
+                    fun.setHora_Inicio(rs.getTime("hora_inicio"));
+                    fun.setHora_Fin(rs.getTime("hora_fin"));
+                    fun.setPrecio_Entrada(rs.getDouble("precio_entrada"));
+                    fun.setFecha_Funcion(rs.getDate("fecha_funcion").toLocalDate());
+                    fun.setSubtitulada(rs.getBoolean("subtitulada"));
+                    fun.setEstado(rs.getBoolean("estado"));
                     listafuncion.add(fun);
                 }
             }
@@ -157,7 +165,7 @@ public class FuncionDAO {
     }
 
     public void darAltaFuncion(int id) throws Exception {
-        String sql = "UPDATE funcion SET Estado = true WHERE id_Funcion = ?";
+        String sql = "UPDATE funcion SET Estado = true WHERE id_funcion = ?";
         Connection conn = ConexionBD.getConnection();
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -173,7 +181,7 @@ public class FuncionDAO {
     }
 
     public void darBajaFuncion(int id) throws Exception {
-        String sql = "UPDATE funcion SET Estado = false WHERE id_Funcion = ?";
+        String sql = "UPDATE funcion SET Estado = false WHERE id_funcion = ?";
         Connection conn = ConexionBD.getConnection();
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -198,17 +206,17 @@ public class FuncionDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Funcion fun = new Funcion();
-                    fun.setId_Funcion(rs.getInt("id_Funcion"));
+                    fun.setId_Funcion(rs.getInt("id_funcion"));
                     fun.setId_pelicula(rs.getInt("id_pelicula"));
-                    fun.setNro_Sala(rs.getInt("nro_Sala"));
+                    fun.setNro_Sala(rs.getInt("nro_sala"));
                     fun.setIdioma(rs.getString("idioma"));
                     fun.setEs3D(rs.getBoolean("es3D"));
-                    fun.setHora_Inicio(rs.getTime("Hora_Inicio"));
-                    fun.setHora_Fin(rs.getTime("Hora_Fin"));
-                    fun.setPrecio_Entrada(rs.getDouble("Precio_Entrada"));
-                    fun.setFecha_Funcion(rs.getDate("Fecha_Funcion").toLocalDate());
-                    fun.setSubtitulada(rs.getBoolean("Subtitulada"));
-                    fun.setEstado(rs.getBoolean("Estado"));
+                    fun.setHora_Inicio(rs.getTime("hora_inicio"));
+                    fun.setHora_Fin(rs.getTime("hora_fin"));
+                    fun.setPrecio_Entrada(rs.getDouble("precio_entrada"));
+                    fun.setFecha_Funcion(rs.getDate("fecha_funcion").toLocalDate());
+                    fun.setSubtitulada(rs.getBoolean("subtitulada"));
+                    fun.setEstado(rs.getBoolean("estado"));
                     funcionesId.add(fun);
                 }
             }
