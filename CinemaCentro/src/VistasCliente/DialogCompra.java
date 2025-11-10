@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -102,11 +103,14 @@ public class DialogCompra extends javax.swing.JDialog {
         lblFechaFuncion = new javax.swing.JLabel();
         lblPrecioEntrada = new javax.swing.JLabel();
         pnlEfectivo = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        lblVuelto = new javax.swing.JLabel();
+        txtEfectivo = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         btnConfirmarCompra = new javax.swing.JButton();
         btnCancelarCompra = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblEntradas = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -204,9 +208,8 @@ public class DialogCompra extends javax.swing.JDialog {
                         .addGap(19, 19, 19)
                         .addGroup(pnlDetalleVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblImporteTotalS)
-                            .addGroup(pnlDetalleVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(lblTokenS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblFechaVentaS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblTokenS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblFechaVentaS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblEntradasS)
                             .addComponent(lblToken, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -389,30 +392,43 @@ public class DialogCompra extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setText("jButton1");
+        jLabel1.setText("Vuelto correspondiente");
+
+        jLabel3.setText("Con cuanto va a pagar:");
 
         javax.swing.GroupLayout pnlEfectivoLayout = new javax.swing.GroupLayout(pnlEfectivo);
         pnlEfectivo.setLayout(pnlEfectivoLayout);
         pnlEfectivoLayout.setHorizontalGroup(
             pnlEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEfectivoLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jButton1)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addGroup(pnlEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(txtEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                        .addComponent(lblVuelto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         pnlEfectivoLayout.setVerticalGroup(
             pnlEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEfectivoLayout.createSequentialGroup()
-                .addContainerGap(183, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(25, 25, 25))
+                .addGap(19, 19, 19)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(lblVuelto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
         );
 
         btnConfirmarCompra.setText("Confirmar compra");
 
-        btnCancelarCompra.setText("Salir");
+        btnCancelarCompra.setText("Cancelar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblEntradas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -423,7 +439,7 @@ public class DialogCompra extends javax.swing.JDialog {
 
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tblEntradas);
 
         jLabel2.setText("Entradas");
 
@@ -458,12 +474,11 @@ public class DialogCompra extends javax.swing.JDialog {
                         .addGap(49, 49, 49)
                         .addComponent(pnlTicketIndividual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(btnConfirmarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(btnCancelarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(107, 107, 107)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnConfirmarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancelarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -478,14 +493,14 @@ public class DialogCompra extends javax.swing.JDialog {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                        .addGap(105, 105, 105)
                         .addComponent(btnConfirmarCompra)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelarCompra)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -515,6 +530,23 @@ public class DialogCompra extends javax.swing.JDialog {
             String fila = String.valueOf(a.getFila_asiento());
             String numero = Integer.toString(a.getNumero_asiento());
             listModel.addElement(fila + " - " + numero);
+        }
+    }
+    
+    public void rellenarTablaEntradas(){
+        DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+        modelo.addColumn("Fila asiento");
+        modelo.addColumn("Numero asiento");
+        for(Asiento a : listaAsientos){
+            modelo.addRow(new Object[]{
+                a.getFila_asiento(),
+                a.getNumero_asiento()
+            });
         }
     }
 
@@ -585,13 +617,13 @@ public class DialogCompra extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelarCompra;
     private javax.swing.JButton btnConfirmarCompra;
-    private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel jbCVV;
     private javax.swing.JLabel jbFechaVTarj;
     private javax.swing.JLabel jbNomApeTarj;
@@ -626,10 +658,13 @@ public class DialogCompra extends javax.swing.JDialog {
     private javax.swing.JLabel lblTicketS;
     private javax.swing.JLabel lblToken;
     private javax.swing.JLabel lblTokenS;
+    private javax.swing.JLabel lblVuelto;
     private javax.swing.JPanel pnlDetalleVenta;
     private javax.swing.JPanel pnlEfectivo;
     private javax.swing.JPanel pnlTicketIndividual;
+    private javax.swing.JTable tblEntradas;
     private javax.swing.JTextField txtCVV;
+    private javax.swing.JTextField txtEfectivo;
     private javax.swing.JTextField txtNomApeTarj;
     private javax.swing.JTextField txtNroTarj;
     // End of variables declaration//GEN-END:variables

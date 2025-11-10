@@ -241,6 +241,11 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         });
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Medio de pago");
 
@@ -504,6 +509,10 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
             Logger.getLogger(TaquillaInternal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnRealizarCompraActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     public void ocultarIDs() {
 
