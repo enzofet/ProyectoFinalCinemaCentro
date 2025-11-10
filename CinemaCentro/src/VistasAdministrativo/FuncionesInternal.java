@@ -6,7 +6,6 @@ import Controlador.SalaDAO;
 import Modelo.Funcion;
 import Modelo.Pelicula;
 import Modelo.Sala;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -23,9 +22,13 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     String[] cabeceraDescripcion = {"Película", "Sala", "Hora Inicio", "Hora Fin", "Idioma", "Subtitulada", "Tipo", "Fecha", "Valor de Entrada", "Estado"};
     DefaultTableModel modeloDescripcion = new DefaultTableModel(cabeceraDescripcion, 0);
 
+    private FuncionDAO funcionDAO = new FuncionDAO();
+
     private String peliculaSeleccionada = null;
     private String salaSeleccionada = null;
-
+    private int idPeliculaSeleccionada = -1;
+    private Funcion funcionSeleccionada = null;
+    private boolean modoEdicion = false;
 
     public FuncionesInternal() {
         initComponents();
@@ -34,14 +37,25 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         configurarTablaDescripcion();
         ocultarID();
         inicializarClickTablas();
+        cargarFunciones();
+        btnmodificar.setEnabled(false);
+        btneliminar.setEnabled(false);
+        btndarAlta.setEnabled(false);
+        btndarbaja.setEnabled(false);
+        btnConfirmar.setEnabled(true);
     }
 
     private void inicializarClickTablas() {
         tblPeliculas.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && tblPeliculas.getSelectedRow() != -1) {
                 int fila = tblPeliculas.getSelectedRow();
-                peliculaSeleccionada = tblPeliculas.getValueAt(fila, 1).toString();
-                lblPeliculaSeleccionada.setText(peliculaSeleccionada);
+                try {
+                    peliculaSeleccionada = tblPeliculas.getValueAt(fila, 1).toString();
+                    idPeliculaSeleccionada = Integer.parseInt(tblPeliculas.getValueAt(fila, 0).toString());
+                    lblPeliculaSeleccionada.setText(peliculaSeleccionada);
+                } catch (NumberFormatException ex) {
+                    idPeliculaSeleccionada = -1;
+                }
             }
         });
 
@@ -53,12 +67,11 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         });
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        btnGtipo3D = new javax.swing.ButtonGroup();
         pnlFunciones = new javax.swing.JPanel();
         lblCinemaCentro = new javax.swing.JLabel();
         lblFunciones = new javax.swing.JLabel();
@@ -71,8 +84,8 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         scrollPaneDesc = new javax.swing.JScrollPane();
         tblDescripcion = new javax.swing.JTable();
         lblTipoPelicula = new javax.swing.JLabel();
-        jRadioButton2D = new javax.swing.JRadioButton();
-        jRadioButton3D = new javax.swing.JRadioButton();
+        rbtn2D = new javax.swing.JRadioButton();
+        rbtn3D = new javax.swing.JRadioButton();
         lblIdioma = new javax.swing.JLabel();
         jComboBoxIdioma = new javax.swing.JComboBox<>();
         lblListaPeliculas = new javax.swing.JLabel();
@@ -95,6 +108,7 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         btnSalir = new javax.swing.JButton();
         lblPelicula = new javax.swing.JLabel();
         lblPeliculaSeleccionada = new javax.swing.JLabel();
+        btndarAlta = new javax.swing.JButton();
 
         pnlFunciones.setBackground(new java.awt.Color(102, 0, 0));
 
@@ -156,26 +170,26 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
 
             }
         ));
+        tblDescripcion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDescripcionMouseClicked(evt);
+            }
+        });
         scrollPaneDesc.setViewportView(tblDescripcion);
 
         lblTipoPelicula.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblTipoPelicula.setForeground(new java.awt.Color(255, 255, 255));
         lblTipoPelicula.setText("Tipo:");
 
-        buttonGroup1.add(jRadioButton2D);
-        jRadioButton2D.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        jRadioButton2D.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton2D.setText("2D");
-        jRadioButton2D.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2DActionPerformed(evt);
-            }
-        });
+        btnGtipo3D.add(rbtn2D);
+        rbtn2D.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        rbtn2D.setForeground(new java.awt.Color(255, 255, 255));
+        rbtn2D.setText("2D");
 
-        buttonGroup1.add(jRadioButton3D);
-        jRadioButton3D.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        jRadioButton3D.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton3D.setText("3D");
+        btnGtipo3D.add(rbtn3D);
+        rbtn3D.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        rbtn3D.setForeground(new java.awt.Color(255, 255, 255));
+        rbtn3D.setText("3D");
 
         lblIdioma.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblIdioma.setForeground(new java.awt.Color(255, 255, 255));
@@ -186,11 +200,6 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         jComboBoxIdioma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español", "Inglés" }));
         jComboBoxIdioma.setSelectedIndex(-1);
         jComboBoxIdioma.setToolTipText("Elija idioma");
-        jComboBoxIdioma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxIdiomaActionPerformed(evt);
-            }
-        });
 
         lblListaPeliculas.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         lblListaPeliculas.setForeground(new java.awt.Color(255, 255, 255));
@@ -236,20 +245,10 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         jComboBoxSubtitulada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Español", "Inglés" }));
         jComboBoxSubtitulada.setSelectedIndex(-1);
         jComboBoxSubtitulada.setToolTipText("Elija idioma");
-        jComboBoxSubtitulada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxSubtituladaActionPerformed(evt);
-            }
-        });
 
         txtFechaFuncion.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         txtFechaFuncion.setForeground(new java.awt.Color(0, 0, 0));
         txtFechaFuncion.setText("yyyy-MM-dd");
-        txtFechaFuncion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaFuncionActionPerformed(evt);
-            }
-        });
 
         lblFecha.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblFecha.setForeground(new java.awt.Color(255, 255, 255));
@@ -261,18 +260,12 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
 
         lblEstadoFuncion.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblEstadoFuncion.setForeground(new java.awt.Color(255, 255, 255));
-        lblEstadoFuncion.setText("ESTADOFUNCION");
 
         txtFHoraInicio.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         txtFHoraInicio.setForeground(new java.awt.Color(0, 0, 0));
         txtFHoraInicio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtFHoraInicio.setText("HH:ss");
         txtFHoraInicio.setToolTipText("hh:ss");
-        txtFHoraInicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFHoraInicioActionPerformed(evt);
-            }
-        });
 
         lblHoraInicio.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblHoraInicio.setForeground(new java.awt.Color(255, 255, 255));
@@ -287,11 +280,6 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         txtFHoraFin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtFHoraFin.setText("HH:ss");
         txtFHoraFin.setToolTipText("hh:ss");
-        txtFHoraFin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFHoraFinActionPerformed(evt);
-            }
-        });
 
         lblValorEntrada.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblValorEntrada.setForeground(new java.awt.Color(255, 255, 255));
@@ -315,6 +303,14 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
 
         lblPeliculaSeleccionada.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblPeliculaSeleccionada.setForeground(new java.awt.Color(255, 255, 255));
+        lblPeliculaSeleccionada.setText("pelicula a ver");
+
+        btndarAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-alta.png"))); // NOI18N
+        btndarAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndarAltaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlFuncionesLayout = new javax.swing.GroupLayout(pnlFunciones);
         pnlFunciones.setLayout(pnlFuncionesLayout);
@@ -323,25 +319,28 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
             .addGroup(pnlFuncionesLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(scrollPanePeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(scrollPaneSala, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneSala, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
+                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(133, 133, 133))
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(73, 73, 73)
                         .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
                                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(btndarAlta)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btndarbaja)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btneliminar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnmodificar))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnmodificar)
+                                        .addGap(6, 6, 6))
                                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
                                         .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(pnlFuncionesLayout.createSequentialGroup()
@@ -359,10 +358,10 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
                                                 .addComponent(lblTipoPelicula)
                                                 .addGap(10, 10, 10)
-                                                .addComponent(jRadioButton2D)
+                                                .addComponent(rbtn2D)
                                                 .addGap(6, 6, 6)
-                                                .addComponent(jRadioButton3D)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(rbtn3D)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                                         .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
                                                 .addComponent(lblIdioma)
@@ -379,16 +378,16 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                                         .addGap(0, 0, Short.MAX_VALUE)))
                                 .addGap(23, 23, 23))
                             .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                .addComponent(lblValorEntrada)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFValorEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(lblEstado)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblEstadoFuncion)
-                        .addContainerGap())))
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                        .addComponent(lblValorEntrada)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtFValorEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                        .addComponent(lblEstado)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblEstadoFuncion)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
@@ -450,9 +449,9 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jRadioButton2D)
+                                .addComponent(rbtn2D)
                                 .addComponent(lblTipoPelicula))
-                            .addComponent(jRadioButton3D))
+                            .addComponent(rbtn3D))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblFecha)
@@ -470,14 +469,20 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                        .addComponent(lblDescripcionFuncion)
-                        .addGap(16, 16, 16)
+                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                .addComponent(lblDescripcionFuncion)
+                                .addGap(16, 16, 16))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionesLayout.createSequentialGroup()
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btndarAlta, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnmodificar, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(8, 8, 8)))
                         .addComponent(scrollPaneDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
                         .addComponent(btnSalir))
                     .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(btneliminar)
-                        .addComponent(btnmodificar)
                         .addComponent(btndarbaja))))
         );
 
@@ -495,67 +500,90 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton2DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2DActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2DActionPerformed
-
-    private void jComboBoxIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxIdiomaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxIdiomaActionPerformed
-
-    private void jComboBoxSubtituladaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSubtituladaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxSubtituladaActionPerformed
-
-    private void txtFechaFuncionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaFuncionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaFuncionActionPerformed
-
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-
-        if (peliculaSeleccionada == null) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar una pelicula.");
-            return;
-        }
-
-        if (salaSeleccionada == null) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar una sala.");
-            return;
-        }
-
-        String idioma = (String) jComboBoxIdioma.getSelectedItem();
-        String subtitulada = (String) jComboBoxSubtitulada.getSelectedItem();
-        String tipo = jRadioButton2D.isSelected() ? "2D" : jRadioButton3D.isSelected() ? "3D" : null;
-        String horaInicio = txtFHoraInicio.getText().trim();
-        String horaFin = txtFHoraFin.getText().trim();
-        String fecha = txtFechaFuncion.getText().trim();
-        String valor = txtFValorEntrada.getText().trim();
-
-        if (idioma == null || subtitulada == null || tipo == null
-                || horaInicio.isEmpty() || horaFin.isEmpty() || fecha.isEmpty() || valor.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe completar todos los campos.");
-            return;
-        }
-
         try {
-            LocalDate.parse(fecha);
+            if (peliculaSeleccionada == null || idPeliculaSeleccionada == -1) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una película.");
+                return;
+            }
 
-            modeloDescripcion.addRow(new Object[]{
-                peliculaSeleccionada,
-                salaSeleccionada,
-                horaInicio,
-                horaFin,
-                idioma,
-                subtitulada,
-                tipo,
-                fecha,
-                valor,
-                "Activa"
-            });
+            if (salaSeleccionada == null) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una sala.");
+                return;
+            }
 
-            JOptionPane.showMessageDialog(this, "Función registrada correctamente.");
+            String idioma = (String) jComboBoxIdioma.getSelectedItem();
+            String subtituladaStr = (String) jComboBoxSubtitulada.getSelectedItem();
+            String tipo = rbtn2D.isSelected() ? "2D" : rbtn3D.isSelected() ? "3D" : null;
+            String horaInicio = txtFHoraInicio.getText().trim();
+            String horaFin = txtFHoraFin.getText().trim();
+            String fecha = txtFechaFuncion.getText().trim();
+            String valorStr = txtFValorEntrada.getText().trim();
+
+            if (idioma == null || subtituladaStr == null || tipo == null
+                    || horaInicio.isEmpty() || horaFin.isEmpty() || fecha.isEmpty() || valorStr.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe completar todos los campos.");
+                return;
+            }
+
+            int nroSala;
+            double valorEntrada;
+
+            try {
+                nroSala = Integer.parseInt(salaSeleccionada);
+                valorEntrada = Double.parseDouble(valorStr);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Formato inválido en sala o valor de entrada.");
+                return;
+            }
+
+            LocalDate fechaFuncion;
+            try {
+                fechaFuncion = LocalDate.parse(fecha);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Formato de fecha inválido. Use yyyy-MM-dd.");
+                return;
+            }
+
+            java.sql.Time horaInicioTime, horaFinTime;
+            try {
+                if (!horaInicio.contains(":")) {
+                    throw new Exception("Formato de hora inválido");
+                }
+                if (!horaFin.contains(":")) {
+                    throw new Exception("Formato de hora inválido");
+                }
+                horaInicioTime = java.sql.Time.valueOf(horaInicio + ":00");
+                horaFinTime = java.sql.Time.valueOf(horaFin + ":00");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Formato de hora inválido. Use HH:mm (ej: 14:30)");
+                return;
+            }
+
+            boolean es3D = tipo.equals("3D");
+            boolean subtitulada = !subtituladaStr.equals("No");
+
+            Funcion funcion = new Funcion();
+            funcion.setId_pelicula(idPeliculaSeleccionada);
+            funcion.setNro_Sala(nroSala);
+            funcion.setIdioma(idioma);
+            funcion.setEs3D(es3D);
+            funcion.setHora_Inicio(horaInicioTime);
+            funcion.setHora_Fin(horaFinTime);
+            funcion.setPrecio_Entrada(valorEntrada);
+            funcion.setFecha_Funcion(fechaFuncion);
+            funcion.setSubtitulada(subtitulada);
+            funcion.setEstado(true);
+
+            funcionDAO.agregarFuncion(funcion);
+
+            JOptionPane.showMessageDialog(this, "Función registrada correctamente en la base de datos.");
+
             limpiarCampos();
+            cargarFunciones();
+
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al registrar función: " + e.getMessage());
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
@@ -564,46 +592,126 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void txtFHoraInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFHoraInicioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFHoraInicioActionPerformed
-
-    private void txtFHoraFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFHoraFinActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFHoraFinActionPerformed
-
     private void btndarbajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndarbajaActionPerformed
-        int fila = tblDescripcion.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Selecciona una función para darla de baja.");
+        if (funcionSeleccionada == null) {
+            JOptionPane.showMessageDialog(this, "Selecciona una función para dar de baja.");
             return;
         }
 
-        tblDescripcion.setValueAt("Inactiva", fila, 9);
+        try {
+            funcionDAO.darBajaFuncion(funcionSeleccionada.getId_Funcion());
+            JOptionPane.showMessageDialog(this, "Función dada de baja correctamente.");
+            cargarFunciones();
+            funcionSeleccionada = funcionDAO.buscarFuncionPorId(funcionSeleccionada.getId_Funcion());
+            cargarDatosFuncionEnFormulario(funcionSeleccionada);
 
-        JOptionPane.showMessageDialog(this, "Funcion dada de baja.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al dar de baja función: " + e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btndarbajaActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-        // TODO add your handling code here:
+        if (funcionSeleccionada == null) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una función para eliminar.");
+            return;
+        }
+
+        try {
+            int confirmacion = JOptionPane.showConfirmDialog(this,
+                    "¿Estás seguro de que quieres eliminar esta función?",
+                    "Confirmar eliminación",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                funcionDAO.eliminarFuncion(funcionSeleccionada.getId_Funcion());
+                JOptionPane.showMessageDialog(this, "Función eliminada correctamente.");
+                cargarFunciones();
+                limpiarCampos();
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar función: " + e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
-        // TODO add your handling code here:
+        if (funcionSeleccionada == null) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una función para modificar.");
+            return;
+        }
+
+        int confirmacion = JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de que desea modificar esta función?",
+                "Confirmar modificación",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            guardarCambiosFuncion();
+        }
     }//GEN-LAST:event_btnmodificarActionPerformed
 
+    private void btndarAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndarAltaActionPerformed
+        if (funcionSeleccionada == null) {
+            JOptionPane.showMessageDialog(this, "Selecciona una función para darla de alta.");
+            return;
+        }
+
+        try {
+            funcionDAO.darAltaFuncion(funcionSeleccionada.getId_Funcion());
+            JOptionPane.showMessageDialog(this, "Función dada de alta correctamente.");
+            cargarFunciones();
+            funcionSeleccionada = funcionDAO.buscarFuncionPorId(funcionSeleccionada.getId_Funcion());
+            cargarDatosFuncionEnFormulario(funcionSeleccionada);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al dar de alta función: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btndarAltaActionPerformed
+
+    private void tblDescripcionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDescripcionMouseClicked
+        int fila = tblDescripcion.getSelectedRow();
+        if (fila != -1) {
+            try {
+                String nombrePelicula = tblDescripcion.getValueAt(fila, 0).toString();
+                int nroSala = Integer.parseInt(tblDescripcion.getValueAt(fila, 1).toString());
+                String horaInicio = tblDescripcion.getValueAt(fila, 2).toString();
+                String fecha = tblDescripcion.getValueAt(fila, 7).toString();
+                int idFuncion = obtenerIdFuncionCompleto(nombrePelicula, nroSala, horaInicio, fecha);
+                if (idFuncion != -1) {
+                    Funcion funcion = funcionDAO.buscarFuncionPorId(idFuncion);
+                    if (funcion != null) {
+
+                        cargarDatosFuncionEnFormulario(funcion);
+                        btnmodificar.setEnabled(true);
+                        btneliminar.setEnabled(true);
+                        btndarAlta.setEnabled(true);
+                        btndarbaja.setEnabled(true);
+                        btnConfirmar.setEnabled(false);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se pudo cargar la función seleccionada.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo encontrar la función seleccionada.");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al cargar la función seleccionada: " + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_tblDescripcionMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;
+    private javax.swing.ButtonGroup btnGtipo3D;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btndarAlta;
     private javax.swing.JButton btndarbaja;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnmodificar;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> jComboBoxIdioma;
     private javax.swing.JComboBox<String> jComboBoxSubtitulada;
-    private javax.swing.JRadioButton jRadioButton2D;
-    private javax.swing.JRadioButton jRadioButton3D;
     private javax.swing.JLabel lblCinemaCentro;
     private javax.swing.JLabel lblDescripcionFuncion;
     private javax.swing.JLabel lblEstado;
@@ -621,6 +729,8 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblTipoPelicula;
     private javax.swing.JLabel lblValorEntrada;
     private javax.swing.JPanel pnlFunciones;
+    private javax.swing.JRadioButton rbtn2D;
+    private javax.swing.JRadioButton rbtn3D;
     private javax.swing.JScrollPane scrollPaneDesc;
     private javax.swing.JScrollPane scrollPanePeliculas;
     private javax.swing.JScrollPane scrollPaneSala;
@@ -635,7 +745,12 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
 
     private void configurarTablaDescripcion() {
         modeloDescripcion = new DefaultTableModel(
-                new Object[]{"Película", "Sala", "Hora Inicio", "Hora Fin", "Idioma", "Subtitulada", "Tipo", "Fecha", "Valor Entrada", "Estado"}, 0);
+                new Object[]{"Película", "Sala", "Hora Inicio", "Hora Fin", "Idioma", "Subtitulada", "Tipo", "Fecha", "Valor Entrada", "Estado"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         tblDescripcion.setModel(modeloDescripcion);
     }
 
@@ -660,6 +775,115 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         }
     }
 
+    private void cargarDatosFuncionEnFormulario(Funcion funcion) {
+        try {
+            funcionSeleccionada = funcion;
+            peliculaSeleccionada = obtenerNombrePelicula(funcion.getId_pelicula());
+            idPeliculaSeleccionada = funcion.getId_pelicula();
+            lblPeliculaSeleccionada.setText(peliculaSeleccionada);
+            salaSeleccionada = String.valueOf(funcion.getNro_Sala());
+
+            seleccionarPeliculaEnTabla(funcion.getId_pelicula());
+            seleccionarSalaEnTabla(funcion.getNro_Sala());
+            jComboBoxIdioma.setSelectedItem(funcion.getIdioma());
+
+            String subtituladaStr = funcion.isSubtitulada()
+                    ? (funcion.getIdioma().equals("Español") ? "Inglés" : "Español") : "No";
+            jComboBoxSubtitulada.setSelectedItem(subtituladaStr);
+
+            if (funcion.isEs3D()) {
+                rbtn3D.setSelected(true);
+            } else {
+                rbtn2D.setSelected(true);
+            }
+
+            String horaInicio = funcion.getHora_Inicio().toString().substring(0, 5);
+            String horaFin = funcion.getHora_Fin().toString().substring(0, 5);
+            txtFHoraInicio.setText(horaInicio);
+            txtFHoraFin.setText(horaFin);
+            txtFechaFuncion.setText(funcion.getFecha_Funcion().toString());
+            txtFValorEntrada.setText(String.valueOf(funcion.getPrecio_Entrada()));
+            lblEstadoFuncion.setText(funcion.isEstado() ? "Activa" : "Inactiva");
+            funcionSeleccionada = funcion;
+
+        } catch (Exception e) {
+            System.err.println("ERROR en cargarDatosFuncionEnFormulario: " + e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar datos de la función: " + e.getMessage());
+        }
+    }
+
+    private void seleccionarPeliculaEnTabla(int idPelicula) {
+        for (int i = 0; i < tblPeliculas.getRowCount(); i++) {
+            int id = Integer.parseInt(tblPeliculas.getValueAt(i, 0).toString());
+            if (id == idPelicula) {
+                tblPeliculas.setRowSelectionInterval(i, i);
+                break;
+            }
+        }
+    }
+
+    private void seleccionarSalaEnTabla(int nroSala) {
+        for (int i = 0; i < tblSala.getRowCount(); i++) {
+            int sala = Integer.parseInt(tblSala.getValueAt(i, 0).toString());
+            if (sala == nroSala) {
+                tblSala.setRowSelectionInterval(i, i);
+                break;
+            }
+        }
+    }
+
+    private void guardarCambiosFuncion() {
+        try {
+            if (funcionSeleccionada == null) {
+                JOptionPane.showMessageDialog(this, "No hay función seleccionada para modificar.");
+                return;
+            }
+            String idioma = (String) jComboBoxIdioma.getSelectedItem();
+            String subtituladaStr = (String) jComboBoxSubtitulada.getSelectedItem();
+            String tipo = rbtn2D.isSelected() ? "2D" : rbtn3D.isSelected() ? "3D" : null;
+            String horaInicio = txtFHoraInicio.getText().trim();
+            String horaFin = txtFHoraFin.getText().trim();
+            String fecha = txtFechaFuncion.getText().trim();
+            String valorStr = txtFValorEntrada.getText().trim();
+            if (idioma == null || subtituladaStr == null || tipo == null
+                    || horaInicio.isEmpty() || horaFin.isEmpty() || fecha.isEmpty() || valorStr.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe completar todos los campos.");
+                return;
+            }
+            int nroSala = Integer.parseInt(salaSeleccionada);
+            double valorEntrada = Double.parseDouble(valorStr);
+            LocalDate fechaFuncion = LocalDate.parse(fecha);
+            java.sql.Time horaInicioTime, horaFinTime;
+            try {
+                horaInicioTime = java.sql.Time.valueOf(horaInicio + ":00");
+                horaFinTime = java.sql.Time.valueOf(horaFin + ":00");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Formato de hora inválido. Use HH:mm");
+                return;
+            }
+            boolean es3D = tipo.equals("3D");
+            boolean subtitulada = !subtituladaStr.equals("No");
+            funcionSeleccionada.setId_pelicula(idPeliculaSeleccionada);
+            funcionSeleccionada.setNro_Sala(nroSala);
+            funcionSeleccionada.setIdioma(idioma);
+            funcionSeleccionada.setEs3D(es3D);
+            funcionSeleccionada.setHora_Inicio(horaInicioTime);
+            funcionSeleccionada.setHora_Fin(horaFinTime);
+            funcionSeleccionada.setPrecio_Entrada(valorEntrada);
+            funcionSeleccionada.setFecha_Funcion(fechaFuncion);
+            funcionSeleccionada.setSubtitulada(subtitulada);
+            JOptionPane.showMessageDialog(this, "Función modificada correctamente.");
+
+            cargarFunciones();
+            limpiarCampos();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al modificar función: " + e.getMessage());
+        }
+    }
+
     private void cargarSalas() {
         try {
             List<Sala> listaSalas = salaDAO.listarsalas();
@@ -679,6 +903,77 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         }
     }
 
+    private void cargarFunciones() {
+        try {
+            modeloDescripcion.setRowCount(0);
+
+            List<Funcion> funciones = funcionDAO.listarFunciones();
+
+            for (Funcion funcion : funciones) {
+                String nombrePelicula = obtenerNombrePelicula(funcion.getId_pelicula());
+                String datosSala = String.valueOf(funcion.getNro_Sala());
+                String subtituladaStr = funcion.isSubtitulada()
+                        ? (funcion.getIdioma().equals("Español") ? "Inglés" : "Español") : "No";
+                String tipo = funcion.isEs3D() ? "3D" : "2D";
+                String estado = funcion.isEstado() ? "Activa" : "Inactiva";
+                String horaInicio = funcion.getHora_Inicio().toString().substring(0, 5);
+                String horaFin = funcion.getHora_Fin().toString().substring(0, 5);
+
+                modeloDescripcion.addRow(new Object[]{
+                    nombrePelicula,
+                    datosSala,
+                    horaInicio,
+                    horaFin,
+                    funcion.getIdioma(),
+                    subtituladaStr,
+                    tipo,
+                    funcion.getFecha_Funcion().toString(),
+                    String.valueOf(funcion.getPrecio_Entrada()),
+                    estado
+                });
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar funciones: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private String obtenerNombrePelicula(int idPelicula) {
+        try {
+            List<Pelicula> peliculas = peliculaDAO.listarTodasPeliculas();
+            for (Pelicula pelicula : peliculas) {
+                if (pelicula.getId_Pelicula() == idPelicula) {
+                    return pelicula.getTitulo();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "desconocida";
+    }
+
+    private int obtenerIdFuncionCompleto(String nombrePelicula, int nroSala, String horaInicio, String fecha) {
+        try {
+            List<Funcion> funciones = funcionDAO.listarFunciones();
+            for (Funcion funcion : funciones) {
+                if (funcion.getNro_Sala() == nroSala
+                        && funcion.getFecha_Funcion().toString().equals(fecha)) {
+                    String horaFuncion = funcion.getHora_Inicio().toString().substring(0, 5);
+                    if (horaFuncion.equals(horaInicio)) {
+                        String nombreFuncionPelicula = obtenerNombrePelicula(funcion.getId_pelicula());
+                        if (nombreFuncionPelicula.equals(nombrePelicula)) {
+                            return funcion.getId_Funcion();
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
     public String parsearBoolean(boolean estado) {
         if (estado) {
             return "Activo";
@@ -691,11 +986,12 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
             tblPeliculas.getColumnModel().getColumn(0).setMinWidth(0);
             tblPeliculas.getColumnModel().getColumn(0).setMaxWidth(0);
             tblPeliculas.getColumnModel().getColumn(0).setWidth(0);
+            tblPeliculas.getColumnModel().getColumn(0).setPreferredWidth(0);
         }
     }
 
     private void limpiarCampos() {
-        buttonGroup1.clearSelection();
+        btnGtipo3D.clearSelection();
         jComboBoxIdioma.setSelectedIndex(-1);
         jComboBoxSubtitulada.setSelectedIndex(-1);
         txtFHoraInicio.setText("");
@@ -706,6 +1002,16 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
         tblSala.clearSelection();
         peliculaSeleccionada = null;
         salaSeleccionada = null;
+        idPeliculaSeleccionada = -1;
         lblPeliculaSeleccionada.setText("");
+        lblEstadoFuncion.setText("");
+        funcionSeleccionada = null;
+
+        btnmodificar.setEnabled(false);
+        btneliminar.setEnabled(false);
+        btndarAlta.setEnabled(false);
+        btndarbaja.setEnabled(false);
+        btnConfirmar.setEnabled(true);
+
     }
 }
