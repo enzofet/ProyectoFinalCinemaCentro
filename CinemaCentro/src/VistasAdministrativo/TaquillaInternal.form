@@ -114,8 +114,11 @@
                           <Component id="jScrollPane3" min="-2" pref="150" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jButton1" pref="150" max="32767" attributes="0"/>
+                              <Component id="btnRealizarCompra" pref="150" max="32767" attributes="0"/>
                               <Component id="btnCancelarAsientos" max="32767" attributes="0"/>
+                              <Component id="btnSalir" alignment="0" max="32767" attributes="0"/>
+                              <Component id="cmbMedioPago" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -150,7 +153,7 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="lblGeneros" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="14" pref="14" max="-2" attributes="0"/>
@@ -174,9 +177,13 @@
                                   <Component id="lblSubtituladaS" min="-2" pref="20" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnRealizarCompra" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btnCancelarAsientos" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnSalir" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -205,8 +212,16 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="btnConfirmacion" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                                  <Component id="btnConfirmacion" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                  <Component id="cmbMedioPago" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                           <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -477,10 +492,13 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblImporteTotal">
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnRealizarCompra">
           <Properties>
             <Property name="text" type="java.lang.String" value="Realizar compra"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRealizarCompraActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelarAsientos">
           <Properties>
@@ -489,6 +507,21 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarAsientosActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnSalir">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Salir"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cmbMedioPago">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Medio de pago"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
