@@ -25,13 +25,15 @@ public class DialogAsientos extends javax.swing.JDialog {
      */
      
     AsientoDAO maniAsi = new AsientoDAO();
-    List<Asiento> listaAsientos = maniAsi.listarAsientosPorSala(1);
-    int nro_sala = 0;
+    List<Asiento> listaAsientos;;
+    int nro_sala;
     char fila = '\u0000';
     int numero = 0;
-    public DialogAsientos(java.awt.Frame parent, boolean modal) {
+    public DialogAsientos(java.awt.Frame parent, boolean modal, int nro_sala) {
         super(parent, modal);
         initComponents();
+        this.nro_sala = nro_sala;
+        listaAsientos =  maniAsi.listarAsientosPorSala(nro_sala);
         rellenarTabla();
         tblAsientos.setCellSelectionEnabled(true);
         tblAsientos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -463,6 +465,10 @@ public class DialogAsientos extends javax.swing.JDialog {
         });
     }
     
+    public Asiento getAsientoSeleccionado(){
+        Asiento asientoS = new Asiento(nro_sala, numero, fila, true);
+        return asientoS;
+    }
     /**
      * @param args the command line arguments
      */
@@ -493,7 +499,8 @@ public class DialogAsientos extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DialogAsientos dialog = new DialogAsientos(new javax.swing.JFrame(), true);
+                int nro = 0;
+                DialogAsientos dialog = new DialogAsientos(new javax.swing.JFrame(), true, nro);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

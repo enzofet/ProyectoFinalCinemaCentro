@@ -7,10 +7,14 @@ package VistasAdministrativo;
 
 import Controlador.FuncionDAO;
 import Controlador.PeliculaDAO;
+import Modelo.Asiento;
 import Modelo.Funcion;
 import Modelo.Pelicula;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -33,8 +37,10 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         "Fecha de función", "Subtitulada"};
     List<Pelicula> listaCartelera = maniPeli.listarPeliculasEnCartelera();
     List<Funcion> listaFuncionPorPelicula;
+    List<Asiento> listaAsientos;
     int id_peliculaS = -1;
     int id_funcion = -1;
+    int nro_sala = -1;
     public TaquillaInternal() {
         initComponents();
         tblCartelera.setModel(VentanaAdministrativo.armarCabeceras(cabeceraCartelera));
@@ -348,6 +354,14 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
     private void btnConfirmacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmacionActionPerformed
         try {
             int cantidad = Integer.parseInt(txtCantidadBoletos.getText());
+            listaAsientos = new ArrayList<>();
+            JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
+            for(int i = 0; i < cantidad; i++){
+                DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, nro_sala);
+                ventanaAsientos.setVisible(true);
+                Asiento asientoS = ventanaAsientos.getAsientoSeleccionado();
+                listaAsientos.add(asientoS);
+            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un numero valido.");
         }
@@ -437,7 +451,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 }
                 int filaS = tblFunciones.getSelectedRow();
                 if(filaS != -1){
-                    
+                    nro_sala = (int) tblFunciones.getValueAt(filaS, 1);
                     id_funcion = (int) tblFunciones.getValueAt(filaS, 0);
                     lblNumeroSalaS.setText(Integer.toString((int)tblFunciones.getValueAt(filaS, 1)));
                     lblIdiomaS.setText(tblFunciones.getValueAt(filaS, 2).toString());
