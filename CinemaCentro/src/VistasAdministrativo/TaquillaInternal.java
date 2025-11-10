@@ -11,8 +11,13 @@ import Controlador.PeliculaDAO;
 import Modelo.Asiento;
 import Modelo.Funcion;
 import Modelo.Pelicula;
+import Modelo.Venta;
+import VistasCliente.DialogCompra;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -46,6 +51,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
     int id_funcion = -1;
     int nro_sala = -1;
     double precioEntrada = 0;
+    double precioTotal = 0;
     public TaquillaInternal() {
         initComponents();
         modeloLista = new DefaultListModel<>();
@@ -58,6 +64,10 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         agregarListenerCartelera();
         agregarListenerFunciones();
         
+        cmbMedioPago.addItem("...");
+        cmbMedioPago.addItem("Efectivo");
+        cmbMedioPago.addItem("Debito");
+        cmbMedioPago.setSelectedIndex(0);
     }
 
     /**
@@ -105,8 +115,11 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         lblAsientosSeleccionados = new javax.swing.JLabel();
         lblImporteT = new javax.swing.JLabel();
         lblImporteTotal = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnRealizarCompra = new javax.swing.JButton();
         btnCancelarAsientos = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+        cmbMedioPago = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         lblCarteleraActual.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblCarteleraActual.setText("Cartelera actual: ");
@@ -213,7 +226,12 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         lblImporteT.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblImporteT.setText("Importe total");
 
-        jButton1.setText("Realizar compra");
+        btnRealizarCompra.setText("Realizar compra");
+        btnRealizarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRealizarCompraActionPerformed(evt);
+            }
+        });
 
         btnCancelarAsientos.setText("Cancelar asientos");
         btnCancelarAsientos.addActionListener(new java.awt.event.ActionListener() {
@@ -221,6 +239,10 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 btnCancelarAsientosActionPerformed(evt);
             }
         });
+
+        btnSalir.setText("Salir");
+
+        jLabel1.setText("Medio de pago");
 
         javax.swing.GroupLayout pnlTaquillaLayout = new javax.swing.GroupLayout(pnlTaquilla);
         pnlTaquilla.setLayout(pnlTaquillaLayout);
@@ -291,8 +313,11 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(btnCancelarAsientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnRealizarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(btnCancelarAsientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbMedioPago, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18))
         );
         pnlTaquillaLayout.setVerticalGroup(
@@ -320,7 +345,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                         .addGap(19, 19, 19))
                     .addGroup(pnlTaquillaLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnlTaquillaLayout.createSequentialGroup()
                                 .addComponent(lblGeneros)
                                 .addGap(14, 14, 14)
@@ -342,9 +367,13 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(lblSubtituladaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(btnRealizarCompra)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCancelarAsientos))
+                                .addComponent(btnCancelarAsientos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSalir)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1))
                             .addGroup(pnlTaquillaLayout.createSequentialGroup()
                                 .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblHorarioInicio)
@@ -365,8 +394,13 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                                 .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblImporteT)
                                     .addComponent(lblImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(19, 19, 19)
-                        .addComponent(btnConfirmacion)
+                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(btnConfirmacion))
+                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(cmbMedioPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(9, 9, 9))))
         );
 
@@ -448,6 +482,28 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, a.getMessage());
         }
     }//GEN-LAST:event_txtCantidadBoletosKeyReleased
+
+    private void btnRealizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarCompraActionPerformed
+        Venta venta = new Venta();
+        venta.setMedio_Pago((String) cmbMedioPago.getSelectedItem());
+        venta.setCantidad_Entradas(Integer.parseInt(txtCantidadBoletos.getText()));
+        venta.setImporte_Total(precioTotal);
+        venta.setMedio_Compra("Taquilla");
+        venta.setFecha_Venta(LocalDate.now());
+        try {
+            if (listaAsientos.isEmpty() || cmbMedioPago.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "No tiene seleccionados los asientos a comprar o no tiene seleccionado un medio de pago.");
+                return;
+            }
+            JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
+            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsientos, venta, "Taquilla", id_funcion);
+            ventanaCompra.setVisible(true);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "No tiene seleccionados los asientos a comprar o no tiene seleccionado un medio de pago.");
+        } catch (Exception ex) {
+            Logger.getLogger(TaquillaInternal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRealizarCompraActionPerformed
 
     public void ocultarIDs() {
 
@@ -573,7 +629,10 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelarAsientos;
     private javax.swing.JButton btnConfirmacion;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnRealizarCompra;
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox<String> cmbMedioPago;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
