@@ -5,6 +5,7 @@
  */
 package VistasAdministrativo;
 
+import Controlador.AsientoDAO;
 import Controlador.SalaDAO;
 import Modelo.Sala;
 import java.util.List;
@@ -27,6 +28,7 @@ public class SalasInternal extends javax.swing.JInternalFrame {
      * Creates new form SalasInternal
      */
     SalaDAO maniSalas = new SalaDAO();
+    AsientoDAO maniAsi = new AsientoDAO();
     private int nro_sala = -1;
     public SalasInternal() {
         initComponents();
@@ -67,6 +69,7 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtEstado = new javax.swing.JTextField();
+        btnLiberarAsientos = new javax.swing.JButton();
 
         lblNumero.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblNumero.setText("Numero de sala:");
@@ -159,6 +162,14 @@ public class SalasInternal extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Maximo: 230");
 
+        btnLiberarAsientos.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        btnLiberarAsientos.setText("Liberar asientos");
+        btnLiberarAsientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLiberarAsientosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlSalasLayout = new javax.swing.GroupLayout(pnlSalas);
         pnlSalas.setLayout(pnlSalasLayout);
         pnlSalasLayout.setHorizontalGroup(
@@ -171,14 +182,16 @@ public class SalasInternal extends javax.swing.JInternalFrame {
                         .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
-                        .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnlSalasLayout.createSequentialGroup()
                                 .addGap(8, 8, 8)
                                 .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSalasLayout.createSequentialGroup()
-                                .addGap(142, 142, 142)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLiberarAsientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -252,7 +265,8 @@ public class SalasInternal extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnEliminar)
-                            .addComponent(btnBaja))
+                            .addComponent(btnBaja)
+                            .addComponent(btnLiberarAsientos))
                         .addContainerGap(12, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSalasLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -359,6 +373,17 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         rellenarTabla();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    private void btnLiberarAsientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarAsientosActionPerformed
+        // TODO add your handling code here:
+        try{
+            maniAsi.liberarAsientosPorSala(nro_sala);
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        } finally {
+            rellenarTabla();
+        }
+    }//GEN-LAST:event_btnLiberarAsientosActionPerformed
+
     public void rellenarCabeceras() {
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
@@ -368,6 +393,7 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         };
         modelo.addColumn("Numero sala");
         modelo.addColumn("Capacidad");
+        modelo.addColumn("Asientos libres");
         modelo.addColumn("Estado");
         modelo.addColumn("Apta 3D");
         tblSalas.setModel(modelo);
@@ -380,7 +406,8 @@ public class SalasInternal extends javax.swing.JInternalFrame {
             List<Sala> listaSalas = maniSalas.listarsalas();
             for (Sala s : listaSalas) {
                 modelo.addRow(new Object[] {s.getNro_Sala(), 
-                    s.getCapacidad(), 
+                    s.getCapacidad(),
+                    maniAsi.cantidadAsientosLibres(s.getNro_Sala()),
                     parsearBoolean(s.isEstado()),
                     parsearBoolean(s.isApta3D()),
                     
@@ -443,6 +470,7 @@ public class SalasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAlta;
     private javax.swing.JButton btnBaja;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnLiberarAsientos;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JCheckBox checkApta3D;

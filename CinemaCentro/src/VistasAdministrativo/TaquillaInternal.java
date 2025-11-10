@@ -5,6 +5,7 @@
  */
 package VistasAdministrativo;
 
+import Controlador.AsientoDAO;
 import Controlador.FuncionDAO;
 import Controlador.PeliculaDAO;
 import Modelo.Asiento;
@@ -12,6 +13,7 @@ import Modelo.Funcion;
 import Modelo.Pelicula;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -32,23 +34,30 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
      */
     PeliculaDAO maniPeli = new PeliculaDAO();
     FuncionDAO maniFuncion = new FuncionDAO();
+    AsientoDAO maniAsi = new AsientoDAO();
     String[] cabeceraCartelera = {"id_pelicula", "Titulo", "Director", "Reparto", "Pais de origen", "Genero/s"};
     String[] cabeceraFunciones = {"id_funcion", "Número de sala", "Idioma", "3D", "Hora de inicio", "Hora finalización", "Precio de entrada",
         "Fecha de función", "Subtitulada"};
     List<Pelicula> listaCartelera = maniPeli.listarPeliculasEnCartelera();
     List<Funcion> listaFuncionPorPelicula;
     List<Asiento> listaAsientos;
+    DefaultListModel<String> modeloLista;
     int id_peliculaS = -1;
     int id_funcion = -1;
     int nro_sala = -1;
+    double precioEntrada = 0;
     public TaquillaInternal() {
         initComponents();
+        modeloLista = new DefaultListModel<>();
+        listAsientosS.setModel(modeloLista);
+        txtCantidadBoletos.setEnabled(false);
         tblCartelera.setModel(VentanaAdministrativo.armarCabeceras(cabeceraCartelera));
         tblFunciones.setModel(VentanaAdministrativo.armarCabeceras(cabeceraFunciones));
         ocultarIDs();
         rellenarTablaPelicula();
         agregarListenerCartelera();
         agregarListenerFunciones();
+        
     }
 
     /**
@@ -97,6 +106,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         lblImporteT = new javax.swing.JLabel();
         lblImporteTotal = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        btnCancelarAsientos = new javax.swing.JButton();
 
         lblCarteleraActual.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblCarteleraActual.setText("Cartelera actual: ");
@@ -176,6 +186,12 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
 
         lblSubtituladaS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
 
+        txtCantidadBoletos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCantidadBoletosKeyReleased(evt);
+            }
+        });
+
         lblCantidadBoletos.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblCantidadBoletos.setText("Cantidad de boletos");
 
@@ -185,7 +201,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
 
         jScrollPane3.setViewportView(listAsientosS);
 
-        btnConfirmacion.setText("Confirmar cantidad de boletos");
+        btnConfirmacion.setText("Seleccionar asientos");
         btnConfirmacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmacionActionPerformed(evt);
@@ -198,6 +214,13 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         lblImporteT.setText("Importe total");
 
         jButton1.setText("Realizar compra");
+
+        btnCancelarAsientos.setText("Cancelar asientos");
+        btnCancelarAsientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarAsientosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlTaquillaLayout = new javax.swing.GroupLayout(pnlTaquilla);
         pnlTaquilla.setLayout(pnlTaquillaLayout);
@@ -239,20 +262,20 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                             .addGroup(pnlTaquillaLayout.createSequentialGroup()
                                 .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                        .addComponent(lblHorarioInicio)
-                                        .addGap(78, 78, 78)
-                                        .addComponent(lblHorarioInicioS, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
                                         .addComponent(lblHorarioFin)
                                         .addGap(44, 44, 44)
                                         .addComponent(lblHorarioFinS, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                        .addComponent(lblFechaFuncion)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lblFechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblHorarioInicio)
+                                            .addComponent(lblFechaFuncion))
+                                        .addGap(60, 60, 60)
+                                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblFechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblHorarioInicioS, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(pnlTaquillaLayout.createSequentialGroup()
                                         .addGap(10, 10, 10)
-                                        .addComponent(btnConfirmacion)))
+                                        .addComponent(btnConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(20, 20, 20))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTaquillaLayout.createSequentialGroup()
                                 .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -267,7 +290,9 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)))
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(btnCancelarAsientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(18, 18, 18))
         );
         pnlTaquillaLayout.setVerticalGroup(
@@ -288,53 +313,61 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                     .addComponent(lblPrecioEntradaIndividual)
                     .addComponent(lblPrecioEntradaIndividualS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAsientosSeleccionados))
-                .addGap(10, 10, 10)
                 .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTaquillaLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))
                     .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                        .addComponent(lblGeneros)
-                        .addGap(14, 14, 14)
-                        .addComponent(lblNumeroSala)
-                        .addGap(14, 14, 14)
-                        .addComponent(lblidioma)
-                        .addGap(14, 14, 14)
-                        .addComponent(lbl3D)
-                        .addGap(14, 14, 14)
-                        .addComponent(lblSubtitulada))
-                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                        .addComponent(lblGenerosS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(lblNumeroSalaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(lblIdiomaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(lbl3DS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(lblSubtituladaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblHorarioInicio)
-                            .addComponent(lblHorarioInicioS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(10, 10, 10)
                         .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblHorarioFin)
-                            .addComponent(lblHorarioFinS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblFechaFuncion)
-                            .addComponent(lblFechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(5, 5, 5)
-                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCantidadBoletos)
-                            .addComponent(txtCantidadBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblImporteT)
-                            .addComponent(lblImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20)
-                        .addComponent(btnConfirmacion))
-                    .addComponent(jButton1)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9))
+                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                .addComponent(lblGeneros)
+                                .addGap(14, 14, 14)
+                                .addComponent(lblNumeroSala)
+                                .addGap(14, 14, 14)
+                                .addComponent(lblidioma)
+                                .addGap(14, 14, 14)
+                                .addComponent(lbl3D)
+                                .addGap(14, 14, 14)
+                                .addComponent(lblSubtitulada))
+                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                .addComponent(lblGenerosS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(lblNumeroSalaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(lblIdiomaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(lbl3DS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(lblSubtituladaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCancelarAsientos))
+                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblHorarioInicio)
+                                    .addComponent(lblHorarioInicioS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(10, 10, 10)
+                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblHorarioFin)
+                                    .addComponent(lblHorarioFinS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(10, 10, 10)
+                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblFechaFuncion)
+                                    .addComponent(lblFechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(5, 5, 5)
+                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblCantidadBoletos)
+                                    .addComponent(txtCantidadBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(10, 10, 10)
+                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblImporteT)
+                                    .addComponent(lblImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(19, 19, 19)
+                        .addComponent(btnConfirmacion)
+                        .addGap(9, 9, 9))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -352,6 +385,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmacionActionPerformed
+
         try {
             int cantidad = Integer.parseInt(txtCantidadBoletos.getText());
             listaAsientos = new ArrayList<>();
@@ -360,13 +394,60 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, nro_sala);
                 ventanaAsientos.setVisible(true);
                 Asiento asientoS = ventanaAsientos.getAsientoSeleccionado();
-                listaAsientos.add(asientoS);
+                
+                if(asientoS != null){
+                    modeloLista.addElement(String.valueOf(asientoS.getFila_asiento())+"-"+asientoS.getNumero_asiento());
+                    listaAsientos.add(asientoS);
+                    System.out.println(asientoS.toString());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cancelada selección de boletos");
+                    for(Asiento a : listaAsientos){
+                        try{
+                        maniAsi.darAlta(a.getId_asiento());
+                        } catch (Exception e){
+                            System.out.println("Error al dar de alta nuevamente.");
+                        }
+                    }
+                    modeloLista.clear();
+                    listaAsientos.clear();
+                    break;
+                }
+                
             }
+            
+            
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un numero valido.");
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
 
     }//GEN-LAST:event_btnConfirmacionActionPerformed
+
+    private void btnCancelarAsientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarAsientosActionPerformed
+        modeloLista.clear();
+        for(Asiento a : listaAsientos){
+            try{
+            maniAsi.darAlta(a.getId_asiento());
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnCancelarAsientosActionPerformed
+
+    private void txtCantidadBoletosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadBoletosKeyReleased
+        String cantidadBoletos = txtCantidadBoletos.getText();
+        try{
+            int cantidad = Integer.parseInt(cantidadBoletos);
+            double precioTotal = precioEntrada * cantidad;
+            lblImporteTotal.setText(Double.toString(precioTotal));
+            
+        } catch (NumberFormatException e){
+            lblImporteTotal.setText("0");
+        } catch(Exception a){
+            JOptionPane.showMessageDialog(this, a.getMessage());
+        }
+    }//GEN-LAST:event_txtCantidadBoletosKeyReleased
 
     public void ocultarIDs() {
 
@@ -453,6 +534,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 if(filaS != -1){
                     nro_sala = (int) tblFunciones.getValueAt(filaS, 1);
                     id_funcion = (int) tblFunciones.getValueAt(filaS, 0);
+                    precioEntrada = (double) tblFunciones.getValueAt(filaS, 6);
                     lblNumeroSalaS.setText(Integer.toString((int)tblFunciones.getValueAt(filaS, 1)));
                     lblIdiomaS.setText(tblFunciones.getValueAt(filaS, 2).toString());
                     lbl3DS.setText(tblFunciones.getValueAt(filaS, 3).toString());
@@ -461,6 +543,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                     lblPrecioEntradaIndividualS.setText(tblFunciones.getValueAt(filaS, 6).toString());
                     lblFechaS.setText(tblFunciones.getValueAt(filaS, 7).toString());
                     lblSubtituladaS.setText(tblFunciones.getValueAt(filaS, 8).toString());
+                    txtCantidadBoletos.setEnabled(true);
                     
                 } else {
                     lblNumeroSalaS.setText("");
@@ -470,6 +553,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                     lblHorarioInicioS.setText("");
                     lblHorarioFinS.setText("");
                     lblFechaS.setText("");  
+                    txtCantidadBoletos.setEnabled(false);
                 }
             }
         });
@@ -487,6 +571,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelarAsientos;
     private javax.swing.JButton btnConfirmacion;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel7;

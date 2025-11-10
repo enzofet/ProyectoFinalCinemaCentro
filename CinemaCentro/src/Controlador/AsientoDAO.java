@@ -101,31 +101,64 @@ public class AsientoDAO {
             e.printStackTrace();
         }
     }
+    
 
-    public List<Asiento> BuscarAsientosDisp(int nro_sala) {
-        String sql = "SELECT * FROM asiento WHERE nro_sala = ? AND estado = true";
-        List<Asiento> listaDisponibles = new ArrayList<>();
+    public void darAlta(int id) throws Exception{
+        String sql = "UPDATE asiento SET estado = true WHERE id_asiento = ?";
         Connection con = ConexionBD.getConnection();
-
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-
-                }
+            ps.setInt(1, id);
+            
+            int fila = ps.executeUpdate();
+            if(fila == 0){
+                throw new Exception("Error al dar de alta el asiento");
             }
         } catch (SQLException e) {
-
+            e.printStackTrace();
+            throw new Exception("Error relacionado a la base de datos.");
         }
-
-        return listaDisponibles;
-
+        
+    }
+    
+    public void darBaja(int id) throws Exception{
+        String sql = "UPDATE asiento SET estado = false WHERE id_asiento = ?";
+        Connection con = ConexionBD.getConnection();
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            
+            int fila = ps.executeUpdate();
+            if(fila == 0){
+                throw new Exception("Error al dar de baja el asiento");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Error relacionado a la base de datos.");
+        }
+        
     }
 
-    public int cantidadAsientosLibres(int nto_sala) throws Exception {
+    public void liberarAsientosPorSala(int id) throws Exception{
+        String sql = "UPDATE asiento SET estado = true WHERE nro_sala = ?";
+        Connection con = ConexionBD.getConnection();
+        
+        try(PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, id);
+            
+         int filasS = ps.executeUpdate();
+         if(filasS == 0){
+             throw new Exception("Error al dar de alta los asientos.");
+         }
+        }catch(SQLException e){
+            throw new Exception("Error relacionado a la base de datos.");
+        }
+    }
+    
+    public int cantidadAsientosLibres(int nro_sala) throws Exception {
         String sql = "SELECT COUNT(estado) AS asientoslibres FROM asiento WHERE nro_sala = ? AND estado = true";
         Connection con = ConexionBD.getConnection();
         int cantidad = 0;
         try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, nro_sala);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     cantidad = rs.getInt("asientoslibres");
@@ -165,6 +198,30 @@ public class AsientoDAO {
                 a.printStackTrace();
             }
         }
+    }
+    
+    public Asiento buscarPorFilaAsiento(int numero_asiento,int nro_sala, char fila_asiento) throws Exception{
+        String sql = "SELECT * FROM asiento WHERE nro_sala = ? AND fila_asiento = ? AND numero_asiento = ?";
+        Connection con = ConexionBD.getConnection();
+        Asiento as = null;
+        try(PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, nro_sala);
+            ps.setString(2, String.valueOf(fila_asiento));
+            ps.setInt(3, numero_asiento);
+            try(ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                   as = new Asiento();
+                   as.setId_asiento(rs.getInt("id_asiento"));
+                   as.setNro_sala(rs.getInt("nro_sala"));
+                   as.setFila_asiento(rs.getString("fila_asiento").charAt(0));
+                   as.setNumero_asiento(rs.getInt("numero_asiento"));
+                   as.setEstado(rs.getBoolean("estado"));
+                }
+            }
+        }catch(SQLException e){
+            throw new Exception("Error relacionado a la base de datos.");
+        }
+        return as;
     }
 
 }

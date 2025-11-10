@@ -191,7 +191,7 @@ public class DialogCrearSala extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCrearActionPerformed
 
     public void crearAsientosPorCapacidad(int numeroSala, int capacidad) {
-        int contadorTotal = 1;
+        int contadorTotal = 0;
         int contadorNumeroAsiento = 1;
         int contadorFila = 0;
         boolean condicion = true;
