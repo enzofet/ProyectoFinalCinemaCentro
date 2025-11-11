@@ -478,7 +478,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         String cantidadBoletos = txtCantidadBoletos.getText();
         try{
             int cantidad = Integer.parseInt(cantidadBoletos);
-            double precioTotal = precioEntrada * cantidad;
+            precioTotal = precioEntrada * cantidad;
             lblImporteTotal.setText(Double.toString(precioTotal));
             
         } catch (NumberFormatException e){
@@ -501,7 +501,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 return;
             }
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsientos, venta, "Taquilla", id_funcion);
+            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsientos, venta, (String) cmbMedioPago.getSelectedItem(), id_funcion);
             ventanaCompra.setVisible(true);
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "No tiene seleccionados los asientos a comprar o no tiene seleccionado un medio de pago.");

@@ -5,10 +5,12 @@
  */
 package VistasCliente;
 
+import Controlador.ClienteDAO;
 import Controlador.DetalleTicketDAO;
 import Controlador.FuncionDAO;
 import Controlador.PeliculaDAO;
 import Modelo.Asiento;
+import Modelo.Cliente;
 import Modelo.Funcion;
 import Modelo.Pelicula;
 import Modelo.Venta;
@@ -16,6 +18,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,9 +37,12 @@ public class DialogCompra extends javax.swing.JDialog {
     FuncionDAO maniFuncion = new FuncionDAO();
     DetalleTicketDAO maniTicket = new DetalleTicketDAO();
     PeliculaDAO maniPeli = new PeliculaDAO();
+    ClienteDAO maniCliente = new ClienteDAO();
     Venta venta = null;
     Funcion funcion = null;
     Pelicula peli = null;
+    Cliente cliente = null;
+    int dniCliente = 0;
     int token = 0;
     DefaultListModel<String> listModel;
 
@@ -45,9 +54,10 @@ public class DialogCompra extends javax.swing.JDialog {
         this.token = maniTicket.generarToken();
         this.funcion = maniFuncion.buscarFuncionPorId(id_funcion);
         this.peli = maniPeli.buscarPorId(funcion.getId_pelicula());
-        listModel = new DefaultListModel<>();
+        rellenarTablaEntradas();
         setearDetalleVenta(venta);
-        rellenarListAsientos(listaAsientos);
+        agregarListenerTabla();
+        habilitarSegunMedioPago(medio_pago);
 
     }
 
@@ -79,7 +89,6 @@ public class DialogCompra extends javax.swing.JDialog {
         lblImporteTotal = new javax.swing.JLabel();
         lblFechaVenta = new javax.swing.JLabel();
         lblToken = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
         lblMedioPagoS = new javax.swing.JLabel();
         lblMedioPago = new javax.swing.JLabel();
         pnlTicketIndividual = new javax.swing.JPanel();
@@ -212,7 +221,6 @@ public class DialogCompra extends javax.swing.JDialog {
                             .addComponent(lblFechaVentaS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblEntradasS)
                             .addComponent(lblToken, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblImporteTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCantEntradas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblFechaVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -243,11 +251,9 @@ public class DialogCompra extends javax.swing.JDialog {
                 .addComponent(lblMedioPago, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblTokenS)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel29)
                 .addGap(18, 18, 18)
                 .addComponent(lblToken, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         lblTicketS.setFont(new java.awt.Font("DialogInput", 1, 14)); // NOI18N
@@ -392,6 +398,12 @@ public class DialogCompra extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        txtEfectivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEfectivoKeyReleased(evt);
+            }
+        });
+
         jLabel1.setText("Vuelto correspondiente");
 
         jLabel3.setText("Con cuanto va a pagar:");
@@ -425,6 +437,11 @@ public class DialogCompra extends javax.swing.JDialog {
         );
 
         btnConfirmarCompra.setText("Confirmar compra");
+        btnConfirmarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarCompraActionPerformed(evt);
+            }
+        });
 
         btnCancelarCompra.setText("Cancelar");
 
@@ -517,6 +534,54 @@ public class DialogCompra extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtEfectivoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEfectivoKeyReleased
+        String efectivoString = txtEfectivo.getText();
+        try {
+            double pago = Double.parseDouble(efectivoString);
+            if (pago < venta.getImporte_Total()) {
+                lblVuelto.setText("0");
+            } else {
+                double vuelto = pago - venta.getImporte_Total();
+                lblVuelto.setText(Double.toString(vuelto));
+            }
+
+        } catch (NumberFormatException a) {
+            lblVuelto.setText("0");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error");
+        }
+    }//GEN-LAST:event_txtEfectivoKeyReleased
+
+    private void btnConfirmarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarCompraActionPerformed
+        int seleccion = JOptionPane.showConfirmDialog(this, "¿El cliente quiere relacionar la compra con su cuenta? Si es asi ingrese su DNI", "Confirmación", YES_NO_OPTION);
+        if (seleccion == 0) {
+            String dni = JOptionPane.showInputDialog("Ingrese DNI");
+            try {
+                if (dni.isEmpty() || dni.length() < 8) {
+                    JOptionPane.showMessageDialog(this, "No puede dejar el campo vacio y debe ingresar un DNI de 8 caracteres.");
+                    return;
+                }
+                int dniNumero = Integer.parseInt(dni);
+                dniCliente = dniNumero;
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Ingrese un DNI valido.");
+            }
+        }
+       
+        try {
+            cliente = maniCliente.buscarClientePorDNI(dniCliente);
+            if(cliente == null){
+                JOptionPane.showMessageDialog(this, "No se ha encontrado el cliente con el DNI asignado.");
+            }
+        } catch(Exception e){
+            
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_btnConfirmarCompraActionPerformed
+
     public void setearDetalleVenta(Venta venta) {
         lblImporteTotal.setText(Double.toString(venta.getImporte_Total()));
         lblCantEntradas.setText(Integer.toString(venta.getCantidad_Entradas()));
@@ -525,41 +590,67 @@ public class DialogCompra extends javax.swing.JDialog {
         lblToken.setText(Integer.toString(token));
     }
 
-    public void rellenarListAsientos(List<Asiento> listaAsientos) {
-        for (Asiento a : listaAsientos) {
-            String fila = String.valueOf(a.getFila_asiento());
-            String numero = Integer.toString(a.getNumero_asiento());
-            listModel.addElement(fila + " - " + numero);
-        }
-    }
-    
-    public void rellenarTablaEntradas(){
-        DefaultTableModel modelo = new DefaultTableModel(){
+    public void rellenarTablaEntradas() {
+        DefaultTableModel modelo = new DefaultTableModel() {
             @Override
-            public boolean isCellEditable(int row, int column){
+            public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
         modelo.addColumn("Fila asiento");
         modelo.addColumn("Numero asiento");
-        for(Asiento a : listaAsientos){
+        for (Asiento a : listaAsientos) {
             modelo.addRow(new Object[]{
                 a.getFila_asiento(),
                 a.getNumero_asiento()
             });
         }
+        tblEntradas.setModel(modelo);
     }
 
-    public void rellenarLabelsTicket() {
-        lblPelicula.setText(peli.getTitulo());
-        lblNumeroSala.setText(Integer.toString(funcion.getNro_Sala()));
-        lblAsiento.setText("");
-        lblFechaEmision.setText("");
-        lblHorario.setText("");
-        lblSubtitulada.setText("");
-        lbl3D.setText("");
-        lblFechaFuncion.setText("");
-        lblPrecioEntrada.setText("");
+    public void agregarListenerTabla() {
+        tblEntradas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent evento) {
+                if (evento.getValueIsAdjusting()) {
+                    return;
+                }
+
+                int filaS = tblEntradas.getSelectedRow();
+                if (filaS != -1) {
+                    lblAsiento.setText(tblEntradas.getValueAt(filaS, 0) + " - " + tblEntradas.getValueAt(filaS, 1));
+                    lblPelicula.setText(peli.getTitulo());
+                    lblNumeroSala.setText(Integer.toString(funcion.getNro_Sala()));
+                    lblSubtitulada.setText(parsearBoolean(funcion.isSubtitulada()));
+                    lbl3D.setText(parsearBoolean(funcion.isEs3D()));
+                    lblFechaFuncion.setText(funcion.getFecha_Funcion().toString());
+                    lblPrecioEntrada.setText(Double.toString(funcion.getPrecio_Entrada()));
+                    lblHorario.setText(funcion.getHora_Inicio().toString().substring(0, 5) + " - " + funcion.getHora_Fin().toString().substring(0, 5));
+
+                }
+            }
+        });
+    }
+
+    public void habilitarSegunMedioPago(String medio_pago) {
+        if (medio_pago.equalsIgnoreCase("debito")) {
+            txtEfectivo.setEnabled(false);
+        } else if (medio_pago.equalsIgnoreCase("efectivo")) {
+            txtNroTarj.setEnabled(false);
+            txtNomApeTarj.setEnabled(false);
+            txtCVV.setEnabled(false);
+        }
+    }
+
+    public String parsearBoolean(boolean estado) {
+        if (estado) {
+            return "Si";
+        }
+        return "No";
+    }
+
+    public boolean parsearString(String estado) {
+        return estado.equalsIgnoreCase("Si");
     }
 
     /**
@@ -620,7 +711,6 @@ public class DialogCompra extends javax.swing.JDialog {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
