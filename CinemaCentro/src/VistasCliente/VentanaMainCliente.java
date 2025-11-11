@@ -5,15 +5,19 @@
  */
 package VistasCliente;
 
+import Controlador.AsientoDAO;
 import Controlador.FuncionDAO;
 import Controlador.PeliculaDAO;
+import Modelo.Asiento;
 import Modelo.Cliente;
 import Modelo.Funcion;
 import Modelo.Pelicula;
 import VistasAdministrativo.DialogAsientos;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -25,8 +29,13 @@ import javax.swing.table.TableColumnModel;
  * @author Enzo_2
  */
 public class VentanaMainCliente extends javax.swing.JFrame {
-    
+
     int idSala = 0;
+    double precioEntrada = 0;
+
+    ArrayList<Asiento> listaAsi = new ArrayList<>();
+    AsientoDAO maniAsi = new AsientoDAO();
+    DefaultListModel<String> modeloAsi = new DefaultListModel<>();
 
     int idFun = 0;
     private FuncionDAO maniFun = new FuncionDAO();
@@ -40,8 +49,8 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
     int idPeli = 0;
     private PeliculaDAO maniPeli = new PeliculaDAO();
-    static String[] columnas = {"id_pelicula", "Título", "Género"};
-    static DefaultTableModel modeloPeli = new DefaultTableModel(null, columnas) {
+    static String[] cabeceraCartelera = {"id_pelicula", "Titulo", "Director", "Reparto", "Genero/s"};
+    static DefaultTableModel modeloPeli = new DefaultTableModel(null, cabeceraCartelera) {
         @Override
         public boolean isCellEditable(int a, int b) {
             return false;
@@ -63,6 +72,8 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                 modeloPeli.addRow(new Object[]{
                     peli.getId_Pelicula(),
                     peli.getTitulo(),
+                    peli.getDirector(),
+                    peli.getReparto(),
                     peli.getGenero()
                 });
             }
@@ -86,6 +97,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                     fun.isEs3D(),
                     fun.getIdioma()
                 });
+                precioEntrada = fun.getPrecio_Entrada();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,7 +128,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         columnID.setPreferredWidth(0);
         columnID.setMaxWidth(0);
         columnID.setResizable(false);
-        
+
         TableColumn columnHora = modeloColumnas.getColumn(2);
         columnHora.setMinWidth(140);
     }
@@ -138,12 +150,15 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         jTFuncion = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTPeli = new javax.swing.JTable();
-        lblButaca = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JTextField();
         jbCantidad = new javax.swing.JLabel();
         jBButaca = new javax.swing.JButton();
         jBComprar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jListAsientos = new javax.swing.JList<>();
+        lblPrecio = new javax.swing.JLabel();
+        jBCancelarB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,7 +166,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         jLabel1.setText("Taquilla Online");
 
         jbPelicula.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
-        jbPelicula.setText("Pelicula");
+        jbPelicula.setText("Cartelera");
 
         jbFuncion.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
         jbFuncion.setText("Función:");
@@ -167,6 +182,11 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
             }
         ));
+        jTFuncion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTFuncionMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTFuncion);
 
         jTPeli.setModel(new javax.swing.table.DefaultTableModel(
@@ -187,13 +207,16 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTPeli);
 
-        lblButaca.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
-        lblButaca.setText("Butaca");
+        txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyReleased(evt);
+            }
+        });
 
         jbCantidad.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
-        jbCantidad.setText("Cantidad");
+        jbCantidad.setText("Cantidad de boletos:");
 
-        jBButaca.setText("Seleccionar");
+        jBButaca.setText("Seleccionar butacas");
         jBButaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBButacaActionPerformed(evt);
@@ -201,11 +224,29 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         });
 
         jBComprar.setText("Comprar");
+        jBComprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBComprarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbSalirActionPerformed(evt);
+            }
+        });
+
+        jScrollPane3.setViewportView(jListAsientos);
+
+        lblPrecio.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        lblPrecio.setText("Precio Total:");
+
+        jBCancelarB.setText("Cancelar butacas");
+        jBCancelarB.setEnabled(false);
+        jBCancelarB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCancelarBActionPerformed(evt);
             }
         });
 
@@ -225,26 +266,27 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                                 .addComponent(jbPelicula)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 757, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jbFuncion))))
-                    .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 757, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(pnlLoginLayout.createSequentialGroup()
-                            .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jbCantidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(pnlLoginLayout.createSequentialGroup()
+                                    .addComponent(jbCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(54, 54, 54)
+                                    .addComponent(jBButaca, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(pnlLoginLayout.createSequentialGroup()
+                                    .addComponent(lblPrecio)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jBCancelarB, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(pnlLoginLayout.createSequentialGroup()
-                                    .addGap(81, 81, 81)
-                                    .addComponent(lblButaca))
-                                .addGroup(pnlLoginLayout.createSequentialGroup()
-                                    .addGap(73, 73, 73)
-                                    .addComponent(jBButaca))))))
-                .addContainerGap(100, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLoginLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(59, 59, 59))
+                                .addComponent(jBComprar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jbSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         pnlLoginLayout.setVerticalGroup(
             pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,28 +301,33 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                 .addComponent(jbFuncion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88)
+                .addGap(36, 36, 36)
                 .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlLoginLayout.createSequentialGroup()
-                        .addComponent(jBComprar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbSalir))
                     .addGroup(pnlLoginLayout.createSequentialGroup()
                         .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbCantidad)
-                            .addComponent(lblButaca))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBButaca))))
-                .addGap(87, 143, Short.MAX_VALUE))
+                            .addComponent(jBComprar)
+                            .addComponent(jBButaca, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                        .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlLoginLayout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(jbSalir))
+                            .addGroup(pnlLoginLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblPrecio))
+                            .addGroup(pnlLoginLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jBCancelarB, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(65, 65, 65))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,9 +338,52 @@ public class VentanaMainCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBButacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBButacaActionPerformed
-        JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-        DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, 5);
-        ventanaAsientos.setVisible(true);
+
+        try {
+
+            int cant = Integer.parseInt(txtCantidad.getText());
+            if (cant <= 0) {
+                JOptionPane.showMessageDialog(this, "Ingrese una cantidad mayor a 0.");
+                return;
+            }
+
+            JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
+           
+            for (int i = 0; i < cant; i++) {
+                DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, idSala);
+                ventanaAsientos.setVisible(true);
+                Asiento asientoSelec = ventanaAsientos.getAsientoSeleccionado();
+
+                if (asientoSelec != null) {
+                    modeloAsi.addElement(String.valueOf(asientoSelec.getFila_asiento())+"-"+asientoSelec.getNumero_asiento());
+                    listaAsi.add(asientoSelec);
+                    
+                    jListAsientos.setModel(modeloAsi);
+                    jBCancelarB.setEnabled(true);
+                    
+                } else {
+                    JOptionPane.showMessageDialog(this, "Selección de boletos cancelada.");
+
+                    for (Asiento a : listaAsi) {
+                        try {
+                            maniAsi.darAlta(a.getId_asiento());
+                        } catch (Exception ex) {
+                            System.out.println("Error al dar de alta nuevamente.");
+                        }
+                    }
+
+                    modeloAsi.clear();
+                    listaAsi.clear();
+                    break;
+                }
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Ingrese un número válido de boletos.");
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jBButacaActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -301,15 +391,56 @@ public class VentanaMainCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jTPeliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTPeliMouseClicked
-        
+
         int filaSelec = jTPeli.getSelectedRow();
-        if(filaSelec > -1){
-            
+        if (filaSelec > -1) {
+
             idPeli = (int) jTPeli.getValueAt(filaSelec, 0);
-            
+
             tablaFun();
-        }        
+        }
     }//GEN-LAST:event_jTPeliMouseClicked
+
+    private void jTFuncionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFuncionMouseClicked
+        // TODO add your handling code here:
+        int filaSelec = jTFuncion.getSelectedRow();
+        if (filaSelec > -1) {
+
+            idSala = (int) jTFuncion.getValueAt(filaSelec, 3);
+        }
+    }//GEN-LAST:event_jTFuncionMouseClicked
+
+    private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
+        // TODO add your handling code here:
+        try {
+            String cantidadFinal = Double.toString((Double.parseDouble(txtCantidad.getText())) * precioEntrada);
+            lblPrecio.setText("Precio Total: $" + cantidadFinal);
+        } catch (NumberFormatException e) {
+            lblPrecio.setText("Precio Total:");
+        } catch (Exception a) {
+            JOptionPane.showMessageDialog(this, a.getMessage());
+        }
+    }//GEN-LAST:event_txtCantidadKeyReleased
+
+    private void jBCancelarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarBActionPerformed
+        // TODO add your handling code here:
+        modeloAsi.clear();
+        jListAsientos.setModel(modeloAsi);
+        
+        for(Asiento a : listaAsi){
+            try{
+                maniAsi.darAlta(a.getId_asiento());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+        }
+        jBCancelarB.setEnabled(false);
+    }//GEN-LAST:event_jBCancelarBActionPerformed
+
+    private void jBComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBComprarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jBComprarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,17 +481,20 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBButaca;
+    private javax.swing.JButton jBCancelarB;
     private javax.swing.JButton jBComprar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JList<String> jListAsientos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTFuncion;
     private javax.swing.JTable jTPeli;
     private javax.swing.JLabel jbCantidad;
     private javax.swing.JLabel jbFuncion;
     private javax.swing.JLabel jbPelicula;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JLabel lblButaca;
+    private javax.swing.JLabel lblPrecio;
     private javax.swing.JPanel pnlLogin;
     private javax.swing.JTextField txtCantidad;
     // End of variables declaration//GEN-END:variables
