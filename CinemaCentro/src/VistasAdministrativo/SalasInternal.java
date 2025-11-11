@@ -455,8 +455,8 @@ public class SalasInternal extends javax.swing.JInternalFrame {
                     nro_sala = (int) tabla.getValueAt(filaS, 0);
                     txtNumero.setText(Integer.toString((int) tabla.getValueAt(filaS, 0)));
                     txtCapacidad.setText(Integer.toString((int) tabla.getValueAt(filaS, 1)));
-                    txtEstado.setText((String) tabla.getValueAt(filaS, 2));
-                    if(parsearString((String)tabla.getValueAt(filaS, 3))){
+                    txtEstado.setText((String) tabla.getValueAt(filaS, 3));
+                    if(parsearString((String)tabla.getValueAt(filaS, 4))){
                         checkApta3D.setSelected(true);
                     } else {
                         checkApta3D.setSelected(false);
