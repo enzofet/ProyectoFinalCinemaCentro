@@ -5,10 +5,12 @@
  */
 package VistasCliente;
 
+import Controlador.ClienteDAO;
 import Controlador.DetalleTicketDAO;
 import Controlador.FuncionDAO;
 import Controlador.PeliculaDAO;
 import Modelo.Asiento;
+import Modelo.Cliente;
 import Modelo.Funcion;
 import Modelo.Pelicula;
 import Modelo.Venta;
@@ -16,6 +18,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -30,9 +37,12 @@ public class DialogCompra extends javax.swing.JDialog {
     FuncionDAO maniFuncion = new FuncionDAO();
     DetalleTicketDAO maniTicket = new DetalleTicketDAO();
     PeliculaDAO maniPeli = new PeliculaDAO();
+    ClienteDAO maniCliente = new ClienteDAO();
     Venta venta = null;
     Funcion funcion = null;
     Pelicula peli = null;
+    Cliente cliente = null;
+    int dniCliente = 0;
     int token = 0;
     DefaultListModel<String> listModel;
 
@@ -44,9 +54,10 @@ public class DialogCompra extends javax.swing.JDialog {
         this.token = maniTicket.generarToken();
         this.funcion = maniFuncion.buscarFuncionPorId(id_funcion);
         this.peli = maniPeli.buscarPorId(funcion.getId_pelicula());
-        listModel = new DefaultListModel<>();
+        rellenarTablaEntradas();
         setearDetalleVenta(venta);
-        rellenarListAsientos(listaAsientos);
+        agregarListenerTabla();
+        habilitarSegunMedioPago(medio_pago);
 
     }
 
@@ -78,7 +89,6 @@ public class DialogCompra extends javax.swing.JDialog {
         lblImporteTotal = new javax.swing.JLabel();
         lblFechaVenta = new javax.swing.JLabel();
         lblToken = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
         lblMedioPagoS = new javax.swing.JLabel();
         lblMedioPago = new javax.swing.JLabel();
         pnlTicketIndividual = new javax.swing.JPanel();
@@ -102,11 +112,14 @@ public class DialogCompra extends javax.swing.JDialog {
         lblFechaFuncion = new javax.swing.JLabel();
         lblPrecioEntrada = new javax.swing.JLabel();
         pnlEfectivo = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        lblVuelto = new javax.swing.JLabel();
+        txtEfectivo = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         btnConfirmarCompra = new javax.swing.JButton();
         btnCancelarCompra = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblEntradas = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -204,12 +217,10 @@ public class DialogCompra extends javax.swing.JDialog {
                         .addGap(19, 19, 19)
                         .addGroup(pnlDetalleVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblImporteTotalS)
-                            .addGroup(pnlDetalleVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(lblTokenS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblFechaVentaS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblTokenS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblFechaVentaS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblEntradasS)
                             .addComponent(lblToken, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblImporteTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCantEntradas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblFechaVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -240,11 +251,9 @@ public class DialogCompra extends javax.swing.JDialog {
                 .addComponent(lblMedioPago, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblTokenS)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel29)
                 .addGap(18, 18, 18)
                 .addComponent(lblToken, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         lblTicketS.setFont(new java.awt.Font("DialogInput", 1, 14)); // NOI18N
@@ -389,30 +398,54 @@ public class DialogCompra extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setText("jButton1");
+        txtEfectivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEfectivoKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setText("Vuelto correspondiente");
+
+        jLabel3.setText("Con cuanto va a pagar:");
 
         javax.swing.GroupLayout pnlEfectivoLayout = new javax.swing.GroupLayout(pnlEfectivo);
         pnlEfectivo.setLayout(pnlEfectivoLayout);
         pnlEfectivoLayout.setHorizontalGroup(
             pnlEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEfectivoLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jButton1)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addGroup(pnlEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(txtEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                        .addComponent(lblVuelto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         pnlEfectivoLayout.setVerticalGroup(
             pnlEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEfectivoLayout.createSequentialGroup()
-                .addContainerGap(183, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(25, 25, 25))
+                .addGap(19, 19, 19)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(lblVuelto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
         );
 
         btnConfirmarCompra.setText("Confirmar compra");
+        btnConfirmarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarCompraActionPerformed(evt);
+            }
+        });
 
-        btnCancelarCompra.setText("Salir");
+        btnCancelarCompra.setText("Cancelar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblEntradas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -423,7 +456,7 @@ public class DialogCompra extends javax.swing.JDialog {
 
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tblEntradas);
 
         jLabel2.setText("Entradas");
 
@@ -458,12 +491,11 @@ public class DialogCompra extends javax.swing.JDialog {
                         .addGap(49, 49, 49)
                         .addComponent(pnlTicketIndividual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(btnConfirmarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(btnCancelarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(107, 107, 107)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnConfirmarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancelarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -478,14 +510,14 @@ public class DialogCompra extends javax.swing.JDialog {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                        .addGap(105, 105, 105)
                         .addComponent(btnConfirmarCompra)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelarCompra)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -502,6 +534,54 @@ public class DialogCompra extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtEfectivoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEfectivoKeyReleased
+        String efectivoString = txtEfectivo.getText();
+        try {
+            double pago = Double.parseDouble(efectivoString);
+            if (pago < venta.getImporte_Total()) {
+                lblVuelto.setText("0");
+            } else {
+                double vuelto = pago - venta.getImporte_Total();
+                lblVuelto.setText(Double.toString(vuelto));
+            }
+
+        } catch (NumberFormatException a) {
+            lblVuelto.setText("0");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error");
+        }
+    }//GEN-LAST:event_txtEfectivoKeyReleased
+
+    private void btnConfirmarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarCompraActionPerformed
+        int seleccion = JOptionPane.showConfirmDialog(this, "¿El cliente quiere relacionar la compra con su cuenta? Si es asi ingrese su DNI", "Confirmación", YES_NO_OPTION);
+        if (seleccion == 0) {
+            String dni = JOptionPane.showInputDialog("Ingrese DNI");
+            try {
+                if (dni.isEmpty() || dni.length() < 8) {
+                    JOptionPane.showMessageDialog(this, "No puede dejar el campo vacio y debe ingresar un DNI de 8 caracteres.");
+                    return;
+                }
+                int dniNumero = Integer.parseInt(dni);
+                dniCliente = dniNumero;
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Ingrese un DNI valido.");
+            }
+        }
+       
+        try {
+            cliente = maniCliente.buscarClientePorDNI(dniCliente);
+            if(cliente == null){
+                JOptionPane.showMessageDialog(this, "No se ha encontrado el cliente con el DNI asignado.");
+            }
+        } catch(Exception e){
+            
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_btnConfirmarCompraActionPerformed
+
     public void setearDetalleVenta(Venta venta) {
         lblImporteTotal.setText(Double.toString(venta.getImporte_Total()));
         lblCantEntradas.setText(Integer.toString(venta.getCantidad_Entradas()));
@@ -510,24 +590,67 @@ public class DialogCompra extends javax.swing.JDialog {
         lblToken.setText(Integer.toString(token));
     }
 
-    public void rellenarListAsientos(List<Asiento> listaAsientos) {
+    public void rellenarTablaEntradas() {
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        modelo.addColumn("Fila asiento");
+        modelo.addColumn("Numero asiento");
         for (Asiento a : listaAsientos) {
-            String fila = String.valueOf(a.getFila_asiento());
-            String numero = Integer.toString(a.getNumero_asiento());
-            listModel.addElement(fila + " - " + numero);
+            modelo.addRow(new Object[]{
+                a.getFila_asiento(),
+                a.getNumero_asiento()
+            });
+        }
+        tblEntradas.setModel(modelo);
+    }
+
+    public void agregarListenerTabla() {
+        tblEntradas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent evento) {
+                if (evento.getValueIsAdjusting()) {
+                    return;
+                }
+
+                int filaS = tblEntradas.getSelectedRow();
+                if (filaS != -1) {
+                    lblAsiento.setText(tblEntradas.getValueAt(filaS, 0) + " - " + tblEntradas.getValueAt(filaS, 1));
+                    lblPelicula.setText(peli.getTitulo());
+                    lblNumeroSala.setText(Integer.toString(funcion.getNro_Sala()));
+                    lblSubtitulada.setText(parsearBoolean(funcion.isSubtitulada()));
+                    lbl3D.setText(parsearBoolean(funcion.isEs3D()));
+                    lblFechaFuncion.setText(funcion.getFecha_Funcion().toString());
+                    lblPrecioEntrada.setText(Double.toString(funcion.getPrecio_Entrada()));
+                    lblHorario.setText(funcion.getHora_Inicio().toString().substring(0, 5) + " - " + funcion.getHora_Fin().toString().substring(0, 5));
+
+                }
+            }
+        });
+    }
+
+    public void habilitarSegunMedioPago(String medio_pago) {
+        if (medio_pago.equalsIgnoreCase("debito")) {
+            txtEfectivo.setEnabled(false);
+        } else if (medio_pago.equalsIgnoreCase("efectivo")) {
+            txtNroTarj.setEnabled(false);
+            txtNomApeTarj.setEnabled(false);
+            txtCVV.setEnabled(false);
         }
     }
 
-    public void rellenarLabelsTicket() {
-        lblPelicula.setText(peli.getTitulo());
-        lblNumeroSala.setText(Integer.toString(funcion.getNro_Sala()));
-        lblAsiento.setText("");
-        lblFechaEmision.setText("");
-        lblHorario.setText("");
-        lblSubtitulada.setText("");
-        lbl3D.setText("");
-        lblFechaFuncion.setText("");
-        lblPrecioEntrada.setText("");
+    public String parsearBoolean(boolean estado) {
+        if (estado) {
+            return "Si";
+        }
+        return "No";
+    }
+
+    public boolean parsearString(String estado) {
+        return estado.equalsIgnoreCase("Si");
     }
 
     /**
@@ -585,13 +708,12 @@ public class DialogCompra extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelarCompra;
     private javax.swing.JButton btnConfirmarCompra;
-    private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel jbCVV;
     private javax.swing.JLabel jbFechaVTarj;
     private javax.swing.JLabel jbNomApeTarj;
@@ -626,10 +748,13 @@ public class DialogCompra extends javax.swing.JDialog {
     private javax.swing.JLabel lblTicketS;
     private javax.swing.JLabel lblToken;
     private javax.swing.JLabel lblTokenS;
+    private javax.swing.JLabel lblVuelto;
     private javax.swing.JPanel pnlDetalleVenta;
     private javax.swing.JPanel pnlEfectivo;
     private javax.swing.JPanel pnlTicketIndividual;
+    private javax.swing.JTable tblEntradas;
     private javax.swing.JTextField txtCVV;
+    private javax.swing.JTextField txtEfectivo;
     private javax.swing.JTextField txtNomApeTarj;
     private javax.swing.JTextField txtNroTarj;
     // End of variables declaration//GEN-END:variables

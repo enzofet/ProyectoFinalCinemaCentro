@@ -241,6 +241,11 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         });
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Medio de pago");
 
@@ -473,7 +478,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         String cantidadBoletos = txtCantidadBoletos.getText();
         try{
             int cantidad = Integer.parseInt(cantidadBoletos);
-            double precioTotal = precioEntrada * cantidad;
+            precioTotal = precioEntrada * cantidad;
             lblImporteTotal.setText(Double.toString(precioTotal));
             
         } catch (NumberFormatException e){
@@ -496,7 +501,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 return;
             }
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsientos, venta, "Taquilla", id_funcion);
+            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsientos, venta, (String) cmbMedioPago.getSelectedItem(), id_funcion);
             ventanaCompra.setVisible(true);
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "No tiene seleccionados los asientos a comprar o no tiene seleccionado un medio de pago.");
@@ -504,6 +509,10 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
             Logger.getLogger(TaquillaInternal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnRealizarCompraActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     public void ocultarIDs() {
 
