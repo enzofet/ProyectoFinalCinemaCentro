@@ -12,7 +12,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import org.mariadb.jdbc.Statement;
@@ -22,29 +22,42 @@ import org.mariadb.jdbc.Statement;
  * @author Gonzalo Achucarro
  */
 public class VentaDAO {
-    public void registrarVentaTaquilla(Venta venta) throws Exception{
-        String sql = "INSERT INTO venta(id_cliente, medio_pago, cantidad_entradas, importe_total"
+    public int registrarVentaTaquilla(Venta venta) throws Exception{
+        String sql = "INSERT INTO venta(id_cliente, medio_pago, cantidad_entradas, importe_total,"
                 + " medio_compra, fecha_venta) VALUES (?, ?, ?, ?, ?, ?)";
         
         Connection con =ConexionBD.getConnection();
-        
+        int idVenta = -1;
         try(PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
-            ps.setInt(1, venta.getId_Cliente());
+            if(venta.getId_Cliente() == -1){
+                ps.setNull(1, Types.INTEGER);
+            } else {
+                ps.setInt(1, venta.getId_Cliente());
+            }
             ps.setString(2, venta.getMedio_Pago());
             ps.setInt(3, venta.getCantidad_Entradas());
             ps.setDouble(4, venta.getImporte_Total());
-            ps.setString(5, venta.getMedio_Pago());
-            
+            ps.setString(5, venta.getMedio_Compra());
+            ps.setDate(6, Date.valueOf(venta.getFecha_Venta()));
             int fila = ps.executeUpdate();
             
             if(fila == 0){
                 throw new Exception("Error al registrar la venta.");
             } 
             
+            try (ResultSet rs = ps.getGeneratedKeys()){
+                if(rs.next()){
+                    idVenta = rs.getInt(1);
+                } else {
+                    throw new Exception("Error al obtener el ID de la venta registrada.");
+                }
+            }
+            
         } catch(SQLException e){
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
         }
+        return idVenta;
     }
     
     public void registrarVentaOnline(Venta venta) throws Exception{
