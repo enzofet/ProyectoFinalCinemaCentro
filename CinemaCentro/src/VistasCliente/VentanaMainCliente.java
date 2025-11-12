@@ -374,7 +374,10 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                     jBCancelarB.setEnabled(true);
 
                 } else {
+                    jBButaca.setEnabled(true);
+                    jBCancelarB.setEnabled(false);
                     JOptionPane.showMessageDialog(this, "Selección de boletos cancelada.");
+                        
 
                     for (Asiento a : listaAsi) {
                         try {
@@ -478,6 +481,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
         }
+        jBButaca.setEnabled(true);
         jBCancelarB.setEnabled(false);
         jBComprar.setEnabled(false);
         jListAsientos.setOpaque(false);
