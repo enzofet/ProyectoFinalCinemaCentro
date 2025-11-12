@@ -52,6 +52,8 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
     int nro_sala = -1;
     double precioEntrada = 0;
     double precioTotal = 0;
+    boolean estadoExito;
+
     public TaquillaInternal() {
         initComponents();
         modeloLista = new DefaultListModel<>();
@@ -63,7 +65,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         rellenarTablaPelicula();
         agregarListenerCartelera();
         agregarListenerFunciones();
-        
+
         cmbMedioPago.addItem("...");
         cmbMedioPago.addItem("Efectivo");
         cmbMedioPago.addItem("Debito");
@@ -429,21 +431,21 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
             int cantidad = Integer.parseInt(txtCantidadBoletos.getText());
             listaAsientos = new ArrayList<>();
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-            for(int i = 0; i < cantidad; i++){
+            for (int i = 0; i < cantidad; i++) {
                 DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, nro_sala);
                 ventanaAsientos.setVisible(true);
                 Asiento asientoS = ventanaAsientos.getAsientoSeleccionado();
-                
-                if(asientoS != null){
-                    modeloLista.addElement(String.valueOf(asientoS.getFila_asiento())+"-"+asientoS.getNumero_asiento());
+
+                if (asientoS != null) {
+                    modeloLista.addElement(String.valueOf(asientoS.getFila_asiento()) + "-" + asientoS.getNumero_asiento());
                     listaAsientos.add(asientoS);
                     System.out.println(asientoS.toString());
                 } else {
                     JOptionPane.showMessageDialog(this, "Cancelada selección de boletos");
-                    for(Asiento a : listaAsientos){
-                        try{
-                        maniAsi.darAlta(a.getId_asiento());
-                        } catch (Exception e){
+                    for (Asiento a : listaAsientos) {
+                        try {
+                            maniAsi.darAlta(a.getId_asiento());
+                        } catch (Exception e) {
                             System.out.println("Error al dar de alta nuevamente.");
                         }
                     }
@@ -451,13 +453,12 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                     listaAsientos.clear();
                     break;
                 }
-                
+
             }
-            
-            
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un numero valido.");
-        } catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
 
@@ -465,10 +466,10 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
 
     private void btnCancelarAsientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarAsientosActionPerformed
         modeloLista.clear();
-        for(Asiento a : listaAsientos){
-            try{
-            maniAsi.darAlta(a.getId_asiento());
-            }catch (Exception e){
+        for (Asiento a : listaAsientos) {
+            try {
+                maniAsi.darAlta(a.getId_asiento());
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
         }
@@ -476,14 +477,14 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
 
     private void txtCantidadBoletosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadBoletosKeyReleased
         String cantidadBoletos = txtCantidadBoletos.getText();
-        try{
+        try {
             int cantidad = Integer.parseInt(cantidadBoletos);
             precioTotal = precioEntrada * cantidad;
             lblImporteTotal.setText(Double.toString(precioTotal));
-            
-        } catch (NumberFormatException e){
+
+        } catch (NumberFormatException e) {
             lblImporteTotal.setText("0");
-        } catch(Exception a){
+        } catch (Exception a) {
             JOptionPane.showMessageDialog(this, a.getMessage());
         }
     }//GEN-LAST:event_txtCantidadBoletosKeyReleased
@@ -495,19 +496,26 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         venta.setImporte_Total(precioTotal);
         venta.setMedio_Compra("Taquilla");
         venta.setFecha_Venta(LocalDate.now());
-        
+
         try {
             if (listaAsientos.isEmpty() || cmbMedioPago.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(this, "No tiene seleccionados los asientos a comprar o no tiene seleccionado un medio de pago.");
                 return;
             }
-            
+
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
             DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsientos, venta, (String) cmbMedioPago.getSelectedItem(), id_funcion);
             ventanaCompra.setVisible(true);
-            boolean estadoExito = ventanaCompra.isEstado();
-            
-            if(estadoExito){
+            estadoExito = ventanaCompra.isEstado();
+
+            if (estadoExito) {
+                for (Asiento a : listaAsientos) {
+                    try {
+                        maniAsi.darAlta(a.getId_asiento());
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(this, e.getMessage());
+                    }
+                }
                 tblCartelera.clearSelection();
                 tblFunciones.clearSelection();
                 listaAsientos.clear();
@@ -515,15 +523,17 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
             }
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "No tiene seleccionados los asientos a comprar o no tiene seleccionado un medio de pago.");
-            
+
         } catch (Exception ex) {
             Logger.getLogger(TaquillaInternal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnRealizarCompraActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+
         this.dispose();
+
     }//GEN-LAST:event_btnSalirActionPerformed
 
     public void ocultarIDs() {
@@ -562,7 +572,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         modelo.setRowCount(0);
         try {
             listaFuncionPorPelicula = maniFuncion.listadoPorId(id_pelicula);
-           
+
             for (Funcion f : listaFuncionPorPelicula) {
                 modelo.addRow(new Object[]{f.getId_Funcion(),
                     f.getNro_Sala(),
@@ -575,44 +585,44 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                     parsearBoolean(f.isSubtitulada())
                 });
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-    
-    public void agregarListenerCartelera(){
-        tblCartelera.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            @Override 
-            public void valueChanged(ListSelectionEvent evento){
-                if(evento.getValueIsAdjusting()){
+
+    public void agregarListenerCartelera() {
+        tblCartelera.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent evento) {
+                if (evento.getValueIsAdjusting()) {
                     return;
                 }
                 int filaS = tblCartelera.getSelectedRow();
-                if(filaS != -1){
+                if (filaS != -1) {
                     id_peliculaS = (int) tblCartelera.getValueAt(filaS, 0);
                     rellenarTablaFunciones(id_peliculaS);
                     lblPeliculaS.setText((String) tblCartelera.getValueAt(filaS, 1));
                     lblGenerosS.setText((String) tblCartelera.getValueAt(filaS, 5));
-                    
+
                 }
             }
         });
     }
-    
-    public void agregarListenerFunciones(){
-        tblFunciones.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+
+    public void agregarListenerFunciones() {
+        tblFunciones.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
-            public void valueChanged(ListSelectionEvent evento){
-                if(evento.getValueIsAdjusting()){
+            public void valueChanged(ListSelectionEvent evento) {
+                if (evento.getValueIsAdjusting()) {
                     return;
                 }
                 int filaS = tblFunciones.getSelectedRow();
-                if(filaS != -1){
+                if (filaS != -1) {
                     nro_sala = (int) tblFunciones.getValueAt(filaS, 1);
                     id_funcion = (int) tblFunciones.getValueAt(filaS, 0);
                     precioEntrada = (double) tblFunciones.getValueAt(filaS, 6);
-                    lblNumeroSalaS.setText(Integer.toString((int)tblFunciones.getValueAt(filaS, 1)));
+                    lblNumeroSalaS.setText(Integer.toString((int) tblFunciones.getValueAt(filaS, 1)));
                     lblIdiomaS.setText(tblFunciones.getValueAt(filaS, 2).toString());
                     lbl3DS.setText(tblFunciones.getValueAt(filaS, 3).toString());
                     lblHorarioInicioS.setText(tblFunciones.getValueAt(filaS, 4).toString());
@@ -621,7 +631,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                     lblFechaS.setText(tblFunciones.getValueAt(filaS, 7).toString());
                     lblSubtituladaS.setText(tblFunciones.getValueAt(filaS, 8).toString());
                     txtCantidadBoletos.setEnabled(true);
-                    
+
                 } else {
                     lblNumeroSalaS.setText("");
                     lblIdiomaS.setText("");
@@ -629,21 +639,21 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                     lblSubtituladaS.setText("");
                     lblHorarioInicioS.setText("");
                     lblHorarioFinS.setText("");
-                    lblFechaS.setText("");  
+                    lblFechaS.setText("");
                     txtCantidadBoletos.setEnabled(false);
                 }
             }
         });
     }
-    
-     public String parsearBoolean(boolean estado){
-        if(estado){
+
+    public String parsearBoolean(boolean estado) {
+        if (estado) {
             return "Si";
-        } 
-            return "No";
-    } 
-    
-    public boolean parsearString(String estado){
+        }
+        return "No";
+    }
+
+    public boolean parsearString(String estado) {
         return estado.equalsIgnoreCase("Si");
     }
 

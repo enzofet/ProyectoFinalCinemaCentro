@@ -614,8 +614,8 @@ public class DialogCompra extends javax.swing.JDialog {
             }
            
             
-            Integer nro = Integer.parseInt(nroTarjeta);
-            int codigo = Integer.parseInt(codigoSeguridad);
+            /*Integer nro = Integer.parseInt(nroTarjeta);
+            int codigo = Integer.parseInt(codigoSeguridad);*/
             
             
             int idVenta = maniVenta.registrarVentaTaquilla(venta);
