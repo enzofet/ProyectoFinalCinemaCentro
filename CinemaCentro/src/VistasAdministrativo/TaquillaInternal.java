@@ -495,19 +495,31 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         venta.setImporte_Total(precioTotal);
         venta.setMedio_Compra("Taquilla");
         venta.setFecha_Venta(LocalDate.now());
+        
         try {
             if (listaAsientos.isEmpty() || cmbMedioPago.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(this, "No tiene seleccionados los asientos a comprar o no tiene seleccionado un medio de pago.");
                 return;
             }
+            
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
             DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsientos, venta, (String) cmbMedioPago.getSelectedItem(), id_funcion);
             ventanaCompra.setVisible(true);
+            boolean estadoExito = ventanaCompra.isEstado();
+            
+            if(estadoExito){
+                tblCartelera.clearSelection();
+                tblFunciones.clearSelection();
+                listaAsientos.clear();
+                cmbMedioPago.setSelectedIndex(0);
+            }
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "No tiene seleccionados los asientos a comprar o no tiene seleccionado un medio de pago.");
+            
         } catch (Exception ex) {
             Logger.getLogger(TaquillaInternal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }//GEN-LAST:event_btnRealizarCompraActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
