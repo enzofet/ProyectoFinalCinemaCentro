@@ -9,11 +9,14 @@ import Controlador.ClienteDAO;
 import Controlador.DetalleTicketDAO;
 import Controlador.FuncionDAO;
 import Controlador.PeliculaDAO;
+import Controlador.VentaDAO;
 import Modelo.Asiento;
 import Modelo.Cliente;
+import Modelo.DetalleTicket;
 import Modelo.Funcion;
 import Modelo.Pelicula;
 import Modelo.Venta;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +37,7 @@ public class DialogCompra extends javax.swing.JDialog {
      * Creates new form DialogCompra
      */
     List<Asiento> listaAsientos = null;
+    VentaDAO maniVenta = new VentaDAO();
     FuncionDAO maniFuncion = new FuncionDAO();
     DetalleTicketDAO maniTicket = new DetalleTicketDAO();
     PeliculaDAO maniPeli = new PeliculaDAO();
@@ -45,7 +49,7 @@ public class DialogCompra extends javax.swing.JDialog {
     int dniCliente = 0;
     int token = 0;
     DefaultListModel<String> listModel;
-
+    boolean estado = false;
     public DialogCompra(java.awt.Frame parent, boolean modal, List<Asiento> listaAsientos, Venta venta, String medio_pago, int id_funcion) throws Exception {
         super(parent, modal);
         initComponents();
@@ -79,6 +83,7 @@ public class DialogCompra extends javax.swing.JDialog {
         jbFechaVTarj = new javax.swing.JLabel();
         jbCVV = new javax.swing.JLabel();
         txtCVV = new javax.swing.JTextField();
+        txtFechaVencimiento = new javax.swing.JTextField();
         pnlDetalleVenta = new javax.swing.JPanel();
         jbNomApeTarj1 = new javax.swing.JLabel();
         lblEntradasS = new javax.swing.JLabel();
@@ -155,7 +160,9 @@ public class DialogCompra extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(6, 6, 6)
+                                .addComponent(txtFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtCVV, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jbFechaVTarj, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,7 +192,9 @@ public class DialogCompra extends javax.swing.JDialog {
                     .addComponent(jbFechaVTarj)
                     .addComponent(jbCVV))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCVV, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCVV, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
@@ -444,6 +453,11 @@ public class DialogCompra extends javax.swing.JDialog {
         });
 
         btnCancelarCompra.setText("Cancelar");
+        btnCancelarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarCompraActionPerformed(evt);
+            }
+        });
 
         tblEntradas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -561,33 +575,84 @@ public class DialogCompra extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, "No puede dejar el campo vacio y debe ingresar un DNI de 8 caracteres.");
                     return;
                 }
+                
                 int dniNumero = Integer.parseInt(dni);
                 dniCliente = dniNumero;
+                cliente = maniCliente.buscarClientePorDNI(dniCliente);
+                
+                if (cliente == null) {
+                    JOptionPane.showMessageDialog(this, "No se ha encontrado el cliente con el DNI asignado.");
+                }
+                
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Ingrese un DNI valido.");
+                
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage());
             }
         }
-       
+        
+        String nroTarjeta = txtNroTarj.getText();
+        String nombreCompleto = txtNomApeTarj.getText();
+        String codigoSeguridad = txtCVV.getText();
         try {
-            cliente = maniCliente.buscarClientePorDNI(dniCliente);
-            if(cliente == null){
-                JOptionPane.showMessageDialog(this, "No se ha encontrado el cliente con el DNI asignado.");
+            if(nroTarjeta.isEmpty() || nombreCompleto.isEmpty() || codigoSeguridad.isEmpty()){
+                JOptionPane.showMessageDialog(this, "No puede dejar campos vacios en los datos de tarjeta");
+                return;
+            } else {
+                if((nroTarjeta.length() < 13 || nroTarjeta.length() > 19) || (nombreCompleto.length() < 3 || nombreCompleto.length() > 50) || codigoSeguridad.length() < 3){
+                    JOptionPane.showMessageDialog(this, "Ingrese campos correctos para los datos de tarjeta.");
+                    return;
+                }
             }
-        } catch(Exception e){
             
+            for(char caracter : nombreCompleto.toCharArray()){
+                if(Character.isDigit(caracter)){
+                    JOptionPane.showMessageDialog(this, "El nombre no puede tener caracteres numericos");
+                    return;
+                }
+            }
+           
+            
+            Integer nro = Integer.parseInt(nroTarjeta);
+            int codigo = Integer.parseInt(codigoSeguridad);
+            
+            
+            int idVenta = maniVenta.registrarVentaTaquilla(venta);
+            for (Asiento asiento : listaAsientos) {
+                DetalleTicket ticket = new DetalleTicket(funcion.getId_Funcion(), asiento.getId_asiento(), idVenta, LocalDate.now(), true);
+                maniTicket.generarTicket(ticket);
+                estado = true;
+            }
+            JOptionPane.showMessageDialog(this, "Venta y tickets generados correctamente.");
+        } catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "Error en los datos de tarjetas.");
+        } catch(Exception e){
+            e.printStackTrace();
         }
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_btnConfirmarCompraActionPerformed
+
+    private void btnCancelarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCompraActionPerformed
+        estado = false;
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarCompraActionPerformed
+
+    public boolean isEstado() {
+        return estado;
+    }
 
     public void setearDetalleVenta(Venta venta) {
         lblImporteTotal.setText(Double.toString(venta.getImporte_Total()));
         lblCantEntradas.setText(Integer.toString(venta.getCantidad_Entradas()));
         lblFechaVenta.setText(venta.getFecha_Venta().toString());
         lblMedioPago.setText((String) venta.getMedio_Pago());
+        if(venta.getMedio_Compra().equalsIgnoreCase("online")){
         lblToken.setText(Integer.toString(token));
+        } else {
+            lblToken.setText("---------------");
+        }
     }
 
     public void rellenarTablaEntradas() {
@@ -755,6 +820,7 @@ public class DialogCompra extends javax.swing.JDialog {
     private javax.swing.JTable tblEntradas;
     private javax.swing.JTextField txtCVV;
     private javax.swing.JTextField txtEfectivo;
+    private javax.swing.JTextField txtFechaVencimiento;
     private javax.swing.JTextField txtNomApeTarj;
     private javax.swing.JTextField txtNroTarj;
     // End of variables declaration//GEN-END:variables
