@@ -60,6 +60,8 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
         menuSalas = new javax.swing.JMenu();
         menuGestionSalas = new javax.swing.JMenuItem();
         menuVentas = new javax.swing.JMenu();
+        btnGestionTickets = new javax.swing.JMenuItem();
+        btnInformeVentas = new javax.swing.JMenuItem();
         menuTaquilla = new javax.swing.JMenu();
         btnVentaTaquilla = new javax.swing.JMenuItem();
         menuSalir = new javax.swing.JMenu();
@@ -114,6 +116,23 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
         jMenuBar1.add(menuSalas);
 
         menuVentas.setText("Ventas");
+
+        btnGestionTickets.setText("Gestión de tickets");
+        btnGestionTickets.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionTicketsActionPerformed(evt);
+            }
+        });
+        menuVentas.add(btnGestionTickets);
+
+        btnInformeVentas.setText("Informe de ventas");
+        btnInformeVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInformeVentasActionPerformed(evt);
+            }
+        });
+        menuVentas.add(btnInformeVentas);
+
         jMenuBar1.add(menuVentas);
 
         menuTaquilla.setText("Taquilla");
@@ -192,6 +211,24 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
             dispose();
     }//GEN-LAST:event_menuSalirActionPerformed
 
+    private void btnGestionTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionTicketsActionPerformed
+        escritorioAdmin.removeAll();
+        escritorioAdmin.repaint();
+        TicketsInternal ventanaTicket = new TicketsInternal();
+         escritorioAdmin.add(ventanaTicket);
+        ventanaTicket.setVisible(true);
+        ventanaTicket.moveToFront();
+    }//GEN-LAST:event_btnGestionTicketsActionPerformed
+
+    private void btnInformeVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformeVentasActionPerformed
+        escritorioAdmin.removeAll();
+        escritorioAdmin.repaint();
+        VentasInternal ventanaVentas = new VentasInternal();
+         escritorioAdmin.add(ventanaVentas);
+        ventanaVentas.setVisible(true);
+        ventanaVentas.moveToFront();
+    }//GEN-LAST:event_btnInformeVentasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -230,6 +267,8 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnGestionFunciones;
     private javax.swing.JMenuItem btnGestionPeliculas;
+    private javax.swing.JMenuItem btnGestionTickets;
+    private javax.swing.JMenuItem btnInformeVentas;
     private javax.swing.JMenuItem btnVentaTaquilla;
     private javax.swing.JDesktopPane escritorioAdmin;
     private javax.swing.JMenuBar jMenuBar1;

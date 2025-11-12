@@ -53,6 +53,24 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ventas"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="btnGestionTickets">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de tickets"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGestionTicketsActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="btnInformeVentas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Informe de ventas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInformeVentasActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuTaquilla">
           <Properties>
