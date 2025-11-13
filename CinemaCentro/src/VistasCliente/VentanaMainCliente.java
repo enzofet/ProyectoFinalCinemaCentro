@@ -44,7 +44,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
     int idFun = 0;
     private FuncionDAO maniFun = new FuncionDAO();
-    static String[] columnasFun = {"id_funcion", "Día", "Horario Inicio/Fin", "Sala", "3D", "Idioma"};
+    static String[] columnasFun = {"id_funcion", "Día", "Horario Inicio/Fin", "Sala", "3D", "Idioma", "Subtitulada"};
     static DefaultTableModel modeloFun = new DefaultTableModel(null, columnasFun) {
         @Override
         public boolean isCellEditable(int a, int b) {
@@ -87,6 +87,13 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         }
     }
 
+    public String parsearBooleann(boolean estado) {
+        if (estado) {
+            return "Si";
+        }
+        return "No";
+    }
+
     private void tablaFun() {
 
         ArrayList<Funcion> listaFun;
@@ -99,8 +106,9 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                     fun.getFecha_Funcion(),
                     "Inicio: " + fun.getHora_Inicio() + " / Fin: " + fun.getHora_Fin(),
                     fun.getNro_Sala(),
-                    fun.isEs3D(),
-                    fun.getIdioma()
+                    parsearBooleann(fun.isEs3D()),
+                    fun.getIdioma(),
+                    parsearBooleann(fun.isSubtitulada())
                 });
                 precioEntrada = fun.getPrecio_Entrada();
             }
@@ -359,6 +367,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
 
+
             for (int i = 0; i < cant; i++) {
                 DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, idSala);
                 ventanaAsientos.setVisible(true);
@@ -377,7 +386,6 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                     jBButaca.setEnabled(true);
                     jBCancelarB.setEnabled(false);
                     JOptionPane.showMessageDialog(this, "Selección de boletos cancelada.");
-                        
 
                     for (Asiento a : listaAsi) {
                         try {
@@ -408,21 +416,21 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         } else {
             Object[] opciones = {"Si", "No"};
             int eleccion = JOptionPane.showOptionDialog(
-                    null, 
-                    "Selección de función en curso, seguro que desea salir? ", 
-                    "", 
-                    JOptionPane.DEFAULT_OPTION, 
-                    JOptionPane.QUESTION_MESSAGE, 
-                    null, 
-                    opciones, 
-                    null); 
-            
-            if(eleccion == 0){
+                    null,
+                    "Selección de función en curso.\n¿Seguro que desea salir? ",
+                    "",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    opciones,
+                    null);
+
+            if (eleccion == 0) {
                 modeloAsi.clear();
-                for(Asiento a : listaAsi){
-                    try{
-                        maniAsi.darAlta(a.getId_asiento());                        
-                    }catch (Exception e){
+                for (Asiento a : listaAsi) {
+                    try {
+                        maniAsi.darAlta(a.getId_asiento());
+                    } catch (Exception e) {
                         JOptionPane.showMessageDialog(this, e.getMessage());
                     }
                 }
@@ -498,7 +506,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
         try {
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsi, ventaOnline, "Tarjeta de crédito", idFun);
+            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsi, ventaOnline, "credito", idFun);
             ventanaCompra.setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(VentanaMainCliente.class.getName()).log(Level.SEVERE, null, ex);

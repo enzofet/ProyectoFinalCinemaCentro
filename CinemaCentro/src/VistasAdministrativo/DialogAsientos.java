@@ -6,7 +6,10 @@
 package VistasAdministrativo;
 
 import Controlador.AsientoDAO;
+import Controlador.SalaDAO;
 import Modelo.Asiento;
+import Modelo.Sala;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -24,6 +27,7 @@ public class DialogAsientos extends javax.swing.JDialog {
     /**
      * Creates new form DialogAsientos
      */
+    SalaDAO maniSala = new SalaDAO();
     AsientoDAO maniAsi = new AsientoDAO();
     List<Asiento> listaAsientos;
     
@@ -41,6 +45,7 @@ public class DialogAsientos extends javax.swing.JDialog {
         tblAsientos.setCellSelectionEnabled(true);
         tblAsientos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         agregarListener(tblAsientos);
+        label(nro_sala);
     }
 
     /**
@@ -58,8 +63,6 @@ public class DialogAsientos extends javax.swing.JDialog {
         lblSala = new javax.swing.JLabel();
         lblNroSala = new javax.swing.JLabel();
         lblTipoPelicula = new javax.swing.JLabel();
-        lblSub = new javax.swing.JLabel();
-        lblEstadoSub = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAsientos = new javax.swing.JTable();
         pnlPantalla = new javax.swing.JPanel();
@@ -96,14 +99,6 @@ public class DialogAsientos extends javax.swing.JDialog {
         lblTipoPelicula.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblTipoPelicula.setForeground(new java.awt.Color(255, 255, 255));
         lblTipoPelicula.setText("ES 3D:");
-
-        lblSub.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        lblSub.setForeground(new java.awt.Color(255, 255, 255));
-        lblSub.setText("SUBTITULADA:");
-
-        lblEstadoSub.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        lblEstadoSub.setForeground(new java.awt.Color(255, 255, 255));
-        lblEstadoSub.setText("SI/NO");
 
         tblAsientos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -238,16 +233,10 @@ public class DialogAsientos extends javax.swing.JDialog {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlAsientosLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlAsientosLayout.createSequentialGroup()
-                                .addComponent(lblTipoPelicula)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblEstadoSub1))
-                            .addGroup(pnlAsientosLayout.createSequentialGroup()
-                                .addComponent(lblSub)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblEstadoSub)))
-                        .addGap(603, 603, 603)
+                        .addComponent(lblTipoPelicula)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblEstadoSub1)
+                        .addGap(658, 658, 658)
                         .addComponent(lblCinema))
                     .addGroup(pnlAsientosLayout.createSequentialGroup()
                         .addContainerGap()
@@ -285,12 +274,8 @@ public class DialogAsientos extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblEstadoSub1)
-                            .addComponent(lblTipoPelicula))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblSub)
-                            .addComponent(lblEstadoSub))))
-                .addGap(5, 5, 5)
+                            .addComponent(lblTipoPelicula))))
+                .addGap(15, 15, 15)
                 .addComponent(pnlEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
                 .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,6 +332,28 @@ public class DialogAsientos extends javax.swing.JDialog {
         } 
 
     }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    public String parsearBooleann(boolean estado) {
+        if (estado) {
+            return "Si";
+        }
+        return "No";
+    }
+
+    public void label(int nroSala) {
+
+        try {
+            Sala sala = maniSala.buscarSala(nro_sala);
+            
+            lblNroSala.setText(Integer.toString(nroSala));
+            lblEstadoSub1.setText(parsearBooleann(sala.isApta3D()));
+            
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        } 
+    }
 
     public void rellenarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) tblAsientos.getModel();
@@ -459,14 +466,12 @@ public class DialogAsientos extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCinema;
     private javax.swing.JLabel lblEntrada;
-    private javax.swing.JLabel lblEstadoSub;
     private javax.swing.JLabel lblEstadoSub1;
     private javax.swing.JLabel lblFilaS;
     private javax.swing.JLabel lblNroSala;
     private javax.swing.JLabel lblNumeroS;
     private javax.swing.JLabel lblPantalla;
     private javax.swing.JLabel lblSala;
-    private javax.swing.JLabel lblSub;
     private javax.swing.JLabel lblTipoPelicula;
     private javax.swing.JPanel pnlAsientos;
     private javax.swing.JPanel pnlEntrada;
