@@ -22,14 +22,15 @@ import org.mariadb.jdbc.Statement;
  * @author Gonzalo Achucarro
  */
 public class VentaDAO {
-    public int registrarVentaTaquilla(Venta venta) throws Exception{
+
+    public int registrarVentaTaquilla(Venta venta) throws Exception {
         String sql = "INSERT INTO venta(id_cliente, medio_pago, cantidad_entradas, importe_total,"
                 + " medio_compra, fecha_venta) VALUES (?, ?, ?, ?, ?, ?)";
-        
-        Connection con =ConexionBD.getConnection();
+
+        Connection con = ConexionBD.getConnection();
         int idVenta = -1;
-        try(PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
-            if(venta.getId_Cliente() == -1){
+        try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            if (venta.getId_Cliente() == -1) {
                 ps.setNull(1, Types.INTEGER);
             } else {
                 ps.setInt(1, venta.getId_Cliente());
@@ -40,59 +41,59 @@ public class VentaDAO {
             ps.setString(5, venta.getMedio_Compra());
             ps.setDate(6, Date.valueOf(venta.getFecha_Venta()));
             int fila = ps.executeUpdate();
-            
-            if(fila == 0){
+
+            if (fila == 0) {
                 throw new Exception("Error al registrar la venta.");
-            } 
-            
-            try (ResultSet rs = ps.getGeneratedKeys()){
-                if(rs.next()){
+            }
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
                     idVenta = rs.getInt(1);
                 } else {
                     throw new Exception("Error al obtener el ID de la venta registrada.");
                 }
             }
-            
-        } catch(SQLException e){
+
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
         }
         return idVenta;
     }
-    
-    public void registrarVentaOnline(Venta venta) throws Exception{
+
+    public void registrarVentaOnline(Venta venta) throws Exception {
         String sql = "INSERT INTO venta(id_cliente, medio_pago, cantidad_entradas, importe_total"
                 + " medio_compra, token, fecha_venta) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        
-        Connection con =ConexionBD.getConnection();
-        
-        try(PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+
+        Connection con = ConexionBD.getConnection();
+
+        try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, venta.getId_Cliente());
             ps.setString(2, venta.getMedio_Pago());
             ps.setInt(3, venta.getCantidad_Entradas());
             ps.setDouble(4, venta.getImporte_Total());
             ps.setString(5, "Debito");
             ps.setNull(6, venta.getToken());
-            
+
             int fila = ps.executeUpdate();
-            
-            if(fila == 0){
+
+            if (fila == 0) {
                 throw new Exception("Error al registrar la venta.");
-            } 
-            
-        } catch(SQLException e){
+            }
+
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
         }
     }
-        
-    public void modificarVenta( Venta venta) throws Exception{
+
+    public void modificarVenta(Venta venta) throws Exception {
         String sql = "UPDATE venta SET id_cliente = ?, medio_pago = ?, cantidad_entradas = ?, importe_total = ?,"
                 + " medio_compra = ?, token = ?, fecha_venta = ? WHERE id_venta = ?";
         Connection con = ConexionBD.getConnection();
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            
+
             ps.setInt(1, venta.getId_Cliente());
             ps.setString(2, venta.getMedio_Pago());
             ps.setInt(3, venta.getCantidad_Entradas());
@@ -100,7 +101,7 @@ public class VentaDAO {
             ps.setString(5, venta.getMedio_Compra());
             ps.setInt(6, venta.getToken());
             ps.setDate(7, Date.valueOf(venta.getFecha_Venta()));
-            
+
             int fila = ps.executeUpdate();
             if (fila == 0) {
                 throw new Exception("Error al modificar la venta.");
@@ -111,8 +112,7 @@ public class VentaDAO {
             throw new Exception("Error relacionado a la base de datos.");
         }
     }
-          
-    
+
     public void darAlta(int id) throws Exception {
         String sql = "UPDATE pelicula SET estado = false WHERE id_pelicula = ?";
         Connection con = ConexionBD.getConnection();
@@ -149,49 +149,49 @@ public class VentaDAO {
         }
     }
 
-  public void eliminarVenta(int id) throws Exception{
+    public void eliminarVenta(int id) throws Exception {
         String sql = "DELETE FROM venta WHERE id_Venta = ?";
         Connection conn = ConexionBD.getConnection();
-        
-        try(PreparedStatement ps = conn.prepareStatement(sql)){
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             int filas = ps.executeUpdate();
-            if(filas == 0){
+            if (filas == 0) {
                 throw new Exception("No se pudo eliminar la venta.");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
-        } 
+        }
     }
-  
-public List<Venta> listarVenta() throws Exception{
+
+    public List<Venta> listarVenta() throws Exception {
         String sql = "SELECT * FROM venta";
         Connection conn = ConexionBD.getConnection();
-       Venta venta = null;
-        
+        Venta venta = null;
+
         List<Venta> listaVenta = new ArrayList<>();
-        try (PreparedStatement ps = conn.prepareStatement(sql)){
-            try(ResultSet rs = ps.executeQuery()){
-                while(rs.next()){
-                  venta = new Venta();
-                  venta.setId_Venta(rs.getInt("id_venta"));
-                  venta.setId_Cliente(rs.getInt("id_cliente"));
-                  venta.setMedio_Pago(rs.getString("medio_pago"));
-                  venta.setCantidad_Entradas(rs.getInt("cantidad_entradas"));
-                  venta.setImporte_Total(rs.getDouble("importe_total"));
-                  venta.setToken(rs.getInt("token"));
-            
-                  
-                  
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    venta = new Venta();
+                    venta.setId_Venta(rs.getInt("id_venta"));
+                    venta.setId_Cliente(rs.getInt("id_cliente"));
+                    venta.setMedio_Pago(rs.getString("medio_pago"));
+                    venta.setCantidad_Entradas(rs.getInt("cantidad_entradas"));
+                    venta.setImporte_Total(rs.getDouble("importe_total"));
+                    venta.setToken(rs.getInt("token"));
+
                     listaVenta.add(venta);
                 }
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
         }
         return listaVenta;
     }
-}
+    
+    
 
+}
