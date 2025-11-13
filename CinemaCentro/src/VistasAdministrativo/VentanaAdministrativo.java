@@ -37,7 +37,7 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
     
     public VentanaAdministrativo() {
         initComponents();
-        this.setSize(1200, 900);
+        this.setSize(1368, 1080);
         this.setResizable(false);
         
     }
