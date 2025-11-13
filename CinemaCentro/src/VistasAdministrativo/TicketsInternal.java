@@ -5,6 +5,10 @@
  */
 package VistasAdministrativo;
 
+import Modelo.Funcion;
+import Modelo.Pelicula;
+import java.util.List;
+
 /**
  *
  * @author Enzo_2
@@ -14,8 +18,16 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     /**
      * Creates new form VentasInternal
      */
+    List<Pelicula> listaPeliculas;
+    List<Funcion> listaFunciones;
+    
+    
+    
     public TicketsInternal() {
         initComponents();
+        buttonGroup1.add(rbtnFiltroFecha);
+        buttonGroup1.add(rbtnFiltroFechaPelicula);
+        
     }
 
     /**
@@ -27,29 +39,40 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         pnlVentas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblTickets = new javax.swing.JTable();
         lblFiltros = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        rbtnFiltroFecha = new javax.swing.JRadioButton();
+        rbtnFiltroFechaPelicula = new javax.swing.JRadioButton();
+        txtBuscarPelicula = new javax.swing.JTextField();
+        txtFechaMin = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtFechaMax = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        lblPeliculas = new javax.swing.JTable();
+        rbtnFiltroDNI = new javax.swing.JRadioButton();
+        txtDNICliente = new javax.swing.JTextField();
+        btnBaja = new javax.swing.JButton();
+        lblGestionTickets = new javax.swing.JLabel();
+        btnModificar = new javax.swing.JButton();
+        btnAlta = new javax.swing.JButton();
+        lblFuncion = new javax.swing.JLabel();
+        lblPelicula = new javax.swing.JLabel();
+        lblIdioma = new javax.swing.JLabel();
+        lblSala = new javax.swing.JLabel();
+        lbl3D = new javax.swing.JLabel();
+        lblHoraInicio = new javax.swing.JLabel();
+        lblHoraFin = new javax.swing.JLabel();
+        lblPrecio = new javax.swing.JLabel();
+        lblFechaFuncion = new javax.swing.JLabel();
+        lblSubtitulada = new javax.swing.JLabel();
+        checkFiltrarFuncion = new javax.swing.JCheckBox();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblTickets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -60,23 +83,21 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblTickets);
 
         lblFiltros.setText("Filtros");
 
-        jRadioButton1.setText("Filtrar por fecha");
+        rbtnFiltroFecha.setText("Filtrar por fecha");
 
-        jRadioButton2.setText("Filtrar por pelicula");
-
-        jRadioButton3.setText("Filtrar por fecha y pelicula");
+        rbtnFiltroFechaPelicula.setText("Filtrar por fecha y pelicula");
 
         jLabel1.setText("Nombre de pelicula:");
 
-        jLabel2.setText("Fecha:");
+        lblFecha.setText("Fecha:");
 
         jLabel3.setText("Entre");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        lblPeliculas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -87,17 +108,39 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(lblPeliculas);
 
-        jRadioButton4.setText("Filtrar por DNI de cliente");
+        rbtnFiltroDNI.setText("Filtrar por DNI de cliente");
 
-        jButton1.setText("Dar de baja ticket");
+        btnBaja.setText("Dar de baja ticket");
 
-        jLabel4.setText("Gestión de tickets");
+        lblGestionTickets.setText("Gestión de tickets");
 
-        jButton2.setText("Modificar ticket");
+        btnModificar.setText("Modificar ticket");
 
-        jButton3.setText("Dar alta ticket");
+        btnAlta.setText("Dar alta ticket");
+
+        lblFuncion.setText("Función asignada al ticket:");
+
+        lblPelicula.setText("Pelicula:");
+
+        lblIdioma.setText("Idioma:");
+
+        lblSala.setText("Sala:");
+
+        lbl3D.setText("3D:");
+
+        lblHoraInicio.setText("Hora inicio:");
+
+        lblHoraFin.setText("Hora fin:");
+
+        lblPrecio.setText("Precio:");
+
+        lblFechaFuncion.setText("Fecha función:");
+
+        lblSubtitulada.setText("Subtitulada:");
+
+        checkFiltrarFuncion.setText("Filtrar por función");
 
         javax.swing.GroupLayout pnlVentasLayout = new javax.swing.GroupLayout(pnlVentas);
         pnlVentas.setLayout(pnlVentasLayout);
@@ -105,81 +148,145 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
             pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlVentasLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(lblGestionTickets, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnlVentasLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnlVentasLayout.createSequentialGroup()
+                .addGap(160, 160, 160)
+                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(76, 76, 76)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(checkFiltrarFuncion))
+            .addGroup(pnlVentasLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlVentasLayout.createSequentialGroup()
                         .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1073, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlVentasLayout.createSequentialGroup()
+                                .addGap(100, 100, 100)
+                                .addComponent(lblPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(235, 235, 235)
+                        .addComponent(txtBuscarPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblFechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton3))
-                            .addComponent(lblFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)
-                                .addComponent(jRadioButton4)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addGap(407, 407, 407)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl3D, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(pnlVentasLayout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addComponent(lblFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(205, 205, 205)
+                .addComponent(lblFecha))
+            .addGroup(pnlVentasLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(rbtnFiltroFecha)
+                .addGap(24, 24, 24)
+                .addComponent(rbtnFiltroFechaPelicula)
+                .addGap(32, 32, 32)
+                .addComponent(txtFechaMin, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(txtFechaMax, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(rbtnFiltroDNI)
+                .addGap(13, 13, 13)
+                .addComponent(txtDNICliente, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnlVentasLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1020, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnlVentasLayout.setVerticalGroup(
             pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlVentasLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+            .addGroup(pnlVentasLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(lblGestionTickets, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAlta)
+                    .addComponent(btnBaja))
+                .addGap(12, 12, 12)
+                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnModificar)
+                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel1))
+                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(checkFiltrarFuncion)))
+                .addGap(4, 4, 4)
                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(140, 140, 140)
+                        .addComponent(lblHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)))
-                .addGap(34, 34, 34)
-                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGap(10, 10, 10)
+                        .addComponent(txtBuscarPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(lblFechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(lbl3D, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(lblSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(lblHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblFuncion))
+                .addGap(11, 11, 11)
+                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblFiltros)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(lblFecha)))
+                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbtnFiltroFecha)
+                            .addGroup(pnlVentasLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(rbtnFiltroFechaPelicula))
+                            .addGroup(pnlVentasLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(txtFechaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlVentasLayout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(jLabel3))
+                            .addGroup(pnlVentasLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(rbtnFiltroDNI))
+                            .addGroup(pnlVentasLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(txtDNICliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(15, 15, 15)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(txtFechaMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -198,26 +305,37 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnAlta;
+    private javax.swing.JButton btnBaja;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JCheckBox checkFiltrarFuncion;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel lbl3D;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblFechaFuncion;
     private javax.swing.JLabel lblFiltros;
+    private javax.swing.JLabel lblFuncion;
+    private javax.swing.JLabel lblGestionTickets;
+    private javax.swing.JLabel lblHoraFin;
+    private javax.swing.JLabel lblHoraInicio;
+    private javax.swing.JLabel lblIdioma;
+    private javax.swing.JLabel lblPelicula;
+    private javax.swing.JTable lblPeliculas;
+    private javax.swing.JLabel lblPrecio;
+    private javax.swing.JLabel lblSala;
+    private javax.swing.JLabel lblSubtitulada;
     private javax.swing.JPanel pnlVentas;
+    private javax.swing.JRadioButton rbtnFiltroDNI;
+    private javax.swing.JRadioButton rbtnFiltroFecha;
+    private javax.swing.JRadioButton rbtnFiltroFechaPelicula;
+    private javax.swing.JTable tblTickets;
+    private javax.swing.JTextField txtBuscarPelicula;
+    private javax.swing.JTextField txtDNICliente;
+    private javax.swing.JTextField txtFechaMax;
+    private javax.swing.JTextField txtFechaMin;
     // End of variables declaration//GEN-END:variables
 }
