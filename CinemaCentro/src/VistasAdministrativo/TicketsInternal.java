@@ -5,14 +5,19 @@
  */
 package VistasAdministrativo;
 
+import Controlador.ClienteDAO;
 import Controlador.DetalleTicketDAO;
 import Controlador.FuncionDAO;
 import Controlador.PeliculaDAO;
+import Controlador.VentaDAO;
+import Modelo.Cliente;
 import Modelo.DetalleTicket;
 import Modelo.Funcion;
 import Modelo.Pelicula;
+import Modelo.Venta;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
@@ -30,12 +35,14 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     List<DetalleTicket> listaTickets;
     
     String[] cabeceraTickets = {"id_ticket", "DNI (Cliente)", "Medio de compra", "Fecha emisión", "Estado", "Sala", "Asiento"};
-    String[] cabeceraFunciones = {"id_funcion", "Número de sala","Pelicula", "Idioma", "Hora de inicio", "Hora finalización","3D", "Subtitulada" 
+    String[] cabeceraFunciones = {"id_funcion", "Sala", "Pelicula", "Idioma", "Hora de inicio", "Hora finalización","3D", "Subtitulada" 
             ,"Precio de entrada", "Fecha de función", "Estado"};
     
     PeliculaDAO maniPeli = new PeliculaDAO();
     FuncionDAO maniFuncion = new FuncionDAO();
     DetalleTicketDAO maniTickets = new DetalleTicketDAO();
+    ClienteDAO maniCliente = new ClienteDAO();
+    VentaDAO maniVenta = new VentaDAO();
     
     int idFuncion = -1;
 
@@ -45,6 +52,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         buttonGroup1.add(rbtnFiltroFechaPelicula);
         tblFunciones.setModel(VentanaAdministrativo.armarCabeceras(cabeceraFunciones));
         tblTickets.setModel(VentanaAdministrativo.armarCabeceras(cabeceraTickets));
+        ocultarIDs();
         try {
             listaPeliculas = maniPeli.listarTodasPeliculas();
             listaFunciones = maniFuncion.listarFunciones();
@@ -71,6 +79,26 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         columnaF.setResizable(false);
     }
     
+    public void rellenarTablaFunciones(){
+        DefaultTableModel modelo = (DefaultTableModel) tblFunciones.getModel();
+        modelo.setRowCount(0);
+        
+        
+    }
+    
+    public void rellenarTablaTickets(){
+        DefaultTableModel modelo = (DefaultTableModel) tblTickets.getModel();
+        modelo.setRowCount(0);
+        
+        for(DetalleTicket dt : listaTickets){
+            
+            
+            modelo.addRow(new Object[]{
+                
+            });
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,7 +112,6 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         pnlVentas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTickets = new javax.swing.JTable();
-        lblFiltros = new javax.swing.JLabel();
         rbtnFiltroFecha = new javax.swing.JRadioButton();
         rbtnFiltroFechaPelicula = new javax.swing.JRadioButton();
         txtBuscarPelicula = new javax.swing.JTextField();
@@ -125,8 +152,6 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
             }
         ));
         jScrollPane1.setViewportView(tblTickets);
-
-        lblFiltros.setText("Filtros");
 
         rbtnFiltroFecha.setText("Filtrar por fecha");
 
@@ -192,34 +217,30 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                     .addGroup(pnlVentasLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlVentasLayout.createSequentialGroup()
+                                .addComponent(lblFuncion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(7, 7, 7))
                             .addGroup(pnlVentasLayout.createSequentialGroup()
                                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(pnlVentasLayout.createSequentialGroup()
-                                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                                .addGap(100, 100, 100)
-                                                .addComponent(lblPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(lblHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblFechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lbl3D, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 225, Short.MAX_VALUE))
-                                    .addGroup(pnlVentasLayout.createSequentialGroup()
-                                        .addComponent(lblFuncion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(7, 7, 7)))
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26))))
+                                        .addGap(100, 100, 100)
+                                        .addComponent(lblPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblFechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl3D, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 225, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))
                     .addGroup(pnlVentasLayout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(lblGestionTickets, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(lblFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(205, 205, 205)
+                        .addGap(390, 390, 390)
                         .addComponent(lblFecha))
                     .addGroup(pnlVentasLayout.createSequentialGroup()
                         .addGap(34, 34, 34)
@@ -280,36 +301,32 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                     .addGroup(pnlVentasLayout.createSequentialGroup()
                         .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(140, 140, 140)
-                                .addComponent(lblHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(lblIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(130, 130, 130)
+                                .addComponent(lblFechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlVentasLayout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(lbl3D, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlVentasLayout.createSequentialGroup()
+                                .addGap(100, 100, 100)
+                                .addComponent(lblSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlVentasLayout.createSequentialGroup()
+                                .addGap(160, 160, 160)
+                                .addComponent(lblHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblFuncion)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblFecha))
+                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(140, 140, 140)
+                        .addComponent(lblHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(lblFechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(lbl3D, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(lblSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(lblHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblFuncion))
-                .addGap(64, 64, 64)
-                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblFiltros)
-                    .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(lblFecha)))
+                        .addComponent(lblIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlVentasLayout.createSequentialGroup()
                         .addGap(11, 11, 11)
@@ -365,7 +382,6 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblEntre;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblFechaFuncion;
-    private javax.swing.JLabel lblFiltros;
     private javax.swing.JLabel lblFuncion;
     private javax.swing.JLabel lblGestionTickets;
     private javax.swing.JLabel lblHoraFin;
