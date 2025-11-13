@@ -87,7 +87,14 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         }
     }
 
-    private void tablaFun() {
+    public String parsearBooleann(boolean estado) {
+        if (estado) {
+            return "Si";
+        }
+        return "No";
+    }
+
+private void tablaFun() {
 
         ArrayList<Funcion> listaFun;
         modeloFun.setRowCount(0);
@@ -99,8 +106,9 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                     fun.getFecha_Funcion(),
                     "Inicio: " + fun.getHora_Inicio() + " / Fin: " + fun.getHora_Fin(),
                     fun.getNro_Sala(),
-                    fun.isEs3D(),
-                    fun.getIdioma()
+                    parsearBooleann(fun.isEs3D()),
+                    fun.getIdioma(),
+                    parsearBooleann(fun.isSubtitulada())
                 });
                 precioEntrada = fun.getPrecio_Entrada();
             }
