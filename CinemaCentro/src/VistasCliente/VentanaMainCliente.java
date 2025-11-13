@@ -417,7 +417,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
             Object[] opciones = {"Si", "No"};
             int eleccion = JOptionPane.showOptionDialog(
                     null,
-                    "Selección de función en curso, seguro que desea salir? ",
+                    "Selección de función en curso.\n¿Seguro que desea salir? ",
                     "",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
@@ -506,7 +506,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
         try {
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsi, ventaOnline, "Tarjeta de crédito", idFun);
+            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsi, ventaOnline, "credito", idFun);
             ventanaCompra.setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(VentanaMainCliente.class.getName()).log(Level.SEVERE, null, ex);
