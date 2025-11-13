@@ -123,13 +123,14 @@ public class DetalleTicketDAO {
     }
 
     public void modificarTicket(int id_ticket, DetalleTicket ticket) throws Exception {
-        String sql = "UPDATE detalleticket SET id_funcion = ?, id_asiento = ?, id_venta = ?";
+        String sql = "UPDATE detalleticket SET id_funcion = ?, id_asiento = ?, id_venta = ? WHERE id_ticket = ?";
         Connection con = ConexionBD.getConnection();
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, ticket.getId_funcion());
             ps.setInt(2, ticket.getId_asiento());
             ps.setInt(3, ticket.getId_venta());
+            ps.setInt(4, id_ticket);
             int fila = ps.executeUpdate();
             if (fila == 0) {
                 throw new Exception("Error al actualizar el ticket");
