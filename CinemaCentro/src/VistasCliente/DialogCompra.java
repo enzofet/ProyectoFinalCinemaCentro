@@ -567,7 +567,7 @@ public class DialogCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_txtEfectivoKeyReleased
 
     private void btnConfirmarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarCompraActionPerformed
-        int seleccion = JOptionPane.showConfirmDialog(this, "¿El cliente quiere relacionar la compra con su cuenta? Si es asi ingrese su DNI", "Confirmación", YES_NO_OPTION);
+       int seleccion = JOptionPane.showConfirmDialog(this, "¿El cliente quiere relacionar la compra con su cuenta? Si es asi ingrese su DNI", "Confirmación", YES_NO_OPTION);
         if (seleccion == 0) {
             String dni = JOptionPane.showInputDialog("Ingrese DNI");
             try {
@@ -591,7 +591,7 @@ public class DialogCompra extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, ex.getMessage());
             }
         }
-        
+        /*
         String nroTarjeta = txtNroTarj.getText();
         String nombreCompleto = txtNomApeTarj.getText();
         String codigoSeguridad = txtCVV.getText();
@@ -614,8 +614,8 @@ public class DialogCompra extends javax.swing.JDialog {
             }
            
             
-            /*Integer nro = Integer.parseInt(nroTarjeta);
-            int codigo = Integer.parseInt(codigoSeguridad);*/
+            Integer nro = Integer.parseInt(nroTarjeta);
+            int codigo = Integer.parseInt(codigoSeguridad);
             
             
             int idVenta = maniVenta.registrarVentaTaquilla(venta);
@@ -625,12 +625,25 @@ public class DialogCompra extends javax.swing.JDialog {
                 estado = true;
             }
             JOptionPane.showMessageDialog(this, "Venta y tickets generados correctamente.");
+        */
+       
+        //Hay que eliminar esto despues asi noo se hace lioso probar  y descomentar lo anterior
+        try {
+            venta.setId_Cliente(cliente.getId_cliente());
+             int idVenta = maniVenta.registrarVentaTaquilla(venta);
+            for (Asiento asiento : listaAsientos) {
+                DetalleTicket ticket = new DetalleTicket(funcion.getId_Funcion(), asiento.getId_asiento(), idVenta, LocalDate.now(), true);
+                maniTicket.generarTicket(ticket);
+                estado = true;
+            }
+            JOptionPane.showMessageDialog(this, "Venta y tickets generados correctamente.");
+            // aca termina
         } catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(this, "Error en los datos de tarjetas.");
         } catch(Exception e){
             e.printStackTrace();
         }
-
+        
 
     }//GEN-LAST:event_btnConfirmarCompraActionPerformed
 

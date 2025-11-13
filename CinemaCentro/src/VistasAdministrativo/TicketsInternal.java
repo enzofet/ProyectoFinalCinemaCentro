@@ -8,15 +8,14 @@ package VistasAdministrativo;
 import Controlador.ClienteDAO;
 import Controlador.DetalleTicketDAO;
 import Controlador.FuncionDAO;
-import Controlador.PeliculaDAO;
-import Controlador.VentaDAO;
 import Modelo.Cliente;
 import Modelo.DetalleTicket;
 import Modelo.Funcion;
-import Modelo.Pelicula;
-import Modelo.Venta;
+import Modelo.TicketDato;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -30,75 +29,41 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     /**
      * Creates new form VentasInternal
      */
-    List<Pelicula> listaPeliculas;
-    List<Funcion> listaFunciones;
-    List<DetalleTicket> listaTickets;
-    
-    String[] cabeceraTickets = {"id_ticket", "DNI (Cliente)", "Medio de compra", "Fecha emisión", "Estado", "Sala", "Asiento"};
-    String[] cabeceraFunciones = {"id_funcion", "Sala", "Pelicula", "Idioma", "Hora de inicio", "Hora finalización","3D", "Subtitulada" 
-            ,"Precio de entrada", "Fecha de función", "Estado"};
-    
-    PeliculaDAO maniPeli = new PeliculaDAO();
-    FuncionDAO maniFuncion = new FuncionDAO();
+    List<TicketDato> listaDatosTickets;
+    List<TicketDato> listaTicketsFiltrada;
+
+    String[] cabeceraTickets = {"id_ticket", "DNI (Cliente)", "Nombre y apellido", "Pelicula", "Fecha función", "Hora inicio", "Hora fin",
+         "Sala", "Asiento", "Medio de compra", "Fecha emisión", "Estado"};
+
     DetalleTicketDAO maniTickets = new DetalleTicketDAO();
+    FuncionDAO maniFuncion = new FuncionDAO();
     ClienteDAO maniCliente = new ClienteDAO();
-    VentaDAO maniVenta = new VentaDAO();
-    
-    int idFuncion = -1;
+
+    int idTicket = -1;
 
     public TicketsInternal() {
         initComponents();
-        buttonGroup1.add(rbtnFiltroFecha);
-        buttonGroup1.add(rbtnFiltroFechaPelicula);
-        tblFunciones.setModel(VentanaAdministrativo.armarCabeceras(cabeceraFunciones));
         tblTickets.setModel(VentanaAdministrativo.armarCabeceras(cabeceraTickets));
         ocultarIDs();
+        
         try {
-            listaPeliculas = maniPeli.listarTodasPeliculas();
-            listaFunciones = maniFuncion.listarFunciones();
-            listaTickets = maniTickets.listarTickets();
+            listaDatosTickets = maniTickets.listarDatosTickets();
+            listaTicketsFiltrada = listaDatosTickets;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
+        
+        rellenarTablaTickets();
+        agregarListener();
+        deshabilitarBotones();
+        
+        grupoFiltros.add(checkFiltroDNI);
+        grupoFiltros.add(checkFiltroFecha);
+        grupoFiltros.add(FiltroPelicula);
+        
+        actualizarEstadoFiltros();
     }
-    
-    public void ocultarIDs() {
 
-        TableColumnModel modeloColumnasP = tblFunciones.getColumnModel();
-        TableColumnModel modeloColumnasF = tblTickets.getColumnModel();
-        TableColumn columnaP = modeloColumnasP.getColumn(0);
-        TableColumn columnaF = modeloColumnasF.getColumn(0);
-        columnaP.setMaxWidth(0);
-        columnaP.setMinWidth(0);
-        columnaP.setPreferredWidth(0);
-        columnaP.setResizable(false);
-
-        columnaF.setMaxWidth(0);
-        columnaF.setMinWidth(0);
-        columnaF.setPreferredWidth(0);
-        columnaF.setResizable(false);
-    }
-    
-    public void rellenarTablaFunciones(){
-        DefaultTableModel modelo = (DefaultTableModel) tblFunciones.getModel();
-        modelo.setRowCount(0);
-        
-        
-    }
-    
-    public void rellenarTablaTickets(){
-        DefaultTableModel modelo = (DefaultTableModel) tblTickets.getModel();
-        modelo.setRowCount(0);
-        
-        for(DetalleTicket dt : listaTickets){
-            
-            
-            modelo.addRow(new Object[]{
-                
-            });
-        }
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -108,26 +73,23 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        grupoFiltros = new javax.swing.ButtonGroup();
         pnlVentas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTickets = new javax.swing.JTable();
-        rbtnFiltroFecha = new javax.swing.JRadioButton();
-        rbtnFiltroFechaPelicula = new javax.swing.JRadioButton();
-        txtBuscarPelicula = new javax.swing.JTextField();
         txtFechaMin = new javax.swing.JTextField();
-        lblNombrePelicula = new javax.swing.JLabel();
-        lblFecha = new javax.swing.JLabel();
         lblEntre = new javax.swing.JLabel();
         txtFechaMax = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblFunciones = new javax.swing.JTable();
-        rbtnFiltroDNI = new javax.swing.JRadioButton();
         txtDNICliente = new javax.swing.JTextField();
         btnBaja = new javax.swing.JButton();
         lblGestionTickets = new javax.swing.JLabel();
         btnModificar = new javax.swing.JButton();
         btnAlta = new javax.swing.JButton();
+        txtNombrePelicula = new javax.swing.JTextField();
+        checkFiltroFecha = new javax.swing.JCheckBox();
+        checkFiltroDNI = new javax.swing.JCheckBox();
+        FiltroPelicula = new javax.swing.JCheckBox();
+        pnlFuncion = new javax.swing.JPanel();
         lblFuncion = new javax.swing.JLabel();
         lblPelicula = new javax.swing.JLabel();
         lblIdioma = new javax.swing.JLabel();
@@ -138,7 +100,13 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         lblPrecio = new javax.swing.JLabel();
         lblFechaFuncion = new javax.swing.JLabel();
         lblSubtitulada = new javax.swing.JLabel();
-        checkFiltrarFuncion = new javax.swing.JCheckBox();
+        pnlDatosCliente = new javax.swing.JPanel();
+        lblCliente = new javax.swing.JLabel();
+        lblDNI = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblApellido = new javax.swing.JLabel();
+        lblEstadoCliente = new javax.swing.JLabel();
+        lblFechaNacimiento = new javax.swing.JLabel();
 
         tblTickets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -153,40 +121,58 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblTickets);
 
-        rbtnFiltroFecha.setText("Filtrar por fecha");
-
-        rbtnFiltroFechaPelicula.setText("Filtrar por fecha y pelicula");
-
-        lblNombrePelicula.setText("Nombre de pelicula:");
-
-        lblFecha.setText("Fecha:");
+        txtFechaMin.setText("yyyy-mm-dd");
 
         lblEntre.setText("Entre");
 
-        tblFunciones.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane2.setViewportView(tblFunciones);
-
-        rbtnFiltroDNI.setText("Filtrar por DNI de cliente");
+        txtFechaMax.setText("yyyy-mm-dd");
 
         btnBaja.setText("Dar de baja ticket");
+        btnBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBajaActionPerformed(evt);
+            }
+        });
 
         lblGestionTickets.setText("Gestión de tickets");
 
         btnModificar.setText("Modificar ticket");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnAlta.setText("Dar alta ticket");
+        btnAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAltaActionPerformed(evt);
+            }
+        });
 
-        lblFuncion.setText("Función asignada al ticket:");
+        checkFiltroFecha.setText("Filtrar por fecha");
+        checkFiltroFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkFiltroFechaActionPerformed(evt);
+            }
+        });
+
+        checkFiltroDNI.setText("Filtrar por DNI");
+        checkFiltroDNI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkFiltroDNIActionPerformed(evt);
+            }
+        });
+
+        FiltroPelicula.setText("Filtrar por pelicula");
+        FiltroPelicula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FiltroPeliculaActionPerformed(evt);
+            }
+        });
+
+        lblFuncion.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblFuncion.setText("Función asignada al ticket seleccionado:");
 
         lblPelicula.setText("Pelicula:");
 
@@ -206,152 +192,184 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
 
         lblSubtitulada.setText("Subtitulada:");
 
-        checkFiltrarFuncion.setText("Filtrar por función");
+        javax.swing.GroupLayout pnlFuncionLayout = new javax.swing.GroupLayout(pnlFuncion);
+        pnlFuncion.setLayout(pnlFuncionLayout);
+        pnlFuncionLayout.setHorizontalGroup(
+            pnlFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFuncionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFuncion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlFuncionLayout.createSequentialGroup()
+                        .addGroup(pnlFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblFechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl3D, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(pnlFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+        pnlFuncionLayout.setVerticalGroup(
+            pnlFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionLayout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addComponent(lblFuncion)
+                .addGroup(pnlFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbl3D, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
+        );
+
+        lblCliente.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblCliente.setText("Datos de cliente:");
+
+        lblDNI.setText("DNI: ");
+
+        lblNombre.setText("Nombre: ");
+
+        lblApellido.setText("Apellido: ");
+
+        lblEstadoCliente.setText("Estado: ");
+
+        lblFechaNacimiento.setText("Fecha nacimiento: ");
+
+        javax.swing.GroupLayout pnlDatosClienteLayout = new javax.swing.GroupLayout(pnlDatosCliente);
+        pnlDatosCliente.setLayout(pnlDatosClienteLayout);
+        pnlDatosClienteLayout.setHorizontalGroup(
+            pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDatosClienteLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDatosClienteLayout.createSequentialGroup()
+                        .addGap(381, 381, 381)
+                        .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEstadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        pnlDatosClienteLayout.setVerticalGroup(
+            pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosClienteLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEstadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(lblApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout pnlVentasLayout = new javax.swing.GroupLayout(pnlVentas);
         pnlVentas.setLayout(pnlVentasLayout);
         pnlVentasLayout.setHorizontalGroup(
             pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlVentasLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1171, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
                         .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblGestionTickets, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addComponent(lblFuncion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(7, 7, 7))
+                                .addGap(95, 95, 95)
+                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlVentasLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
                                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(pnlVentasLayout.createSequentialGroup()
+                                            .addComponent(FiltroPelicula)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtNombrePelicula))
+                                        .addGroup(pnlVentasLayout.createSequentialGroup()
+                                            .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(checkFiltroDNI)
+                                                .addComponent(checkFiltroFecha))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(pnlVentasLayout.createSequentialGroup()
+                                                    .addComponent(txtFechaMin, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(lblEntre, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(txtFechaMax, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(txtDNICliente))))
                                     .addGroup(pnlVentasLayout.createSequentialGroup()
-                                        .addGap(100, 100, 100)
-                                        .addComponent(lblPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(lblHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblFechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl3D, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 225, Short.MAX_VALUE)))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26))
-                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                                        .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(34, 34, 34)
-                        .addComponent(lblGestionTickets, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(390, 390, 390)
-                        .addComponent(lblFecha))
-                    .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(rbtnFiltroFecha)
-                        .addGap(24, 24, 24)
-                        .addComponent(rbtnFiltroFechaPelicula)
-                        .addGap(32, 32, 32)
-                        .addComponent(txtFechaMin, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
-                        .addComponent(lblEntre, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addComponent(txtFechaMax, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
-                        .addComponent(rbtnFiltroDNI)
-                        .addGap(13, 13, 13)
-                        .addComponent(txtDNICliente, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addGap(99, 99, 99)
-                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(81, 81, 81)
-                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtBuscarPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addComponent(lblNombrePelicula)
-                                .addGap(59, 59, 59)
-                                .addComponent(checkFiltrarFuncion))))
-                    .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pnlFuncion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlDatosCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(0, 18, Short.MAX_VALUE))
         );
         pnlVentasLayout.setVerticalGroup(
             pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlVentasLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(lblGestionTickets, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAlta)
-                    .addComponent(btnBaja)
-                    .addComponent(checkFiltrarFuncion)
-                    .addComponent(lblNombrePelicula))
-                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnModificar))
+                        .addContainerGap()
+                        .addComponent(pnlFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(txtBuscarPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addGap(130, 130, 130)
-                                .addComponent(lblFechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addComponent(lbl3D, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addGap(100, 100, 100)
-                                .addComponent(lblSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addGap(160, 160, 160)
-                                .addComponent(lblHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblFuncion)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(lblFecha))
-                    .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(140, 140, 140)
-                        .addComponent(lblHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(lblIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblGestionTickets, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAlta)
+                            .addComponent(btnBaja))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnModificar)
+                        .addGap(35, 35, 35)))
                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rbtnFiltroFecha)
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(rbtnFiltroFechaPelicula))
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(txtFechaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(lblEntre))
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(rbtnFiltroDNI))
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(txtDNICliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtFechaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEntre)
+                            .addComponent(txtFechaMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkFiltroFecha))
+                        .addGap(26, 26, 26)
+                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDNICliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkFiltroDNI)))
                     .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(txtFechaMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100)
+                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNombrePelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(FiltroPelicula)))
+                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(pnlDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
                 .addGap(34, 34, 34))
         );
 
@@ -359,7 +377,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlVentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,38 +387,251 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void checkFiltroFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkFiltroFechaActionPerformed
+        actualizarEstadoFiltros();
+    }//GEN-LAST:event_checkFiltroFechaActionPerformed
+
+    private void checkFiltroDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkFiltroDNIActionPerformed
+        actualizarEstadoFiltros();
+
+    }//GEN-LAST:event_checkFiltroDNIActionPerformed
+
+    private void FiltroPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FiltroPeliculaActionPerformed
+        actualizarEstadoFiltros();
+    }//GEN-LAST:event_FiltroPeliculaActionPerformed
+
+    private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
+        try {
+            int filaS = tblTickets.getSelectedRow();
+            
+            if(filaS > -1){
+                String estado = (String)tblTickets.getValueAt(filaS, 11);
+                if(estado.equalsIgnoreCase("activa")){
+                    JOptionPane.showMessageDialog(this, "Este ticket ya esta activo.");
+                    
+                } else {
+                    maniTickets.darAlta(idTicket);
+                    listaDatosTickets = maniTickets.listarDatosTickets();
+                    JOptionPane.showMessageDialog(this, "Dada de alta exitosa.");
+                }
+            } 
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        } finally {
+            rellenarTablaTickets();
+        }
+
+    }//GEN-LAST:event_btnAltaActionPerformed
+
+    private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
+        try {
+             int filaS = tblTickets.getSelectedRow();
+            
+            if(filaS > -1){
+                String estado = (String)tblTickets.getValueAt(filaS, 11);
+                if(estado.equalsIgnoreCase("inactiva")){
+                    JOptionPane.showMessageDialog(this, "Este ticket ya esta inactivo.");
+                    
+                } else {
+                    maniTickets.darAlta(idTicket);
+                    listaDatosTickets = maniTickets.listarDatosTickets();
+                    JOptionPane.showMessageDialog(this, "Dada de baja exitosa.");
+                }
+            } 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        } finally {
+            rellenarTablaTickets();
+        }
+    }//GEN-LAST:event_btnBajaActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    public void ocultarIDs() {
+
+        TableColumnModel modeloColumnasF = tblTickets.getColumnModel();
+        TableColumn columnaF = modeloColumnasF.getColumn(0);
+
+        columnaF.setMaxWidth(0);
+        columnaF.setMinWidth(0);
+        columnaF.setPreferredWidth(0);
+        columnaF.setResizable(false);
+    }
+
+    public void rellenarTablaTickets() {
+        DefaultTableModel modelo = (DefaultTableModel) tblTickets.getModel();
+        modelo.setRowCount(0);
+
+        for (TicketDato dt : listaDatosTickets) {
+
+            Object dniMostrado;
+            if (dt.getDNI() == 0) {
+                dniMostrado = "Eliminado o anonimo.";
+            } else {
+                dniMostrado = dt.getDNI();
+            }
+            modelo.addRow(new Object[]{
+                dt.getIdTicket(),
+                dniMostrado,
+                dt.getNombreApellidoCliente(),
+                dt.getPeliculaTitulo(),
+                dt.getFechaFuncion(),
+                dt.getHoraInicio(),
+                dt.getHoraFin(),
+                dt.getNroSala(),
+                dt.getAsiento(),
+                dt.getMedioCompra(),
+                dt.getFechaEmision(),
+                parsearBooleanAACTIVAINACTIVA(dt.isEstado())
+            });
+        }
+    }
+
+    public String parsearBooleanAACTIVAINACTIVA(boolean estado) {
+        if (estado) {
+            return "Activa";
+        }
+        return "Inactiva";
+    }
+
+    public boolean parsearStringACTIVAINACTIVA(String estado) {
+        return estado.equalsIgnoreCase("Activa");
+    }
+
+    public String parsearBooleanASINO(boolean estado) {
+        if (estado) {
+            return "Si";
+        }
+        return "No";
+    }
+
+    public boolean parsearStringSINO(String estado) {
+        return estado.equalsIgnoreCase("Si");
+    }
+
+    public void agregarListener() {
+        tblTickets.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent evento) {
+                if (evento.getValueIsAdjusting()) {
+                    return;
+                }
+                int filaS = tblTickets.getSelectedRow();
+
+                if (filaS > -1) {
+                    idTicket = (int) tblTickets.getValueAt(filaS, 0);
+                    try {
+                        DetalleTicket ticket = maniTickets.buscarPorId(idTicket);
+                        Funcion fun = maniFuncion.buscarFuncionPorId(ticket.getId_funcion());
+
+                        lblSala.setText("Sala: " + Integer.toString(fun.getNro_Sala()));
+                        lblPelicula.setText("Pelicula: " + (String) tblTickets.getValueAt(filaS, 3));
+                        lblSubtitulada.setText("Subtitulada: " + parsearBooleanASINO(fun.isSubtitulada()));
+                        lblFechaFuncion.setText("Fecha funcion: " + (String) tblTickets.getValueAt(filaS, 4));
+                        lbl3D.setText("3D: " + parsearBooleanASINO(fun.isEs3D()));
+                        lblHoraInicio.setText("Hora inicio: " + (String) tblTickets.getValueAt(filaS, 5));
+                        lblHoraFin.setText("Hora fin: " + (String) tblTickets.getValueAt(filaS, 6));
+                        lblPrecio.setText("Precio entrada: " + Double.toString(fun.getPrecio_Entrada()));
+                        
+                        Object dniTabla = tblTickets.getValueAt(filaS, 1);
+
+                        if (dniTabla instanceof String) {
+                            lblDNI.setText("DNI: ------");
+                            lblNombre.setText("Nombre: ------");
+                            lblApellido.setText("Apellido: ------");
+                            lblFechaNacimiento.setText("Fecha de nacimiento: ------");
+                            lblEstadoCliente.setText("Estado: ------");
+
+                        } else if(dniTabla instanceof Integer){
+                            int dniCliente = (Integer) dniTabla;
+                            Cliente cliente = maniCliente.buscarClientePorDNI(dniCliente);
+                            lblDNI.setText("DNI: " + Integer.toString(cliente.getDni()));
+                            lblNombre.setText("Nombre: " + cliente.getNombre());
+                            lblApellido.setText("Apellido: " + cliente.getApellido());
+                            lblFechaNacimiento.setText("Fecha de nacimiento" + cliente.getFecha_nacimiento().toString());
+                            lblEstadoCliente.setText("Estado: " + parsearBooleanAACTIVAINACTIVA(cliente.isEstado()));
+
+                        }
+
+                        habilitarBotones();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    deshabilitarBotones();
+                }
+            }
+        });
+    }
+
+    public void habilitarBotones() {
+        btnAlta.setEnabled(true);
+        btnBaja.setEnabled(true);
+        btnModificar.setEnabled(true);
+
+    }
+
+    public void deshabilitarBotones() {
+        btnAlta.setEnabled(false);
+        btnBaja.setEnabled(false);
+        btnModificar.setEnabled(false);
+
+    }
+
+    public void actualizarEstadoFiltros() {
+        txtFechaMin.setEnabled(false);
+        txtFechaMax.setEnabled(false);
+        txtDNICliente.setEnabled(false);
+        txtNombrePelicula.setEnabled(false);
+
+        if (checkFiltroFecha.isSelected()) {
+            txtFechaMin.setEnabled(true);
+            txtFechaMax.setEnabled(true);
+        } else if (checkFiltroDNI.isSelected()) {
+            txtDNICliente.setEnabled(true);
+        } else if (FiltroPelicula.isSelected()) {
+            txtNombrePelicula.setEnabled(true);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox FiltroPelicula;
     private javax.swing.JButton btnAlta;
     private javax.swing.JButton btnBaja;
     private javax.swing.JButton btnModificar;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JCheckBox checkFiltrarFuncion;
+    private javax.swing.JCheckBox checkFiltroDNI;
+    private javax.swing.JCheckBox checkFiltroFecha;
+    private javax.swing.ButtonGroup grupoFiltros;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl3D;
+    private javax.swing.JLabel lblApellido;
+    private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblDNI;
     private javax.swing.JLabel lblEntre;
-    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblEstadoCliente;
     private javax.swing.JLabel lblFechaFuncion;
+    private javax.swing.JLabel lblFechaNacimiento;
     private javax.swing.JLabel lblFuncion;
     private javax.swing.JLabel lblGestionTickets;
     private javax.swing.JLabel lblHoraFin;
     private javax.swing.JLabel lblHoraInicio;
     private javax.swing.JLabel lblIdioma;
-    private javax.swing.JLabel lblNombrePelicula;
+    private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPelicula;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblSala;
     private javax.swing.JLabel lblSubtitulada;
+    private javax.swing.JPanel pnlDatosCliente;
+    private javax.swing.JPanel pnlFuncion;
     private javax.swing.JPanel pnlVentas;
-    private javax.swing.JRadioButton rbtnFiltroDNI;
-    private javax.swing.JRadioButton rbtnFiltroFecha;
-    private javax.swing.JRadioButton rbtnFiltroFechaPelicula;
-    private javax.swing.JTable tblFunciones;
     private javax.swing.JTable tblTickets;
-    private javax.swing.JTextField txtBuscarPelicula;
     private javax.swing.JTextField txtDNICliente;
     private javax.swing.JTextField txtFechaMax;
     private javax.swing.JTextField txtFechaMin;
+    private javax.swing.JTextField txtNombrePelicula;
     // End of variables declaration//GEN-END:variables
 }
