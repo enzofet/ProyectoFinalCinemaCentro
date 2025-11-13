@@ -38,77 +38,95 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
-                  <Component id="lblGestionTickets" min="-2" pref="360" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
-                  <Component id="btnAlta" min="-2" pref="224" max="-2" attributes="0"/>
-                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                  <Component id="btnBaja" min="-2" pref="224" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="160" pref="160" max="-2" attributes="0"/>
-                  <Component id="btnModificar" min="-2" pref="224" max="-2" attributes="0"/>
-                  <EmptySpace min="76" pref="76" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                  <Component id="checkFiltrarFuncion" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblSala" min="-2" pref="130" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="100" pref="100" max="-2" attributes="0"/>
-                                  <Component id="lblPelicula" min="-2" pref="85" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="lblHoraFin" min="-2" pref="85" max="-2" attributes="0"/>
-                              <Component id="lblIdioma" min="-2" pref="85" max="-2" attributes="0"/>
                               <Component id="lblPrecio" min="-2" pref="85" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="lblSala" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="100" pref="100" max="-2" attributes="0"/>
+                                                  <Component id="lblPelicula" min="-2" pref="85" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="lblHoraFin" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                              <Component id="lblIdioma" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                              <Component id="lblFechaFuncion" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                              <Component id="lbl3D" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                              <Component id="lblSubtitulada" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                              <Component id="lblHoraInicio" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace pref="225" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="lblFuncion" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="jScrollPane2" min="-2" pref="760" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="235" pref="235" max="-2" attributes="0"/>
-                          <Component id="txtBuscarPelicula" min="-2" pref="531" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lblFechaFuncion" min="-2" pref="85" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="407" pref="407" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="600" max="-2" attributes="0"/>
+                          <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
+                          <Component id="lblGestionTickets" min="-2" pref="360" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lbl3D" min="-2" pref="85" max="-2" attributes="0"/>
-                      <Component id="lblSubtitulada" min="-2" pref="85" max="-2" attributes="0"/>
-                      <Component id="lblHoraInicio" min="-2" pref="85" max="-2" attributes="0"/>
-                      <Component id="lblFuncion" min="-2" pref="466" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="85" pref="85" max="-2" attributes="0"/>
+                          <Component id="lblFiltros" min="-2" pref="100" max="-2" attributes="0"/>
+                          <EmptySpace min="205" pref="205" max="-2" attributes="0"/>
+                          <Component id="lblFecha" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
+                          <Component id="rbtnFiltroFecha" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
+                          <Component id="rbtnFiltroFechaPelicula" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="32" pref="32" max="-2" attributes="0"/>
+                          <Component id="txtFechaMin" min="-2" pref="75" max="-2" attributes="0"/>
+                          <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
+                          <Component id="lblEntre" min="-2" pref="39" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                          <Component id="txtFechaMax" min="-2" pref="78" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                          <Component id="rbtnFiltroDNI" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="13" pref="13" max="-2" attributes="0"/>
+                          <Component id="txtDNICliente" min="-2" pref="129" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                                  <Component id="btnAlta" min="-2" pref="162" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnBaja" min="-2" pref="169" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                                  <Component id="btnModificar" min="-2" pref="184" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtBuscarPelicula" min="-2" pref="531" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="lblNombrePelicula" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                                  <Component id="checkFiltrarFuncion" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="1121" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-              </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="85" pref="85" max="-2" attributes="0"/>
-                  <Component id="lblFiltros" min="-2" pref="100" max="-2" attributes="0"/>
-                  <EmptySpace min="205" pref="205" max="-2" attributes="0"/>
-                  <Component id="lblFecha" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
-                  <Component id="rbtnFiltroFecha" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
-                  <Component id="rbtnFiltroFechaPelicula" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="32" pref="32" max="-2" attributes="0"/>
-                  <Component id="txtFechaMin" min="-2" pref="75" max="-2" attributes="0"/>
-                  <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
-                  <Component id="jLabel3" min="-2" pref="39" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                  <Component id="txtFechaMax" min="-2" pref="78" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                  <Component id="rbtnFiltroDNI" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="13" pref="13" max="-2" attributes="0"/>
-                  <Component id="txtDNICliente" min="-2" pref="129" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="1020" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -117,48 +135,45 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
                   <Component id="lblGestionTickets" min="-2" pref="28" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnAlta" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnBaja" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnAlta" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBaja" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkFiltrarFuncion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblNombrePelicula" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnModificar" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                          <Component id="checkFiltrarFuncion" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblSala" min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="lblPelicula" min="-2" pref="20" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="140" pref="140" max="-2" attributes="0"/>
-                          <Component id="lblHoraFin" min="-2" pref="20" max="-2" attributes="0"/>
-                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                          <Component id="lblIdioma" min="-2" pref="20" max="-2" attributes="0"/>
-                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                          <Component id="lblPrecio" min="-2" pref="20" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="btnModificar" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                           <Component id="txtBuscarPelicula" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblSala" min="-2" pref="20" max="-2" attributes="0"/>
+                                      <Component id="lblPelicula" min="-2" pref="20" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="140" pref="140" max="-2" attributes="0"/>
+                                  <Component id="lblHoraFin" min="-2" pref="20" max="-2" attributes="0"/>
+                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                  <Component id="lblIdioma" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jScrollPane2" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Component id="lblPrecio" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="130" pref="130" max="-2" attributes="0"/>
                           <Component id="lblFechaFuncion" min="-2" pref="20" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="48" pref="48" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="240" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="70" pref="70" max="-2" attributes="0"/>
@@ -174,7 +189,7 @@
                       </Group>
                       <Component id="lblFuncion" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblFiltros" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
@@ -197,7 +212,7 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <EmptySpace min="13" pref="13" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblEntre" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
@@ -208,14 +223,15 @@
                                   <Component id="txtDNICliente" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="310" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           <Component id="txtFechaMax" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="310" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -256,7 +272,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtFechaMin">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="lblNombrePelicula">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nombre de pelicula:"/>
           </Properties>
@@ -266,7 +282,7 @@
             <Property name="text" type="java.lang.String" value="Fecha:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="lblEntre">
           <Properties>
             <Property name="text" type="java.lang.String" value="Entre"/>
           </Properties>
@@ -280,7 +296,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="lblPeliculas">
+            <Component class="javax.swing.JTable" name="tblFunciones">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="0" rowCount="4"/>

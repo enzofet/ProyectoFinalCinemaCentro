@@ -522,6 +522,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 cmbMedioPago.setSelectedIndex(0);
             }
         } catch (NullPointerException e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "No tiene seleccionados los asientos a comprar o no tiene seleccionado un medio de pago.");
 
         } catch (Exception ex) {

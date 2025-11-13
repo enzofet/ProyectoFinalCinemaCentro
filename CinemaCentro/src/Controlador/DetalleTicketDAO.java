@@ -12,8 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author Gonzalo Achucarro
@@ -44,11 +44,11 @@ public class DetalleTicketDAO {
         }
     }
     
-    public Integer generarToken(){
+    public Integer generarToken() throws Exception{
         String sql = "SELECT token FROM venta WHERE medio_compra = 'Online'";
         Connection con = ConexionBD.getConnection();
-        Integer token = null;
-        ArrayList<Integer> tokensCreados = null;
+        int token = 0;
+        ArrayList<Integer> tokensCreados = new ArrayList();
         try(PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 int tokenPrev = (int) (Math.random()*90000000);
@@ -64,6 +64,7 @@ public class DetalleTicketDAO {
                 
             }
         } catch (SQLException e){
+            throw new Exception("Error relacionado a la base de datos.");
         }
         return token;
     }
@@ -108,6 +109,7 @@ public class DetalleTicketDAO {
             
         } catch(SQLException e){
             e.printStackTrace();
+            throw new Exception("Error relacionado a la base de datos.");
         }
     }
     
@@ -124,6 +126,7 @@ public class DetalleTicketDAO {
             }
         }catch(SQLException e){
             e.printStackTrace();
+            throw new Exception("Error relacionado a la base de datos.");
         }
     }
     
@@ -156,6 +159,33 @@ public class DetalleTicketDAO {
             }
         }catch(SQLException e){
             e.printStackTrace();
+            throw new Exception("Error relacionado a la base de datos.");
         }
     }
+    
+    public List<DetalleTicket> listarTickets() throws Exception{
+        String sql = "SELECT * FROM detalleticket";
+        Connection con = ConexionBD.getConnection();
+        List<DetalleTicket> listaTickets = new ArrayList<>();
+        
+        try(PreparedStatement ps = con.prepareStatement(sql)){
+            try (ResultSet rs = ps.executeQuery()){
+                while(rs.next()){
+                DetalleTicket ticket = new DetalleTicket();
+                ticket.setId_ticket(rs.getInt("id_ticket"));
+                ticket.setId_funcion(rs.getInt("id_funcion"));
+                ticket.setId_asiento(rs.getInt("id_asiento"));
+                ticket.setId_venta(rs.getInt("id_venta"));
+                ticket.setFecha_emision(rs.getDate("fecha_emision").toLocalDate());
+                ticket.setEstado(rs.getBoolean("estado"));
+                listaTickets.add(ticket);
+                }
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+            throw new Exception("Error relacionado a la base de datos.");
+        }
+    return listaTickets;
+    }
+    
 }
