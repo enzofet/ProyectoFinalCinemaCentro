@@ -223,5 +223,31 @@ public class AsientoDAO {
         }
         return as;
     }
+    
+    public Asiento buscarPorId(int id) throws Exception{
+        String sql = "SELECT * FROM asiento WHERE id_asiento= ?";
+        Connection con = ConexionBD.getConnection();
+         Asiento asiento = new Asiento();
+        try (PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, id);
+            try(ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    asiento = new Asiento();
+                    asiento.setNro_sala(rs.getInt("nro_sala"));
+                    asiento.setId_asiento(rs.getInt("id_asiento"));
+                    asiento.setFila_asiento(rs.getString("fila_asiento").charAt(0));
+                    asiento.setNumero_asiento(rs.getInt("numero_asiento"));
+                    asiento.setEstado(rs.getBoolean("estado"));
+                } else {
+                    asiento = null;
+                    throw new Exception("No se pudo encontrar el ticket");
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new Exception("Error relacionado a la base de datos.");
+        }
+        return asiento;
+    }
 
 }

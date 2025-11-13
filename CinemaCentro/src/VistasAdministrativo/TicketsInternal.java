@@ -5,15 +5,19 @@
  */
 package VistasAdministrativo;
 
+import Controlador.AsientoDAO;
 import Controlador.ClienteDAO;
 import Controlador.DetalleTicketDAO;
 import Controlador.FuncionDAO;
+import Modelo.Asiento;
 import Modelo.Cliente;
 import Modelo.DetalleTicket;
 import Modelo.Funcion;
 import Modelo.TicketDato;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -33,11 +37,12 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     List<TicketDato> listaTicketsFiltrada;
 
     String[] cabeceraTickets = {"id_ticket", "DNI (Cliente)", "Nombre y apellido", "Pelicula", "Fecha función", "Hora inicio", "Hora fin",
-         "Sala", "Asiento", "Medio de compra", "Fecha emisión", "Estado"};
+        "Sala", "Asiento", "Medio de compra", "Fecha emisión", "Estado"};
 
     DetalleTicketDAO maniTickets = new DetalleTicketDAO();
     FuncionDAO maniFuncion = new FuncionDAO();
     ClienteDAO maniCliente = new ClienteDAO();
+    AsientoDAO maniAsiento = new AsientoDAO();
 
     int idTicket = -1;
 
@@ -45,22 +50,22 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         initComponents();
         tblTickets.setModel(VentanaAdministrativo.armarCabeceras(cabeceraTickets));
         ocultarIDs();
-        
+
         try {
             listaDatosTickets = maniTickets.listarDatosTickets();
             listaTicketsFiltrada = listaDatosTickets;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        
+
         rellenarTablaTickets();
         agregarListener();
         deshabilitarBotones();
-        
+
         grupoFiltros.add(checkFiltroDNI);
         grupoFiltros.add(checkFiltroFecha);
         grupoFiltros.add(FiltroPelicula);
-        
+
         actualizarEstadoFiltros();
     }
 
@@ -107,6 +112,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         lblApellido = new javax.swing.JLabel();
         lblEstadoCliente = new javax.swing.JLabel();
         lblFechaNacimiento = new javax.swing.JLabel();
+        btnEliminar = new javax.swing.JButton();
 
         tblTickets.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -287,6 +293,13 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
+        btnEliminar.setText("Eliminar ticket");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlVentasLayout = new javax.swing.GroupLayout(pnlVentas);
         pnlVentas.setLayout(pnlVentasLayout);
         pnlVentasLayout.setHorizontalGroup(
@@ -298,9 +311,6 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                     .addGroup(pnlVentasLayout.createSequentialGroup()
                         .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblGestionTickets, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addGap(95, 95, 95)
-                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlVentasLayout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,9 +333,15 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                                                     .addComponent(txtFechaMax, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addComponent(txtDNICliente))))
                                     .addGroup(pnlVentasLayout.createSequentialGroup()
-                                        .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                                            .addComponent(btnAlta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(18, 18, 18)
-                                        .addComponent(btnBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(btnBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(pnlVentasLayout.createSequentialGroup()
+                                                .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(9, 9, 9)))))))
                         .addGap(34, 34, 34)
                         .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(pnlFuncion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -347,7 +363,9 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                             .addComponent(btnAlta)
                             .addComponent(btnBaja))
                         .addGap(18, 18, 18)
-                        .addComponent(btnModificar)
+                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnModificar)
+                            .addComponent(btnEliminar))
                         .addGap(35, 35, 35)))
                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlVentasLayout.createSequentialGroup()
@@ -403,19 +421,19 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
         try {
             int filaS = tblTickets.getSelectedRow();
-            
-            if(filaS > -1){
-                String estado = (String)tblTickets.getValueAt(filaS, 11);
-                if(estado.equalsIgnoreCase("activa")){
+
+            if (filaS > -1) {
+                String estado = (String) tblTickets.getValueAt(filaS, 11);
+                if (estado.equalsIgnoreCase("activa")) {
                     JOptionPane.showMessageDialog(this, "Este ticket ya esta activo.");
-                    
+
                 } else {
                     maniTickets.darAlta(idTicket);
                     listaDatosTickets = maniTickets.listarDatosTickets();
                     JOptionPane.showMessageDialog(this, "Dada de alta exitosa.");
                 }
-            } 
-            
+            }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         } finally {
@@ -426,19 +444,19 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
 
     private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
         try {
-             int filaS = tblTickets.getSelectedRow();
-            
-            if(filaS > -1){
-                String estado = (String)tblTickets.getValueAt(filaS, 11);
-                if(estado.equalsIgnoreCase("inactiva")){
+            int filaS = tblTickets.getSelectedRow();
+
+            if (filaS > -1) {
+                String estado = (String) tblTickets.getValueAt(filaS, 11);
+                if (estado.equalsIgnoreCase("inactiva")) {
                     JOptionPane.showMessageDialog(this, "Este ticket ya esta inactivo.");
-                    
+
                 } else {
                     maniTickets.darAlta(idTicket);
                     listaDatosTickets = maniTickets.listarDatosTickets();
                     JOptionPane.showMessageDialog(this, "Dada de baja exitosa.");
                 }
-            } 
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         } finally {
@@ -447,8 +465,48 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBajaActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        try {
+            DetalleTicket ticket = maniTickets.buscarPorId(idTicket);
+            JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
+            DialogCambiarFuncion ventanaFuncion = new DialogCambiarFuncion(padre, true);
+            ventanaFuncion.setVisible(true);
+            boolean estadoAccion = ventanaFuncion.isEstadoExito();
+            if (estadoAccion) {
+                int idFuncionCambiada = ventanaFuncion.getIdFuncion();
+                Funcion fun = maniFuncion.buscarFuncionPorId(idFuncionCambiada);
+                DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, fun.getNro_Sala());
+                ventanaAsientos.setVisible(true);
+                Asiento asientoNuevo = ventanaAsientos.getAsientoSeleccionado();
+                if (asientoNuevo!= null) {
+                    Asiento asientoAntiguo = maniAsiento.buscarPorId(ticket.getId_asiento());
+                    maniAsiento.darAlta(asientoAntiguo.getId_asiento());
+                    DetalleTicket ticketCambiado = ticket;
+                    ticketCambiado.setId_asiento(asientoNuevo.getId_asiento());
+                    ticketCambiado.setId_funcion(fun.getId_Funcion());
+
+                    maniTickets.modificarTicket(idTicket, ticketCambiado);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cambio cancelado.");
+                    
+                }
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al intentar modificar el ticket.");
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        try {
+            maniTickets.eliminarTicket(idTicket);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        } finally {
+            rellenarTablaTickets();
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     public void ocultarIDs() {
 
@@ -535,7 +593,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                         lblHoraInicio.setText("Hora inicio: " + (String) tblTickets.getValueAt(filaS, 5));
                         lblHoraFin.setText("Hora fin: " + (String) tblTickets.getValueAt(filaS, 6));
                         lblPrecio.setText("Precio entrada: " + Double.toString(fun.getPrecio_Entrada()));
-                        
+
                         Object dniTabla = tblTickets.getValueAt(filaS, 1);
 
                         if (dniTabla instanceof String) {
@@ -545,7 +603,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                             lblFechaNacimiento.setText("Fecha de nacimiento: ------");
                             lblEstadoCliente.setText("Estado: ------");
 
-                        } else if(dniTabla instanceof Integer){
+                        } else if (dniTabla instanceof Integer) {
                             int dniCliente = (Integer) dniTabla;
                             Cliente cliente = maniCliente.buscarClientePorDNI(dniCliente);
                             lblDNI.setText("DNI: " + Integer.toString(cliente.getDni()));
@@ -572,6 +630,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         btnAlta.setEnabled(true);
         btnBaja.setEnabled(true);
         btnModificar.setEnabled(true);
+        btnEliminar.setEnabled(true);
 
     }
 
@@ -579,7 +638,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         btnAlta.setEnabled(false);
         btnBaja.setEnabled(false);
         btnModificar.setEnabled(false);
-
+        btnEliminar.setEnabled(false);
     }
 
     public void actualizarEstadoFiltros() {
@@ -602,6 +661,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox FiltroPelicula;
     private javax.swing.JButton btnAlta;
     private javax.swing.JButton btnBaja;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JCheckBox checkFiltroDNI;
     private javax.swing.JCheckBox checkFiltroFecha;
