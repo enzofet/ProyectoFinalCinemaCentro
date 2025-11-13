@@ -44,7 +44,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
     int idFun = 0;
     private FuncionDAO maniFun = new FuncionDAO();
-    static String[] columnasFun = {"id_funcion", "Día", "Horario Inicio/Fin", "Sala", "3D", "Idioma"};
+    static String[] columnasFun = {"id_funcion", "Día", "Horario Inicio/Fin", "Sala", "3D", "Idioma", "Subtitulada"};
     static DefaultTableModel modeloFun = new DefaultTableModel(null, columnasFun) {
         @Override
         public boolean isCellEditable(int a, int b) {
@@ -94,7 +94,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         return "No";
     }
 
-private void tablaFun() {
+    private void tablaFun() {
 
         ArrayList<Funcion> listaFun;
         modeloFun.setRowCount(0);
@@ -367,6 +367,7 @@ private void tablaFun() {
 
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
 
+
             for (int i = 0; i < cant; i++) {
                 DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, idSala);
                 ventanaAsientos.setVisible(true);
@@ -385,7 +386,6 @@ private void tablaFun() {
                     jBButaca.setEnabled(true);
                     jBCancelarB.setEnabled(false);
                     JOptionPane.showMessageDialog(this, "Selección de boletos cancelada.");
-                        
 
                     for (Asiento a : listaAsi) {
                         try {
@@ -416,21 +416,21 @@ private void tablaFun() {
         } else {
             Object[] opciones = {"Si", "No"};
             int eleccion = JOptionPane.showOptionDialog(
-                    null, 
-                    "Selección de función en curso, seguro que desea salir? ", 
-                    "", 
-                    JOptionPane.DEFAULT_OPTION, 
-                    JOptionPane.QUESTION_MESSAGE, 
-                    null, 
-                    opciones, 
-                    null); 
-            
-            if(eleccion == 0){
+                    null,
+                    "Selección de función en curso, seguro que desea salir? ",
+                    "",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    opciones,
+                    null);
+
+            if (eleccion == 0) {
                 modeloAsi.clear();
-                for(Asiento a : listaAsi){
-                    try{
-                        maniAsi.darAlta(a.getId_asiento());                        
-                    }catch (Exception e){
+                for (Asiento a : listaAsi) {
+                    try {
+                        maniAsi.darAlta(a.getId_asiento());
+                    } catch (Exception e) {
                         JOptionPane.showMessageDialog(this, e.getMessage());
                     }
                 }
