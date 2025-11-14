@@ -12,6 +12,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JCheckBox;
@@ -34,7 +35,7 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
      */
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     int selecId = 0;
-    LocalDate fecha =null;
+    LocalDate fecha = null;
     private ClienteDAO maniCliente = new ClienteDAO();
     static String[] columnas = {"id_cliente", "DNI", "Nombre", "Apellido", "Fecha Nac.", "Contraseña", "Estado"};
     static DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
@@ -55,7 +56,7 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
         grupoBoton.add(rbActivo);
         grupoBoton.add(rbInactivo);
         rbTodo.setSelected(true);
-        
+        txtDNI.setEditable(false);
 
     }
 
@@ -155,7 +156,6 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
             public void itemStateChanged(ItemEvent ie) {
                 boolean selec = jcb.isSelected();
                 if (selec != false) {
-                    txtDNI.setEditable(false);
                     txtNombre.setEnabled(true);
                     txtApellido.setEnabled(true);
                     txtFechaNac.setEnabled(true);
@@ -594,15 +594,14 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
         int filaSelec = tablaCliente.getSelectedRow();
         if (filaSelec != -1) {
             fecha = (LocalDate) tablaCliente.getValueAt(filaSelec, 4);
-            
+
             selecId = (int) tablaCliente.getValueAt(filaSelec, 0);
             int dni = (int) tablaCliente.getValueAt(filaSelec, 1);
             String nombre = (String) tablaCliente.getValueAt(filaSelec, 2);
             String apellido = (String) tablaCliente.getValueAt(filaSelec, 3);
             String fechA = fecha.format(dtf);
             String pass = (String) tablaCliente.getValueAt(filaSelec, 5);
-            
-            
+
             txtDNI.setText(dni + "");
             txtNombre.setText(nombre);
             txtApellido.setText(apellido);
@@ -652,10 +651,10 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 
         try {
-            txtDNI.setEditable(false);
+            
             if (txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty()
                     || txtFechaNac.getText().isEmpty() || txtPassword.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Todos los campos deben llenarse.");
+                JOptionPane.showMessageDialog(this, "Debe llenar todos los campos.");
 
             } else {
                 String nombre = txtNombre.getText();
@@ -663,11 +662,33 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
                 String fecha = txtFechaNac.getText();
                 String pass = txtPassword.getText();
 
+                LocalDate fechaNac = null;
+                LocalDate fechaMin = LocalDate.of(1900, 1, 1);
+                LocalDate fechaMax = LocalDate.now().minusYears(18);
+
+                try {
+                    fechaNac = LocalDate.parse(fecha, dtf);
+
+                    if (fechaNac.isBefore(fechaMin) || fechaNac.isAfter(fechaMax)) {
+                        JOptionPane.showMessageDialog(this, "La fecha debe ser entre '01-01-1900' y ser mayor de 18 años.");
+                        txtFechaNac.setText("");
+                        return;
+                    }
+                } catch (DateTimeParseException e) {
+                    JOptionPane.showMessageDialog(this,
+                            "La fecha debe estar en formato dd-MM-yyyy y ser válida.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    txtFechaNac.setText("");
+                    return;
+                }
+
                 Cliente cliente = maniCliente.buscarClientePorDNI(selecId);
 
                 cliente.setNombre(nombre);
                 cliente.setApellido(apellido);
-                cliente.setFecha_nacimiento(LocalDate.parse(fecha));
+                cliente.setFecha_nacimiento(fechaNac);
                 cliente.setPassword(pass);
 
                 maniCliente.actualizarCliente(selecId, cliente);
@@ -675,35 +696,33 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
                 refreshTabla();
                 JOptionPane.showMessageDialog(this, "Alumno modificado con éxito.");
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Dato Incorrecto, se espera un DNI");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnDarAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarAltaActionPerformed
-        try{
+        try {
             Cliente cliente = maniCliente.buscarClientePorId(selecId);
-            
+
             cliente.setEstado(true);
             maniCliente.actualizarCliente(selecId, cliente);
             refreshTabla();
             JOptionPane.showMessageDialog(this, "Se ha dado de alta al alumno: \n" + cliente.getApellido() + " " + cliente.getNombre());
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnDarAltaActionPerformed
 
     private void btnDarBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarBajaActionPerformed
-        try{
+        try {
             Cliente cliente = maniCliente.buscarClientePorId(selecId);
-            
+
             cliente.setEstado(false);
             maniCliente.actualizarCliente(selecId, cliente);
             refreshTabla();
             JOptionPane.showMessageDialog(this, "Se ha dado de alta al alumno: \n" + cliente.getApellido() + " " + cliente.getNombre());
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnDarBajaActionPerformed
