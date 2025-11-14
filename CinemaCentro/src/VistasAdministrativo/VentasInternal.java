@@ -497,8 +497,6 @@ public class VentasInternal extends javax.swing.JInternalFrame {
         lblPorFecha1 = new javax.swing.JLabel();
         lblPorSala1 = new javax.swing.JLabel();
 
-        pnlTickets.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         modeloTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -512,15 +510,11 @@ public class VentasInternal extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(modeloTabla);
 
-        pnlTickets.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 970, 200));
-
         lblTitulo.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
         lblTitulo.setText("CIERRE DE CAJA");
-        pnlTickets.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
 
         lblReporte.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
         lblReporte.setText("REPORTE DEL DIA:");
-        pnlTickets.add(lblReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -528,7 +522,6 @@ public class VentasInternal extends javax.swing.JInternalFrame {
                 btnActualizarActionPerformed(evt);
             }
         });
-        pnlTickets.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 410, -1, -1));
 
         btnHoy.setText("Hoy");
         btnHoy.addActionListener(new java.awt.event.ActionListener() {
@@ -536,7 +529,6 @@ public class VentasInternal extends javax.swing.JInternalFrame {
                 btnHoyActionPerformed(evt);
             }
         });
-        pnlTickets.add(btnHoy, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 410, -1, -1));
 
         btnTodos.setText("Todos");
         btnTodos.addActionListener(new java.awt.event.ActionListener() {
@@ -544,7 +536,6 @@ public class VentasInternal extends javax.swing.JInternalFrame {
                 btnTodosActionPerformed(evt);
             }
         });
-        pnlTickets.add(btnTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 410, -1, -1));
 
         btnExportar.setText("Exportar");
         btnExportar.addActionListener(new java.awt.event.ActionListener() {
@@ -552,29 +543,22 @@ public class VentasInternal extends javax.swing.JInternalFrame {
                 btnExportarActionPerformed(evt);
             }
         });
-        pnlTickets.add(btnExportar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 410, -1, -1));
 
         cmbPelicula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbPeliculaActionPerformed(evt);
             }
         });
-        pnlTickets.add(cmbPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, -1, -1));
 
         cmbSala.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbSalaActionPerformed(evt);
             }
         });
-        pnlTickets.add(cmbSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, -1, -1));
-        pnlTickets.add(txtFechaDesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, -1, -1));
-        pnlTickets.add(txtFechaHasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 150, -1, -1));
 
         lblFechaDesde.setText("Desde:");
-        pnlTickets.add(lblFechaDesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, -1, -1));
 
         lblFechaHasta.setText("Hasta:");
-        pnlTickets.add(lblFechaHasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 150, -1, -1));
 
         btnAplicarFiltroFecha.setText("Buscar");
         btnAplicarFiltroFecha.addActionListener(new java.awt.event.ActionListener() {
@@ -582,35 +566,113 @@ public class VentasInternal extends javax.swing.JInternalFrame {
                 btnAplicarFiltroFechaActionPerformed(evt);
             }
         });
-        pnlTickets.add(btnAplicarFiltroFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 150, -1, -1));
 
         lblPelicula.setText("Pelicula:");
-        pnlTickets.add(lblPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
 
         jLabel1.setText("Sala:");
-        pnlTickets.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, -1, -1));
 
         lblPorSala.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
         lblPorSala.setText("Por Pelicula");
-        pnlTickets.add(lblPorSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, -1, -1));
 
         lblPorFecha1.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
         lblPorFecha1.setText("Por Fecha");
-        pnlTickets.add(lblPorFecha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, -1, -1));
 
         lblPorSala1.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
         lblPorSala1.setText("Por Sala");
-        pnlTickets.add(lblPorSala1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, -1, -1));
+
+        javax.swing.GroupLayout pnlTicketsLayout = new javax.swing.GroupLayout(pnlTickets);
+        pnlTickets.setLayout(pnlTicketsLayout);
+        pnlTicketsLayout.setHorizontalGroup(
+            pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTicketsLayout.createSequentialGroup()
+                .addGap(410, 410, 410)
+                .addComponent(lblTitulo))
+            .addGroup(pnlTicketsLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblReporte))
+            .addGroup(pnlTicketsLayout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(lblPorSala)
+                .addGap(94, 94, 94)
+                .addComponent(lblPorSala1)
+                .addGap(201, 201, 201)
+                .addComponent(lblPorFecha1))
+            .addGroup(pnlTicketsLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(lblPelicula)
+                .addGap(21, 21, 21)
+                .addComponent(cmbPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(132, 132, 132)
+                .addComponent(jLabel1)
+                .addGap(6, 6, 6)
+                .addComponent(cmbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(102, 102, 102)
+                .addComponent(lblFechaDesde)
+                .addGap(16, 16, 16)
+                .addComponent(txtFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addComponent(lblFechaHasta)
+                .addGap(18, 18, 18)
+                .addComponent(txtFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addComponent(btnAplicarFiltroFecha))
+            .addGroup(pnlTicketsLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnlTicketsLayout.createSequentialGroup()
+                .addGap(310, 310, 310)
+                .addComponent(btnActualizar)
+                .addGap(21, 21, 21)
+                .addComponent(btnHoy)
+                .addGap(29, 29, 29)
+                .addComponent(btnTodos)
+                .addGap(19, 19, 19)
+                .addComponent(btnExportar))
+        );
+        pnlTicketsLayout.setVerticalGroup(
+            pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTicketsLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lblTitulo)
+                .addGap(38, 38, 38)
+                .addComponent(lblReporte)
+                .addGap(6, 6, 6)
+                .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPorSala)
+                    .addComponent(lblPorSala1)
+                    .addComponent(lblPorFecha1))
+                .addGap(16, 16, 16)
+                .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlTicketsLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(lblPelicula))
+                    .addComponent(cmbPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(cmbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFechaDesde)
+                    .addComponent(txtFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFechaHasta)
+                    .addComponent(txtFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAplicarFiltroFecha))
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnHoy)
+                    .addComponent(btnTodos)
+                    .addComponent(btnExportar)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTickets, javax.swing.GroupLayout.PREFERRED_SIZE, 990, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlTickets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTickets, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlTickets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
