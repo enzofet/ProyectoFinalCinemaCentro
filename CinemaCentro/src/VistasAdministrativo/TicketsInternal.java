@@ -466,17 +466,21 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         try {
+            
             DetalleTicket ticket = maniTickets.buscarPorId(idTicket);
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
             DialogCambiarFuncion ventanaFuncion = new DialogCambiarFuncion(padre, true);
             ventanaFuncion.setVisible(true);
             boolean estadoAccion = ventanaFuncion.isEstadoExito();
+            
             if (estadoAccion) {
+                
                 int idFuncionCambiada = ventanaFuncion.getIdFuncion();
                 Funcion fun = maniFuncion.buscarFuncionPorId(idFuncionCambiada);
                 DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, fun.getNro_Sala());
                 ventanaAsientos.setVisible(true);
                 Asiento asientoNuevo = ventanaAsientos.getAsientoSeleccionado();
+                
                 if (asientoNuevo!= null) {
                     Asiento asientoAntiguo = maniAsiento.buscarPorId(ticket.getId_asiento());
                     maniAsiento.darAlta(asientoAntiguo.getId_asiento());
@@ -494,6 +498,8 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al intentar modificar el ticket.");
+        } finally {
+            rellenarTablaTickets();
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
