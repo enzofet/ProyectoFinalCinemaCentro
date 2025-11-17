@@ -28,18 +28,107 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        panelIzquierdo = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        panelDerecho = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        lblTitulo = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
+        lblGenero = new javax.swing.JLabel();
+        lblDirector = new javax.swing.JLabel();
+        lblReparto = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1033, Short.MAX_VALUE)
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("PROXIMOS ESTRENOS");
+        getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_START);
+
+        javax.swing.GroupLayout panelIzquierdoLayout = new javax.swing.GroupLayout(panelIzquierdo);
+        panelIzquierdo.setLayout(panelIzquierdoLayout);
+        panelIzquierdoLayout.setHorizontalGroup(
+            panelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 753, Short.MAX_VALUE)
+        panelIzquierdoLayout.setVerticalGroup(
+            panelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        jSplitPane1.setLeftComponent(panelIzquierdo);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Titulo", "Fecha de estreno"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jSplitPane1.setLeftComponent(jScrollPane1);
+
+        panelDerecho.setLayout(new java.awt.BorderLayout());
+
+        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.Y_AXIS));
+
+        lblTitulo.setText("Titulo:");
+        lblTitulo.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        jPanel4.add(lblTitulo);
+
+        lblFecha.setText("Fecha:");
+        lblFecha.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        jPanel4.add(lblFecha);
+
+        lblGenero.setText("Genero:");
+        lblGenero.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        jPanel4.add(lblGenero);
+
+        lblDirector.setText("Director:");
+        lblDirector.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        jPanel4.add(lblDirector);
+
+        lblReparto.setText("Reparto:");
+        lblReparto.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        jPanel4.add(lblReparto);
+
+        jButton1.setText("Ver trailer");
+        jPanel4.add(jButton1);
+
+        panelDerecho.add(jPanel4, java.awt.BorderLayout.PAGE_END);
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("POSTER");
+        panelDerecho.add(jLabel7, java.awt.BorderLayout.PAGE_START);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 315, Short.MAX_VALUE)
+        );
+
+        panelDerecho.add(jPanel3, java.awt.BorderLayout.CENTER);
+
+        jSplitPane1.setRightComponent(panelDerecho);
+
+        getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -87,5 +176,20 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblDirector;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblGenero;
+    private javax.swing.JLabel lblReparto;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JPanel panelDerecho;
+    private javax.swing.JPanel panelIzquierdo;
     // End of variables declaration//GEN-END:variables
 }
