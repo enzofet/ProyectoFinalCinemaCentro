@@ -301,8 +301,9 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
                     fechaNac = LocalDate.parse(fecha, dtf);
 
                     if (fechaNac.isBefore(fechaMin) || fechaNac.isAfter(fechaMax)) {
-                        JOptionPane.showMessageDialog(this, "La fecha debe ser entre '01-01-1900' y ser mayor de 18 años.");
-                        placeholderFecha();
+                        JOptionPane.showMessageDialog(this, "La fecha debe ser entre '01-01-1900' y '" + fechaMax.format(dtf) + "'.");
+                        txtFechaNac.setText("");
+                        return;
                     }
                 } catch (DateTimeParseException e) {
                     JOptionPane.showMessageDialog(this,
@@ -329,7 +330,7 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
                 Object[] opciones = {"Si", "No"};
                 int eleccion = JOptionPane.showOptionDialog(
                         null, //null para centrar
-                        "cliente agregado exitosamente\n¿Desea agregar otro cliente?",
+                        "Cliente agregado exitosamente\n¿Desea agregar otro cliente?",
                         "",
                         JOptionPane.DEFAULT_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
@@ -338,7 +339,7 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
                         opciones[0]);
                 
 
-                if(eleccion == JOptionPane.NO_OPTION){
+                if(eleccion == 1){
                     this.dispose();
                 }
             }
@@ -352,7 +353,29 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
 
     private void jbtSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalirActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        if(txtDNI.getText() == null && txtNombre == null 
+                && txtApellido == null && txtFechaNac == null
+                &&  txtPassword == null){
+            this.dispose();
+        }else{
+            Object[] opciones = {"Si", "No"};
+                int eleccion = JOptionPane.showOptionDialog(
+                        null, 
+                        "Carga de clientes en curso. \n¿Está seguro que desea salir?",
+                        "",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        opciones,
+                        opciones[0]);
+                
+
+                if(eleccion == 0){
+                    this.dispose();
+                }else if(eleccion == 1){
+                    return;
+                }
+        }
     }//GEN-LAST:event_jbtSalirActionPerformed
 
     /**
