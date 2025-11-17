@@ -230,7 +230,7 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
         lblAgregarA.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         lblAgregarA.setForeground(new java.awt.Color(255, 255, 255));
         lblAgregarA.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAgregarA.setText("AGREGAR ALUMNO");
+        lblAgregarA.setText("AGREGAR CLIENTE");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -277,13 +277,14 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
             List<Cliente> lista = maniCliente.listarClientes();
 
             if (txtDNI.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty()
-                    || txtFechaNac.getText().isEmpty() || txtPassword.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Todos los campos deben llenarse.");
-            }
-            if(txtDNI.getText().length() < 7 || txtDNI.getText().length() >8 ){
-                JOptionPane.showMessageDialog(this, "Debe ingresar un DNI válido.");
-                txtDNI.setText("");
-                return;
+                || txtFechaNac.getText().isEmpty() || txtPassword.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos deben completarse.");
+            return;
+        }
+            if (txtDNI.getText().length() < 7 || txtDNI.getText().length() > 8) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un DNI válido (7 u 8 dígitos).");
+            txtDNI.setText("");
+            return;
             } else {
 
                 int dni = Integer.parseInt(txtDNI.getText());
@@ -292,7 +293,7 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
                 String fecha = txtFechaNac.getText();
                 String pass = txtPassword.getText();
                 boolean estado = true;
-                LocalDate fechaNac = null;
+                LocalDate fechaNac;
                 LocalDate fechaMin = LocalDate.of(1900, 1, 1);
                 LocalDate fechaMax = LocalDate.now().minusYears(18);
 
@@ -314,7 +315,7 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
                 }
                 for (Cliente client : lista) {
                     if (client.getDni() == dni) {
-                        JOptionPane.showMessageDialog(this, "Ya existe un alumno con DNI: " + client.getDni());
+                        JOptionPane.showMessageDialog(this, "Ya existe un cliente con ese  DNI: " + client.getDni());
                         txtDNI.setText("");
                         return;
                     }
@@ -324,19 +325,20 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
 
                 maniCliente.agregarCliente(cliente);
                 clear();
+                
                 Object[] opciones = {"Si", "No"};
                 int eleccion = JOptionPane.showOptionDialog(
                         null, //null para centrar
-                        "Alumno agregado exitosamente\n¿Desea agregar otro alumno?",
+                        "cliente agregado exitosamente\n¿Desea agregar otro cliente?",
                         "",
                         JOptionPane.DEFAULT_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
                         null,
                         opciones,
-                        null
-                );
+                        opciones[0]);
+                
 
-                if (eleccion == 1) {
+                if(eleccion == JOptionPane.NO_OPTION){
                     this.dispose();
                 }
             }
@@ -344,6 +346,7 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Dato Incorrecto, se espera un DNI");
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(this,"ocurrio un error " + e.getMessage());
         }
     }//GEN-LAST:event_jbtAgregarActionPerformed
 
