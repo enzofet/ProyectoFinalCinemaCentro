@@ -50,6 +50,7 @@ public class DialogCompra extends javax.swing.JDialog {
     int token = 0;
     DefaultListModel<String> listModel;
     boolean estado = false;
+
     public DialogCompra(java.awt.Frame parent, boolean modal, List<Asiento> listaAsientos, Venta venta, String medio_pago, int id_funcion) throws Exception {
         super(parent, modal);
         initComponents();
@@ -567,7 +568,7 @@ public class DialogCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_txtEfectivoKeyReleased
 
     private void btnConfirmarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarCompraActionPerformed
-       int seleccion = JOptionPane.showConfirmDialog(this, "¿El cliente quiere relacionar la compra con su cuenta? Si es asi ingrese su DNI", "Confirmación", YES_NO_OPTION);
+        int seleccion = JOptionPane.showConfirmDialog(this, "¿El cliente quiere relacionar la compra con su cuenta? Si es asi ingrese su DNI", "Confirmación", YES_NO_OPTION);
         if (seleccion == 0) {
             String dni = JOptionPane.showInputDialog("Ingrese DNI");
             try {
@@ -575,18 +576,18 @@ public class DialogCompra extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, "No puede dejar el campo vacio y debe ingresar un DNI de 8 caracteres.");
                     return;
                 }
-                
+
                 int dniNumero = Integer.parseInt(dni);
                 dniCliente = dniNumero;
                 cliente = maniCliente.buscarClientePorDNI(dniCliente);
-                
+
                 if (cliente == null) {
                     JOptionPane.showMessageDialog(this, "No se ha encontrado el cliente con el DNI asignado.");
                 }
-                
+
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Ingrese un DNI valido.");
-                
+
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage());
             }
@@ -625,12 +626,15 @@ public class DialogCompra extends javax.swing.JDialog {
                 estado = true;
             }
             JOptionPane.showMessageDialog(this, "Venta y tickets generados correctamente.");
-        */
-       
+         */
+
         //Hay que eliminar esto despues asi noo se hace lioso probar  y descomentar lo anterior
         try {
+            if (cliente != null) {
+                venta.setId_Cliente(cliente.getId_cliente());
+            }
             venta.setId_Cliente(cliente.getId_cliente());
-             int idVenta = maniVenta.registrarVentaTaquilla(venta);
+            int idVenta = maniVenta.registrarVentaTaquilla(venta);
             for (Asiento asiento : listaAsientos) {
                 DetalleTicket ticket = new DetalleTicket(funcion.getId_Funcion(), asiento.getId_asiento(), idVenta, LocalDate.now(), true);
                 maniTicket.generarTicket(ticket);
@@ -638,13 +642,11 @@ public class DialogCompra extends javax.swing.JDialog {
             }
             JOptionPane.showMessageDialog(this, "Venta y tickets generados correctamente.");
             // aca termina
-        } catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Error en los datos de tarjetas.");
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
-
     }//GEN-LAST:event_btnConfirmarCompraActionPerformed
 
     private void btnCancelarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCompraActionPerformed
@@ -661,8 +663,8 @@ public class DialogCompra extends javax.swing.JDialog {
         lblCantEntradas.setText(Integer.toString(venta.getCantidad_Entradas()));
         lblFechaVenta.setText(venta.getFecha_Venta().toString());
         lblMedioPago.setText((String) venta.getMedio_Pago());
-        if(venta.getMedio_Compra().equalsIgnoreCase("online")){
-        lblToken.setText(Integer.toString(token));
+        if (venta.getMedio_Compra().equalsIgnoreCase("online")) {
+            lblToken.setText(Integer.toString(token));
         } else {
             lblToken.setText("---------------");
         }
@@ -717,6 +719,7 @@ public class DialogCompra extends javax.swing.JDialog {
             txtNroTarj.setEnabled(false);
             txtNomApeTarj.setEnabled(false);
             txtCVV.setEnabled(false);
+            txtFechaVencimiento.setEnabled(false);
         }
     }
 

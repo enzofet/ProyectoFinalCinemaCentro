@@ -19,11 +19,16 @@ public class VentasInternal extends javax.swing.JInternalFrame {
     private ReporteVentasDAO reporteDAO;
     private javax.swing.JLabel lblBarraEstado;
 
+    private static final String[] peliculasVistas = {
+        "Película", "Tickets Vendidos", "Total Efectivo", "Total Débito",
+        "Online", "Taquilla", "Total Recaudado"
+    };
+
     private static final String[] columnas = {
         "Película", "Función", "Sala", "Tickets",
         "Efectivo", "Débito", "Online", "Taquilla", "Ocupación %"
     };
-    
+
     public VentasInternal() {
         initComponents();
 
@@ -34,6 +39,7 @@ public class VentasInternal extends javax.swing.JInternalFrame {
         configurarTabla();
         cargarCombobox();
         establecerFechaHoy();
+        cargarPeliculasMasVistas();
         cargarDatosHoy();
     }
 
@@ -43,6 +49,33 @@ public class VentasInternal extends javax.swing.JInternalFrame {
     }
 
     private void configurarTabla() {
+
+        DefaultTableModel modelPeliculas = new DefaultTableModel(peliculasVistas, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                // Para que las columnas numéricas se alineen a la derecha
+                if (columnIndex >= 1 && columnIndex <= 6) {
+                    return String.class; // Mantenemos String para el formato de moneda
+                }
+                return Object.class;
+            }
+        };
+
+        tblPeliculasVistas.setModel(modelPeliculas);
+
+        // Configurar ancho de columnas para películas más vistas
+        tblPeliculasVistas.getColumnModel().getColumn(0).setPreferredWidth(200);
+        tblPeliculasVistas.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tblPeliculasVistas.getColumnModel().getColumn(2).setPreferredWidth(120);
+        tblPeliculasVistas.getColumnModel().getColumn(3).setPreferredWidth(120);
+        tblPeliculasVistas.getColumnModel().getColumn(4).setPreferredWidth(80);
+        tblPeliculasVistas.getColumnModel().getColumn(5).setPreferredWidth(80);
+        tblPeliculasVistas.getColumnModel().getColumn(6).setPreferredWidth(130);
 
         DefaultTableModel model = new DefaultTableModel(columnas, 0) {
             @Override
@@ -70,6 +103,55 @@ public class VentasInternal extends javax.swing.JInternalFrame {
         btnAplicarFiltroFecha.addActionListener(e -> aplicarFiltroFecha());
         cmbPelicula.addActionListener(e -> aplicarFiltroPelicula());
         cmbSala.addActionListener(e -> aplicarFiltroSala());
+    }
+
+    private void cargarPeliculasMasVistas() {
+        try {
+            List<Map<String, Object>> peliculasMasVistas = reporteDAO.obtenerPeliculasMasVistas(null, null);
+            actualizarTablaPeliculasMasVistas(peliculasMasVistas);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                    "Error al cargar películas más vistas: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void actualizarTablaPeliculasMasVistas(List<Map<String, Object>> peliculas) {
+        DefaultTableModel model = (DefaultTableModel) tblPeliculasVistas.getModel();
+        model.setRowCount(0);
+
+        if (peliculas == null || peliculas.isEmpty()) {
+            model.addRow(new Object[]{"No hay datos disponibles", "", "", "", "", "", ""});
+            return;
+        }
+
+        for (Map<String, Object> pelicula : peliculas) {
+            String nombrePelicula = (String) pelicula.get("pelicula");
+            int ticketsVendidos = (int) pelicula.get("tickets_vendidos");
+            double totalEfectivo = (double) pelicula.get("total_efectivo");
+            double totalDebito = (double) pelicula.get("total_debito");
+            int ticketsOnline = (int) pelicula.get("tickets_online");
+            int ticketsTaquilla = (int) pelicula.get("tickets_taquilla");
+            double totalRecaudado = (double) pelicula.get("total_recaudado");
+
+            model.addRow(new Object[]{
+                nombrePelicula,
+                ticketsVendidos,
+                String.format("$%,.2f", totalEfectivo),
+                String.format("$%,.2f", totalDebito),
+                ticketsOnline,
+                ticketsTaquilla,
+                String.format("$%,.2f", totalRecaudado)
+            });
+        }
+        actualizarTituloPeliculasMasVistas(peliculas.size());
+    }
+
+    private void actualizarTituloPeliculasMasVistas(int cantidad) {
+        lblMasVista.setText("PELÍCULAS MÁS VISTAS - TODOS LOS TIEMPOS (" + cantidad + " películas)");
     }
 
     private Object[] crearFilaReporte(ReporteVentas reporte) {
@@ -257,7 +339,7 @@ public class VentasInternal extends javax.swing.JInternalFrame {
             return null;
         }
     }
-    
+
     private void mostrarError(String mensaje) {
         JOptionPane.showMessageDialog(this,
                 mensaje,
@@ -476,10 +558,10 @@ public class VentasInternal extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         pnlTickets = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        modeloTabla = new javax.swing.JTable();
+        PanePeliculas = new javax.swing.JScrollPane();
+        tblPeliculasVistas = new javax.swing.JTable();
         lblTitulo = new javax.swing.JLabel();
-        lblReporte = new javax.swing.JLabel();
+        lblMasVista = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
         btnHoy = new javax.swing.JButton();
         btnTodos = new javax.swing.JButton();
@@ -496,8 +578,11 @@ public class VentasInternal extends javax.swing.JInternalFrame {
         lblPorSala = new javax.swing.JLabel();
         lblPorFecha1 = new javax.swing.JLabel();
         lblPorSala1 = new javax.swing.JLabel();
+        lblReporte = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        modeloTabla = new javax.swing.JTable();
 
-        modeloTabla.setModel(new javax.swing.table.DefaultTableModel(
+        tblPeliculasVistas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -508,13 +593,13 @@ public class VentasInternal extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(modeloTabla);
+        PanePeliculas.setViewportView(tblPeliculasVistas);
 
         lblTitulo.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
         lblTitulo.setText("CIERRE DE CAJA");
 
-        lblReporte.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
-        lblReporte.setText("REPORTE DEL DIA:");
+        lblMasVista.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
+        lblMasVista.setText("PELICULAS MÁS VISTAS:");
 
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -572,91 +657,126 @@ public class VentasInternal extends javax.swing.JInternalFrame {
         jLabel1.setText("Sala:");
 
         lblPorSala.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
-        lblPorSala.setText("Por Pelicula");
+        lblPorSala.setText("Por Pelicula:");
 
         lblPorFecha1.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
-        lblPorFecha1.setText("Por Fecha");
+        lblPorFecha1.setText("Por Fecha:");
 
         lblPorSala1.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
-        lblPorSala1.setText("Por Sala");
+        lblPorSala1.setText("Por Sala:");
+
+        lblReporte.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
+        lblReporte.setText("REPORTE DEL DIA:");
+
+        modeloTabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(modeloTabla);
 
         javax.swing.GroupLayout pnlTicketsLayout = new javax.swing.GroupLayout(pnlTickets);
         pnlTickets.setLayout(pnlTicketsLayout);
         pnlTicketsLayout.setHorizontalGroup(
             pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTicketsLayout.createSequentialGroup()
-                .addGap(410, 410, 410)
-                .addComponent(lblTitulo))
-            .addGroup(pnlTicketsLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblReporte))
-            .addGroup(pnlTicketsLayout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(lblPorSala)
-                .addGap(94, 94, 94)
-                .addComponent(lblPorSala1)
-                .addGap(201, 201, 201)
-                .addComponent(lblPorFecha1))
-            .addGroup(pnlTicketsLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(lblPelicula)
-                .addGap(21, 21, 21)
-                .addComponent(cmbPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(132, 132, 132)
-                .addComponent(jLabel1)
-                .addGap(6, 6, 6)
-                .addComponent(cmbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(102, 102, 102)
-                .addComponent(lblFechaDesde)
-                .addGap(16, 16, 16)
-                .addComponent(txtFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
-                .addComponent(lblFechaHasta)
-                .addGap(18, 18, 18)
-                .addComponent(txtFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
-                .addComponent(btnAplicarFiltroFecha))
-            .addGroup(pnlTicketsLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 970, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(pnlTicketsLayout.createSequentialGroup()
-                .addGap(310, 310, 310)
-                .addComponent(btnActualizar)
-                .addGap(21, 21, 21)
-                .addComponent(btnHoy)
-                .addGap(29, 29, 29)
-                .addComponent(btnTodos)
-                .addGap(19, 19, 19)
-                .addComponent(btnExportar))
+                .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlTicketsLayout.createSequentialGroup()
+                        .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlTicketsLayout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(lblReporte))
+                            .addGroup(pnlTicketsLayout.createSequentialGroup()
+                                .addGap(410, 410, 410)
+                                .addComponent(lblTitulo))
+                            .addGroup(pnlTicketsLayout.createSequentialGroup()
+                                .addGap(310, 310, 310)
+                                .addComponent(btnActualizar)
+                                .addGap(21, 21, 21)
+                                .addComponent(btnHoy)
+                                .addGap(29, 29, 29)
+                                .addComponent(btnTodos)
+                                .addGap(19, 19, 19)
+                                .addComponent(btnExportar))
+                            .addGroup(pnlTicketsLayout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(lblMasVista))
+                            .addGroup(pnlTicketsLayout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlTicketsLayout.createSequentialGroup()
+                                        .addComponent(lblPelicula)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cmbPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblPorSala))
+                                .addGap(63, 63, 63)
+                                .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlTicketsLayout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(cmbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblPorSala1))
+                                .addGap(20, 20, 20)
+                                .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlTicketsLayout.createSequentialGroup()
+                                        .addComponent(lblFechaDesde)
+                                        .addGap(16, 16, 16)
+                                        .addComponent(txtFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblFechaHasta)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnAplicarFiltroFecha))
+                                    .addComponent(lblPorFecha1))))
+                        .addGap(0, 380, Short.MAX_VALUE))
+                    .addGroup(pnlTicketsLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(PanePeliculas))))
+                .addContainerGap())
         );
         pnlTicketsLayout.setVerticalGroup(
             pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTicketsLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(lblTitulo)
-                .addGap(38, 38, 38)
+                .addGap(24, 24, 24)
+                .addComponent(lblMasVista)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PanePeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblReporte)
-                .addGap(6, 6, 6)
-                .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPorSala)
                     .addComponent(lblPorSala1)
                     .addComponent(lblPorFecha1))
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlTicketsLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(lblPelicula))
-                    .addComponent(cmbPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(cmbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFechaDesde)
-                    .addComponent(txtFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFechaHasta)
-                    .addComponent(txtFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAplicarFiltroFecha))
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblPelicula)
+                        .addComponent(cmbPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1)
+                        .addComponent(cmbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblFechaDesde)
+                        .addComponent(txtFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblFechaHasta)
+                        .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAplicarFiltroFecha))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnActualizar)
                     .addComponent(btnHoy)
@@ -668,11 +788,11 @@ public class VentasInternal extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTickets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlTickets, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTickets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlTickets, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -710,6 +830,7 @@ public class VentasInternal extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane PanePeliculas;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAplicarFiltroFecha;
     private javax.swing.JButton btnExportar;
@@ -718,9 +839,10 @@ public class VentasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cmbPelicula;
     private javax.swing.JComboBox<String> cmbSala;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblFechaDesde;
     private javax.swing.JLabel lblFechaHasta;
+    private javax.swing.JLabel lblMasVista;
     private javax.swing.JLabel lblPelicula;
     private javax.swing.JLabel lblPorFecha1;
     private javax.swing.JLabel lblPorSala;
@@ -729,6 +851,7 @@ public class VentasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable modeloTabla;
     private javax.swing.JPanel pnlTickets;
+    private javax.swing.JTable tblPeliculasVistas;
     private javax.swing.JTextField txtFechaDesde;
     private javax.swing.JTextField txtFechaHasta;
     // End of variables declaration//GEN-END:variables
