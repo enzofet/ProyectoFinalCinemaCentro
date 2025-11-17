@@ -184,6 +184,9 @@ public class DialogCrearSala extends javax.swing.JDialog {
             }
             maniSalas.agregarSala(sala);
             crearAsientosPorCapacidad(num, cap);
+            
+            JOptionPane.showMessageDialog(this, "Sala creada exitosamente.");
+            limpiarCampos();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -267,7 +270,12 @@ public class DialogCrearSala extends javax.swing.JDialog {
             }
         });
     }
-
+private void limpiarCampos() {
+    txtNumero.setText("");
+    txtCapacidad.setText("");
+    cmbEstado.setSelectedIndex(0);
+    checkApta3D.setSelected(false);
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCrear;
