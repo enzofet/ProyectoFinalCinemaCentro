@@ -329,7 +329,7 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
                 Object[] opciones = {"Si", "No"};
                 int eleccion = JOptionPane.showOptionDialog(
                         null, //null para centrar
-                        "Alumno agregado exitosamente\n¿Desea agregar otro alumno?",
+                        "cliente agregado exitosamente\n¿Desea agregar otro cliente?",
                         "",
                         JOptionPane.DEFAULT_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
