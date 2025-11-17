@@ -5,6 +5,20 @@
  */
 package VistasCliente;
 
+import Modelo.Pelicula;
+import java.awt.Desktop;
+import java.awt.Image;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Enzo_2
@@ -17,6 +31,7 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
     public DialogProxEstrenos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        inicializarTabla();
     }
 
     /**
@@ -43,6 +58,7 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        lblPoster = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -66,10 +82,7 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Titulo", "Fecha de estreno"
@@ -87,7 +100,7 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
         lblTitulo.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
         jPanel4.add(lblTitulo);
 
-        lblFecha.setText("Fecha:");
+        lblFecha.setText("Fecha de Estreno:");
         lblFecha.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
         jPanel4.add(lblFecha);
 
@@ -104,6 +117,11 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
         jPanel4.add(lblReparto);
 
         jButton1.setText("Ver trailer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton1);
 
         panelDerecho.add(jPanel4, java.awt.BorderLayout.PAGE_END);
@@ -113,16 +131,11 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
         jLabel7.setText("POSTER");
         panelDerecho.add(jLabel7, java.awt.BorderLayout.PAGE_START);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 315, Short.MAX_VALUE)
-        );
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblPoster.setText("jLabel2");
+        lblPoster.setPreferredSize(new java.awt.Dimension(120, 160));
+        jPanel3.add(lblPoster, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, -1, -1));
 
         panelDerecho.add(jPanel3, java.awt.BorderLayout.CENTER);
 
@@ -132,6 +145,15 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+            Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=nXObaGjH4Pc"));
+        }catch (Exception ex){
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this,"No se pudo abrir el enlace.");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,7 +196,45 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
             }
         });
     }
-
+ 
+    private DefaultTableModel modeloTabla;
+    private Map<String, Pelicula> mapaPeliculas = new HashMap<>();
+    
+    private void agregarPelicula(Pelicula p) {
+        modeloTabla.addRow(new Object[]{p.getTitulo(), p.getEstreno().toString()});
+        mapaPeliculas.put(p.getTitulo(), p);
+    }
+    
+   private void inicializarTabla(){
+       modeloTabla = (DefaultTableModel) jTable1.getModel();
+       
+      agregarPelicula(new Pelicula("El Conjuro", "James Wan", "Vera Farmiga, Patrick Wilson",
+                "EE.UU", "Terror", false, LocalDate.of(2026, 5, 15), true));
+      
+      jTable1.getSelectionModel().addListSelectionListener(e -> {
+        if (!e.getValueIsAdjusting()) {
+            int fila = jTable1.getSelectedRow();
+            if (fila != -1) {
+                String titulo = jTable1.getValueAt(fila, 0).toString();
+                Pelicula seleccionada = mapaPeliculas.get(titulo);
+                mostrarDetalles(seleccionada);
+            }
+        }
+    });
+      
+   }
+   private void mostrarDetalles(Pelicula p) {
+        lblTitulo.setText("Titulo: " + p.getTitulo());
+        lblFecha.setText("Fecha de Estreno: " + p.getEstreno().toString());
+        lblGenero.setText("Genero: " + p.getGenero());
+        lblDirector.setText("Director: " + p.getDirector());
+        lblReparto.setText("Reparto: " + p.getReparto());
+        
+        String ruta = "src/iconos/The Conjuring (2013).jpeg";
+        ImageIcon icon = new ImageIcon(ruta);
+        Image img = icon.getImage().getScaledInstance(lblPoster.getWidth(), lblPoster.getHeight(), Image.SCALE_SMOOTH);
+        lblPoster.setIcon(new ImageIcon(img));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -187,6 +247,7 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
     private javax.swing.JLabel lblDirector;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblGenero;
+    private javax.swing.JLabel lblPoster;
     private javax.swing.JLabel lblReparto;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel panelDerecho;
