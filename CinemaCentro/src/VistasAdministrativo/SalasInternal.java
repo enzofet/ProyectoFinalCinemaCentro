@@ -66,22 +66,30 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         btnBaja = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         lblSalasActuales = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         txtEstado = new javax.swing.JTextField();
         btnLiberarAsientos = new javax.swing.JButton();
+        lblCinemaCentro = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
 
-        lblNumero.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        pnlSalas.setBackground(new java.awt.Color(102, 0, 0));
+
+        lblNumero.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        lblNumero.setForeground(new java.awt.Color(255, 255, 255));
         lblNumero.setText("Numero de sala:");
 
-        lblCapacidad.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblCapacidad.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        lblCapacidad.setForeground(new java.awt.Color(255, 255, 255));
         lblCapacidad.setText("Capacidad de sala:");
 
-        lblEstado.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblEstado.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        lblEstado.setForeground(new java.awt.Color(255, 255, 255));
         lblEstado.setText("Estado:");
 
-        lblApta3D.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblApta3D.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        lblApta3D.setForeground(new java.awt.Color(255, 255, 255));
         lblApta3D.setText("Apta 3D:");
+
+        txtCapacidad.setToolTipText("Minimo: 170 - Maximo: 230");
 
         tblSalas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -96,8 +104,11 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblSalas);
 
+        btnAgregar.setBackground(new java.awt.Color(70, 73, 75));
         btnAgregar.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        btnAgregar.setText("Agregar sala");
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/agregar.png"))); // NOI18N
+        btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
@@ -105,6 +116,7 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         });
 
         checkEdicion.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        checkEdicion.setForeground(new java.awt.Color(255, 255, 255));
         checkEdicion.setText("Habilitar modificación");
         checkEdicion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,16 +124,22 @@ public class SalasInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        btnEliminar.setBackground(new java.awt.Color(70, 73, 75));
         btnEliminar.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        btnEliminar.setText("Eliminar sala");
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
+        btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
             }
         });
 
+        btnModificar.setBackground(new java.awt.Color(70, 73, 75));
         btnModificar.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        btnModificar.setText("Modificar sala");
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/modificar.png"))); // NOI18N
+        btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
@@ -129,25 +147,34 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         });
 
         checkApta3D.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        checkApta3D.setText("Seleccionar si es apta");
+        checkApta3D.setForeground(new java.awt.Color(255, 255, 255));
+        checkApta3D.setText("SI/NO");
 
+        btnAlta.setBackground(new java.awt.Color(70, 73, 75));
         btnAlta.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        btnAlta.setText("Dar de alta sala");
+        btnAlta.setForeground(new java.awt.Color(255, 255, 255));
+        btnAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-alta.png"))); // NOI18N
+        btnAlta.setText("Dar de Alta");
         btnAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAltaActionPerformed(evt);
             }
         });
 
+        btnBaja.setBackground(new java.awt.Color(70, 73, 75));
         btnBaja.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        btnBaja.setText("Dar de baja sala");
+        btnBaja.setForeground(new java.awt.Color(255, 255, 255));
+        btnBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-baja.png"))); // NOI18N
+        btnBaja.setText("Dar de Baja");
         btnBaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBajaActionPerformed(evt);
             }
         });
 
+        btnSalir.setBackground(new java.awt.Color(70, 73, 75));
         btnSalir.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,14 +182,13 @@ public class SalasInternal extends javax.swing.JInternalFrame {
             }
         });
 
-        lblSalasActuales.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblSalasActuales.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        lblSalasActuales.setForeground(new java.awt.Color(255, 255, 255));
         lblSalasActuales.setText("Salas actuales:");
 
-        jLabel1.setText("Minimo: 170");
-
-        jLabel2.setText("Maximo: 230");
-
+        btnLiberarAsientos.setBackground(new java.awt.Color(70, 73, 75));
         btnLiberarAsientos.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        btnLiberarAsientos.setForeground(new java.awt.Color(255, 255, 255));
         btnLiberarAsientos.setText("Liberar asientos");
         btnLiberarAsientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,121 +196,131 @@ public class SalasInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        lblCinemaCentro.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
+        lblCinemaCentro.setForeground(new java.awt.Color(255, 255, 255));
+        lblCinemaCentro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCinemaCentro.setText("CinemaCentro");
+
+        lblTitulo.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("GESTION DE SALAS");
+        lblTitulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout pnlSalasLayout = new javax.swing.GroupLayout(pnlSalas);
         pnlSalas.setLayout(pnlSalasLayout);
         pnlSalasLayout.setHorizontalGroup(
             pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSalasLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
                 .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlSalasLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
-                        .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(19, 19, 19)
+                        .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlSalasLayout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSalasLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLiberarAsientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlSalasLayout.createSequentialGroup()
-                        .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(pnlSalasLayout.createSequentialGroup()
+                                .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlSalasLayout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlSalasLayout.createSequentialGroup()
+                                        .addGap(21, 21, 21)
+                                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(checkEdicion)
+                                        .addGroup(pnlSalasLayout.createSequentialGroup()
+                                            .addComponent(lblApta3D)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(checkApta3D)))))
+                            .addGroup(pnlSalasLayout.createSequentialGroup()
+                                .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblNumero)
-                                    .addGap(31, 31, 31)
-                                    .addComponent(txtNumero))
-                                .addGroup(pnlSalasLayout.createSequentialGroup()
-                                    .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblCapacidad)
-                                        .addComponent(lblEstado)
-                                        .addComponent(lblApta3D))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(pnlSalasLayout.createSequentialGroup()
-                                            .addComponent(jLabel1)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel2))
-                                        .addComponent(txtCapacidad)
-                                        .addGroup(pnlSalasLayout.createSequentialGroup()
-                                            .addComponent(checkApta3D)
-                                            .addGap(0, 0, Short.MAX_VALUE))
-                                        .addComponent(txtEstado))))
-                            .addComponent(checkEdicion))
-                        .addGap(18, 18, 18)
+                                    .addComponent(lblCapacidad)
+                                    .addComponent(lblEstado))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                                    .addComponent(txtCapacidad, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtEstado, javax.swing.GroupLayout.Alignment.LEADING))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSalasActuales)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(pnlSalasLayout.createSequentialGroup()
+                                .addComponent(lblSalasActuales)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblCinemaCentro))
+                            .addGroup(pnlSalasLayout.createSequentialGroup()
+                                .addComponent(btnLiberarAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSalasLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         pnlSalasLayout.setVerticalGroup(
             pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSalasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblSalasActuales)
-                .addGap(11, 11, 11)
-                .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(12, 12, 12)
+                .addComponent(lblTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlSalasLayout.createSequentialGroup()
+                        .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSalasActuales)
+                            .addComponent(lblCinemaCentro))
+                        .addGap(5, 5, 5)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnLiberarAsientos)
+                            .addComponent(btnSalir))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlSalasLayout.createSequentialGroup()
+                        .addGap(65, 65, 65)
                         .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNumero)
                             .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(5, 5, 5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblCapacidad)
                             .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblEstado)
                             .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(40, 40, 40)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblApta3D)
                             .addComponent(checkApta3D))
-                        .addGap(27, 27, 27)
-                        .addComponent(checkEdicion))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlSalasLayout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(checkEdicion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnModificar)
                         .addGap(18, 18, 18)
                         .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAgregar)
-                            .addComponent(btnModificar)
-                            .addComponent(btnAlta))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnEliminar)
+                            .addComponent(btnAlta)
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnBaja)
-                            .addComponent(btnLiberarAsientos))
-                        .addContainerGap(12, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSalasLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSalir)
-                        .addGap(36, 36, 36))))
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(82, 82, 82))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlSalas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 44, Short.MAX_VALUE))
+            .addComponent(pnlSalas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlSalas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 453, Short.MAX_VALUE)
         );
 
         pack();
@@ -293,6 +329,11 @@ public class SalasInternal extends javax.swing.JInternalFrame {
     private void checkEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEdicionActionPerformed
         if (checkEdicion.isSelected()) {
             habilitarBotones();
+            btnAgregar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnLiberarAsientos.setEnabled(false);
+        btnAlta.setEnabled(false);
+        btnBaja.setEnabled(false);
         } else {
             deshabilitarBotones();
         }
@@ -434,12 +475,22 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         txtNumero.setEnabled(false);
         txtCapacidad.setEnabled(false);
         checkApta3D.setEnabled(false);
+        btnAgregar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+        btnLiberarAsientos.setEnabled(true);
+        btnAlta.setEnabled(true);
+        btnBaja.setEnabled(true);
     }
 
     public void habilitarBotones() {
         txtNumero.setEnabled(true);
         txtCapacidad.setEnabled(true);
         checkApta3D.setEnabled(true);
+        btnAgregar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnLiberarAsientos.setEnabled(false);
+        btnAlta.setEnabled(false);
+        btnBaja.setEnabled(false);
     }
     
     public void agregarListenerTablaSala(JTable tabla){
@@ -475,14 +526,14 @@ public class SalasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JCheckBox checkApta3D;
     private javax.swing.JCheckBox checkEdicion;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblApta3D;
     private javax.swing.JLabel lblCapacidad;
+    private javax.swing.JLabel lblCinemaCentro;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblSalasActuales;
+    private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlSalas;
     private javax.swing.JTable tblSalas;
     private javax.swing.JTextField txtCapacidad;
