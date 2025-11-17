@@ -170,7 +170,9 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        btneliminar.setBackground(new java.awt.Color(70, 73, 75));
         btneliminar.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        btneliminar.setForeground(new java.awt.Color(255, 255, 255));
         btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
         btneliminar.setText("Eliminar");
         btneliminar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -180,7 +182,9 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        btnmodificar.setBackground(new java.awt.Color(70, 73, 75));
         btnmodificar.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        btnmodificar.setForeground(new java.awt.Color(255, 255, 255));
         btnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/modificar.png"))); // NOI18N
         btnmodificar.setText("Modificar");
         btnmodificar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -190,7 +194,9 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        btndarbaja.setBackground(new java.awt.Color(70, 73, 75));
         btndarbaja.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        btndarbaja.setForeground(new java.awt.Color(255, 255, 255));
         btndarbaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-baja.png"))); // NOI18N
         btndarbaja.setText("Dar de Baja");
         btndarbaja.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -210,7 +216,9 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        btndarAlta.setBackground(new java.awt.Color(70, 73, 75));
         btndarAlta.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        btndarAlta.setForeground(new java.awt.Color(255, 255, 255));
         btndarAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-alta.png"))); // NOI18N
         btndarAlta.setText("Dar de Alta");
         btndarAlta.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -236,25 +244,27 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
                                 .addComponent(lblCinemaCentro))
                             .addGroup(pnlFuncionesLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lblDescripcionFuncion)
                                     .addComponent(scrollPaneDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(pnlFuncionesLayout.createSequentialGroup()
                                         .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(scrollPanePeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblListaPeliculas))
-                                        .addGap(6, 6, 6)
-                                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblSala)
                                             .addGroup(pnlFuncionesLayout.createSequentialGroup()
-                                                .addComponent(scrollPaneSala, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
+                                                .addComponent(lblListaPeliculas)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addComponent(scrollPanePeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(pnlFuncionesLayout.createSequentialGroup()
+                                                .addComponent(scrollPaneSala, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addGroup(pnlFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                     .addComponent(btndarAlta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                     .addComponent(btneliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                     .addComponent(btndarbaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                     .addComponent(btnmodificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                                                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(lblSala))))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)))
                 .addContainerGap())
         );

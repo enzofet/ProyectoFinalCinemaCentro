@@ -289,35 +289,60 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
 
         pnlControles.setBackground(new java.awt.Color(102, 0, 0));
 
+        btnAgregar.setBackground(new java.awt.Color(70, 73, 75));
+        btnAgregar.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/agregar.png"))); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
             }
         });
 
+        btnAlta.setBackground(new java.awt.Color(70, 73, 75));
+        btnAlta.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        btnAlta.setForeground(new java.awt.Color(255, 255, 255));
         btnAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-alta.png"))); // NOI18N
+        btnAlta.setText("Dar de Alta");
+        btnAlta.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAltaActionPerformed(evt);
             }
         });
 
+        btnEliminar.setBackground(new java.awt.Color(70, 73, 75));
+        btnEliminar.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
             }
         });
 
+        btnBaja.setBackground(new java.awt.Color(70, 73, 75));
+        btnBaja.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        btnBaja.setForeground(new java.awt.Color(255, 255, 255));
         btnBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/dar-baja.png"))); // NOI18N
+        btnBaja.setText("Dar de Baja");
+        btnBaja.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnBaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBajaActionPerformed(evt);
             }
         });
 
+        btnModificar.setBackground(new java.awt.Color(70, 73, 75));
+        btnModificar.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/modificar.png"))); // NOI18N
+        btnModificar.setText("Modificar");
+        btnModificar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
@@ -330,17 +355,14 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
             pnlControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlControlesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnModificar)
-                    .addComponent(btnBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAlta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        pnlControlesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAgregar, btnAlta, btnBaja, btnEliminar, btnModificar});
-
         pnlControlesLayout.setVerticalGroup(
             pnlControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlControlesLayout.createSequentialGroup()
@@ -443,8 +465,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         pnlFiltros.setLayout(pnlFiltrosLayout);
         pnlFiltrosLayout.setHorizontalGroup(
             pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFiltrosLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+            .addGroup(pnlFiltrosLayout.createSequentialGroup()
                 .addComponent(rbtnVerTodo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblFiltroCartelera)
@@ -461,13 +482,12 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbtnEstadoActivo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbtnEstadoInactivo)
-                .addContainerGap())
+                .addComponent(rbtnEstadoInactivo))
         );
         pnlFiltrosLayout.setVerticalGroup(
             pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFiltrosLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 12, Short.MAX_VALUE)
                 .addGroup(pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblFiltroCartelera)
@@ -479,8 +499,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                         .addComponent(rbtnEstadoActivo)
                         .addComponent(rbtnEstadoInactivo)
                         .addComponent(rbtnEstadoTodas)
-                        .addComponent(rbtnVerTodo)))
-                .addContainerGap())
+                        .addComponent(rbtnVerTodo))))
         );
 
         btnSalir.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
@@ -500,26 +519,28 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         pnlPeliculas.setLayout(pnlPeliculasLayout);
         pnlPeliculasLayout.setHorizontalGroup(
             pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlPeliculasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlPeliculasLayout.createSequentialGroup()
-                        .addComponent(pnlPeliculaS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlControles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPeliculasLayout.createSequentialGroup()
-                        .addComponent(lblTituloPanel)
-                        .addGap(46, 46, 46)))
-                .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pnlFiltros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(10, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPeliculasLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblCinemaCentro)
                 .addGap(230, 230, 230))
+            .addGroup(pnlPeliculasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSalir)
+                    .addGroup(pnlPeliculasLayout.createSequentialGroup()
+                        .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlPeliculasLayout.createSequentialGroup()
+                                .addComponent(pnlPeliculaS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pnlControles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPeliculasLayout.createSequentialGroup()
+                                .addComponent(lblTituloPanel)
+                                .addGap(46, 46, 46)))
+                        .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         pnlPeliculasLayout.setVerticalGroup(
             pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -530,10 +551,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                 .addComponent(pnlFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlPeliculasLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSalir))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlPeliculasLayout.createSequentialGroup()
                         .addComponent(lblTituloPanel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -542,6 +560,8 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                                 .addGap(75, 75, 75)
                                 .addComponent(pnlControles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(pnlPeliculaS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSalir)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
