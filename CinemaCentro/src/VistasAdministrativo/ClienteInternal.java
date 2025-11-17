@@ -641,7 +641,7 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
                 maniCliente.eliminarCliente(selecId);
                 clear();
                 refreshTabla();
-                JOptionPane.showMessageDialog(this, "Alumno eliminado con éxito.");
+                JOptionPane.showMessageDialog(this, "Cliente eliminado con éxito.");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -657,6 +657,7 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Debe llenar todos los campos.");
 
             } else {
+                int dni =Integer.parseInt( txtDNI.getText());
                 String nombre = txtNombre.getText();
                 String apellido = txtApellido.getText();
                 String fecha = txtFechaNac.getText();
@@ -670,7 +671,7 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
                     fechaNac = LocalDate.parse(fecha, dtf);
 
                     if (fechaNac.isBefore(fechaMin) || fechaNac.isAfter(fechaMax)) {
-                        JOptionPane.showMessageDialog(this, "La fecha debe ser entre '01-01-1900' y ser mayor de 18 años.");
+                        JOptionPane.showMessageDialog(this, "La fecha debe ser entre '01-01-1900' y '" + fechaMax.format(dtf) + "'.");
                         txtFechaNac.setText("");
                         return;
                     }
@@ -684,7 +685,7 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
                     return;
                 }
 
-                Cliente cliente = maniCliente.buscarClientePorDNI(selecId);
+                Cliente cliente = maniCliente.buscarClientePorDNI(dni);
 
                 cliente.setNombre(nombre);
                 cliente.setApellido(apellido);
@@ -694,7 +695,7 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
                 maniCliente.actualizarCliente(selecId, cliente);
                 clear();
                 refreshTabla();
-                JOptionPane.showMessageDialog(this, "Alumno modificado con éxito.");
+                JOptionPane.showMessageDialog(this, "Cliente modificado con éxito.");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -708,7 +709,7 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
             cliente.setEstado(true);
             maniCliente.actualizarCliente(selecId, cliente);
             refreshTabla();
-            JOptionPane.showMessageDialog(this, "Se ha dado de alta al alumno: \n" + cliente.getApellido() + " " + cliente.getNombre());
+            JOptionPane.showMessageDialog(this, "Se ha dado de alta al cliente: \n" + cliente.getApellido() + " " + cliente.getNombre());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -721,7 +722,7 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
             cliente.setEstado(false);
             maniCliente.actualizarCliente(selecId, cliente);
             refreshTabla();
-            JOptionPane.showMessageDialog(this, "Se ha dado de alta al alumno: \n" + cliente.getApellido() + " " + cliente.getNombre());
+            JOptionPane.showMessageDialog(this, "Se ha dado de alta al cliente: \n" + cliente.getApellido() + " " + cliente.getNombre());
         } catch (Exception e) {
             e.printStackTrace();
         }
