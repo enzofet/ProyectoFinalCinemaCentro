@@ -75,7 +75,7 @@ public class LoginCliente extends javax.swing.JFrame {
         });
 
         lblInicioSesion.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
-        lblInicioSesion.setText("Inicio Sesion");
+        lblInicioSesion.setText("Inicio Sesión");
 
         btnRegistrarse.setFont(new java.awt.Font("Book Antiqua", 1, 12)); // NOI18N
         btnRegistrarse.setText("Registrarse");

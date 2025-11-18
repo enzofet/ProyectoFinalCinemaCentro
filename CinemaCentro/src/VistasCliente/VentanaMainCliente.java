@@ -269,7 +269,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         });
 
         lblProxEstrenos.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 14)); // NOI18N
-        lblProxEstrenos.setText("Ver proximos estrenos");
+        lblProxEstrenos.setText("Ver próximos estrenos");
         lblProxEstrenos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lblProxEstrenosActionPerformed(evt);
