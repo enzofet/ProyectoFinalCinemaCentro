@@ -520,7 +520,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
     private void jBComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBComprarActionPerformed
         // TODO add your handling code here:
         Venta ventaOnline = new Venta();
-        ventaOnline.setMedio_Pago("Tarjeta de debito");
+        ventaOnline.setMedio_Pago("debito");
         ventaOnline.setCantidad_Entradas(Integer.parseInt(txtCantidad.getText()));
         ventaOnline.setImporte_Total(precioEntrada);
         ventaOnline.setMedio_Compra("Online");
@@ -528,7 +528,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
         try {
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsi, ventaOnline, "credito", idFun, "online");
+            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsi, ventaOnline, "debito", idFun, "online");
             ventanaCompra.setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(VentanaMainCliente.class.getName()).log(Level.SEVERE, null, ex);
