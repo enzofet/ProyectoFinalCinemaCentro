@@ -20,6 +20,7 @@ public class Venta {
     public Venta() {
         this.id_venta=-1;
         this.id_cliente=-1;
+        this.token = null;
     }
 
     public Venta(int id_venta, int id_cliente, String medio_pago, int cantidad_entradas, double importe_total, String medio_compra, LocalDate fecha_venta) {
@@ -102,12 +103,12 @@ public class Venta {
         this.medio_compra = Medio_Compra;
     }
 
-    public int getToken() {
+    public Integer getToken() {
         return token;
     }
 
-    public void setToken(int Token) {
-        this.token = Token;
+    public void setToken(Integer token) {
+        this.token = token;
     }
 
     public LocalDate getFecha_Venta() {

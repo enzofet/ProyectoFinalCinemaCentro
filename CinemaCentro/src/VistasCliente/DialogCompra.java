@@ -71,6 +71,10 @@ public class DialogCompra extends javax.swing.JDialog {
         this.listaAsientos = listaAsientos;
         this.venta = venta;
         this.token = maniTicket.generarToken();
+
+        //cambio Ema
+        this.venta.setToken(this.token);
+
         this.funcion = maniFuncion.buscarFuncionPorId(id_funcion);
         this.peli = maniPeli.buscarPorId(funcion.getId_pelicula());
         this.medioPago = medio_pago;
@@ -643,6 +647,9 @@ public class DialogCompra extends javax.swing.JDialog {
 
         if (medioCompra.equalsIgnoreCase("online")) {
             try {
+                if (venta.getId_Cliente() == -1) {
+                    // se inserta como null en la bd
+                }
                 int idVenta = maniVenta.registrarVentaOnline(venta);
 
                 for (Asiento asiento : listaAsientos) {
@@ -658,12 +665,13 @@ public class DialogCompra extends javax.swing.JDialog {
 
                 JOptionPane.showMessageDialog(this,
                         "Venta y tickets generados correctamente.");
+                
+                this.dispose();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if (medioCompra.equalsIgnoreCase("taquilla")) {
             registrarVentaTaquilla();
-            return;
         }
 
     }//GEN-LAST:event_btnConfirmarCompraActionPerformed
@@ -769,6 +777,9 @@ public class DialogCompra extends javax.swing.JDialog {
     }
 
     private void ventayticketTaquilla() throws Exception {
+
+        venta.setToken(null);
+
         int idVenta = maniVenta.registrarVentaTaquilla(venta);
 
         for (Asiento asiento : listaAsientos) {

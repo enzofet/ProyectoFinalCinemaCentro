@@ -62,18 +62,29 @@ public class VentaDAO {
     }
 
     public int registrarVentaOnline(Venta venta) throws Exception {
-        String sql = "INSERT INTO venta(id_cliente, medio_pago, cantidad_entradas, importe_total"
+        String sql = "INSERT INTO venta(id_cliente, medio_pago, cantidad_entradas, importe_total,"
                 + " medio_compra, token, fecha_venta) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         Connection con = ConexionBD.getConnection();
         int idVenta = -1;
         try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setInt(1, venta.getId_Cliente());
+            if (venta.getId_Cliente() == -1) {
+                ps.setNull(1, Types.INTEGER);
+            } else {
+                ps.setInt(1, venta.getId_Cliente());
+            }
             ps.setString(2, venta.getMedio_Pago());
             ps.setInt(3, venta.getCantidad_Entradas());
             ps.setDouble(4, venta.getImporte_Total());
-            ps.setString(5, "Debito");
-            ps.setNull(6, venta.getToken());
+            ps.setString(5, venta.getMedio_Compra());
+
+            if (venta.getToken() == null) {
+                ps.setNull(6, java.sql.Types.INTEGER);
+            } else {
+                ps.setInt(6, venta.getToken());
+            }
+
+            ps.setDate(7, java.sql.Date.valueOf(venta.getFecha_Venta()));
 
             int fila = ps.executeUpdate();
 
@@ -107,7 +118,11 @@ public class VentaDAO {
             ps.setInt(3, venta.getCantidad_Entradas());
             ps.setDouble(4, venta.getImporte_Total());
             ps.setString(5, venta.getMedio_Compra());
-            ps.setInt(6, venta.getToken());
+            if (venta.getToken() == null) {
+                ps.setNull(6, java.sql.Types.INTEGER);
+            } else {
+                ps.setInt(6, venta.getToken());
+            }
             ps.setDate(7, Date.valueOf(venta.getFecha_Venta()));
 
             int fila = ps.executeUpdate();

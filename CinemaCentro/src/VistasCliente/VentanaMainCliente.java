@@ -533,6 +533,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(VentanaMainCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
+        limpiarCampos();
     }//GEN-LAST:event_jBComprarActionPerformed
 
     private void lblProxEstrenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblProxEstrenosActionPerformed
@@ -542,6 +543,10 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         ventanaEstrenos.setVisible(true);
     }//GEN-LAST:event_lblProxEstrenosActionPerformed
 
+    
+    private void  limpiarCampos(){
+        txtCantidad.setText("");
+    }
     /**
      * @param args the command line arguments
      */
