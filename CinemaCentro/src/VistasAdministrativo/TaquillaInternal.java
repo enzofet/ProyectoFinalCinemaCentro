@@ -578,7 +578,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
             }
 
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsientos, venta, (String) cmbMedioPago.getSelectedItem(), id_funcion);
+            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsientos, venta, (String) cmbMedioPago.getSelectedItem(), id_funcion, "taquilla");
             ventanaCompra.setVisible(true);
             estadoExito = ventanaCompra.isEstado();
 
