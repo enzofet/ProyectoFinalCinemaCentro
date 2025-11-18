@@ -34,7 +34,6 @@ public class VentasInternal extends javax.swing.JInternalFrame {
 
         lblBarraEstado = new javax.swing.JLabel();
         lblBarraEstado.setText("Listo");
-        pnlTickets.add(lblBarraEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 500, 20));
         inicializarComponentes();
         configurarTabla();
         cargarCombobox();
