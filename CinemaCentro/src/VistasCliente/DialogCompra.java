@@ -16,13 +16,23 @@ import Modelo.DetalleTicket;
 import Modelo.Funcion;
 import Modelo.Pelicula;
 import Modelo.Venta;
+import VistasAdministrativo.DialogAgregarCliente;
+import java.awt.Color;
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -32,6 +42,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Naiara
  */
 public class DialogCompra extends javax.swing.JDialog {
+
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/yy");
 
     /**
      * Creates new form DialogCompra
@@ -48,10 +60,12 @@ public class DialogCompra extends javax.swing.JDialog {
     Cliente cliente = null;
     int dniCliente = 0;
     int token = 0;
+    String medioPago;
+    String medioCompra;
     DefaultListModel<String> listModel;
     boolean estado = false;
 
-    public DialogCompra(java.awt.Frame parent, boolean modal, List<Asiento> listaAsientos, Venta venta, String medio_pago, int id_funcion) throws Exception {
+    public DialogCompra(java.awt.Frame parent, boolean modal, List<Asiento> listaAsientos, Venta venta, String medio_pago, int id_funcion, String medio_compra) throws Exception {
         super(parent, modal);
         initComponents();
         this.listaAsientos = listaAsientos;
@@ -59,11 +73,13 @@ public class DialogCompra extends javax.swing.JDialog {
         this.token = maniTicket.generarToken();
         this.funcion = maniFuncion.buscarFuncionPorId(id_funcion);
         this.peli = maniPeli.buscarPorId(funcion.getId_pelicula());
+        this.medioPago = medio_pago;
+        this.medioCompra = medio_compra;
         rellenarTablaEntradas();
         setearDetalleVenta(venta);
         agregarListenerTabla();
         habilitarSegunMedioPago(medio_pago);
-
+        placeholderFecha();
     }
 
     /**
@@ -85,6 +101,7 @@ public class DialogCompra extends javax.swing.JDialog {
         jbCVV = new javax.swing.JLabel();
         txtCVV = new javax.swing.JTextField();
         txtFechaVencimiento = new javax.swing.JTextField();
+        lblTarjeta = new javax.swing.JLabel();
         pnlDetalleVenta = new javax.swing.JPanel();
         jbNomApeTarj1 = new javax.swing.JLabel();
         lblEntradasS = new javax.swing.JLabel();
@@ -135,8 +152,20 @@ public class DialogCompra extends javax.swing.JDialog {
         jbNroTarjeta.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         jbNroTarjeta.setText("Nro. Tarjeta:");
 
+        txtNroTarj.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNroTarjKeyReleased(evt);
+            }
+        });
+
         jbNomApeTarj.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         jbNomApeTarj.setText("Nombre y Apellido:");
+
+        txtNomApeTarj.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomApeTarjKeyReleased(evt);
+            }
+        });
 
         jbFechaVTarj.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         jbFechaVTarj.setText("Fecha vencimiento:");
@@ -144,59 +173,73 @@ public class DialogCompra extends javax.swing.JDialog {
         jbCVV.setFont(new java.awt.Font("Segoe UI Semibold", 1, 18)); // NOI18N
         jbCVV.setText("CVV:");
 
+        txtCVV.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCVVKeyReleased(evt);
+            }
+        });
+
+        lblTarjeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/fondotarjeta.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbNroTarjeta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jbNomApeTarj, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtNroTarj, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 22, Short.MAX_VALUE))
+                            .addComponent(jbNroTarjeta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTarjeta))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(txtFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtCVV, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jbFechaVTarj, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                                .addComponent(jbCVV, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(87, 87, 87))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNroTarj, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
-                    .addComponent(txtNomApeTarj))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jbFechaVTarj, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(65, 65, 65)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jbCVV, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCVV, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtNomApeTarj, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbNomApeTarj, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jbNroTarjeta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNroTarj, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbNomApeTarj)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNomApeTarj, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbFechaVTarj)
-                    .addComponent(jbCVV))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblTarjeta)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jbNroTarjeta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNroTarj, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)))
+                .addGap(18, 18, 18)
+                .addComponent(jbNomApeTarj)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCVV, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addComponent(txtNomApeTarj, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbCVV)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCVV, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbFechaVTarj)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFechaVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pnlDetalleVenta.setPreferredSize(new java.awt.Dimension(236, 252));
@@ -263,7 +306,7 @@ public class DialogCompra extends javax.swing.JDialog {
                 .addComponent(lblTokenS)
                 .addGap(18, 18, 18)
                 .addComponent(lblToken, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         lblTicketS.setFont(new java.awt.Font("DialogInput", 1, 14)); // NOI18N
@@ -568,91 +611,86 @@ public class DialogCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_txtEfectivoKeyReleased
 
     private void btnConfirmarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarCompraActionPerformed
-        int seleccion = JOptionPane.showConfirmDialog(this, "¿El cliente quiere relacionar la compra con su cuenta? Si es asi ingrese su DNI", "Confirmación", YES_NO_OPTION);
-        if (seleccion == 0) {
-            String dni = JOptionPane.showInputDialog("Ingrese DNI");
-            try {
-                if (dni.isEmpty() || dni.length() < 8) {
-                    JOptionPane.showMessageDialog(this, "No puede dejar el campo vacio y debe ingresar un DNI de 8 caracteres.");
-                    return;
-                }
 
-                int dniNumero = Integer.parseInt(dni);
-                dniCliente = dniNumero;
-                cliente = maniCliente.buscarClientePorDNI(dniCliente);
-
-                if (cliente == null) {
-                    JOptionPane.showMessageDialog(this, "No se ha encontrado el cliente con el DNI asignado.");
-                }
-
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Ingrese un DNI valido.");
-
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage());
-            }
-        }
-        /*
         String nroTarjeta = txtNroTarj.getText();
         String nombreCompleto = txtNomApeTarj.getText();
+        String fecha = txtFechaVencimiento.getText();
         String codigoSeguridad = txtCVV.getText();
-        try {
-            if(nroTarjeta.isEmpty() || nombreCompleto.isEmpty() || codigoSeguridad.isEmpty()){
-                JOptionPane.showMessageDialog(this, "No puede dejar campos vacios en los datos de tarjeta");
-                return;
-            } else {
-                if((nroTarjeta.length() < 13 || nroTarjeta.length() > 19) || (nombreCompleto.length() < 3 || nombreCompleto.length() > 50) || codigoSeguridad.length() < 3){
-                    JOptionPane.showMessageDialog(this, "Ingrese campos correctos para los datos de tarjeta.");
-                    return;
-                }
-            }
-            
-            for(char caracter : nombreCompleto.toCharArray()){
-                if(Character.isDigit(caracter)){
-                    JOptionPane.showMessageDialog(this, "El nombre no puede tener caracteres numericos");
-                    return;
-                }
-            }
-           
-            
-            Integer nro = Integer.parseInt(nroTarjeta);
-            int codigo = Integer.parseInt(codigoSeguridad);
-            
-            
-            int idVenta = maniVenta.registrarVentaTaquilla(venta);
-            for (Asiento asiento : listaAsientos) {
-                DetalleTicket ticket = new DetalleTicket(funcion.getId_Funcion(), asiento.getId_asiento(), idVenta, LocalDate.now(), true);
-                maniTicket.generarTicket(ticket);
-                estado = true;
-            }
-            JOptionPane.showMessageDialog(this, "Venta y tickets generados correctamente.");
-         */
 
-        //Hay que eliminar esto despues asi noo se hace lioso probar  y descomentar lo anterior
-        try {
-            if (cliente != null) {
-                venta.setId_Cliente(cliente.getId_cliente());
-            }
-            venta.setId_Cliente(cliente.getId_cliente());
-            int idVenta = maniVenta.registrarVentaTaquilla(venta);
-            for (Asiento asiento : listaAsientos) {
-                DetalleTicket ticket = new DetalleTicket(funcion.getId_Funcion(), asiento.getId_asiento(), idVenta, LocalDate.now(), true);
-                maniTicket.generarTicket(ticket);
-                estado = true;
-            }
-            JOptionPane.showMessageDialog(this, "Venta y tickets generados correctamente.");
-            // aca termina
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Error en los datos de tarjetas.");
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (nroTarjeta.isEmpty() || nombreCompleto.isEmpty()
+                || codigoSeguridad.isEmpty() || fecha.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No puede dejar campos vacíos en los datos de tarjeta");
+            return;
         }
+        
+        if (!(nroTarjeta.length() == 16 || nroTarjeta.length() == 15)) {
+            JOptionPane.showMessageDialog(this, "Ingrese un número de tarjeta válido.");
+            return;
+        }
+
+        if (!validacionFecha(fecha)) {
+            return;
+        }
+
+        if (!validarNombreApellido(nombreCompleto)) {
+            return;
+        }
+
+        if (!(codigoSeguridad.length() == 3 || codigoSeguridad.length() == 4)) {
+            JOptionPane.showMessageDialog(this, "El CVV debe tener 3 o 4 dígitos.");
+            return;
+        }
+
+        if (medioCompra.equalsIgnoreCase("online")) {
+            registrarVentaOnline();
+            return;
+        } else if (medioCompra.equalsIgnoreCase("taquilla")) {
+            registrarVentaTaquilla();
+            return;
+        }
+
     }//GEN-LAST:event_btnConfirmarCompraActionPerformed
 
     private void btnCancelarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCompraActionPerformed
         estado = false;
         this.dispose();
     }//GEN-LAST:event_btnCancelarCompraActionPerformed
+
+    private void txtNroTarjKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNroTarjKeyReleased
+
+        String nro = txtNroTarj.getText();
+
+        try {
+            Long.parseLong(nro);
+        } catch (NumberFormatException e) {
+            txtNroTarj.setText(nro.replaceAll("[^0-9]", ""));
+            return;
+        }
+        tipoTarjeta(nro);
+    }//GEN-LAST:event_txtNroTarjKeyReleased
+
+    private void txtNomApeTarjKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomApeTarjKeyReleased
+
+        String nombre = txtNomApeTarj.getText();
+        String nombreLimpio = nombre.replaceAll("[0-9]", "");
+
+        if (!nombre.equals(nombreLimpio)) {
+            txtNomApeTarj.setText(nombreLimpio);
+            txtNomApeTarj.setCaretPosition(nombreLimpio.length());
+        }
+    }//GEN-LAST:event_txtNomApeTarjKeyReleased
+
+    private void txtCVVKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCVVKeyReleased
+        // TODO add your handling code here:
+        String nro = txtCVV.getText();
+
+        try {
+            Long.parseLong(nro);
+        } catch (NumberFormatException e) {
+            txtCVV.setText(nro.replaceAll("[^0-9]", ""));
+            return;
+        }
+    }//GEN-LAST:event_txtCVVKeyReleased
 
     public boolean isEstado() {
         return estado;
@@ -710,6 +748,272 @@ public class DialogCompra extends javax.swing.JDialog {
                 }
             }
         });
+
+    }
+
+    private void ventayticketTaquilla() throws Exception {
+        int idVenta = maniVenta.registrarVentaTaquilla(venta);
+
+        for (Asiento asiento : listaAsientos) {
+            DetalleTicket ticket = new DetalleTicket(funcion.getId_Funcion(), asiento.getId_asiento(), idVenta, LocalDate.now(), true);
+            maniTicket.generarTicket(ticket);
+        }
+        estado = true;
+    }
+
+    private void registrarVentaTaquilla() {
+
+        int seleccion = JOptionPane.showConfirmDialog(
+                this,
+                "¿El cliente quiere relacionar la compra con su cuenta?",
+                "Confirmación",
+                YES_NO_OPTION
+        );
+
+        try {
+
+            if (seleccion != 0) {
+                ventayticketTaquilla();
+                JOptionPane.showMessageDialog(this, "Venta registrada y tickets generados correctamente.");
+                return;
+            }
+            String txtdni = JOptionPane.showInputDialog("Ingrese DNI");
+
+            if (txtdni == null) {
+                return;
+            }
+            txtdni = txtdni.trim();
+
+            if (!txtdni.matches("\\d{8}")) {
+                JOptionPane.showMessageDialog(this,
+                        "Debe ingresar un DNI válido de 8 dígitos sin puntos ni espacios.");
+                return;
+            }
+
+            int dni = Integer.parseInt(txtdni);
+            cliente = maniCliente.buscarClientePorDNI(dni);
+
+            if (cliente == null) {
+                int respuesta = JOptionPane.showConfirmDialog(
+                        this,
+                        "El cliente no está registrado.\n¿Desea registrarlo ahora?",
+                        "",
+                        YES_NO_OPTION
+                );
+
+                if (respuesta == 0) {
+                    JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
+                    DialogAgregarCliente ventanaAgregarCliente
+                            = new DialogAgregarCliente(padre, true);
+                    ventanaAgregarCliente.setVisible(true);
+                }
+                ventayticketTaquilla();
+                JOptionPane.showMessageDialog(this, "Venta y tickets generados correctamente.");
+                return;
+            }
+            ventayticketTaquilla();
+            JOptionPane.showMessageDialog(this,
+                    "Venta registrada y asociada al cliente correctamente.");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+
+    private void registrarVentaOnline() {
+        JTextField txtdni = new JTextField();
+        JPasswordField txtcontraseña = new JPasswordField();
+        Object[] message = {"DNI:", txtdni, "Contraseña:", txtcontraseña};
+
+        int option = JOptionPane.showConfirmDialog(
+                null,
+                message,
+                "Confirmación de pago",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (option != JOptionPane.OK_OPTION) {
+            return;
+        }
+
+        try {
+
+            String dniStr = txtdni.getText().trim();
+            String password = new String(txtcontraseña.getPassword()).trim();
+
+            if (dniStr.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe completar ambos campos.");
+                return;
+            }
+
+            if (!dniStr.matches("\\d{8}")) {
+                JOptionPane.showMessageDialog(this,
+                        "DNI incorrecto.\nIngrese 8 dígitos sin puntos ni espacios.");
+                return;
+            }
+
+            int dni = Integer.parseInt(dniStr);
+
+            cliente = maniCliente.validarCredenciales(dni, password);
+            if (cliente == null) {
+                JOptionPane.showMessageDialog(this,
+                        "Datos incorrectos. Vuelva a intentar.");
+                return;
+            }
+
+            int idVenta = maniVenta.registrarVentaOnline(venta);
+
+            for (Asiento asiento : listaAsientos) {
+                DetalleTicket ticket = new DetalleTicket(
+                        funcion.getId_Funcion(),
+                        asiento.getId_asiento(),
+                        idVenta,
+                        LocalDate.now(),
+                        true
+                );
+                maniTicket.generarTicket(ticket);
+            }
+
+            JOptionPane.showMessageDialog(this,
+                    "Venta y tickets generados correctamente.");
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+
+    private void placeholderFecha() {
+        txtFechaVencimiento.setText("MM/yy");
+        txtFechaVencimiento.setForeground(Color.GRAY);
+        txtFechaVencimiento.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (txtFechaVencimiento.getText().equals("MM/yy")) {
+                    txtFechaVencimiento.setText("");
+                    txtFechaVencimiento.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                if (txtFechaVencimiento.getText().equals("")) {
+                    txtFechaVencimiento.setText("MM/yy");
+                    txtFechaVencimiento.setForeground(Color.GRAY);
+                }
+            }
+        });
+    }
+
+    public boolean validarNombreApellido(String nomApe) {
+
+        nomApe = nomApe.trim();
+        String patronRegex = "[a-zA-ZáéíóúÁÉÍÓÚñÑ. ]+";
+
+        if (!nomApe.matches(patronRegex)) {
+            JOptionPane.showMessageDialog(null, "El nombre o apellido contiene caracteres no permitidos (solo letras, puntos y espacios).");
+            return false;
+        }
+
+        String[] palabras = nomApe.split("\\s+");
+
+        if (palabras.length < 2) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese al menos nombre y un apellido.");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validacionFecha(String fecha) {
+        try {
+            YearMonth fechaF = YearMonth.parse(fecha, dtf);
+            YearMonth hoy = YearMonth.now();
+
+            if (fechaF.isBefore(hoy)) {
+                JOptionPane.showMessageDialog(this,
+                        "La fecha de vencimiento no puede ser anterior a " + hoy.format(dtf) + ".");
+                placeholderFecha();
+                return false;
+            }
+
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this,
+                    "La fecha debe estar en formato MM/yy y ser válida.");
+            placeholderFecha();
+            return false;
+        }
+        return true;
+    }
+
+    public void tipoTarjeta(String nroTarjeta) {
+
+        nroTarjeta = nroTarjeta.replaceAll(" ", "");
+
+        if (nroTarjeta.isEmpty()) {
+            lblTarjeta.setIcon(null);
+            return;
+        }
+
+        char primer = nroTarjeta.charAt(0);
+        String p2 = nroTarjeta.length() >= 2 ? nroTarjeta.substring(0, 2) : "";
+        String p4 = nroTarjeta.length() >= 4 ? nroTarjeta.substring(0, 4) : "";
+
+        if (primer == '4') {
+
+            if (nroTarjeta.length() == 16) {
+                lblTarjeta.setIcon(new ImageIcon(getClass().getResource("/iconos/visa.png")));
+            } else {
+                lblTarjeta.setIcon(new ImageIcon(getClass().getResource("/iconos/visa-gris.png")));
+            }
+            return;
+        }
+
+        if (!p2.isEmpty()) {
+            int pref2 = Integer.parseInt(p2);
+            if (pref2 >= 51 && pref2 <= 55) {
+
+                if (nroTarjeta.length() == 16) {
+                    lblTarjeta.setIcon(new ImageIcon(getClass().getResource("/iconos/mastercard.png")));
+                } else {
+                    lblTarjeta.setIcon(new ImageIcon(getClass().getResource("/iconos/mastercard-gris.png")));
+                }
+                return;
+            }
+        }
+
+        if (!p4.isEmpty()) {
+            int pref4 = Integer.parseInt(p4);
+            if (pref4 >= 2221 && pref4 <= 2720) {
+
+                if (nroTarjeta.length() == 16) {
+                    lblTarjeta.setIcon(new ImageIcon(getClass().getResource("/iconos/mastercard.png")));
+                } else {
+                    lblTarjeta.setIcon(new ImageIcon(getClass().getResource("/iconos/mastercard-gris.png")));
+                }
+                return;
+            }
+        }
+
+        if (p2.equals("34") || p2.equals("37")) {
+
+            if (nroTarjeta.length() == 15) {
+                lblTarjeta.setIcon(new ImageIcon(getClass().getResource("/iconos/americanExpress.png")));
+            } else {
+                lblTarjeta.setIcon(new ImageIcon(getClass().getResource("/iconos/americanExpress-gris.png")));
+            }
+            return;
+        }
+
+        if (p4.equals("5895")) {
+
+            if (nroTarjeta.length() == 16) {
+                lblTarjeta.setIcon(new ImageIcon(getClass().getResource("/iconos/naranja.png")));
+            } else {
+                lblTarjeta.setIcon(new ImageIcon(getClass().getResource("/iconos/naranja-gris.png")));
+            }
+            return;
+        }
+        lblTarjeta.setIcon(new ImageIcon(getClass().getResource("/iconos/fondotarjeta.png")));
     }
 
     public void habilitarSegunMedioPago(String medio_pago) {
@@ -748,17 +1052,27 @@ public class DialogCompra extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogCompra.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogCompra.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogCompra.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogCompra.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -769,11 +1083,14 @@ public class DialogCompra extends javax.swing.JDialog {
                 Venta venta = null;
                 String a = "";
                 int id = 0;
+                String b ="";
                 DialogCompra dialog = null;
                 try {
-                    dialog = new DialogCompra(new javax.swing.JFrame(), true, listaAsientos, venta, a, id);
+                    dialog = new DialogCompra(new javax.swing.JFrame(), true, listaAsientos, venta, a, id, b);
+
                 } catch (Exception ex) {
-                    Logger.getLogger(DialogCompra.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DialogCompra.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
@@ -826,6 +1143,7 @@ public class DialogCompra extends javax.swing.JDialog {
     private javax.swing.JLabel lblPrecioEntradaS;
     private javax.swing.JLabel lblSubtitulada;
     private javax.swing.JLabel lblSubtituladaS;
+    private javax.swing.JLabel lblTarjeta;
     private javax.swing.JLabel lblTicketS;
     private javax.swing.JLabel lblToken;
     private javax.swing.JLabel lblTokenS;
