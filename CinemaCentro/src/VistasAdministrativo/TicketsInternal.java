@@ -676,16 +676,20 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                     idTicket = (int) tblTickets.getValueAt(filaS, 0);
                     try {
                         DetalleTicket ticket = maniTickets.buscarPorId(idTicket);
-                        Funcion fun = maniFuncion.buscarFuncionPorId(ticket.getId_funcion());
 
-                        lblSala.setText("Sala: " + Integer.toString(fun.getNro_Sala()));
-                        lblPelicula.setText("Pelicula: " + (String) tblTickets.getValueAt(filaS, 3));
-                        lblSubtitulada.setText("Subtitulada: " + parsearBooleanASINO(fun.isSubtitulada()));
-                        lblFechaFuncion.setText("Fecha funcion: " + (String) tblTickets.getValueAt(filaS, 4));
-                        lbl3D.setText("3D: " + parsearBooleanASINO(fun.isEs3D()));
-                        lblHoraInicio.setText("Hora inicio: " + (String) tblTickets.getValueAt(filaS, 5));
-                        lblHoraFin.setText("Hora fin: " + (String) tblTickets.getValueAt(filaS, 6));
-                        lblPrecio.setText("Precio entrada: " + Double.toString(fun.getPrecio_Entrada()));
+                        if (tblTickets.getValueAt(filaS, 3) == null) {
+                            lblPelicula.setText("Pelicula: Eliminada la función o pelicula");
+                        } else {
+                            Funcion fun = maniFuncion.buscarFuncionPorId(ticket.getId_funcion());
+                            lblSala.setText("Sala: " + Integer.toString(fun.getNro_Sala()));
+                            lblPelicula.setText("Pelicula: " + (String) tblTickets.getValueAt(filaS, 3));
+                            lblSubtitulada.setText("Subtitulada: " + parsearBooleanASINO(fun.isSubtitulada()));
+                            lblFechaFuncion.setText("Fecha funcion: " + (String) tblTickets.getValueAt(filaS, 4));
+                            lbl3D.setText("3D: " + parsearBooleanASINO(fun.isEs3D()));
+                            lblHoraInicio.setText("Hora inicio: " + (String) tblTickets.getValueAt(filaS, 5));
+                            lblHoraFin.setText("Hora fin: " + (String) tblTickets.getValueAt(filaS, 6));
+                            lblPrecio.setText("Precio entrada: " + Double.toString(fun.getPrecio_Entrada()));
+                        }
 
                         Object dniTabla = tblTickets.getValueAt(filaS, 1);
 
