@@ -61,12 +61,12 @@ public class VentaDAO {
         return idVenta;
     }
 
-    public void registrarVentaOnline(Venta venta) throws Exception {
+    public int registrarVentaOnline(Venta venta) throws Exception {
         String sql = "INSERT INTO venta(id_cliente, medio_pago, cantidad_entradas, importe_total"
                 + " medio_compra, token, fecha_venta) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         Connection con = ConexionBD.getConnection();
-
+        int idVenta = -1;
         try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, venta.getId_Cliente());
             ps.setString(2, venta.getMedio_Pago());
@@ -80,11 +80,19 @@ public class VentaDAO {
             if (fila == 0) {
                 throw new Exception("Error al registrar la venta.");
             }
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    idVenta = rs.getInt(1);
+                } else {
+                    throw new Exception("Error al obtener el ID de la venta registrada.");
+                }
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
         }
+        return idVenta;
     }
 
     public void modificarVenta(Venta venta) throws Exception {
@@ -191,7 +199,5 @@ public class VentaDAO {
         }
         return listaVenta;
     }
-    
-    
 
 }
