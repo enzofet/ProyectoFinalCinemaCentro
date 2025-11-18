@@ -8,13 +8,11 @@ package VistasCliente;
 import Modelo.Pelicula;
 import java.awt.Desktop;
 import java.awt.Image;
+import java.io.File;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -147,11 +145,14 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(linkActualTrailer == null){
+            JOptionPane.showMessageDialog(this,"No hay trailer disponible.");
+            return;
+        }
         try{
-            Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=nXObaGjH4Pc"));
-        }catch (Exception ex){
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this,"No se pudo abrir el enlace.");
+            Desktop.getDesktop().browse(new URI(linkActualTrailer));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this,"No se pudo abrir el trailer.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -199,6 +200,9 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
  
     private DefaultTableModel modeloTabla;
     private Map<String, Pelicula> mapaPeliculas = new HashMap<>();
+    private Map<String, String> mapaPosters = new HashMap<String, String>();
+    private Map<String, String> mapaTrailers = new HashMap<String, String>();
+    private String linkActualTrailer = null;
     
     private void agregarPelicula(Pelicula p) {
         modeloTabla.addRow(new Object[]{p.getTitulo(), p.getEstreno().toString()});
@@ -209,20 +213,32 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
        modeloTabla = (DefaultTableModel) jTable1.getModel();
        
       agregarPelicula(new Pelicula("El Conjuro", "James Wan", "Vera Farmiga, Patrick Wilson",
-                "EE.UU", "Terror", false, LocalDate.of(2026, 5, 15), true));
+            "EE.UU", "Terror", false, LocalDate.of(2026, 5, 15), true));
       
-      jTable1.getSelectionModel().addListSelectionListener(e -> {
-        if (!e.getValueIsAdjusting()) {
-            int fila = jTable1.getSelectedRow();
-            if (fila != -1) {
-                String titulo = jTable1.getValueAt(fila, 0).toString();
-                Pelicula seleccionada = mapaPeliculas.get(titulo);
-                mostrarDetalles(seleccionada);
+      agregarPelicula(new Pelicula("Interestelar", "Christopher Nolan", "Matthew McConaughey, Anne Hathaway",
+            "EE.UU", "Ciencia Ficción", false, LocalDate.of(2026, 3, 20), true));
+      
+      mapaPosters.put("El Conjuro", "src/iconos/The Conjuring (2013).jpeg");
+      mapaPosters.put("Interestelar", "src/iconos/interestelarr.jpg");
+      
+      mapaTrailers.put("El Conjuro", "https://www.youtube.com/watch?v=wE59Ajd_v9M");
+      mapaTrailers.put("Interestelar", "https://www.youtube.com/watch?v=LYS2O1nl9iM");
+      
+      jTable1.getSelectionModel().addListSelectionListener(
+            new javax.swing.event.ListSelectionListener(){
+                public void valueChanged(javax.swing.event.ListSelectionEvent e) {
+                if (e.getValueIsAdjusting() == false) {
+                    int fila = jTable1.getSelectedRow();
+                    if (fila != -1) {
+                        String titulo = jTable1.getValueAt(fila, 0).toString();
+                        Pelicula seleccionada = mapaPeliculas.get(titulo);
+                        mostrarDetalles(seleccionada);
+                    }
+                }
             }
-        }
-    });
-      
-   }
+        });
+    }
+   
    private void mostrarDetalles(Pelicula p) {
         lblTitulo.setText("Titulo: " + p.getTitulo());
         lblFecha.setText("Fecha de Estreno: " + p.getEstreno().toString());
@@ -230,11 +246,43 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
         lblDirector.setText("Director: " + p.getDirector());
         lblReparto.setText("Reparto: " + p.getReparto());
         
-        String ruta = "src/iconos/The Conjuring (2013).jpeg";
-        ImageIcon icon = new ImageIcon(ruta);
-        Image img = icon.getImage().getScaledInstance(lblPoster.getWidth(), lblPoster.getHeight(), Image.SCALE_SMOOTH);
-        lblPoster.setIcon(new ImageIcon(img));
+        cargarPosters(p);
+        linkActualTrailer = mapaTrailers.get(p.getTitulo());
     }
+   
+   private void cargarPosters(Pelicula p){
+       lblPoster.setText("");
+        lblPoster.setIcon(null);
+
+        try {
+            String ruta = mapaPosters.get(p.getTitulo());
+
+            if (ruta == null) {
+                lblPoster.setText("Sin poster");
+                return;
+            }
+
+            File archivo = new File(ruta);
+            if (!archivo.exists()) {
+                lblPoster.setText("Sin poster");
+                return;
+            }
+
+            ImageIcon icon = new ImageIcon(ruta);
+            Image img = icon.getImage().getScaledInstance(
+                    lblPoster.getWidth(),
+                    lblPoster.getHeight(),
+                    Image.SCALE_SMOOTH
+            );
+
+            lblPoster.setIcon(new ImageIcon(img));
+
+        } catch (Exception e) {
+            lblPoster.setText("Sin poster");
+        }
+   }
+   
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
