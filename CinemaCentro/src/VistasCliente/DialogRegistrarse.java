@@ -5,6 +5,11 @@
  */
 package VistasCliente;
 
+import Controlador.ClienteDAO;
+import Modelo.Cliente;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Enzo_2
@@ -18,6 +23,7 @@ public class DialogRegistrarse extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setTitle("Ventana de registro");
+        initFechaNacimiento();
     }
 
     /**
@@ -46,6 +52,7 @@ public class DialogRegistrarse extends javax.swing.JDialog {
         lblDia = new javax.swing.JLabel();
         cmbMes = new javax.swing.JComboBox<>();
         cmbDia = new javax.swing.JComboBox<>();
+        btnConfirmar = new javax.swing.JButton();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -61,11 +68,24 @@ public class DialogRegistrarse extends javax.swing.JDialog {
 
         lblFechaNacimiento.setText("Fecha de nacimiento");
 
+        cmbAño.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbAñoActionPerformed(evt);
+            }
+        });
+
         lblAño.setText("Año");
 
         lblMes.setText("Mes");
 
         lblDia.setText("Dia");
+
+        btnConfirmar.setText("Confirmar Registro");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlRegistroLayout = new javax.swing.GroupLayout(pnlRegistro);
         pnlRegistro.setLayout(pnlRegistroLayout);
@@ -83,20 +103,24 @@ public class DialogRegistrarse extends javax.swing.JDialog {
                         .addGap(28, 28, 28))
                     .addGroup(pnlRegistroLayout.createSequentialGroup()
                         .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNombre)
-                            .addComponent(lblDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblApellido)
-                            .addComponent(lblPassword)
-                            .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlRegistroLayout.createSequentialGroup()
-                                    .addComponent(lblAño)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblMes))
-                                .addComponent(lblFechaNacimiento, javax.swing.GroupLayout.Alignment.LEADING))
                             .addGroup(pnlRegistroLayout.createSequentialGroup()
                                 .addComponent(cmbAño, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(cmbMes, 0, 149, Short.MAX_VALUE)))
+                                .addComponent(cmbMes, 0, 149, Short.MAX_VALUE))
+                            .addComponent(btnConfirmar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(pnlRegistroLayout.createSequentialGroup()
+                                .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNombre)
+                                    .addComponent(lblDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblApellido)
+                                    .addComponent(lblPassword)
+                                    .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlRegistroLayout.createSequentialGroup()
+                                            .addComponent(lblAño)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblMes))
+                                        .addComponent(lblFechaNacimiento, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmbDia, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -134,7 +158,9 @@ public class DialogRegistrarse extends javax.swing.JDialog {
                     .addComponent(cmbAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addComponent(btnConfirmar)
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -152,6 +178,44 @@ public class DialogRegistrarse extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmbAñoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAñoActionPerformed
+
+    }//GEN-LAST:event_cmbAñoActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+       try {
+       
+        int dni = Integer.parseInt(txtDNI.getText().trim());
+        String nombre = txtNombre.getText().trim();
+        String apellido = txtApellido.getText().trim();
+        String password = new String(txtPassword.getPassword()).trim();
+
+        Integer dia = (Integer) cmbDia.getSelectedItem();
+        Integer anio = (Integer) cmbAño.getSelectedItem();
+        int mes = cmbMes.getSelectedIndex() + 1; 
+
+        if (nombre.isEmpty() || apellido.isEmpty() || password.isEmpty() || dia == null || anio == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+            return;
+        }
+
+        LocalDate fechaNacimiento = LocalDate.of(anio, mes, dia);
+
+        Cliente nuevoCliente = new Cliente(dni, fechaNacimiento, nombre, apellido, password, true);
+
+        ClienteDAO dao = new ClienteDAO();
+        dao.agregarCliente(nuevoCliente);
+
+        JOptionPane.showMessageDialog(this, "Registro exitoso.");
+        this.dispose(); 
+
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "DNI inválido. Debe ser un número.");
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error al registrar: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,8 +260,9 @@ public class DialogRegistrarse extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cmbAño;
-    private javax.swing.JComboBox<String> cmbDia;
+    private javax.swing.JButton btnConfirmar;
+    private javax.swing.JComboBox<Integer> cmbAño;
+    private javax.swing.JComboBox<Integer> cmbDia;
     private javax.swing.JComboBox<String> cmbMes;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel lblApellido;
@@ -214,4 +279,55 @@ public class DialogRegistrarse extends javax.swing.JDialog {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
+
+    private void initFechaNacimiento() {
+    for (int i = 1950; i <= 2025; i++) {
+        cmbAño.addItem(i);
+    }
+    
+    String[] meses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                      "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+    for (String mes : meses) {
+        cmbMes.addItem(mes);
+    }
+
+    cmbMes.addActionListener(e -> actualizarDias());
+    cmbAño.addActionListener(e -> actualizarDias());
+    actualizarDias();
+}
+
+private void actualizarDias() {
+    cmbDia.removeAllItems();
+
+    Object anioObj = cmbAño.getSelectedItem();
+    if (anioObj == null) return;
+
+    int anio = (Integer) anioObj; 
+    int mes = cmbMes.getSelectedIndex(); 
+
+    int dias;
+switch (mes) {
+    case 0: case 2: case 4: case 6: case 7: case 9: case 11:
+        dias = 31;
+        break;
+    case 3: case 5: case 8: case 10:
+        dias = 30;
+        break;
+    case 1:
+        dias = esBisiesto(anio) ? 29 : 28;
+        break;
+    default:
+        dias = 31;
+        break;
+}
+
+    for (int i = 1; i <= dias; i++) {
+        cmbDia.addItem(i); 
+    }
+}
+
+private boolean esBisiesto(int anio) {
+    return (anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0);
+}
+    
 }
