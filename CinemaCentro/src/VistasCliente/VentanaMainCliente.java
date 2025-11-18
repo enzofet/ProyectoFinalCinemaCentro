@@ -481,19 +481,22 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTFuncionMouseClicked
 
+    private double precioUnitario = 100.0;
+    private double precioTotal;
+    
     private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
         // TODO add your handling code here:
         try {
-            precioEntrada = (Double.parseDouble(txtCantidad.getText())) * precioEntrada;
-            String cantidadFinal = Double.toString(precioEntrada);
-            lblPrecio.setText("Precio Total: $" + cantidadFinal);
+        int cantidad = Integer.parseInt(txtCantidad.getText());
+        precioTotal = cantidad * precioUnitario;
+        lblPrecio.setText("Precio Total: $" + precioTotal);
 
-            jBButaca.setEnabled(true);
-        } catch (NumberFormatException e) {
-            lblPrecio.setText("Precio Total:");
-        } catch (Exception a) {
-            JOptionPane.showMessageDialog(this, a.getMessage());
-        }
+        jBButaca.setEnabled(true);
+    } catch (NumberFormatException e) {
+        lblPrecio.setText("Precio Total:");
+    } catch (Exception a) {
+        JOptionPane.showMessageDialog(this, a.getMessage());
+    }
     }//GEN-LAST:event_txtCantidadKeyReleased
 
     private void jBCancelarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarBActionPerformed
@@ -517,7 +520,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
     private void jBComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBComprarActionPerformed
         // TODO add your handling code here:
         Venta ventaOnline = new Venta();
-        ventaOnline.setMedio_Pago("Tarjeta de crédito");
+        ventaOnline.setMedio_Pago("Tarjeta de debito");
         ventaOnline.setCantidad_Entradas(Integer.parseInt(txtCantidad.getText()));
         ventaOnline.setImporte_Total(precioEntrada);
         ventaOnline.setMedio_Compra("Online");
