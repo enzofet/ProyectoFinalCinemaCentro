@@ -528,7 +528,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
         try {
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsi, ventaOnline, "credito", idFun);
+            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsi, ventaOnline, "credito", idFun, "online");
             ventanaCompra.setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(VentanaMainCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -567,6 +567,12 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VentanaMainCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
