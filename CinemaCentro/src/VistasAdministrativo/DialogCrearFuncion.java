@@ -351,6 +351,8 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
         rbtn3D.setForeground(new java.awt.Color(255, 255, 255));
         rbtn3D.setText("3D");
 
+        btnConfirmar.setBackground(new java.awt.Color(70, 73, 75));
+        btnConfirmar.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -358,6 +360,8 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
             }
         });
 
+        btnCancelar.setBackground(new java.awt.Color(70, 73, 75));
+        btnCancelar.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -431,7 +435,7 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearFuncionLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(pnlCrearFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlCrearFuncionLayout.createSequentialGroup()
                         .addComponent(lblSala)

@@ -50,14 +50,29 @@ public class DialogCrearSala extends javax.swing.JDialog {
         btnCrear = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        lblTitulo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        lblNumero.setText("Número de sala");
+        pnlCrearSala.setBackground(new java.awt.Color(102, 0, 0));
 
-        lblCapacidad.setText("Capacidad de la sala (Entre 170 y 230)");
+        lblNumero.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        lblNumero.setForeground(new java.awt.Color(255, 255, 255));
+        lblNumero.setText("Número de Sala:");
 
-        checkApta3D.setText("Seleccionar si va a ser apta 3D");
+        lblCapacidad.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        lblCapacidad.setForeground(new java.awt.Color(255, 255, 255));
+        lblCapacidad.setText("Capacidad de la Sala: (Entre 170 y 230)");
+
+        checkApta3D.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        checkApta3D.setForeground(new java.awt.Color(255, 255, 255));
+        checkApta3D.setText("Apta 3D (SI/NO)");
+        checkApta3D.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkApta3DActionPerformed(evt);
+            }
+        });
 
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Activa", "Inactiva" }));
         cmbEstado.addActionListener(new java.awt.event.ActionListener() {
@@ -66,6 +81,9 @@ public class DialogCrearSala extends javax.swing.JDialog {
             }
         });
 
+        btnCrear.setBackground(new java.awt.Color(70, 73, 75));
+        btnCrear.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        btnCrear.setForeground(new java.awt.Color(255, 255, 255));
         btnCrear.setText("Crear sala");
         btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,6 +91,9 @@ public class DialogCrearSala extends javax.swing.JDialog {
             }
         });
 
+        btnLimpiar.setBackground(new java.awt.Color(70, 73, 75));
+        btnLimpiar.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
         btnLimpiar.setText("Limpiar campos");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,6 +101,9 @@ public class DialogCrearSala extends javax.swing.JDialog {
             }
         });
 
+        btnCancelar.setBackground(new java.awt.Color(70, 73, 75));
+        btnCancelar.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,13 +111,27 @@ public class DialogCrearSala extends javax.swing.JDialog {
             }
         });
 
+        lblTitulo.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("CREAR SALA");
+
+        jLabel1.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Estado:");
+
         javax.swing.GroupLayout pnlCrearSalaLayout = new javax.swing.GroupLayout(pnlCrearSala);
         pnlCrearSala.setLayout(pnlCrearSalaLayout);
         pnlCrearSalaLayout.setHorizontalGroup(
             pnlCrearSalaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCrearSalaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(pnlCrearSalaLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(pnlCrearSalaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlCrearSalaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -107,20 +145,24 @@ public class DialogCrearSala extends javax.swing.JDialog {
                             .addComponent(lblNumero, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCapacidad, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.LEADING))))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         pnlCrearSalaLayout.setVerticalGroup(
             pnlCrearSalaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCrearSalaLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(17, 17, 17)
+                .addComponent(lblTitulo)
+                .addGap(24, 24, 24)
                 .addComponent(lblNumero)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblCapacidad)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(checkApta3D)
@@ -192,6 +234,10 @@ public class DialogCrearSala extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btnCrearActionPerformed
+
+    private void checkApta3DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkApta3DActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkApta3DActionPerformed
 
     public void crearAsientosPorCapacidad(int numeroSala, int capacidad) {
         int contadorTotal = 0;
@@ -282,8 +328,10 @@ private void limpiarCampos() {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JCheckBox checkApta3D;
     private javax.swing.JComboBox<String> cmbEstado;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblCapacidad;
     private javax.swing.JLabel lblNumero;
+    private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlCrearSala;
     private javax.swing.JTextField txtCapacidad;
     private javax.swing.JTextField txtNumero;
