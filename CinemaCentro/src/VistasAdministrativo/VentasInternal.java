@@ -574,13 +574,16 @@ public class VentasInternal extends javax.swing.JInternalFrame {
         lblFechaHasta = new javax.swing.JLabel();
         btnAplicarFiltroFecha = new javax.swing.JButton();
         lblPelicula = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblSala = new javax.swing.JLabel();
+        lblPorPelicula = new javax.swing.JLabel();
+        lblPorFecha = new javax.swing.JLabel();
         lblPorSala = new javax.swing.JLabel();
-        lblPorFecha1 = new javax.swing.JLabel();
-        lblPorSala1 = new javax.swing.JLabel();
         lblReporte = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         modeloTabla = new javax.swing.JTable();
+        lblCinemaCentro = new javax.swing.JLabel();
+
+        pnlTickets.setBackground(new java.awt.Color(102, 0, 0));
 
         tblPeliculasVistas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -601,6 +604,8 @@ public class VentasInternal extends javax.swing.JInternalFrame {
         lblMasVista.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
         lblMasVista.setText("PELICULAS MÁS VISTAS:");
 
+        btnActualizar.setBackground(new java.awt.Color(70, 73, 75));
+        btnActualizar.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -608,6 +613,8 @@ public class VentasInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        btnHoy.setBackground(new java.awt.Color(70, 73, 75));
+        btnHoy.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnHoy.setText("Hoy");
         btnHoy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -615,6 +622,8 @@ public class VentasInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        btnTodos.setBackground(new java.awt.Color(70, 73, 75));
+        btnTodos.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnTodos.setText("Todos");
         btnTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -622,6 +631,8 @@ public class VentasInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        btnExportar.setBackground(new java.awt.Color(70, 73, 75));
+        btnExportar.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnExportar.setText("Exportar");
         btnExportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -645,6 +656,8 @@ public class VentasInternal extends javax.swing.JInternalFrame {
 
         lblFechaHasta.setText("Hasta:");
 
+        btnAplicarFiltroFecha.setBackground(new java.awt.Color(70, 73, 75));
+        btnAplicarFiltroFecha.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnAplicarFiltroFecha.setText("Buscar");
         btnAplicarFiltroFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -654,16 +667,16 @@ public class VentasInternal extends javax.swing.JInternalFrame {
 
         lblPelicula.setText("Pelicula:");
 
-        jLabel1.setText("Sala:");
+        lblSala.setText("Sala:");
+
+        lblPorPelicula.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
+        lblPorPelicula.setText("Por Pelicula:");
+
+        lblPorFecha.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
+        lblPorFecha.setText("Por Fecha:");
 
         lblPorSala.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
-        lblPorSala.setText("Por Pelicula:");
-
-        lblPorFecha1.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
-        lblPorFecha1.setText("Por Fecha:");
-
-        lblPorSala1.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
-        lblPorSala1.setText("Por Sala:");
+        lblPorSala.setText("Por Sala:");
 
         lblReporte.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
         lblReporte.setText("REPORTE DEL DIA:");
@@ -681,6 +694,11 @@ public class VentasInternal extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(modeloTabla);
 
+        lblCinemaCentro.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
+        lblCinemaCentro.setForeground(new java.awt.Color(255, 255, 255));
+        lblCinemaCentro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCinemaCentro.setText("CinemaCentro");
+
         javax.swing.GroupLayout pnlTicketsLayout = new javax.swing.GroupLayout(pnlTickets);
         pnlTickets.setLayout(pnlTicketsLayout);
         pnlTicketsLayout.setHorizontalGroup(
@@ -692,9 +710,6 @@ public class VentasInternal extends javax.swing.JInternalFrame {
                             .addGroup(pnlTicketsLayout.createSequentialGroup()
                                 .addGap(20, 20, 20)
                                 .addComponent(lblReporte))
-                            .addGroup(pnlTicketsLayout.createSequentialGroup()
-                                .addGap(410, 410, 410)
-                                .addComponent(lblTitulo))
                             .addGroup(pnlTicketsLayout.createSequentialGroup()
                                 .addGap(310, 310, 310)
                                 .addComponent(btnActualizar)
@@ -714,14 +729,14 @@ public class VentasInternal extends javax.swing.JInternalFrame {
                                         .addComponent(lblPelicula)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(cmbPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(lblPorSala))
+                                    .addComponent(lblPorPelicula))
                                 .addGap(63, 63, 63)
                                 .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnlTicketsLayout.createSequentialGroup()
-                                        .addComponent(jLabel1)
+                                        .addComponent(lblSala)
                                         .addGap(6, 6, 6)
                                         .addComponent(cmbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(lblPorSala1))
+                                    .addComponent(lblPorSala))
                                 .addGap(20, 20, 20)
                                 .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnlTicketsLayout.createSequentialGroup()
@@ -734,21 +749,28 @@ public class VentasInternal extends javax.swing.JInternalFrame {
                                         .addComponent(txtFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnAplicarFiltroFecha))
-                                    .addComponent(lblPorFecha1))))
-                        .addGap(0, 380, Short.MAX_VALUE))
+                                    .addComponent(lblPorFecha))))
+                        .addGap(0, 370, Short.MAX_VALUE))
                     .addGroup(pnlTicketsLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(PanePeliculas))))
+                            .addComponent(PanePeliculas)))
+                    .addGroup(pnlTicketsLayout.createSequentialGroup()
+                        .addGap(410, 410, 410)
+                        .addComponent(lblTitulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblCinemaCentro)))
                 .addContainerGap())
         );
         pnlTicketsLayout.setVerticalGroup(
             pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTicketsLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(lblTitulo)
-                .addGap(24, 24, 24)
+                .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitulo)
+                    .addComponent(lblCinemaCentro))
+                .addGap(10, 10, 10)
                 .addComponent(lblMasVista)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PanePeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -756,16 +778,16 @@ public class VentasInternal extends javax.swing.JInternalFrame {
                 .addComponent(lblReporte)
                 .addGap(18, 18, 18)
                 .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPorPelicula)
                     .addComponent(lblPorSala)
-                    .addComponent(lblPorSala1)
-                    .addComponent(lblPorFecha1))
+                    .addComponent(lblPorFecha))
                 .addGap(18, 18, 18)
                 .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblPelicula)
                         .addComponent(cmbPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
+                        .addComponent(lblSala)
                         .addComponent(cmbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblFechaDesde)
@@ -774,7 +796,7 @@ public class VentasInternal extends javax.swing.JInternalFrame {
                         .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAplicarFiltroFecha))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -838,16 +860,17 @@ public class VentasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnTodos;
     private javax.swing.JComboBox<String> cmbPelicula;
     private javax.swing.JComboBox<String> cmbSala;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblCinemaCentro;
     private javax.swing.JLabel lblFechaDesde;
     private javax.swing.JLabel lblFechaHasta;
     private javax.swing.JLabel lblMasVista;
     private javax.swing.JLabel lblPelicula;
-    private javax.swing.JLabel lblPorFecha1;
+    private javax.swing.JLabel lblPorFecha;
+    private javax.swing.JLabel lblPorPelicula;
     private javax.swing.JLabel lblPorSala;
-    private javax.swing.JLabel lblPorSala1;
     private javax.swing.JLabel lblReporte;
+    private javax.swing.JLabel lblSala;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable modeloTabla;
     private javax.swing.JPanel pnlTickets;

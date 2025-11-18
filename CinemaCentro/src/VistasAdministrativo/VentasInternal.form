@@ -30,6 +30,11 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="pnlTickets">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="66" type="rgb"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -41,10 +46,6 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                   <Component id="lblReporte" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="410" pref="410" max="-2" attributes="0"/>
-                                  <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <EmptySpace min="310" pref="310" max="-2" attributes="0"/>
@@ -68,16 +69,16 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="cmbPelicula" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="lblPorSala" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblPorPelicula" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblSala" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                                           <Component id="cmbSala" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="lblPorSala1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblPorSala" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -92,11 +93,11 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="btnAplicarFiltroFecha" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="lblPorFecha1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblPorFecha" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="380" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="370" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
@@ -104,6 +105,12 @@
                               <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
                               <Component id="PanePeliculas" max="32767" attributes="0"/>
                           </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="410" pref="410" max="-2" attributes="0"/>
+                          <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="lblCinemaCentro" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -114,8 +121,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                  <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblCinemaCentro" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Component id="lblMasVista" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="PanePeliculas" min="-2" pref="163" max="-2" attributes="0"/>
@@ -123,9 +133,9 @@
                   <Component id="lblReporte" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblPorPelicula" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblPorSala" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblPorSala1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblPorFecha1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPorFecha" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -134,7 +144,7 @@
                           <Component id="cmbPelicula" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblSala" min="-2" max="-2" attributes="0"/>
                           <Component id="cmbSala" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
@@ -147,7 +157,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="17" max="32767" attributes="0"/>
+                  <EmptySpace pref="15" max="32767" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="200" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -201,6 +211,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnActualizar">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="4b" green="49" red="46" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto Black" size="14" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Actualizar"/>
           </Properties>
           <Events>
@@ -209,6 +225,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnHoy">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="4b" green="49" red="46" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto Black" size="14" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Hoy"/>
           </Properties>
           <Events>
@@ -217,6 +239,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnTodos">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="4b" green="49" red="46" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto Black" size="14" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Todos"/>
           </Properties>
           <Events>
@@ -225,6 +253,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnExportar">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="4b" green="49" red="46" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto Black" size="14" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Exportar"/>
           </Properties>
           <Events>
@@ -273,6 +307,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnAplicarFiltroFecha">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="4b" green="49" red="46" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto Black" size="14" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Buscar"/>
           </Properties>
           <Events>
@@ -284,12 +324,12 @@
             <Property name="text" type="java.lang.String" value="Pelicula:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="lblSala">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sala:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblPorSala">
+        <Component class="javax.swing.JLabel" name="lblPorPelicula">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Roboto Black" size="18" style="0"/>
@@ -297,7 +337,7 @@
             <Property name="text" type="java.lang.String" value="Por Pelicula:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblPorFecha1">
+        <Component class="javax.swing.JLabel" name="lblPorFecha">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Roboto Black" size="18" style="0"/>
@@ -305,7 +345,7 @@
             <Property name="text" type="java.lang.String" value="Por Fecha:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblPorSala1">
+        <Component class="javax.swing.JLabel" name="lblPorSala">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Roboto Black" size="18" style="0"/>
@@ -337,6 +377,18 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JLabel" name="lblCinemaCentro">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Roboto Black" size="36" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="CinemaCentro"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
