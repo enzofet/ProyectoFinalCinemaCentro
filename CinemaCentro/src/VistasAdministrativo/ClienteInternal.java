@@ -174,6 +174,7 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
                     btnEliminar.setEnabled(false);
                     btnModificar.setEnabled(false);
                     btnAgregar.setEnabled(true);
+                    txtFechaNac.setEnabled(false);
                 }
             }
         });

@@ -234,7 +234,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
 
         lblPelicula.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblPelicula.setForeground(new java.awt.Color(255, 255, 255));
-        lblPelicula.setText("Pelicula:");
+        lblPelicula.setText("Película:");
 
         lblIdioma.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblIdioma.setForeground(new java.awt.Color(255, 255, 255));

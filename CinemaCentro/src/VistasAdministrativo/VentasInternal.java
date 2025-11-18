@@ -665,12 +665,12 @@ public class VentasInternal extends javax.swing.JInternalFrame {
             }
         });
 
-        lblPelicula.setText("Pelicula:");
+        lblPelicula.setText("Película:");
 
         lblSala.setText("Sala:");
 
         lblPorPelicula.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
-        lblPorPelicula.setText("Por Pelicula:");
+        lblPorPelicula.setText("Por Película:");
 
         lblPorFecha.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
         lblPorFecha.setText("Por Fecha:");

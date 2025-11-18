@@ -81,9 +81,9 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
             .addGap(0, 397, Short.MAX_VALUE)
         );
 
-        menuPeliculas.setText("Peliculas");
+        menuPeliculas.setText("Películas");
 
-        btnGestionPeliculas.setText("Gestion de peliculas");
+        btnGestionPeliculas.setText("Gestión de películas");
         btnGestionPeliculas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGestionPeliculasActionPerformed(evt);
@@ -222,7 +222,7 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVentaTaquillaActionPerformed
 
     private void menuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSalirActionPerformed
-            dispose();
+      dispose();
     }//GEN-LAST:event_menuSalirActionPerformed
 
     private void btnGestionTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionTicketsActionPerformed

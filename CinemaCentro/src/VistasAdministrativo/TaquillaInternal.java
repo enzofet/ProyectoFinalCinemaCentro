@@ -159,11 +159,11 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
 
         lblFuncionesxPelicula.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblFuncionesxPelicula.setForeground(new java.awt.Color(255, 255, 255));
-        lblFuncionesxPelicula.setText("Funciones disponibles para la pelicula seleccionada:");
+        lblFuncionesxPelicula.setText("Funciones disponibles para la película seleccionada:");
 
         lblPelicula.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblPelicula.setForeground(new java.awt.Color(255, 255, 255));
-        lblPelicula.setText("Pelicula:");
+        lblPelicula.setText("Película:");
 
         lblPrecioEntradaIndividual.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblPrecioEntradaIndividual.setForeground(new java.awt.Color(255, 255, 255));
@@ -174,7 +174,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
 
         lblGeneros.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblGeneros.setForeground(new java.awt.Color(255, 255, 255));
-        lblGeneros.setText("Genero/s:");
+        lblGeneros.setText("Género/s:");
 
         lblGenerosS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblGenerosS.setForeground(new java.awt.Color(255, 255, 255));
@@ -216,7 +216,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
 
         lblFechaFuncion.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblFechaFuncion.setForeground(new java.awt.Color(255, 255, 255));
-        lblFechaFuncion.setText("Fecha de la Funcion:");
+        lblFechaFuncion.setText("Fecha de la Función:");
 
         lblSubtitulada.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblSubtitulada.setForeground(new java.awt.Color(255, 255, 255));

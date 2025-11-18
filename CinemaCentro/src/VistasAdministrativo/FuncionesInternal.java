@@ -156,7 +156,7 @@ public class FuncionesInternal extends javax.swing.JInternalFrame {
 
         lblListaPeliculas.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         lblListaPeliculas.setForeground(new java.awt.Color(255, 255, 255));
-        lblListaPeliculas.setText("Peliculas:");
+        lblListaPeliculas.setText("Películas:");
 
         btnAgregar.setBackground(new java.awt.Color(70, 73, 75));
         btnAgregar.setFont(new java.awt.Font("Roboto Black", 0, 13)); // NOI18N

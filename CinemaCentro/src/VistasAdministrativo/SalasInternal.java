@@ -75,7 +75,7 @@ public class SalasInternal extends javax.swing.JInternalFrame {
 
         lblNumero.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblNumero.setForeground(new java.awt.Color(255, 255, 255));
-        lblNumero.setText("Numero de sala:");
+        lblNumero.setText("Número de sala:");
 
         lblCapacidad.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblCapacidad.setForeground(new java.awt.Color(255, 255, 255));
@@ -267,7 +267,6 @@ public class SalasInternal extends javax.swing.JInternalFrame {
             .addGroup(pnlSalasLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlSalasLayout.createSequentialGroup()
                         .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -320,7 +319,7 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 453, Short.MAX_VALUE)
+            .addComponent(pnlSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 457, Short.MAX_VALUE)
         );
 
         pack();

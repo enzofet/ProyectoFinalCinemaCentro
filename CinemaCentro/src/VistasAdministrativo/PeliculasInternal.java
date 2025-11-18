@@ -98,7 +98,6 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
             }
         ));
         tblPeliculas.setGridColor(new java.awt.Color(255, 255, 255));
-        tblPeliculas.setSelectionForeground(new java.awt.Color(255, 255, 255));
         tblPeliculas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblPeliculasMouseClicked(evt);
@@ -118,7 +117,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
 
         lblTitulo.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setText("Titulo:");
+        lblTitulo.setText("Título:");
 
         lblDirector.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         lblDirector.setForeground(new java.awt.Color(255, 255, 255));
@@ -151,7 +150,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
 
         lblGeneros.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         lblGeneros.setForeground(new java.awt.Color(255, 255, 255));
-        lblGeneros.setText("Genero:");
+        lblGeneros.setText("Género:");
 
         lblEstreno.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         lblEstreno.setForeground(new java.awt.Color(255, 255, 255));
@@ -173,7 +172,6 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         lblEstadoS.setForeground(new java.awt.Color(255, 255, 255));
         lblEstadoS.setText("ESTADOEJEMPLO");
 
-        cmbEnCartelera.setBackground(new java.awt.Color(255, 255, 255));
         cmbEnCartelera.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         cmbEnCartelera.setForeground(new java.awt.Color(255, 255, 255));
         cmbEnCartelera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SI", "NO" }));

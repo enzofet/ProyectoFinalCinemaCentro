@@ -282,7 +282,7 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
 
         lblPelicula.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         lblPelicula.setForeground(new java.awt.Color(255, 255, 255));
-        lblPelicula.setText("Pelicula:");
+        lblPelicula.setText("Película:");
 
         lblPeliculaSeleccionada.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblPeliculaSeleccionada.setForeground(new java.awt.Color(255, 255, 255));
@@ -311,7 +311,6 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
         lblFecha.setText("Fecha de Función:");
 
         txtFechaFuncion.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        txtFechaFuncion.setForeground(new java.awt.Color(0, 0, 0));
 
         lblValorEntrada.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblValorEntrada.setForeground(new java.awt.Color(255, 255, 255));
@@ -324,7 +323,6 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
         lblHoraInicio.setText("Horario Inicio:");
 
         txtFHoraInicio.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        txtFHoraInicio.setForeground(new java.awt.Color(0, 0, 0));
         txtFHoraInicio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtFHoraInicio.setToolTipText("hh:ss");
 
@@ -333,7 +331,6 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
         lblHoraFin.setText("Horario Fin:");
 
         txtFHoraFin.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        txtFHoraFin.setForeground(new java.awt.Color(0, 0, 0));
         txtFHoraFin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtFHoraFin.setToolTipText("hh:ss");
 
