@@ -622,7 +622,7 @@ public class DialogCompra extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "No puede dejar campos vacíos en los datos de tarjeta");
             return;
         }
-        
+
         if (!(nroTarjeta.length() == 16 || nroTarjeta.length() == 15)) {
             JOptionPane.showMessageDialog(this, "Ingrese un número de tarjeta válido.");
             return;
@@ -642,8 +642,25 @@ public class DialogCompra extends javax.swing.JDialog {
         }
 
         if (medioCompra.equalsIgnoreCase("online")) {
-            registrarVentaOnline();
-            return;
+            try {
+                int idVenta = maniVenta.registrarVentaOnline(venta);
+
+                for (Asiento asiento : listaAsientos) {
+                    DetalleTicket ticket = new DetalleTicket(
+                            funcion.getId_Funcion(),
+                            asiento.getId_asiento(),
+                            idVenta,
+                            LocalDate.now(),
+                            true
+                    );
+                    maniTicket.generarTicket(ticket);
+                }
+
+                JOptionPane.showMessageDialog(this,
+                        "Venta y tickets generados correctamente.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if (medioCompra.equalsIgnoreCase("taquilla")) {
             registrarVentaTaquilla();
             return;
@@ -817,69 +834,6 @@ public class DialogCompra extends javax.swing.JDialog {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-    }
-
-    private void registrarVentaOnline() {
-        JTextField txtdni = new JTextField();
-        JPasswordField txtcontraseña = new JPasswordField();
-        Object[] message = {"DNI:", txtdni, "Contraseña:", txtcontraseña};
-
-        int option = JOptionPane.showConfirmDialog(
-                null,
-                message,
-                "Confirmación de pago",
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.PLAIN_MESSAGE
-        );
-
-        if (option != JOptionPane.OK_OPTION) {
-            return;
-        }
-
-        try {
-
-            String dniStr = txtdni.getText().trim();
-            String password = new String(txtcontraseña.getPassword()).trim();
-
-            if (dniStr.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debe completar ambos campos.");
-                return;
-            }
-
-            if (!dniStr.matches("\\d{8}")) {
-                JOptionPane.showMessageDialog(this,
-                        "DNI incorrecto.\nIngrese 8 dígitos sin puntos ni espacios.");
-                return;
-            }
-
-            int dni = Integer.parseInt(dniStr);
-
-            cliente = maniCliente.validarCredenciales(dni, password);
-            if (cliente == null) {
-                JOptionPane.showMessageDialog(this,
-                        "Datos incorrectos. Vuelva a intentar.");
-                return;
-            }
-
-            int idVenta = maniVenta.registrarVentaOnline(venta);
-
-            for (Asiento asiento : listaAsientos) {
-                DetalleTicket ticket = new DetalleTicket(
-                        funcion.getId_Funcion(),
-                        asiento.getId_asiento(),
-                        idVenta,
-                        LocalDate.now(),
-                        true
-                );
-                maniTicket.generarTicket(ticket);
-            }
-
-            JOptionPane.showMessageDialog(this,
-                    "Venta y tickets generados correctamente.");
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
 
@@ -1073,8 +1027,6 @@ public class DialogCompra extends javax.swing.JDialog {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1083,7 +1035,7 @@ public class DialogCompra extends javax.swing.JDialog {
                 Venta venta = null;
                 String a = "";
                 int id = 0;
-                String b ="";
+                String b = "";
                 DialogCompra dialog = null;
                 try {
                     dialog = new DialogCompra(new javax.swing.JFrame(), true, listaAsientos, venta, a, id, b);
