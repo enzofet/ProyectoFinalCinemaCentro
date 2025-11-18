@@ -218,11 +218,18 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
       agregarPelicula(new Pelicula("Interestelar", "Christopher Nolan", "Matthew McConaughey, Anne Hathaway",
             "EE.UU", "Ciencia Ficción", false, LocalDate.of(2026, 3, 20), true));
       
+      agregarPelicula(new Pelicula("Cumbres borrascosas", " Emerald Fennell", " Margot Robbie, Jacob Elordi,",
+            "EE.UU", "Drama", false, LocalDate.of(2026, 2, 11), true));
+      
       mapaPosters.put("El Conjuro", "src/iconos/The Conjuring (2013).jpeg");
       mapaPosters.put("Interestelar", "src/iconos/interestelarr.jpg");
+      mapaPosters.put("Cumbres borrascosas", "src/iconos/cumbres.jpg");
+      
+      
       
       mapaTrailers.put("El Conjuro", "https://www.youtube.com/watch?v=wE59Ajd_v9M");
       mapaTrailers.put("Interestelar", "https://www.youtube.com/watch?v=LYS2O1nl9iM");
+      mapaTrailers.put("Cumbres borrascosas", "https://www.youtube.com/watch?v=RNynG8dMp5w");
       
       jTable1.getSelectionModel().addListSelectionListener(
             new javax.swing.event.ListSelectionListener(){
