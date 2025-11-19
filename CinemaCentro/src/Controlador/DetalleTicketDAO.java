@@ -70,15 +70,15 @@ public class DetalleTicketDAO {
         }
         return token;
     }
-    
-    public DetalleTicket buscarPorId(int id) throws Exception{
+
+    public DetalleTicket buscarPorId(int id) throws Exception {
         String sql = "SELECT * FROM detalleticket WHERE id_ticket = ?";
         Connection con = ConexionBD.getConnection();
-         DetalleTicket ticket = new DetalleTicket();
-        try (PreparedStatement ps = con.prepareStatement(sql)){
+        DetalleTicket ticket = new DetalleTicket();
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
-            try(ResultSet rs = ps.executeQuery()){
-                if(rs.next()){
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
                     ticket.setId_ticket(rs.getInt("id_ticket"));
                     ticket.setId_funcion(rs.getInt("id_funcion"));
                     ticket.setId_asiento(rs.getInt("id_asiento"));
@@ -90,7 +90,7 @@ public class DetalleTicketDAO {
                     throw new Exception("No se pudo encontrar el ticket");
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
         }
@@ -222,11 +222,11 @@ public class DetalleTicketDAO {
                 + "f.hora_inicio horaInicio, f.hora_fin horaFin, a.numero_asiento numeroAsiento, a.fila_asiento filaAsiento, "
                 + "c.dni DNI, c.nombre nombre, c.apellido apellido, v.medio_compra medioCompra, dt.fecha_emision fechaEmision, "
                 + "dt.estado estado FROM detalleticket dt\n"
-                + "JOIN funcion f ON dt.id_funcion = f.id_funcion\n"
-                + "JOIN pelicula p ON f.id_pelicula = p.id_pelicula\n"
-                + "JOIN sala s ON f.nro_sala = s.nro_sala\n"
-                + "JOIN asiento a ON a.id_asiento = dt.id_asiento\n"
-                + "JOIN venta v ON dt.id_venta = v.id_venta\n"
+                + "LEFT JOIN funcion f ON dt.id_funcion = f.id_funcion\n"
+                + "LEFT JOIN pelicula p ON f.id_pelicula = p.id_pelicula\n"
+                + "LEFT JOIN sala s ON f.nro_sala = s.nro_sala\n"
+                + "LEFT JOIN asiento a ON a.id_asiento = dt.id_asiento\n"
+                + "LEFT JOIN venta v ON dt.id_venta = v.id_venta\n"
                 + "LEFT JOIN cliente c ON v.id_cliente = c.id_cliente WHERE 1=1\n"
                 + "ORDER BY dt.fecha_emision";
 
@@ -238,18 +238,31 @@ public class DetalleTicketDAO {
                 while (rs.next()) {
                     TicketDato datoTicket = new TicketDato();
                     datoTicket.setIdTicket(rs.getInt("id_ticket"));
-                    datoTicket.setPeliculaTitulo(rs.getString("tituloPelicula"));
-                    datoTicket.setNroSala(rs.getInt("nroSala"));
-                    datoTicket.setFechaFuncion(rs.getString("fechaFuncion"));
-                    datoTicket.setHoraInicio(rs.getString("horaInicio"));
-                    datoTicket.setHoraFin(rs.getString("horaFin"));
-                    datoTicket.setAsiento(rs.getString("numeroAsiento") + " - " + rs.getString("filaAsiento"));
+
+                    String pelicula = rs.getString("tituloPelicula");
+
+                    if (pelicula != null) {
+                        datoTicket.setPeliculaTitulo(rs.getString("tituloPelicula"));
+                        datoTicket.setNroSala(rs.getInt("nroSala"));
+                        datoTicket.setFechaFuncion(rs.getString("fechaFuncion"));
+                        datoTicket.setHoraInicio(rs.getString("horaInicio"));
+                        datoTicket.setHoraFin(rs.getString("horaFin"));
+                        datoTicket.setAsiento(rs.getString("numeroAsiento") + " - " + rs.getString("filaAsiento"));
+                    } else {
+                        datoTicket.setPeliculaTitulo("Pelicula o función eliminada.");
+                        datoTicket.setNroSala(0);
+                        datoTicket.setFechaFuncion(rs.getString("fechaFuncion"));
+                        datoTicket.setHoraInicio(rs.getString("horaInicio"));
+                        datoTicket.setHoraFin(rs.getString("horaFin"));
+                        datoTicket.setAsiento(rs.getString("numeroAsiento") + " - " + rs.getString("filaAsiento"));
+                    }
+
                     String nombre = rs.getString("nombre");
                     String apellido = rs.getString("apellido");
-                  
+
                     if (nombre != null && apellido != null) {
                         datoTicket.setDNI(rs.getInt("DNI"));
-                        datoTicket.setNombreApellidoCliente(nombre+ " " + apellido);
+                        datoTicket.setNombreApellidoCliente(nombre + " " + apellido);
                     } else {
                         datoTicket.setNombreApellidoCliente("Eliminado o anonimo.");
                         datoTicket.setDNI(0);
@@ -257,7 +270,7 @@ public class DetalleTicketDAO {
                     datoTicket.setMedioCompra(rs.getString("medioCompra"));
                     datoTicket.setFechaEmision(rs.getString("fechaEmision"));
                     datoTicket.setEstado(rs.getBoolean("estado"));
-                    
+
                     listaDatos.add(datoTicket);
                 }
             }
