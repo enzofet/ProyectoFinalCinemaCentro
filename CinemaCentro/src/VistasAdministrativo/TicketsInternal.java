@@ -14,6 +14,10 @@ import Modelo.Cliente;
 import Modelo.DetalleTicket;
 import Modelo.Funcion;
 import Modelo.TicketDato;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -53,7 +57,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
 
         try {
             listaDatosTickets = maniTickets.listarDatosTickets();
-            listaTicketsFiltrada = listaDatosTickets;
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -61,9 +65,8 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         rellenarTablaTickets();
         agregarListener();
         deshabilitarBotones();
-
-        grupoFiltros.add(checkFiltroDNI);
         grupoFiltros.add(checkFiltroFecha);
+        grupoFiltros.add(checkFiltroDNI);
         grupoFiltros.add(FiltroPelicula);
 
         actualizarEstadoFiltros();
@@ -91,7 +94,6 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         btnModificar = new javax.swing.JButton();
         btnAlta = new javax.swing.JButton();
         txtNombrePelicula = new javax.swing.JTextField();
-        checkFiltroFecha = new javax.swing.JCheckBox();
         checkFiltroDNI = new javax.swing.JCheckBox();
         FiltroPelicula = new javax.swing.JCheckBox();
         pnlDatosCliente = new javax.swing.JPanel();
@@ -115,6 +117,8 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         btnEliminar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         lblCinemaCentro = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        checkFiltroFecha = new javax.swing.JCheckBox();
 
         pnlVentas.setBackground(new java.awt.Color(102, 0, 0));
 
@@ -132,11 +136,22 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tblTickets);
 
         txtFechaMin.setText("yyyy-mm-dd");
+        txtFechaMin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFechaMinActionPerformed(evt);
+            }
+        });
 
         lblEntre.setForeground(new java.awt.Color(255, 255, 255));
         lblEntre.setText("Entre");
 
         txtFechaMax.setText("yyyy-mm-dd");
+
+        txtDNICliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDNIClienteKeyReleased(evt);
+            }
+        });
 
         btnBaja.setBackground(new java.awt.Color(70, 73, 75));
         btnBaja.setFont(new java.awt.Font("Roboto Black", 1, 13)); // NOI18N
@@ -176,11 +191,9 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
             }
         });
 
-        checkFiltroFecha.setForeground(new java.awt.Color(255, 255, 255));
-        checkFiltroFecha.setText("Filtrar por Fecha:");
-        checkFiltroFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkFiltroFechaActionPerformed(evt);
+        txtNombrePelicula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombrePeliculaKeyReleased(evt);
             }
         });
 
@@ -390,6 +403,21 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         lblCinemaCentro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCinemaCentro.setText("CinemaCentro");
 
+        jButton1.setText("Filtrar por fecha");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        checkFiltroFecha.setForeground(new java.awt.Color(255, 255, 255));
+        checkFiltroFecha.setText("Filtrar por fecha");
+        checkFiltroFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkFiltroFechaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlVentasLayout = new javax.swing.GroupLayout(pnlVentas);
         pnlVentas.setLayout(pnlVentasLayout);
         pnlVentasLayout.setHorizontalGroup(
@@ -411,15 +439,16 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                                 .addComponent(FiltroPelicula)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtNombrePelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(27, 27, 27)
                                 .addComponent(checkFiltroFecha)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtFechaMin, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtFechaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblEntre, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtFechaMax, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(71, 71, 71))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1))
                             .addGroup(pnlVentasLayout.createSequentialGroup()
                                 .addComponent(pnlDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -435,7 +464,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                                             .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1049, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         pnlVentasLayout.setVerticalGroup(
             pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,16 +473,22 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblGestionTickets, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCinemaCentro))
-                .addGap(27, 27, 27)
-                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombrePelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FiltroPelicula)
-                    .addComponent(txtDNICliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkFiltroDNI)
-                    .addComponent(txtFechaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEntre)
-                    .addComponent(txtFechaMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkFiltroFecha))
+                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNombrePelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(FiltroPelicula)
+                            .addComponent(txtDNICliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkFiltroDNI)))
+                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(txtFechaMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEntre)
+                            .addComponent(txtFechaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkFiltroFecha))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -487,10 +522,6 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void checkFiltroFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkFiltroFechaActionPerformed
-        actualizarEstadoFiltros();
-    }//GEN-LAST:event_checkFiltroFechaActionPerformed
 
     private void checkFiltroDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkFiltroDNIActionPerformed
         actualizarEstadoFiltros();
@@ -535,7 +566,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Este ticket ya esta inactivo.");
 
                 } else {
-                    maniTickets.darAlta(idTicket);
+                    maniTickets.darBaja(idTicket);
                     listaDatosTickets = maniTickets.listarDatosTickets();
                     JOptionPane.showMessageDialog(this, "Dada de baja exitosa.");
                 }
@@ -549,22 +580,22 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         try {
-            
+
             DetalleTicket ticket = maniTickets.buscarPorId(idTicket);
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
             DialogCambiarFuncion ventanaFuncion = new DialogCambiarFuncion(padre, true);
             ventanaFuncion.setVisible(true);
             boolean estadoAccion = ventanaFuncion.isEstadoExito();
-            
+
             if (estadoAccion) {
-                
+
                 int idFuncionCambiada = ventanaFuncion.getIdFuncion();
                 Funcion fun = maniFuncion.buscarFuncionPorId(idFuncionCambiada);
                 DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, fun.getNro_Sala());
                 ventanaAsientos.setVisible(true);
                 Asiento asientoNuevo = ventanaAsientos.getAsientoSeleccionado();
-                
-                if (asientoNuevo!= null) {
+
+                if (asientoNuevo != null) {
                     Asiento asientoAntiguo = maniAsiento.buscarPorId(ticket.getId_asiento());
                     maniAsiento.darAlta(asientoAntiguo.getId_asiento());
                     DetalleTicket ticketCambiado = ticket;
@@ -574,10 +605,11 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                     maniTickets.modificarTicket(idTicket, ticketCambiado);
                 } else {
                     JOptionPane.showMessageDialog(this, "Cambio cancelado.");
-                    
+
                 }
 
             }
+            listaDatosTickets = maniTickets.listarDatosTickets();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al intentar modificar el ticket.");
@@ -589,7 +621,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         try {
             maniTickets.eliminarTicket(idTicket);
-
+            listaDatosTickets = maniTickets.listarDatosTickets();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         } finally {
@@ -600,6 +632,158 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void txtDNIClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNIClienteKeyReleased
+        String dniText = txtDNICliente.getText();
+        if (dniText.isEmpty()) {
+            rellenarTablaTickets();
+            return;
+        }
+        try {
+
+            int dni = Integer.parseInt(dniText);
+
+            DefaultTableModel modelo = (DefaultTableModel) tblTickets.getModel();
+            modelo.setRowCount(0);
+
+            for (TicketDato dt : listaDatosTickets) {
+                if (dt.getDNI().toString().startsWith(Integer.toString(dni))) {
+                    Object dniMostrado;
+                    if (dt.getDNI() == 0) {
+                        dniMostrado = "Eliminado o anonimo.";
+                    } else {
+                        dniMostrado = dt.getDNI();
+                    }
+                    modelo.addRow(new Object[]{
+                        dt.getIdTicket(),
+                        dniMostrado,
+                        dt.getNombreApellidoCliente(),
+                        dt.getPeliculaTitulo(),
+                        dt.getFechaFuncion(),
+                        dt.getHoraInicio(),
+                        dt.getHoraFin(),
+                        dt.getNroSala(),
+                        dt.getAsiento(),
+                        dt.getMedioCompra(),
+                        dt.getFechaEmision(),
+                        parsearBooleanAACTIVAINACTIVA(dt.isEstado())
+                    });
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_txtDNIClienteKeyReleased
+
+    private void txtNombrePeliculaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombrePeliculaKeyReleased
+        String nombreP = txtNombrePelicula.getText();
+        if (nombreP.isEmpty()) {
+            rellenarTablaTickets();
+            return;
+        }
+        try {
+
+            DefaultTableModel modelo = (DefaultTableModel) tblTickets.getModel();
+            modelo.setRowCount(0);
+
+            for (TicketDato dt : listaDatosTickets) {
+                if (dt.getPeliculaTitulo().toLowerCase().startsWith(nombreP)) {
+                    Object dniMostrado;
+                    if (dt.getDNI() == 0) {
+                        dniMostrado = "Eliminado o anonimo.";
+                    } else {
+                        dniMostrado = dt.getDNI();
+                    }
+                    modelo.addRow(new Object[]{
+                        dt.getIdTicket(),
+                        dniMostrado,
+                        dt.getNombreApellidoCliente(),
+                        dt.getPeliculaTitulo(),
+                        dt.getFechaFuncion(),
+                        dt.getHoraInicio(),
+                        dt.getHoraFin(),
+                        dt.getNroSala(),
+                        dt.getAsiento(),
+                        dt.getMedioCompra(),
+                        dt.getFechaEmision(),
+                        parsearBooleanAACTIVAINACTIVA(dt.isEstado())
+                    });
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_txtNombrePeliculaKeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       filtrarTicketsPorFecha();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtFechaMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaMinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaMinActionPerformed
+
+    private void checkFiltroFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkFiltroFechaActionPerformed
+        actualizarEstadoFiltros();
+    }//GEN-LAST:event_checkFiltroFechaActionPerformed
+
+    public void filtrarTicketsPorFecha() {
+        String fechaMin = txtFechaMin.getText().trim();
+        String fechaMax = txtFechaMax.getText().trim();
+
+        if (fechaMin.isEmpty() || fechaMax.isEmpty()) {
+            rellenarTablaTickets();
+            return;
+        }
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaMinFiltro = null;
+        Date fechaMaxFiltro = null;
+        /* 
+        try {
+           fechaMinFiltro = formatoFecha.parse(fechaMin);
+            fechaMaxFiltro = formatoFecha.parse(fechaMax);
+
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(this, "Error en el formato de fecha. Use yyyy-MM-dd.");
+            e.printStackTrace();
+            return;
+        }
+        */
+        DefaultTableModel modelo = (DefaultTableModel) tblTickets.getModel();
+        modelo.setRowCount(0);
+        for (TicketDato dt : listaDatosTickets){
+            try{
+            Date fechaTicket = (Date) formatoFecha.parse(dt.getFechaEmision());
+            
+            if(!fechaTicket.before(fechaMinFiltro) && !fechaTicket.after(fechaMaxFiltro)){
+                Object dniMostrado;
+            if (dt.getDNI() == 0) {
+                dniMostrado = "Eliminado o anonimo.";
+            } else {
+                dniMostrado = dt.getDNI();
+            }
+            modelo.addRow(new Object[]{
+                dt.getIdTicket(),
+                dniMostrado,
+                dt.getNombreApellidoCliente(),
+                dt.getPeliculaTitulo(),
+                dt.getFechaFuncion(),
+                dt.getHoraInicio(),
+                dt.getHoraFin(),
+                dt.getNroSala(),
+                dt.getAsiento(),
+                dt.getMedioCompra(),
+                dt.getFechaEmision(),
+                parsearBooleanAACTIVAINACTIVA(dt.isEstado())
+            });
+            }
+            }catch (ParseException e) {
+            JOptionPane.showMessageDialog(this, "Error en el formato de fecha. Use yyyy-MM-dd.");
+            e.printStackTrace();
+            return;
+            }
+        }
+    }
 
     public void ocultarIDs() {
 
@@ -677,7 +861,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                     try {
                         DetalleTicket ticket = maniTickets.buscarPorId(idTicket);
 
-                        if (tblTickets.getValueAt(filaS, 3) == null) {
+                        if (tblTickets.getValueAt(filaS, 3).toString().equalsIgnoreCase("Pelicula o función eliminada.")) {
                             lblPelicula.setText("Pelicula: Eliminada la función o pelicula");
                         } else {
                             Funcion fun = maniFuncion.buscarFuncionPorId(ticket.getId_funcion());
@@ -743,11 +927,10 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         txtFechaMax.setEnabled(false);
         txtDNICliente.setEnabled(false);
         txtNombrePelicula.setEnabled(false);
-
-        if (checkFiltroFecha.isSelected()) {
+        if(checkFiltroFecha.isSelected()){
             txtFechaMin.setEnabled(true);
             txtFechaMax.setEnabled(true);
-        } else if (checkFiltroDNI.isSelected()) {
+        }else if (checkFiltroDNI.isSelected()) {
             txtDNICliente.setEnabled(true);
         } else if (FiltroPelicula.isSelected()) {
             txtNombrePelicula.setEnabled(true);
@@ -764,6 +947,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox checkFiltroDNI;
     private javax.swing.JCheckBox checkFiltroFecha;
     private javax.swing.ButtonGroup grupoFiltros;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl3D;
     private javax.swing.JLabel lblApellido;
