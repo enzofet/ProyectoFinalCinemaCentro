@@ -473,27 +473,46 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblPrecioEntrada" min="-2" pref="194" max="-2" attributes="0"/>
-                          <Component id="lblFechaFuncion" min="-2" pref="194" max="-2" attributes="0"/>
-                          <Component id="lbl3D" min="-2" pref="194" max="-2" attributes="0"/>
-                          <Component id="lblSubtitulada" min="-2" pref="194" max="-2" attributes="0"/>
-                          <Component id="lblHorario" min="-2" pref="194" max="-2" attributes="0"/>
-                          <Component id="lblFechaEmision" min="-2" pref="194" max="-2" attributes="0"/>
-                          <Component id="lblAsiento" min="-2" pref="194" max="-2" attributes="0"/>
-                          <Component id="lblNumeroSala" min="-2" pref="194" max="-2" attributes="0"/>
-                          <Component id="lblPelicula" min="-2" pref="194" max="-2" attributes="0"/>
-                          <Component id="lblPrecioEntradaS" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblHorarioS" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblFechaEmisionS" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblAsientoS" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblSubtituladaS" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbl3DS" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblFechaFuncionS" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblNumeroSalaS" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblPeliculaS" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblPrecioEntrada" min="-2" pref="194" max="-2" attributes="0"/>
+                                  <Component id="lblFechaFuncion" min="-2" pref="194" max="-2" attributes="0"/>
+                                  <Component id="lbl3D" min="-2" pref="194" max="-2" attributes="0"/>
+                                  <Component id="lblSubtitulada" min="-2" pref="194" max="-2" attributes="0"/>
+                                  <Component id="lblHorario" min="-2" pref="194" max="-2" attributes="0"/>
+                                  <Component id="lblFechaEmision" min="-2" pref="194" max="-2" attributes="0"/>
+                                  <Component id="lblPelicula" min="-2" pref="194" max="-2" attributes="0"/>
+                                  <Component id="lblPrecioEntradaS" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblHorarioS" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblSubtituladaS" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl3DS" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblFechaFuncionS" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblPeliculaS" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblFechaEmisionS" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblNumeroSalaS" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblNumeroSala" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblAsientoS" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblAsiento" min="-2" pref="63" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblIidiomaS" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblIdioma" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -506,37 +525,48 @@
                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                       <Component id="lblPelicula" min="-2" pref="20" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblNumeroSalaS" min="-2" pref="20" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblNumeroSala" min="-2" pref="20" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblAsientoS" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                      <Component id="lblAsiento" min="-2" pref="20" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblFechaEmisionS" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                      <Component id="lblFechaEmision" min="-2" pref="20" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblHorarioS" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblHorario" min="-2" pref="20" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                      <Component id="lblSubtituladaS" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                      <Component id="lblSubtitulada" min="-2" pref="20" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lbl3DS" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                      <Component id="lbl3D" min="-2" pref="20" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="lblFechaFuncionS" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblFechaFuncion" min="-2" pref="20" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                      <Component id="lblPrecioEntradaS" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblPrecioEntrada" min="-2" pref="20" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblNumeroSalaS" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Component id="lblAsientoS" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblNumeroSala" min="-2" pref="20" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblIidiomaS" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                              <Component id="lblIdioma" min="-2" pref="20" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblFechaEmisionS" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                              <Component id="lblFechaEmision" min="-2" pref="20" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblHorarioS" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblHorario" min="-2" pref="20" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                              <Component id="lblSubtituladaS" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                              <Component id="lblSubtitulada" min="-2" pref="20" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lbl3DS" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                              <Component id="lbl3D" min="-2" pref="20" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="lblFechaFuncionS" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblFechaFuncion" min="-2" pref="20" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                              <Component id="lblPrecioEntradaS" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblPrecioEntrada" min="-2" pref="20" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                              <Component id="lblAsiento" min="-2" pref="20" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -562,7 +592,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="N&#xfa;mero de sala:"/>
+                <Property name="text" type="java.lang.String" value="Sala:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblAsientoS">
@@ -573,7 +603,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Asiento asiento:"/>
+                <Property name="text" type="java.lang.String" value="Asiento:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblFechaEmisionS">
@@ -584,7 +614,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Fecha emisi&#xf3;n:"/>
+                <Property name="text" type="java.lang.String" value="Fecha Emisi&#xf3;n:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblHorarioS">
@@ -628,7 +658,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Fecha de funci&#xf3;n:"/>
+                <Property name="text" type="java.lang.String" value="Fecha de Funci&#xf3;n:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblPrecioEntradaS">
@@ -732,6 +762,27 @@
                 </Property>
               </Properties>
             </Component>
+            <Component class="javax.swing.JLabel" name="lblIidiomaS">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Roboto Black" size="14" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Idioma:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblIdioma">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Roboto Light" size="14" style="2"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="pnlEfectivo">
@@ -777,6 +828,9 @@
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto Light" size="14" style="2"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
               </Properties>
             </Component>
@@ -918,6 +972,9 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Roboto Black" size="24" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="FINALIZAR COMPRA"/>
           </Properties>

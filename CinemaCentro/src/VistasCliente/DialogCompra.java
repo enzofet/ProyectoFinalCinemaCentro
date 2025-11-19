@@ -136,6 +136,8 @@ public class DialogCompra extends javax.swing.JDialog {
         lbl3D = new javax.swing.JLabel();
         lblFechaFuncion = new javax.swing.JLabel();
         lblPrecioEntrada = new javax.swing.JLabel();
+        lblIidiomaS = new javax.swing.JLabel();
+        lblIdioma = new javax.swing.JLabel();
         pnlEfectivo = new javax.swing.JPanel();
         lblVuelto = new javax.swing.JLabel();
         txtEfectivo = new javax.swing.JTextField();
@@ -339,15 +341,15 @@ public class DialogCompra extends javax.swing.JDialog {
 
         lblNumeroSalaS.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblNumeroSalaS.setForeground(new java.awt.Color(255, 255, 255));
-        lblNumeroSalaS.setText("Número de sala:");
+        lblNumeroSalaS.setText("Sala:");
 
         lblAsientoS.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblAsientoS.setForeground(new java.awt.Color(255, 255, 255));
-        lblAsientoS.setText("Asiento asiento:");
+        lblAsientoS.setText("Asiento:");
 
         lblFechaEmisionS.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblFechaEmisionS.setForeground(new java.awt.Color(255, 255, 255));
-        lblFechaEmisionS.setText("Fecha emisión:");
+        lblFechaEmisionS.setText("Fecha Emisión:");
 
         lblHorarioS.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblHorarioS.setForeground(new java.awt.Color(255, 255, 255));
@@ -363,7 +365,7 @@ public class DialogCompra extends javax.swing.JDialog {
 
         lblFechaFuncionS.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblFechaFuncionS.setForeground(new java.awt.Color(255, 255, 255));
-        lblFechaFuncionS.setText("Fecha de función:");
+        lblFechaFuncionS.setText("Fecha de Función:");
 
         lblPrecioEntradaS.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblPrecioEntradaS.setForeground(new java.awt.Color(255, 255, 255));
@@ -396,31 +398,50 @@ public class DialogCompra extends javax.swing.JDialog {
         lblPrecioEntrada.setFont(new java.awt.Font("Roboto Light", 2, 14)); // NOI18N
         lblPrecioEntrada.setForeground(new java.awt.Color(255, 255, 255));
 
+        lblIidiomaS.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        lblIidiomaS.setForeground(new java.awt.Color(255, 255, 255));
+        lblIidiomaS.setText("Idioma:");
+
+        lblIdioma.setFont(new java.awt.Font("Roboto Light", 2, 14)); // NOI18N
+        lblIdioma.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout pnlTicketIndividualLayout = new javax.swing.GroupLayout(pnlTicketIndividual);
         pnlTicketIndividual.setLayout(pnlTicketIndividualLayout);
         pnlTicketIndividualLayout.setHorizontalGroup(
             pnlTicketIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTicketIndividualLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(pnlTicketIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPrecioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl3D, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNumeroSala, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPrecioEntradaS)
-                    .addComponent(lblHorarioS)
-                    .addComponent(lblFechaEmisionS)
-                    .addComponent(lblAsientoS)
-                    .addComponent(lblSubtituladaS)
-                    .addComponent(lbl3DS)
-                    .addComponent(lblFechaFuncionS)
-                    .addComponent(lblNumeroSalaS)
-                    .addComponent(lblPeliculaS)))
+                    .addGroup(pnlTicketIndividualLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(pnlTicketIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPrecioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblFechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl3D, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPrecioEntradaS)
+                            .addComponent(lblHorarioS)
+                            .addComponent(lblSubtituladaS)
+                            .addComponent(lbl3DS)
+                            .addComponent(lblFechaFuncionS)
+                            .addComponent(lblPeliculaS)
+                            .addComponent(lblFechaEmisionS)
+                            .addGroup(pnlTicketIndividualLayout.createSequentialGroup()
+                                .addGroup(pnlTicketIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNumeroSalaS)
+                                    .addComponent(lblNumeroSala, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlTicketIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblAsientoS)
+                                    .addComponent(lblAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(pnlTicketIndividualLayout.createSequentialGroup()
+                        .addGroup(pnlTicketIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblIidiomaS)
+                            .addComponent(lblIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         pnlTicketIndividualLayout.setVerticalGroup(
             pnlTicketIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -430,43 +451,51 @@ public class DialogCompra extends javax.swing.JDialog {
                 .addGap(4, 4, 4)
                 .addComponent(lblPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNumeroSalaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNumeroSala, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAsientoS)
-                .addGap(4, 4, 4)
-                .addComponent(lblAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblFechaEmisionS)
-                .addGap(3, 3, 3)
-                .addComponent(lblFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblHorarioS)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(lblSubtituladaS)
-                .addGap(3, 3, 3)
-                .addComponent(lblSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbl3DS)
-                .addGap(2, 2, 2)
-                .addComponent(lbl3D, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblFechaFuncionS)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblFechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(lblPrecioEntradaS)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPrecioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlTicketIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlTicketIndividualLayout.createSequentialGroup()
+                        .addGroup(pnlTicketIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblNumeroSalaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblAsientoS))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNumeroSala, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblIidiomaS)
+                        .addGap(4, 4, 4)
+                        .addComponent(lblIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblFechaEmisionS)
+                        .addGap(3, 3, 3)
+                        .addComponent(lblFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblHorarioS)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(lblSubtituladaS)
+                        .addGap(3, 3, 3)
+                        .addComponent(lblSubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl3DS)
+                        .addGap(2, 2, 2)
+                        .addComponent(lbl3D, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblFechaFuncionS)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblFechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblPrecioEntradaS)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblPrecioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTicketIndividualLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(lblAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnlEfectivo.setBackground(new java.awt.Color(102, 0, 0));
 
         lblVuelto.setFont(new java.awt.Font("Roboto Light", 2, 14)); // NOI18N
+        lblVuelto.setForeground(new java.awt.Color(255, 255, 255));
 
         txtEfectivo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -563,6 +592,7 @@ public class DialogCompra extends javax.swing.JDialog {
         lblImporte.setText("Importe Total:");
 
         jLabel5.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("FINALIZAR COMPRA");
 
         jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -858,6 +888,8 @@ public class DialogCompra extends javax.swing.JDialog {
                     lblFechaFuncion.setText(funcion.getFecha_Funcion().toString());
                     lblPrecioEntrada.setText(Double.toString(funcion.getPrecio_Entrada()));
                     lblHorario.setText(funcion.getHora_Inicio().toString().substring(0, 5) + " - " + funcion.getHora_Fin().toString().substring(0, 5));
+                    lblFechaEmision.setText(venta.getFecha_Venta().toString());
+                    lblIdioma.setText(funcion.getIdioma().toString());
 
                 }
             }
@@ -1181,6 +1213,8 @@ public class DialogCompra extends javax.swing.JDialog {
     private javax.swing.JLabel lblFechaVentaS;
     private javax.swing.JLabel lblHorario;
     private javax.swing.JLabel lblHorarioS;
+    private javax.swing.JLabel lblIdioma;
+    private javax.swing.JLabel lblIidiomaS;
     private javax.swing.JLabel lblImporte;
     private javax.swing.JLabel lblImporteTotal;
     private javax.swing.JLabel lblImporteTotalS;
