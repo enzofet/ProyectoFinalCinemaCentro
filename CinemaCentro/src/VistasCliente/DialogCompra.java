@@ -44,6 +44,7 @@ import javax.swing.table.DefaultTableModel;
 public class DialogCompra extends javax.swing.JDialog {
 
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/yy");
+    int id_cliente = -1;
 
     /**
      * Creates new form DialogCompra
@@ -791,6 +792,7 @@ public class DialogCompra extends javax.swing.JDialog {
             }
         }
         if (medioPago.equalsIgnoreCase("efectivo")) {
+
             registrarVentaTaquilla();
             this.dispose();
         }
@@ -925,22 +927,20 @@ public class DialogCompra extends javax.swing.JDialog {
         try {
             if (sel == 0) {
                 String txtdni = JOptionPane.showInputDialog("Ingrese DNI");
-
-                if (txtdni == null) {
-                    JOptionPane.showMessageDialog(this, "Debe ingresar el dni del cliente.");
-                    return;
-                }
-                txtdni = txtdni.trim();
-
-                if (!txtdni.matches("\\d{8}")) {
+                System.out.println("......");
+                
+                if (!txtdni.matches("\\d{8}") || txtdni == null) {
                     JOptionPane.showMessageDialog(this,
                             "Debe ingresar un DNI válido de 8 dígitos sin puntos ni espacios.");
                     return;
                 }
+                txtdni = txtdni.trim();
 
                 int dni = Integer.parseInt(txtdni);
                 cliente = maniCliente.buscarClientePorDNI(dni);
-
+                id_cliente = cliente.getId_cliente();
+                venta.setId_Cliente(id_cliente);
+                System.out.println(cliente.getId_cliente()+ id_cliente + venta.getId_Cliente() ); 
                 if (cliente != null) {
                     ventayticketTaquilla();
                     JOptionPane.showMessageDialog(this, "Venta y tickets generados correctamente.");
