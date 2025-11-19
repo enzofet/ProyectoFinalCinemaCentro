@@ -145,11 +145,10 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
         txtPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtPassword.setEnabled(true);
 
-        jbtAgregar.setBackground(new java.awt.Color(102, 0, 0));
-        jbtAgregar.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jbtAgregar.setBackground(new java.awt.Color(70, 73, 75));
+        jbtAgregar.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jbtAgregar.setForeground(new java.awt.Color(255, 255, 255));
         jbtAgregar.setText("Agregar");
-        jbtAgregar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(204, 204, 204), null, null));
         jbtAgregar.setBorderPainted(false);
         jbtAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,11 +156,10 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
             }
         });
 
-        jbtSalir.setBackground(new java.awt.Color(102, 0, 0));
-        jbtSalir.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jbtSalir.setBackground(new java.awt.Color(70, 73, 75));
+        jbtSalir.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jbtSalir.setForeground(new java.awt.Color(255, 255, 255));
         jbtSalir.setText("Salir");
-        jbtSalir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbtSalir.setBorderPainted(false);
         jbtSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,8 +187,9 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
                             .addComponent(txtApellido)
                             .addComponent(txtFechaNac)
                             .addComponent(txtPassword)))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jbtAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jbtAgregar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbtSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(14, Short.MAX_VALUE))
@@ -222,12 +221,12 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbtSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbtSalir))
                 .addContainerGap())
         );
 
         lblAgregarA.setBackground(new java.awt.Color(255, 255, 255));
-        lblAgregarA.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        lblAgregarA.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
         lblAgregarA.setForeground(new java.awt.Color(255, 255, 255));
         lblAgregarA.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAgregarA.setText("AGREGAR CLIENTE");
