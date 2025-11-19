@@ -4,7 +4,7 @@
 - [MariaDB Java Client 3.5.6](https://github.com/enzofet/ProyectoFinalCinemaCentro/raw/main/mariadb-java-client-3.5.6.jar)
 
 ## Script SQL 🧱
-- [Script de Base de Datos](https://github.com/enzofet/ProyectoFinalCinemaCentro/raw/main/gp5_cinemacentro.sql)
+- [Script de Base de Datos](https://github.com/enzofet/ProyectoFinalCinemaCentro/raw/main/cinemacentro.sql)
 
 ## Descripción 🗒️
 Este es el Proyecto Final para el Sistema de CinemaCentro. El objetivo de este proyecto es desarrollar una solución integral que facilite la administración y gestión de diversas funciones dentro del Cine - CinemaCentro.
