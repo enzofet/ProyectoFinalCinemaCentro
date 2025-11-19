@@ -5,6 +5,7 @@
  */
 package VistasCliente;
 
+import Controlador.AsientoDAO;
 import Controlador.ClienteDAO;
 import Controlador.DetalleTicketDAO;
 import Controlador.FuncionDAO;
@@ -801,6 +802,23 @@ public class DialogCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_btnConfirmarCompraActionPerformed
 
     private void btnCancelarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCompraActionPerformed
+        try {
+            if (listaAsientos != null && !listaAsientos.isEmpty()) {
+                AsientoDAO asientoDAO = new AsientoDAO();
+                asientoDAO.liberarAsientos(listaAsientos);
+
+                JOptionPane.showMessageDialog(this,
+                        "Compra cancelada. " + listaAsientos.size() + " asiento(s) han sido liberados.",
+                        "Compra Cancelada",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error al liberar los asientos: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
         estado = false;
         this.dispose();
     }//GEN-LAST:event_btnCancelarCompraActionPerformed
@@ -928,7 +946,7 @@ public class DialogCompra extends javax.swing.JDialog {
             if (sel == 0) {
                 String txtdni = JOptionPane.showInputDialog("Ingrese DNI");
                 System.out.println("......");
-                
+
                 if (!txtdni.matches("\\d{8}") || txtdni == null) {
                     JOptionPane.showMessageDialog(this,
                             "Debe ingresar un DNI válido de 8 dígitos sin puntos ni espacios.");
@@ -940,7 +958,7 @@ public class DialogCompra extends javax.swing.JDialog {
                 cliente = maniCliente.buscarClientePorDNI(dni);
                 id_cliente = cliente.getId_cliente();
                 venta.setId_Cliente(id_cliente);
-                System.out.println(cliente.getId_cliente()+ id_cliente + venta.getId_Cliente() ); 
+                System.out.println(cliente.getId_cliente() + id_cliente + venta.getId_Cliente());
                 if (cliente != null) {
                     ventayticketTaquilla();
                     JOptionPane.showMessageDialog(this, "Venta y tickets generados correctamente.");
