@@ -59,6 +59,7 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
         lblPoster = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 0, 0));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -237,18 +238,23 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
       agregarPelicula(new Pelicula("Interestelar", "Christopher Nolan", "Matthew McConaughey, Anne Hathaway",
             "EE.UU", "Ciencia Ficción", false, LocalDate.of(2026, 3, 20), true));
       
-      agregarPelicula(new Pelicula("Cumbres borrascosas", " Emerald Fennell", " Margot Robbie, Jacob Elordi,",
+      agregarPelicula(new Pelicula("Cumbres borrascosas", "Emerald Fennell", "Margot Robbie, Jacob Elordi",
             "EE.UU", "Drama", false, LocalDate.of(2026, 2, 11), true));
+      
+      agregarPelicula(new Pelicula("Toy Story 5", "Andrew Stanton", "Tom Hanks, Tim Allen",
+            "EE.UU", "Comedia/Aventura", false, LocalDate.of(2026, 6, 28), true));
       
       mapaPosters.put("El Conjuro", "src/iconos/The Conjuring (2013).jpeg");
       mapaPosters.put("Interestelar", "src/iconos/interestelarr.jpg");
       mapaPosters.put("Cumbres borrascosas", "src/iconos/cumbres.jpg");
+      mapaPosters.put("Toy Story 5", "src/iconos/toy-story5.jpg");
       
       
       
       mapaTrailers.put("El Conjuro", "https://www.youtube.com/watch?v=wE59Ajd_v9M");
       mapaTrailers.put("Interestelar", "https://www.youtube.com/watch?v=LYS2O1nl9iM");
       mapaTrailers.put("Cumbres borrascosas", "https://www.youtube.com/watch?v=RNynG8dMp5w");
+      mapaTrailers.put("Toy Story 5", "https://www.youtube.com/watch?v=GGBgf8dcgyY");
       
       jTable1.getSelectionModel().addListSelectionListener(
             new javax.swing.event.ListSelectionListener(){
