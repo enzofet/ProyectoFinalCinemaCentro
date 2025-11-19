@@ -6,12 +6,9 @@
 package VistasCliente;
 
 import Controlador.ClienteDAO;
-import Controlador.PeliculaDAO;
 import Modelo.Cliente;
-import Modelo.Pelicula;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -29,8 +26,6 @@ public class LoginCliente extends javax.swing.JFrame {
      */
     fondopanel fondo = new fondopanel();
     ClienteDAO maniCliente = new ClienteDAO();
-    PeliculaDAO peli = new PeliculaDAO();
-    int id_cliente=-1;
    
     public LoginCliente() {
         this.setContentPane(fondo);
