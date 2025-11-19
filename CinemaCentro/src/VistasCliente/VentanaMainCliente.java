@@ -173,16 +173,22 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         lblPrecio = new javax.swing.JLabel();
         jBCancelarB = new javax.swing.JButton();
         lblProxEstrenos = new javax.swing.JButton();
+        lblCinemaCentro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Engravers MT", 1, 18)); // NOI18N
-        jLabel1.setText("Taquilla Online");
+        pnlLogin.setBackground(new java.awt.Color(102, 0, 0));
+
+        jLabel1.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("TAQUILLA ONLINE");
 
         jbPelicula.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
-        jbPelicula.setText("Cartelera");
+        jbPelicula.setForeground(new java.awt.Color(255, 255, 255));
+        jbPelicula.setText("Cartelera:");
 
         jbFuncion.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        jbFuncion.setForeground(new java.awt.Color(255, 255, 255));
         jbFuncion.setText("Función:");
 
         jTFuncion.setModel(new javax.swing.table.DefaultTableModel(
@@ -228,8 +234,12 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         });
 
         jbCantidad.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        jbCantidad.setForeground(new java.awt.Color(255, 255, 255));
         jbCantidad.setText("Cantidad de boletos:");
 
+        jBButaca.setBackground(new java.awt.Color(70, 73, 75));
+        jBButaca.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jBButaca.setForeground(new java.awt.Color(255, 255, 255));
         jBButaca.setText("Seleccionar butacas");
         jBButaca.setEnabled(false);
         jBButaca.addActionListener(new java.awt.event.ActionListener() {
@@ -238,6 +248,9 @@ public class VentanaMainCliente extends javax.swing.JFrame {
             }
         });
 
+        jBComprar.setBackground(new java.awt.Color(70, 73, 75));
+        jBComprar.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jBComprar.setForeground(new java.awt.Color(255, 255, 255));
         jBComprar.setText("Comprar");
         jBComprar.setEnabled(false);
         jBComprar.addActionListener(new java.awt.event.ActionListener() {
@@ -246,6 +259,9 @@ public class VentanaMainCliente extends javax.swing.JFrame {
             }
         });
 
+        jbSalir.setBackground(new java.awt.Color(70, 73, 75));
+        jbSalir.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jbSalir.setForeground(new java.awt.Color(255, 255, 255));
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -258,8 +274,12 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jListAsientos);
 
         lblPrecio.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        lblPrecio.setForeground(new java.awt.Color(255, 255, 255));
         lblPrecio.setText("Precio Total:");
 
+        jBCancelarB.setBackground(new java.awt.Color(70, 73, 75));
+        jBCancelarB.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        jBCancelarB.setForeground(new java.awt.Color(255, 255, 255));
         jBCancelarB.setText("Cancelar butacas");
         jBCancelarB.setEnabled(false);
         jBCancelarB.addActionListener(new java.awt.event.ActionListener() {
@@ -268,7 +288,9 @@ public class VentanaMainCliente extends javax.swing.JFrame {
             }
         });
 
-        lblProxEstrenos.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 14)); // NOI18N
+        lblProxEstrenos.setBackground(new java.awt.Color(70, 73, 75));
+        lblProxEstrenos.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        lblProxEstrenos.setForeground(new java.awt.Color(255, 255, 255));
         lblProxEstrenos.setText("Ver próximos estrenos");
         lblProxEstrenos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,88 +298,89 @@ public class VentanaMainCliente extends javax.swing.JFrame {
             }
         });
 
+        lblCinemaCentro.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
+        lblCinemaCentro.setForeground(new java.awt.Color(255, 255, 255));
+        lblCinemaCentro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCinemaCentro.setText("CinemaCentro");
+
         javax.swing.GroupLayout pnlLoginLayout = new javax.swing.GroupLayout(pnlLogin);
         pnlLogin.setLayout(pnlLoginLayout);
         pnlLoginLayout.setHorizontalGroup(
             pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlLoginLayout.createSequentialGroup()
-                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pnlLoginLayout.createSequentialGroup()
-                            .addGap(304, 304, 304)
-                            .addComponent(jLabel1))
-                        .addGroup(pnlLoginLayout.createSequentialGroup()
-                            .addGap(46, 46, 46)
-                            .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 757, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jbFuncion)
-                                .addGroup(pnlLoginLayout.createSequentialGroup()
-                                    .addComponent(jbPelicula)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblProxEstrenos, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(8, 8, 8)))))
-                    .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 757, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(pnlLoginLayout.createSequentialGroup()
-                            .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(17, 17, 17)
+                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbFuncion)
+                    .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlLoginLayout.createSequentialGroup()
+                            .addGap(251, 251, 251)
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblCinemaCentro))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlLoginLayout.createSequentialGroup()
+                                .addComponent(jbPelicula)
+                                .addGap(495, 495, 495)
+                                .addComponent(lblProxEstrenos))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 757, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlLoginLayout.createSequentialGroup()
+                            .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblPrecio)
                                 .addGroup(pnlLoginLayout.createSequentialGroup()
                                     .addComponent(jbCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(54, 54, 54)
-                                    .addComponent(jBButaca, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(pnlLoginLayout.createSequentialGroup()
-                                    .addComponent(lblPrecio)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jBCancelarB, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(30, 30, 30)
+                            .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jBButaca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBCancelarB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jBComprar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jbSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                                .addComponent(jbSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 757, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         pnlLoginLayout.setVerticalGroup(
             pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlLoginLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblCinemaCentro))
+                .addGap(24, 24, 24)
                 .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlLoginLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jbPelicula)
+                        .addComponent(lblProxEstrenos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jbFuncion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
                         .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlLoginLayout.createSequentialGroup()
-                                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jBButaca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jbCantidad)
-                                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jBComprar)))
-                                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlLoginLayout.createSequentialGroup()
-                                        .addGap(26, 26, 26)
-                                        .addComponent(jbSalir))
-                                    .addGroup(pnlLoginLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lblPrecio))
-                                    .addGroup(pnlLoginLayout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jBCancelarB, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(65, 65, 65))
-                    .addGroup(pnlLoginLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblProxEstrenos)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jbCantidad)
+                                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblPrecio))
+                            .addGroup(pnlLoginLayout.createSequentialGroup()
+                                .addComponent(jBComprar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbSalir))
+                            .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlLoginLayout.createSequentialGroup()
+                                    .addComponent(jBButaca)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jBCancelarB)))))
+                    .addComponent(jbPelicula))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -527,7 +550,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
             }
         }
         txtCantidad.setText("");
-        jBButaca.setEnabled(true);
+        jBButaca.setEnabled(false);
         jBCancelarB.setEnabled(false);
         jBComprar.setEnabled(false);
         jListAsientos.setOpaque(false);
@@ -637,6 +660,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jbFuncion;
     private javax.swing.JLabel jbPelicula;
     private javax.swing.JButton jbSalir;
+    private javax.swing.JLabel lblCinemaCentro;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JButton lblProxEstrenos;
     private javax.swing.JPanel pnlLogin;
