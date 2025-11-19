@@ -181,6 +181,7 @@ public class DialogAsientos extends javax.swing.JDialog {
                 .addComponent(lblEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        btnSalir.setBackground(new java.awt.Color(70, 73, 75));
         btnSalir.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setText("SALIR");
@@ -204,6 +205,7 @@ public class DialogAsientos extends javax.swing.JDialog {
         lblNumeroS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblNumeroS.setForeground(new java.awt.Color(255, 255, 255));
 
+        btnConfirmar.setBackground(new java.awt.Color(70, 73, 75));
         btnConfirmar.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         btnConfirmar.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirmar.setText("Confirmar asiento");

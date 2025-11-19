@@ -189,7 +189,9 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
         txtEstreno.setText("yyyy-MM-dd");
         txtEstreno.setToolTipText("yyyy-MM-dd");
 
+        btnLimpiarCampos.setBackground(new java.awt.Color(70, 73, 75));
         btnLimpiarCampos.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        btnLimpiarCampos.setForeground(new java.awt.Color(255, 255, 255));
         btnLimpiarCampos.setText("Limpiar Campos");
         btnLimpiarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -500,7 +502,9 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
                         .addComponent(rbtnVerTodo))))
         );
 
+        btnSalir.setBackground(new java.awt.Color(70, 73, 75));
         btnSalir.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

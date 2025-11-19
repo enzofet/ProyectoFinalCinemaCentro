@@ -598,13 +598,16 @@ public class VentasInternal extends javax.swing.JInternalFrame {
         PanePeliculas.setViewportView(tblPeliculasVistas);
 
         lblTitulo.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("CIERRE DE CAJA");
 
         lblMasVista.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
+        lblMasVista.setForeground(new java.awt.Color(255, 255, 255));
         lblMasVista.setText("PELICULAS MÁS VISTAS:");
 
         btnActualizar.setBackground(new java.awt.Color(70, 73, 75));
         btnActualizar.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -614,6 +617,7 @@ public class VentasInternal extends javax.swing.JInternalFrame {
 
         btnHoy.setBackground(new java.awt.Color(70, 73, 75));
         btnHoy.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        btnHoy.setForeground(new java.awt.Color(255, 255, 255));
         btnHoy.setText("Hoy");
         btnHoy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -623,6 +627,7 @@ public class VentasInternal extends javax.swing.JInternalFrame {
 
         btnTodos.setBackground(new java.awt.Color(70, 73, 75));
         btnTodos.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        btnTodos.setForeground(new java.awt.Color(255, 255, 255));
         btnTodos.setText("Todos");
         btnTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -632,6 +637,7 @@ public class VentasInternal extends javax.swing.JInternalFrame {
 
         btnExportar.setBackground(new java.awt.Color(70, 73, 75));
         btnExportar.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        btnExportar.setForeground(new java.awt.Color(255, 255, 255));
         btnExportar.setText("Exportar");
         btnExportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -651,12 +657,15 @@ public class VentasInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        lblFechaDesde.setForeground(new java.awt.Color(255, 255, 255));
         lblFechaDesde.setText("Desde:");
 
+        lblFechaHasta.setForeground(new java.awt.Color(255, 255, 255));
         lblFechaHasta.setText("Hasta:");
 
         btnAplicarFiltroFecha.setBackground(new java.awt.Color(70, 73, 75));
         btnAplicarFiltroFecha.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        btnAplicarFiltroFecha.setForeground(new java.awt.Color(255, 255, 255));
         btnAplicarFiltroFecha.setText("Buscar");
         btnAplicarFiltroFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -664,20 +673,26 @@ public class VentasInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        lblPelicula.setForeground(new java.awt.Color(255, 255, 255));
         lblPelicula.setText("Película:");
 
+        lblSala.setForeground(new java.awt.Color(255, 255, 255));
         lblSala.setText("Sala:");
 
         lblPorPelicula.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
+        lblPorPelicula.setForeground(new java.awt.Color(255, 255, 255));
         lblPorPelicula.setText("Por Película:");
 
         lblPorFecha.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
+        lblPorFecha.setForeground(new java.awt.Color(255, 255, 255));
         lblPorFecha.setText("Por Fecha:");
 
         lblPorSala.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
+        lblPorSala.setForeground(new java.awt.Color(255, 255, 255));
         lblPorSala.setText("Por Sala:");
 
         lblReporte.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
+        lblReporte.setForeground(new java.awt.Color(255, 255, 255));
         lblReporte.setText("REPORTE DEL DIA:");
 
         modeloTabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -729,22 +744,22 @@ public class VentasInternal extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(cmbPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(lblPorPelicula))
-                                .addGap(63, 63, 63)
+                                .addGap(18, 18, 18)
                                 .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnlTicketsLayout.createSequentialGroup()
                                         .addComponent(lblSala)
-                                        .addGap(6, 6, 6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(cmbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(lblPorSala))
-                                .addGap(20, 20, 20)
+                                .addGap(18, 18, 18)
                                 .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnlTicketsLayout.createSequentialGroup()
                                         .addComponent(lblFechaDesde)
-                                        .addGap(16, 16, 16)
-                                        .addComponent(txtFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblFechaHasta)
+                                        .addComponent(txtFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
+                                        .addComponent(lblFechaHasta)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnAplicarFiltroFecha))
@@ -785,16 +800,17 @@ public class VentasInternal extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblPelicula)
                         .addComponent(cmbPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblSala))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblSala)
-                        .addComponent(cmbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblFechaDesde)
-                        .addComponent(txtFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblFechaHasta)
+                        .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblFechaDesde))
                         .addGroup(pnlTicketsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAplicarFiltroFecha))))
+                            .addComponent(btnAplicarFiltroFecha)
+                            .addComponent(lblFechaHasta))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)

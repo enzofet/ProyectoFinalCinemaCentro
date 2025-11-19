@@ -262,7 +262,9 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
         });
         PanelTabla.setViewportView(tablaCliente);
 
+        Salir.setBackground(new java.awt.Color(70, 73, 75));
         Salir.setFont(new java.awt.Font("Roboto", 1, 13)); // NOI18N
+        Salir.setForeground(new java.awt.Color(255, 255, 255));
         Salir.setText("Salir");
         Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,7 +326,9 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        btnAgregar.setBackground(new java.awt.Color(70, 73, 75));
         btnAgregar.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setText("Agregar Cliente");
         btnAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -333,7 +337,9 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        btnEliminar.setBackground(new java.awt.Color(70, 73, 75));
         btnEliminar.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar Cliente");
         btnEliminar.setEnabled(false);
         btnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -343,7 +349,9 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        btnModificar.setBackground(new java.awt.Color(70, 73, 75));
         btnModificar.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
         btnModificar.setText("Modificar Cliente");
         btnModificar.setEnabled(false);
         btnModificar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -353,7 +361,9 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        btnDarAlta.setBackground(new java.awt.Color(70, 73, 75));
         btnDarAlta.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        btnDarAlta.setForeground(new java.awt.Color(255, 255, 255));
         btnDarAlta.setText("Dar de Alta");
         btnDarAlta.setEnabled(false);
         btnDarAlta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -363,7 +373,9 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
             }
         });
 
+        btnDarBaja.setBackground(new java.awt.Color(70, 73, 75));
         btnDarBaja.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        btnDarBaja.setForeground(new java.awt.Color(255, 255, 255));
         btnDarBaja.setText("Dar de Baja");
         btnDarBaja.setEnabled(false);
         btnDarBaja.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -406,7 +418,7 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
                 .addComponent(btnDarAlta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDarBaja)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
