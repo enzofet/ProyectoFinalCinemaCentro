@@ -618,7 +618,7 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-        DialogAgregarCliente ventana = new DialogAgregarCliente(padre, true);
+        DialogAgregarCliente ventana = new DialogAgregarCliente(padre, true, false, null);
         ventana.setVisible(true);
         refreshTabla();
     }//GEN-LAST:event_btnAgregarActionPerformed
