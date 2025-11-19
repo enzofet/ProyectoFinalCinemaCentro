@@ -576,6 +576,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
     jBButaca.setEnabled(false);
     jBCancelarB.setEnabled(false);
     jBComprar.setEnabled(false);
+    tablaFun();
     }
 
     /**
