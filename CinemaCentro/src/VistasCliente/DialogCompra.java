@@ -963,7 +963,7 @@ public class DialogCompra extends javax.swing.JDialog {
 
                 } else {
                     ventayticketTaquilla();
-                    JOptionPane.showMessageDialog(this, "Venta registrada y asociada al cliente correctamente.");
+                    JOptionPane.showMessageDialog(this, "Venta registrada correctamente.");
                 }
             }
 
