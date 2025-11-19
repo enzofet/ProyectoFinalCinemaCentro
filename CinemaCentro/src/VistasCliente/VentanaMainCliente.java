@@ -34,7 +34,9 @@ import javax.swing.table.TableColumnModel;
  * @author Enzo_2
  */
 public class VentanaMainCliente extends javax.swing.JFrame {
-
+    
+    Cliente cliente;
+    
     int idSala = 0;
     double precioEntrada = 0;
 
@@ -64,6 +66,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
     public VentanaMainCliente(Cliente cliente) {
         initComponents();
+        this.cliente = cliente;
         armarCabeceraPelicula(jTPeli);
         armarCabeceraFuncion(jTFuncion);
     }
@@ -523,7 +526,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                 lblPrecio.setText("Precio Total: $ " + precioTotal);
                 jBButaca.setEnabled(true);
             } else {
-                lblPrecio.setText("Precio Total: Seleccione una función primero");
+                lblPrecio.setText("Precio Total: Seleccione la función.");
                 jBButaca.setEnabled(false);
             }
         } catch (NumberFormatException e) {
@@ -556,7 +559,10 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
     private void jBComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBComprarActionPerformed
         // TODO add your handling code here:
+        
+        int id_cliente = cliente.getId_cliente();
         Venta ventaOnline = new Venta();
+        ventaOnline.setId_Cliente(id_cliente);
         ventaOnline.setMedio_Pago("debito");
         ventaOnline.setCantidad_Entradas(Integer.parseInt(txtCantidad.getText()));
         ventaOnline.setImporte_Total(precioEntrada);
