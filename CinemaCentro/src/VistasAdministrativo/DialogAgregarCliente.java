@@ -6,7 +6,9 @@
 package VistasAdministrativo;
 
 import Controlador.ClienteDAO;
+import Controlador.VentaDAO;
 import Modelo.Cliente;
+import Modelo.Venta;
 import java.awt.Color;
 import java.time.LocalDate;
 import java.time.Month;
@@ -24,13 +26,18 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
 
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private ClienteDAO maniCliente = new ClienteDAO();
+    boolean estadoCompra;
+    Venta venta;
+    VentaDAO maniVenta = new VentaDAO();
 
     /**
      * Creates new form AgregarCliente
      */
-    public DialogAgregarCliente(java.awt.Frame parent, boolean modal) {
+    public DialogAgregarCliente(java.awt.Frame parent, boolean modal, boolean dialogCompra, Venta venta) {
         super(parent, modal);
         initComponents();
+        this.venta = venta;
+        this.estadoCompra = dialogCompra;
         placeholderFecha();
         txtFechaNac.setText("dd-MM-yyyy");
     }
@@ -276,14 +283,14 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
             List<Cliente> lista = maniCliente.listarClientes();
 
             if (txtDNI.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty()
-                || txtFechaNac.getText().isEmpty() || txtPassword.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todos los campos deben completarse.");
-            return;
-        }
+                    || txtFechaNac.getText().isEmpty() || txtPassword.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Todos los campos deben completarse.");
+                return;
+            }
             if (txtDNI.getText().length() < 7 || txtDNI.getText().length() > 8) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un DNI válido (7 u 8 dígitos).");
-            txtDNI.setText("");
-            return;
+                JOptionPane.showMessageDialog(this, "Debe ingresar un DNI válido (7 u 8 dígitos).");
+                txtDNI.setText("");
+                return;
             } else {
 
                 int dni = Integer.parseInt(txtDNI.getText());
@@ -325,106 +332,67 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
 
                 maniCliente.agregarCliente(cliente);
                 clear();
-                
-                Object[] opciones = {"Si", "No"};
-                int eleccion = JOptionPane.showOptionDialog(
-                        null, //null para centrar
-                        "Cliente agregado exitosamente\n¿Desea agregar otro cliente?",
-                        "",
-                        JOptionPane.DEFAULT_OPTION,
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        opciones,
-                        opciones[0]);
-                
 
-                if(eleccion == 1){
+                if (estadoCompra) {
+                    int id_cliente = cliente.getId_cliente();
+                    venta.setId_Cliente(id_cliente);
+                    JOptionPane.showMessageDialog(this, "Cliente agregado exitosamente.");
                     this.dispose();
+
+                } else {
+                    Object[] opciones = {"Si", "No"};
+                    int eleccion = JOptionPane.showOptionDialog(
+                            null, //null para centrar
+                            "Cliente agregado exitosamente\n¿Desea agregar otro cliente?",
+                            "",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            opciones,
+                            opciones[0]);
+
+                    if (eleccion == 1) {
+                        this.dispose();
+                    }
                 }
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Dato Incorrecto, se espera un DNI");
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this,"ocurrio un error " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "ocurrio un error " + e.getMessage());
         }
     }//GEN-LAST:event_jbtAgregarActionPerformed
 
     private void jbtSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalirActionPerformed
         // TODO add your handling code here:
-        if(txtDNI.getText() == null && txtNombre == null 
+        if (txtDNI.getText() == null && txtNombre == null
                 && txtApellido == null && txtFechaNac == null
-                &&  txtPassword == null){
+                && txtPassword == null) {
             this.dispose();
-        }else{
+        } else {
             Object[] opciones = {"Si", "No"};
-                int eleccion = JOptionPane.showOptionDialog(
-                        null, 
-                        "Carga de clientes en curso. \n¿Está seguro que desea salir?",
-                        "",
-                        JOptionPane.DEFAULT_OPTION,
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        opciones,
-                        opciones[0]);
-                
+            int eleccion = JOptionPane.showOptionDialog(
+                    null,
+                    "Carga de clientes en curso. \n¿Está seguro que desea salir?",
+                    "",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    opciones,
+                    opciones[0]);
 
-                if(eleccion == 0){
-                    this.dispose();
-                }else if(eleccion == 1){
-                    return;
-                }
+            if (eleccion == 0) {
+                this.dispose();
+            } else if (eleccion == 1) {
+                return;
+            }
         }
     }//GEN-LAST:event_jbtSalirActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogAgregarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogAgregarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogAgregarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogAgregarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DialogAgregarCliente dialog = new DialogAgregarCliente(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel3;
