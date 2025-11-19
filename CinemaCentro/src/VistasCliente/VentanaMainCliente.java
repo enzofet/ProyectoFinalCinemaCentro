@@ -14,7 +14,6 @@ import Modelo.Funcion;
 import Modelo.Pelicula;
 import Modelo.Venta;
 import VistasAdministrativo.DialogAsientos;
-import VistasAdministrativo.TaquillaInternal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
     
     int idSala = 0;
     double precioEntrada = 0;
-
+    boolean estadoExito;
     ArrayList<Asiento> listaAsi = new ArrayList<>();
     AsientoDAO maniAsi = new AsientoDAO();
     DefaultListModel<String> modeloAsi = new DefaultListModel<>();
@@ -573,6 +572,22 @@ public class VentanaMainCliente extends javax.swing.JFrame {
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
             DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsi, ventaOnline, "debito", idFun, "online");
             ventanaCompra.setVisible(true);
+            
+            estadoExito = ventanaCompra.isEstado();
+            
+            if(!estadoExito){
+                for(Asiento a : listaAsi){
+                    try {
+                        maniAsi.darAlta(a.getId_asiento());
+                    } catch(Exception e){
+                        JOptionPane.showMessageDialog(this, e.getMessage());
+                    }
+                }
+                listaAsi.clear();
+                jTFuncion.clearSelection();
+                jTPeli.clearSelection();
+            }
+            
         } catch (Exception ex) {
             Logger.getLogger(VentanaMainCliente.class.getName()).log(Level.SEVERE, null, ex);
         }

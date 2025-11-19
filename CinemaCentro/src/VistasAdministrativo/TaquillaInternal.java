@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -45,7 +46,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         "Fecha de función", "Subtitulada"};
     List<Pelicula> listaCartelera = maniPeli.listarPeliculasEnCartelera();
     List<Funcion> listaFuncionPorPelicula;
-    List<Asiento> listaAsientos;
+    List<Asiento> listaAsientos = new ArrayList<>();
     DefaultListModel<String> modeloLista;
     int id_peliculaS = -1;
     int id_funcion = -1;
@@ -304,11 +305,6 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
 
         cmbMedioPago.setForeground(new java.awt.Color(255, 255, 255));
         cmbMedioPago.setEnabled(false);
-        cmbMedioPago.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbMedioPagoActionPerformed(evt);
-            }
-        });
 
         lblMedioPago.setFont(new java.awt.Font("Roboto Black", 1, 13)); // NOI18N
         lblMedioPago.setForeground(new java.awt.Color(255, 255, 255));
@@ -417,7 +413,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                     .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(btnRealizarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                                        .addComponent(btnRealizarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addComponent(btnCancelarAsientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                                     .addComponent(lblCarteleraActual))
                                 .addGroup(pnlTaquillaLayout.createSequentialGroup()
@@ -600,6 +596,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
         }
+        cmbMedioPago.setSelectedIndex(0);
         txtCantidadBoletos.setText("");
         btnConfirmacion.setEnabled(false);
         btnCancelarAsientos.setEnabled(false);
@@ -637,7 +634,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
             ventanaCompra.setVisible(true);
             estadoExito = ventanaCompra.isEstado();
 
-            if (estadoExito) {
+            if (!estadoExito) {
                 for (Asiento a : listaAsientos) {
                     try {
                         maniAsi.darBaja(a.getId_asiento());
@@ -661,19 +658,10 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRealizarCompraActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        if (listaAsientos.isEmpty()) {
+        if (listaAsientos.isEmpty() || listaAsientos == null) {
             this.dispose();
         } else {
-            Object[] opciones = {"Si", "No"};
-            int eleccion = JOptionPane.showOptionDialog(
-                    null,
-                    "Selección de función en curso.\n¿Seguro que desea salir? ",
-                    "",
-                    JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    opciones,
-                    null);
+            int eleccion = JOptionPane.showConfirmDialog(this, "Selección de butacas en curso. ¿Esta seguro que desea salir? Se perderan los datos ingresados.","Error", YES_NO_OPTION);
             if(eleccion == 0){
                 modeloLista.clear();
                 for(Asiento a : listaAsientos){
@@ -689,11 +677,6 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_btnSalirActionPerformed
-
-    private void cmbMedioPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMedioPagoActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_cmbMedioPagoActionPerformed
 
     public String mediodePago() {
         if (cmbMedioPago.getSelectedIndex() == 0) {

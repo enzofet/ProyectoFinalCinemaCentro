@@ -152,7 +152,7 @@
                                                       <Component id="jScrollPane3" min="-2" pref="150" max="-2" attributes="0"/>
                                                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                          <Component id="btnRealizarCompra" pref="150" max="32767" attributes="0"/>
+                                                          <Component id="btnRealizarCompra" max="32767" attributes="0"/>
                                                           <Component id="btnCancelarAsientos" max="32767" attributes="0"/>
                                                       </Group>
                                                   </Group>
@@ -729,9 +729,6 @@
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbMedioPagoActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
