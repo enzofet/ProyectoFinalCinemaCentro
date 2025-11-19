@@ -640,7 +640,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
             if (estadoExito) {
                 for (Asiento a : listaAsientos) {
                     try {
-                        maniAsi.darAlta(a.getId_asiento());
+                        maniAsi.darBaja(a.getId_asiento());
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(this, e.getMessage());
                     }
@@ -658,7 +658,6 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
             Logger.getLogger(TaquillaInternal.class.getName()).log(Level.SEVERE, null, ex);
         }
         limpiarCampos();
-
     }//GEN-LAST:event_btnRealizarCompraActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -701,6 +700,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
             return "";
         } else if (cmbMedioPago.getSelectedIndex() == 1) {
             btnRealizarCompra.setEnabled(true);
+            
             return "Efectivo";
         } else if (cmbMedioPago.getSelectedIndex() == 2) {
             btnRealizarCompra.setEnabled(true);

@@ -101,58 +101,57 @@ public class AsientoDAO {
             e.printStackTrace();
         }
     }
-    
 
-    public void darAlta(int id) throws Exception{
+    public void darAlta(int id) throws Exception {
         String sql = "UPDATE asiento SET estado = true WHERE id_asiento = ?";
         Connection con = ConexionBD.getConnection();
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
-            
+
             int fila = ps.executeUpdate();
-            if(fila == 0){
+            if (fila == 0) {
                 throw new Exception("Error al dar de alta el asiento");
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
         }
-        
+
     }
-    
-    public void darBaja(int id) throws Exception{
+
+    public void darBaja(int id) throws Exception {
         String sql = "UPDATE asiento SET estado = false WHERE id_asiento = ?";
         Connection con = ConexionBD.getConnection();
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
-            
+
             int fila = ps.executeUpdate();
-            if(fila == 0){
+            if (fila == 0) {
                 throw new Exception("Error al dar de baja el asiento");
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
         }
-        
+
     }
 
-    public void liberarAsientosPorSala(int id) throws Exception{
+    public void liberarAsientosPorSala(int id) throws Exception {
         String sql = "UPDATE asiento SET estado = true WHERE nro_sala = ?";
         Connection con = ConexionBD.getConnection();
-        
-        try(PreparedStatement ps = con.prepareStatement(sql)){
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
-            
-         int filasS = ps.executeUpdate();
-         if(filasS == 0){
-             throw new Exception("Error al dar de alta los asientos.");
-         }
-        }catch(SQLException e){
+
+            int filasS = ps.executeUpdate();
+            if (filasS == 0) {
+                throw new Exception("Error al dar de alta los asientos.");
+            }
+        } catch (SQLException e) {
             throw new Exception("Error relacionado a la base de datos.");
         }
     }
-    
+
     public int cantidadAsientosLibres(int nro_sala) throws Exception {
         String sql = "SELECT COUNT(estado) AS asientoslibres FROM asiento WHERE nro_sala = ? AND estado = true";
         Connection con = ConexionBD.getConnection();
@@ -194,44 +193,44 @@ public class AsientoDAO {
             try {
                 ps.close();
                 con.close();
-            } catch (SQLException a){
+            } catch (SQLException a) {
                 a.printStackTrace();
             }
         }
     }
-    
-    public Asiento buscarPorFilaAsiento(int numero_asiento,int nro_sala, char fila_asiento) throws Exception{
+
+    public Asiento buscarPorFilaAsiento(int numero_asiento, int nro_sala, char fila_asiento) throws Exception {
         String sql = "SELECT * FROM asiento WHERE nro_sala = ? AND fila_asiento = ? AND numero_asiento = ?";
         Connection con = ConexionBD.getConnection();
         Asiento as = null;
-        try(PreparedStatement ps = con.prepareStatement(sql)){
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, nro_sala);
             ps.setString(2, String.valueOf(fila_asiento));
             ps.setInt(3, numero_asiento);
-            try(ResultSet rs = ps.executeQuery()){
-                if(rs.next()){
-                   as = new Asiento();
-                   as.setId_asiento(rs.getInt("id_asiento"));
-                   as.setNro_sala(rs.getInt("nro_sala"));
-                   as.setFila_asiento(rs.getString("fila_asiento").charAt(0));
-                   as.setNumero_asiento(rs.getInt("numero_asiento"));
-                   as.setEstado(rs.getBoolean("estado"));
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    as = new Asiento();
+                    as.setId_asiento(rs.getInt("id_asiento"));
+                    as.setNro_sala(rs.getInt("nro_sala"));
+                    as.setFila_asiento(rs.getString("fila_asiento").charAt(0));
+                    as.setNumero_asiento(rs.getInt("numero_asiento"));
+                    as.setEstado(rs.getBoolean("estado"));
                 }
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             throw new Exception("Error relacionado a la base de datos.");
         }
         return as;
     }
-    
-    public Asiento buscarPorId(int id) throws Exception{
+
+    public Asiento buscarPorId(int id) throws Exception {
         String sql = "SELECT * FROM asiento WHERE id_asiento= ?";
         Connection con = ConexionBD.getConnection();
-         Asiento asiento = new Asiento();
-        try (PreparedStatement ps = con.prepareStatement(sql)){
+        Asiento asiento = new Asiento();
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
-            try(ResultSet rs = ps.executeQuery()){
-                if(rs.next()){
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
                     asiento = new Asiento();
                     asiento.setNro_sala(rs.getInt("nro_sala"));
                     asiento.setId_asiento(rs.getInt("id_asiento"));
@@ -243,11 +242,26 @@ public class AsientoDAO {
                     throw new Exception("No se pudo encontrar el ticket");
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
         }
         return asiento;
     }
 
+    public void liberarAsientos(List<Asiento> asientos) throws Exception {
+        String sql = "UPDATE asiento SET estado = true WHERE id_asiento = ?";
+        Connection con = ConexionBD.getConnection();
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            for (Asiento asiento : asientos) {
+                ps.setInt(1, asiento.getId_asiento());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Error relacionado a la base de datos al liberar asientos.");
+        }
+    }
 }
