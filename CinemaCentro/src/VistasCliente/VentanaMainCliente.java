@@ -525,6 +525,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
         }
+        txtCantidad.setText("");
         jBButaca.setEnabled(true);
         jBCancelarB.setEnabled(false);
         jBComprar.setEnabled(false);
