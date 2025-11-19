@@ -916,15 +916,15 @@ public class DialogCompra extends javax.swing.JDialog {
 
                 if (selec == 0) {
                     JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-                    DialogAgregarCliente ventanaAgregarCliente = new DialogAgregarCliente(padre, true);
+                    DialogAgregarCliente ventanaAgregarCliente = new DialogAgregarCliente(padre, true, true, venta);
                     ventanaAgregarCliente.setVisible(true);
 
-                    
-
-                }else{
                     ventayticketTaquilla();
-                    JOptionPane.showMessageDialog(this,
-                            "Venta registrada y asociada al cliente correctamente.");
+                    JOptionPane.showMessageDialog(this, "Venta registrada y asociada al cliente correctamente.");
+
+                } else {
+                    ventayticketTaquilla();
+                    JOptionPane.showMessageDialog(this, "Venta registrada y asociada al cliente correctamente.");
                 }
             }
 
