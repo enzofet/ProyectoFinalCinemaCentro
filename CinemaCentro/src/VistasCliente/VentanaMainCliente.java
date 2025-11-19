@@ -560,6 +560,21 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
     private void limpiarCampos() {
         txtCantidad.setText("");
+    lblPrecio.setText("Precio Total:");
+    jTPeli.clearSelection();
+    jTFuncion.clearSelection();
+    modeloAsi.clear();
+    jListAsientos.setModel(modeloAsi);
+    jListAsientos.setOpaque(false);
+    listaAsi.clear();
+    precioTotal = 0;
+    precioEntrada = 0;
+    idPeli = 0;
+    idSala = 0;
+    idFun = 0;
+    jBButaca.setEnabled(false);
+    jBCancelarB.setEnabled(false);
+    jBComprar.setEnabled(false);
     }
 
     /**
