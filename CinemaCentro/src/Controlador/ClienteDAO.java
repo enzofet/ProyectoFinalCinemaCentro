@@ -204,7 +204,7 @@ public class ClienteDAO {
     }
     
     public Cliente validarCredenciales(int dni, String password) throws Exception{
-        String sql = "SELECT * FROM cliente WHERE dni = ? AND password";
+        String sql = "SELECT * FROM cliente WHERE dni = ? AND password = ? AND estado = true";
         Connection conn = ConexionBD.getConnection();
         
         Cliente cliente = null;
