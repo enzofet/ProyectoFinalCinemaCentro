@@ -131,9 +131,9 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
 
         pnlTaquilla.setBackground(new java.awt.Color(102, 0, 0));
 
-        lblCarteleraActual.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        lblCarteleraActual.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         lblCarteleraActual.setForeground(new java.awt.Color(255, 255, 255));
-        lblCarteleraActual.setText("Cartelera actual: ");
+        lblCarteleraActual.setText("Cartelera:");
 
         tblCartelera.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -161,88 +161,89 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(tblFunciones);
 
-        lblFuncionesxPelicula.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        lblFuncionesxPelicula.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         lblFuncionesxPelicula.setForeground(new java.awt.Color(255, 255, 255));
-        lblFuncionesxPelicula.setText("Funciones disponibles para la película seleccionada:");
+        lblFuncionesxPelicula.setText("Funciones:");
 
-        lblPelicula.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblPelicula.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblPelicula.setForeground(new java.awt.Color(255, 255, 255));
         lblPelicula.setText("Película:");
 
-        lblPrecioEntradaIndividual.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblPrecioEntradaIndividual.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblPrecioEntradaIndividual.setForeground(new java.awt.Color(255, 255, 255));
-        lblPrecioEntradaIndividual.setText("Precio entrada individual:");
+        lblPrecioEntradaIndividual.setText("Precio de Entrada:");
 
-        lblPeliculaS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblPeliculaS.setFont(new java.awt.Font("Roboto Light", 2, 14)); // NOI18N
         lblPeliculaS.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblGeneros.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblGeneros.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblGeneros.setForeground(new java.awt.Color(255, 255, 255));
         lblGeneros.setText("Género/s:");
 
-        lblGenerosS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblGenerosS.setFont(new java.awt.Font("Roboto Light", 2, 14)); // NOI18N
         lblGenerosS.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblNumeroSala.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblNumeroSala.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblNumeroSala.setForeground(new java.awt.Color(255, 255, 255));
         lblNumeroSala.setText("Número de Sala:");
 
-        lblidioma.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblidioma.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblidioma.setForeground(new java.awt.Color(255, 255, 255));
         lblidioma.setText("Idioma:");
 
-        lbl3D.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lbl3D.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lbl3D.setForeground(new java.awt.Color(255, 255, 255));
         lbl3D.setText("Apta 3D:");
 
-        lblHorarioInicio.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblHorarioInicio.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblHorarioInicio.setForeground(new java.awt.Color(255, 255, 255));
         lblHorarioInicio.setText("Horario de Inicio:");
 
-        lblHorarioFin.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblHorarioFin.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblHorarioFin.setForeground(new java.awt.Color(255, 255, 255));
         lblHorarioFin.setText("Horario de Finalización:");
 
-        lblNumeroSalaS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblNumeroSalaS.setFont(new java.awt.Font("Roboto Light", 2, 14)); // NOI18N
         lblNumeroSalaS.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblIdiomaS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblIdiomaS.setFont(new java.awt.Font("Roboto Light", 2, 14)); // NOI18N
         lblIdiomaS.setForeground(new java.awt.Color(255, 255, 255));
 
-        lbl3DS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lbl3DS.setFont(new java.awt.Font("Roboto Light", 2, 14)); // NOI18N
         lbl3DS.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblHorarioInicioS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblHorarioInicioS.setFont(new java.awt.Font("Roboto Light", 2, 14)); // NOI18N
         lblHorarioInicioS.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblHorarioFinS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblHorarioFinS.setFont(new java.awt.Font("Roboto Light", 2, 14)); // NOI18N
         lblHorarioFinS.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblFechaFuncion.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblFechaFuncion.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblFechaFuncion.setForeground(new java.awt.Color(255, 255, 255));
         lblFechaFuncion.setText("Fecha de la Función:");
 
-        lblSubtitulada.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblSubtitulada.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblSubtitulada.setForeground(new java.awt.Color(255, 255, 255));
         lblSubtitulada.setText("Subtitulada:");
 
-        lblSubtituladaS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblSubtituladaS.setFont(new java.awt.Font("Roboto Light", 2, 14)); // NOI18N
         lblSubtituladaS.setForeground(new java.awt.Color(255, 255, 255));
 
+        txtCantidadBoletos.setFont(new java.awt.Font("Roboto Light", 2, 14)); // NOI18N
         txtCantidadBoletos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCantidadBoletosKeyReleased(evt);
             }
         });
 
-        lblCantidadBoletos.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblCantidadBoletos.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblCantidadBoletos.setForeground(new java.awt.Color(255, 255, 255));
         lblCantidadBoletos.setText("Cantidad de Boletos:");
 
-        lblFechaS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblFechaS.setFont(new java.awt.Font("Roboto Light", 2, 14)); // NOI18N
         lblFechaS.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblPrecioEntradaIndividualS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblPrecioEntradaIndividualS.setFont(new java.awt.Font("Roboto Light", 2, 14)); // NOI18N
         lblPrecioEntradaIndividualS.setForeground(new java.awt.Color(255, 255, 255));
 
         jScrollPane3.setViewportView(listAsientosS);
@@ -262,11 +263,11 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         lblAsientosSeleccionados.setForeground(new java.awt.Color(255, 255, 255));
         lblAsientosSeleccionados.setText("Asientos Seleccionados:");
 
-        lblImporteT.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        lblImporteT.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         lblImporteT.setForeground(new java.awt.Color(255, 255, 255));
         lblImporteT.setText("Importe Total:");
 
-        lblImporteTotal.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        lblImporteTotal.setFont(new java.awt.Font("Roboto Light", 2, 14)); // NOI18N
         lblImporteTotal.setForeground(new java.awt.Color(255, 255, 255));
 
         btnRealizarCompra.setBackground(new java.awt.Color(70, 73, 75));
@@ -327,175 +328,201 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         pnlTaquilla.setLayout(pnlTaquillaLayout);
         pnlTaquillaLayout.setHorizontalGroup(
             pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblCinemaCentro)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTaquillaLayout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane2)
                     .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblCarteleraActual)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblFuncionesxPelicula)
-                                .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                    .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                            .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(lblGeneros)
-                                                .addComponent(lblNumeroSala)
-                                                .addComponent(lblidioma)
-                                                .addComponent(lbl3D)
-                                                .addComponent(lblSubtitulada))
-                                            .addGap(21, 21, 21)
-                                            .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(lblGenerosS, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(lblNumeroSalaS, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(lblIdiomaS, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(lbl3DS, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(lblSubtituladaS, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(10, 10, 10)
+                        .addComponent(lblFuncionesxPelicula)
+                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                                        .addComponent(lblNumeroSala)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(lblNumeroSalaS, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                                        .addComponent(lblGeneros)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(lblGenerosS, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                                        .addComponent(lbl3D)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(lbl3DS, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlTaquillaLayout.createSequentialGroup()
+                                                            .addComponent(lblSubtitulada)
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                            .addComponent(lblSubtituladaS, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlTaquillaLayout.createSequentialGroup()
+                                                            .addComponent(lblidioma)
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                            .addComponent(lblIdiomaS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                            .addGap(23, 23, 23))))
+                                                .addGap(47, 47, 47)
+                                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                                                    .addComponent(lblHorarioFin)
+                                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                    .addComponent(lblHorarioFinS, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                                                    .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                        .addComponent(lblPrecioEntradaIndividual)
+                                                                        .addComponent(lblHorarioInicio))
+                                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                    .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(lblHorarioInicioS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTaquillaLayout.createSequentialGroup()
+                                                                            .addComponent(lblPrecioEntradaIndividualS, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                            .addGap(5, 5, 5)))))
+                                                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                                                .addGap(15, 15, 15)
+                                                                .addComponent(lblCantidadBoletos)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(txtCantidadBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                                                .addGap(69, 69, 69)
+                                                                .addComponent(btnConfirmacion)))
+                                                        .addGap(33, 33, 33))
+                                                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                                        .addComponent(lblFechaFuncion)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(lblFechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlTaquillaLayout.createSequentialGroup()
+                                                        .addGap(57, 57, 57)
+                                                        .addComponent(lblImporteT)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(lblImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                                .addComponent(lblPelicula)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(lblPeliculaS, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblAsientosSeleccionados)
                                             .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                                    .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                                            .addComponent(lblHorarioFin)
-                                                            .addGap(44, 44, 44)
-                                                            .addComponent(lblHorarioFinS, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                                            .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addComponent(lblHorarioInicio)
-                                                                .addComponent(lblFechaFuncion))
-                                                            .addGap(60, 60, 60)
-                                                            .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addComponent(lblFechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(lblHorarioInicioS, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                        .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                                            .addGap(10, 10, 10)
-                                                            .addComponent(btnConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                    .addGap(20, 20, 20))
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTaquillaLayout.createSequentialGroup()
-                                                    .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                                            .addComponent(lblImporteT, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                            .addComponent(lblImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                                            .addComponent(lblCantidadBoletos)
-                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                            .addComponent(txtCantidadBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                    .addGap(18, 18, 18))))
-                                        .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                            .addComponent(lblPelicula)
-                                            .addGap(65, 65, 65)
-                                            .addComponent(lblPeliculaS, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(20, 20, 20)
-                                            .addComponent(lblPrecioEntradaIndividual)
-                                            .addGap(30, 30, 30)
-                                            .addComponent(lblPrecioEntradaIndividualS, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(24, 24, 24)))
-                                    .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblAsientosSeleccionados)
-                                        .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(btnRealizarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                                .addComponent(btnCancelarAsientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(cmbMedioPago, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(lblMedioPago, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                        .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 863, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addComponent(lblMedioPago, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(btnSalir)
+                                                .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(btnRealizarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                                        .addComponent(btnCancelarAsientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(lblCarteleraActual))
+                                .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                    .addComponent(lblTitulo)
+                                    .addGap(134, 134, 134)
+                                    .addComponent(lblCinemaCentro))))))
+                .addGap(11, 11, 11))
         );
         pnlTaquillaLayout.setVerticalGroup(
             pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblCinemaCentro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTitulo)
+                .addGap(9, 9, 9)
+                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTitulo)
+                    .addComponent(lblCinemaCentro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblCarteleraActual)
                 .addGap(7, 7, 7)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblFuncionesxPelicula)
                 .addGap(5, 5, 5)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPelicula)
-                    .addComponent(lblPeliculaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPrecioEntradaIndividual)
-                    .addComponent(lblPrecioEntradaIndividualS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAsientosSeleccionados))
-                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTaquillaLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
                     .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(29, 29, 29)
+                        .addComponent(lblPelicula))
+                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(lblPeliculaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTaquillaLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAsientosSeleccionados)
+                            .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblPrecioEntradaIndividual)
+                                .addComponent(lblPrecioEntradaIndividualS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                .addComponent(lblGeneros)
-                                .addGap(14, 14, 14)
-                                .addComponent(lblNumeroSala)
-                                .addGap(14, 14, 14)
-                                .addComponent(lblidioma)
-                                .addGap(14, 14, 14)
-                                .addComponent(lbl3D)
-                                .addGap(14, 14, 14)
-                                .addComponent(lblSubtitulada))
-                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                .addComponent(lblGenerosS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(lblNumeroSalaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(lblIdiomaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(lbl3DS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(lblSubtituladaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                .addComponent(btnRealizarCompra)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCancelarAsientos)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSalir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblMedioPago))
-                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblHorarioInicio)
                                     .addComponent(lblHorarioInicioS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(10, 10, 10)
-                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblHorarioFin)
                                     .addComponent(lblHorarioFinS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(10, 10, 10)
                                 .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblFechaFuncion)
-                                    .addComponent(lblFechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(5, 5, 5)
-                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblCantidadBoletos)
-                                    .addComponent(txtCantidadBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(10, 10, 10)
-                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblImporteT)
-                                    .addComponent(lblImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addComponent(lblFechaFuncion)
+                                        .addGap(2, 2, 2))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTaquillaLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblFechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(6, 6, 6))))
+                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                         .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlTaquillaLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(btnConfirmacion))
-                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(lblMedioPago)
                                 .addGap(6, 6, 6)
-                                .addComponent(cmbMedioPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(9, 9, 9))))
+                                .addComponent(cmbMedioPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtCantidadBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCantidadBoletos))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblImporteT))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnConfirmacion))
+                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                        .addComponent(btnRealizarCompra)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelarAsientos))
+                    .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlTaquillaLayout.createSequentialGroup()
+                                .addComponent(lblGeneros)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNumeroSala)
+                                    .addComponent(lblNumeroSalaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblGenerosS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblidioma)
+                            .addComponent(lblIdiomaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbl3D)
+                            .addComponent(lbl3DS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlTaquillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSubtitulada)
+                            .addComponent(lblSubtituladaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSalir)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
