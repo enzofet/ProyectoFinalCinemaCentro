@@ -66,7 +66,6 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
         btnVentaTaquilla = new javax.swing.JMenuItem();
         menuCliente = new javax.swing.JMenu();
         btnGestionCliente = new javax.swing.JMenuItem();
-        menuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,7 +82,7 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
 
         menuPeliculas.setText("Películas");
 
-        btnGestionPeliculas.setText("Gestión de películas");
+        btnGestionPeliculas.setText("Gestión de Películas");
         btnGestionPeliculas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGestionPeliculasActionPerformed(evt);
@@ -95,7 +94,7 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
 
         menuFunciones.setText("Funciones");
 
-        btnGestionFunciones.setText("Gestión de funciones");
+        btnGestionFunciones.setText("Gestión de Funciones");
         btnGestionFunciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGestionFuncionesActionPerformed(evt);
@@ -107,7 +106,7 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
 
         menuSalas.setText("Salas");
 
-        menuGestionSalas.setText("Gestión de salas");
+        menuGestionSalas.setText("Gestión de Salas");
         menuGestionSalas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuGestionSalasActionPerformed(evt);
@@ -119,7 +118,7 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
 
         menuVentas.setText("Ventas");
 
-        btnGestionTickets.setText("Gestión de tickets");
+        btnGestionTickets.setText("Gestión de Tickets");
         btnGestionTickets.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGestionTicketsActionPerformed(evt);
@@ -127,7 +126,7 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
         });
         menuVentas.add(btnGestionTickets);
 
-        btnInformeVentas.setText("Informe de ventas");
+        btnInformeVentas.setText("Informe de Ventas");
         btnInformeVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInformeVentasActionPerformed(evt);
@@ -139,7 +138,7 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
 
         menuTaquilla.setText("Taquilla");
 
-        btnVentaTaquilla.setText("Venta taquilla");
+        btnVentaTaquilla.setText("Venta Taquilla");
         btnVentaTaquilla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVentaTaquillaActionPerformed(evt);
@@ -151,7 +150,7 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
 
         menuCliente.setText("Cliente");
 
-        btnGestionCliente.setText("Gestión de cliente");
+        btnGestionCliente.setText("Gestión de Cliente");
         btnGestionCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGestionClienteActionPerformed(evt);
@@ -160,14 +159,6 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
         menuCliente.add(btnGestionCliente);
 
         jMenuBar1.add(menuCliente);
-
-        menuSalir.setText("Salir");
-        menuSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuSalirActionPerformed(evt);
-            }
-        });
-        jMenuBar1.add(menuSalir);
 
         setJMenuBar(jMenuBar1);
 
@@ -220,10 +211,6 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
         ventanaTaquilla.setVisible(true);
         ventanaTaquilla.moveToFront();
     }//GEN-LAST:event_btnVentaTaquillaActionPerformed
-
-    private void menuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSalirActionPerformed
-      dispose();
-    }//GEN-LAST:event_menuSalirActionPerformed
 
     private void btnGestionTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionTicketsActionPerformed
         escritorioAdmin.removeAll();
@@ -306,7 +293,6 @@ public class VentanaAdministrativo extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuGestionSalas;
     private javax.swing.JMenu menuPeliculas;
     private javax.swing.JMenu menuSalas;
-    private javax.swing.JMenu menuSalir;
     private javax.swing.JMenu menuTaquilla;
     private javax.swing.JMenu menuVentas;
     // End of variables declaration//GEN-END:variables

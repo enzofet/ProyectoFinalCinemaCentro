@@ -14,10 +14,8 @@ import Modelo.Cliente;
 import Modelo.DetalleTicket;
 import Modelo.Funcion;
 import Modelo.TicketDato;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -136,11 +134,6 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tblTickets);
 
         txtFechaMin.setText("yyyy-mm-dd");
-        txtFechaMin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaMinActionPerformed(evt);
-            }
-        });
 
         lblEntre.setForeground(new java.awt.Color(255, 255, 255));
         lblEntre.setText("Entre");
@@ -403,7 +396,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
         lblCinemaCentro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCinemaCentro.setText("CinemaCentro");
 
-        jButton1.setText("Filtrar por fecha");
+        jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -425,34 +418,12 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
             .addGroup(pnlVentasLayout.createSequentialGroup()
                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addComponent(lblGestionTickets, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCinemaCentro))
-                    .addGroup(pnlVentasLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(pnlVentasLayout.createSequentialGroup()
-                                .addComponent(checkFiltroDNI)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDNICliente, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(FiltroPelicula)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombrePelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(checkFiltroFecha)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFechaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblEntre, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFechaMax, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1))
+                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlVentasLayout.createSequentialGroup()
                                 .addComponent(pnlDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(pnlVentasLayout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(btnSalir))
@@ -462,9 +433,36 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                                             .addComponent(btnBaja, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                                             .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1049, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addGap(0, 268, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1049, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlVentasLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(checkFiltroDNI)
+                                        .addGap(68, 68, 68)
+                                        .addComponent(FiltroPelicula)
+                                        .addGap(109, 109, 109)
+                                        .addComponent(checkFiltroFecha))
+                                    .addGroup(pnlVentasLayout.createSequentialGroup()
+                                        .addComponent(txtDNICliente, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtNombrePelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtFechaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(14, 14, 14)
+                                        .addComponent(lblEntre)
+                                        .addGap(9, 9, 9)
+                                        .addComponent(txtFechaMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButton1))))
+                            .addComponent(lblGestionTickets, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblCinemaCentro)))
+                .addGap(0, 30, Short.MAX_VALUE))
         );
         pnlVentasLayout.setVerticalGroup(
             pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,23 +471,22 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblGestionTickets, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCinemaCentro))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkFiltroFecha)
+                            .addComponent(checkFiltroDNI, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtNombrePelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(FiltroPelicula)
                             .addComponent(txtDNICliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkFiltroDNI)))
-                    .addGroup(pnlVentasLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
                             .addComponent(txtFechaMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblEntre)
                             .addComponent(txtFechaMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkFiltroFecha))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton1)))
+                    .addComponent(FiltroPelicula))
+                .addGap(13, 13, 13)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlVentasLayout.createSequentialGroup()
@@ -506,14 +503,16 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                         .addComponent(btnModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEliminar)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlVentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addComponent(pnlVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -716,12 +715,8 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNombrePeliculaKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       filtrarTicketsPorFecha();
+        filtrarTicketsPorFecha();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void txtFechaMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaMinActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaMinActionPerformed
 
     private void checkFiltroFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkFiltroFechaActionPerformed
         actualizarEstadoFiltros();
@@ -735,52 +730,59 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
             rellenarTablaTickets();
             return;
         }
+
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-        Date fechaMinFiltro = null;
-        Date fechaMaxFiltro = null;
-        /* 
+        java.util.Date fechaMinFiltro = null;
+        java.util.Date fechaMaxFiltro = null;
+
         try {
-           fechaMinFiltro = formatoFecha.parse(fechaMin);
+            fechaMinFiltro = formatoFecha.parse(fechaMin);
             fechaMaxFiltro = formatoFecha.parse(fechaMax);
+
+            java.util.Calendar cal = java.util.Calendar.getInstance();
+            cal.setTime(fechaMaxFiltro);
+            cal.add(java.util.Calendar.DATE, 1);
+            fechaMaxFiltro = cal.getTime();
 
         } catch (ParseException e) {
             JOptionPane.showMessageDialog(this, "Error en el formato de fecha. Use yyyy-MM-dd.");
             e.printStackTrace();
             return;
         }
-        */
+
         DefaultTableModel modelo = (DefaultTableModel) tblTickets.getModel();
         modelo.setRowCount(0);
-        for (TicketDato dt : listaDatosTickets){
-            try{
-            Date fechaTicket = (Date) formatoFecha.parse(dt.getFechaEmision());
-            
-            if(!fechaTicket.before(fechaMinFiltro) && !fechaTicket.after(fechaMaxFiltro)){
-                Object dniMostrado;
-            if (dt.getDNI() == 0) {
-                dniMostrado = "Eliminado o anonimo.";
-            } else {
-                dniMostrado = dt.getDNI();
-            }
-            modelo.addRow(new Object[]{
-                dt.getIdTicket(),
-                dniMostrado,
-                dt.getNombreApellidoCliente(),
-                dt.getPeliculaTitulo(),
-                dt.getFechaFuncion(),
-                dt.getHoraInicio(),
-                dt.getHoraFin(),
-                dt.getNroSala(),
-                dt.getAsiento(),
-                dt.getMedioCompra(),
-                dt.getFechaEmision(),
-                parsearBooleanAACTIVAINACTIVA(dt.isEstado())
-            });
-            }
-            }catch (ParseException e) {
-            JOptionPane.showMessageDialog(this, "Error en el formato de fecha. Use yyyy-MM-dd.");
-            e.printStackTrace();
-            return;
+
+        for (TicketDato dt : listaDatosTickets) {
+            try {
+                // parseo la fecha del ticket
+                java.util.Date fechaTicket = formatoFecha.parse(dt.getFechaEmision());
+
+                // se fija si la fecha del ticket esta dentro del rango
+                if (!fechaTicket.before(fechaMinFiltro) && fechaTicket.before(fechaMaxFiltro)) {
+                    Object dniMostrado;
+                    if (dt.getDNI() == 0) {
+                        dniMostrado = "Eliminado o anonimo.";
+                    } else {
+                        dniMostrado = dt.getDNI();
+                    }
+                    modelo.addRow(new Object[]{
+                        dt.getIdTicket(),
+                        dniMostrado,
+                        dt.getNombreApellidoCliente(),
+                        dt.getPeliculaTitulo(),
+                        dt.getFechaFuncion(),
+                        dt.getHoraInicio(),
+                        dt.getHoraFin(),
+                        dt.getNroSala(),
+                        dt.getAsiento(),
+                        dt.getMedioCompra(),
+                        dt.getFechaEmision(),
+                        parsearBooleanAACTIVAINACTIVA(dt.isEstado())
+                    });
+                }
+            } catch (ParseException e) {
+                System.err.println("Error al parsear fecha del ticket: " + dt.getFechaEmision());
             }
         }
     }
@@ -923,20 +925,33 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     }
 
     public void actualizarEstadoFiltros() {
+        // la onda acá es que solo un filtro este activo a la vez
         txtFechaMin.setEnabled(false);
         txtFechaMax.setEnabled(false);
         txtDNICliente.setEnabled(false);
         txtNombrePelicula.setEnabled(false);
-        if(checkFiltroFecha.isSelected()){
+
+        if (!checkFiltroFecha.isSelected()) {
+            txtFechaMin.setText("yyyy-mm-dd");
+            txtFechaMax.setText("yyyy-mm-dd");
+        }
+        if (!checkFiltroDNI.isSelected()) {
+            txtDNICliente.setText("");
+        }
+        if (!FiltroPelicula.isSelected()) {
+            txtNombrePelicula.setText("");
+        }
+
+        // activa solo el campo correspondiente al filtro
+        if (checkFiltroFecha.isSelected()) {
             txtFechaMin.setEnabled(true);
             txtFechaMax.setEnabled(true);
-        }else if (checkFiltroDNI.isSelected()) {
+        } else if (checkFiltroDNI.isSelected()) {
             txtDNICliente.setEnabled(true);
         } else if (FiltroPelicula.isSelected()) {
             txtNombrePelicula.setEnabled(true);
         }
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox FiltroPelicula;
     private javax.swing.JButton btnAlta;

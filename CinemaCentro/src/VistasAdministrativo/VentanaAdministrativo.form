@@ -11,7 +11,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnGestionPeliculas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de pel&#xed;culas"/>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Pel&#xed;culas"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGestionPeliculasActionPerformed"/>
@@ -26,7 +26,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnGestionFunciones">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de funciones"/>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Funciones"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGestionFuncionesActionPerformed"/>
@@ -41,7 +41,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuGestionSalas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de salas"/>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Salas"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuGestionSalasActionPerformed"/>
@@ -56,7 +56,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnGestionTickets">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de tickets"/>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Tickets"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGestionTicketsActionPerformed"/>
@@ -64,7 +64,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnInformeVentas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Informe de ventas"/>
+                <Property name="text" type="java.lang.String" value="Informe de Ventas"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInformeVentasActionPerformed"/>
@@ -79,7 +79,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnVentaTaquilla">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Venta taquilla"/>
+                <Property name="text" type="java.lang.String" value="Venta Taquilla"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVentaTaquillaActionPerformed"/>
@@ -94,21 +94,13 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnGestionCliente">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de cliente"/>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Cliente"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGestionClienteActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="menuSalir">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Salir"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuSalirActionPerformed"/>
-          </Events>
         </Menu>
       </SubComponents>
     </Menu>
