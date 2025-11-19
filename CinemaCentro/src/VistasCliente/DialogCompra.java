@@ -82,7 +82,7 @@ public class DialogCompra extends javax.swing.JDialog {
         rellenarTablaEntradas();
         setearDetalleVenta(venta);
         agregarListenerTabla();
-        habilitarSegunMedioPago(medio_pago);
+        habilitarSegunMedioPago(medioPago);
         placeholderFecha();
     }
 
@@ -735,59 +735,66 @@ public class DialogCompra extends javax.swing.JDialog {
         String fecha = txtFechaVencimiento.getText();
         String codigoSeguridad = txtCVV.getText();
 
-        if (nroTarjeta.isEmpty() || nombreCompleto.isEmpty()
-                || codigoSeguridad.isEmpty() || fecha.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No puede dejar campos vacíos en los datos de tarjeta");
-            return;
-        }
-
-        if (!(nroTarjeta.length() == 16 || nroTarjeta.length() == 15)) {
-            JOptionPane.showMessageDialog(this, "Ingrese un número de tarjeta válido.");
-            return;
-        }
-
-        if (!validacionFecha(fecha)) {
-            return;
-        }
-
-        if (!validarNombreApellido(nombreCompleto)) {
-            return;
-        }
-
-        if (!(codigoSeguridad.length() == 3 || codigoSeguridad.length() == 4)) {
-            JOptionPane.showMessageDialog(this, "El CVV debe tener 3 o 4 dígitos.");
-            return;
-        }
-
-        if (medioCompra.equalsIgnoreCase("online")) {
-            try {
-                if (venta.getId_Cliente() == -1) {
-                    // se inserta como null en la bd
-                }
-                int idVenta = maniVenta.registrarVentaOnline(venta);
-
-                for (Asiento asiento : listaAsientos) {
-                    DetalleTicket ticket = new DetalleTicket(
-                            funcion.getId_Funcion(),
-                            asiento.getId_asiento(),
-                            idVenta,
-                            LocalDate.now(),
-                            true
-                    );
-                    maniTicket.generarTicket(ticket);
-                }
-
-                JOptionPane.showMessageDialog(this,
-                        "Venta y tickets generados correctamente.");
-
-                this.dispose();
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (medioPago.equalsIgnoreCase("debito")) {
+            if (nroTarjeta.isEmpty() || nombreCompleto.isEmpty()
+                    || codigoSeguridad.isEmpty() || fecha.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No puede dejar campos vacíos en los datos de tarjeta");
+                return;
             }
-        } else if (medioCompra.equalsIgnoreCase("taquilla")) {
+
+            if (!(nroTarjeta.length() == 16 || nroTarjeta.length() == 15)) {
+                JOptionPane.showMessageDialog(this, "Ingrese un número de tarjeta válido.");
+                return;
+            }
+
+            if (!validacionFecha(fecha)) {
+                return;
+            }
+
+            if (!validarNombreApellido(nombreCompleto)) {
+                return;
+            }
+
+            if (!(codigoSeguridad.length() == 3 || codigoSeguridad.length() == 4)) {
+                JOptionPane.showMessageDialog(this, "El CVV debe tener 3 o 4 dígitos.");
+                return;
+            }
+
+            if (medioCompra.equalsIgnoreCase("online")) {
+                try {
+                    if (venta.getId_Cliente() == -1) {
+                        // se inserta como null en la bd
+                    }
+                    int idVenta = maniVenta.registrarVentaOnline(venta);
+
+                    for (Asiento asiento : listaAsientos) {
+                        DetalleTicket ticket = new DetalleTicket(
+                                funcion.getId_Funcion(),
+                                asiento.getId_asiento(),
+                                idVenta,
+                                LocalDate.now(),
+                                true
+                        );
+                        maniTicket.generarTicket(ticket);
+                    }
+
+                    JOptionPane.showMessageDialog(this,
+                            "Venta y tickets generados correctamente.");
+
+                    this.dispose();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (medioCompra.equalsIgnoreCase("taquilla")) {
+                registrarVentaTaquilla();
+                this.dispose();
+            }
+        }
+        if (medioPago.equalsIgnoreCase("efectivo")) {
             registrarVentaTaquilla();
             this.dispose();
         }
+
 
     }//GEN-LAST:event_btnConfirmarCompraActionPerformed
 
