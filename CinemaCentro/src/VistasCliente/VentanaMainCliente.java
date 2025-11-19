@@ -44,7 +44,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
     int idFun = 0;
     private FuncionDAO maniFun = new FuncionDAO();
-    static String[] columnasFun = {"id_funcion", "Día", "Horario Inicio/Fin", "Sala", "3D", "Idioma", "Subtitulada"};
+    static String[] columnasFun = {"id_funcion", "Día", "Horario Inicio/Fin", "Sala", "3D", "Idioma", "Subtitulada", "Precio Entrada"};
     static DefaultTableModel modeloFun = new DefaultTableModel(null, columnasFun) {
         @Override
         public boolean isCellEditable(int a, int b) {
@@ -108,9 +108,9 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                     fun.getNro_Sala(),
                     parsearBooleann(fun.isEs3D()),
                     fun.getIdioma(),
-                    parsearBooleann(fun.isSubtitulada())
+                    parsearBooleann(fun.isSubtitulada()),
+                    fun.getPrecio_Entrada()
                 });
-                precioEntrada = fun.getPrecio_Entrada();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -386,7 +386,6 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-
             for (int i = 0; i < cant; i++) {
                 DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, idSala);
                 ventanaAsientos.setVisible(true);
@@ -472,31 +471,46 @@ public class VentanaMainCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTPeliMouseClicked
 
     private void jTFuncionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTFuncionMouseClicked
-        // TODO add your handling code here:
+        
+        txtCantidad.setText("");
         int filaSelec = jTFuncion.getSelectedRow();
         if (filaSelec > -1) {
 
             idSala = (int) jTFuncion.getValueAt(filaSelec, 3);
             idFun = (int) jTFuncion.getValueAt(filaSelec, 0);
+
+            precioEntrada = (double) jTFuncion.getValueAt(filaSelec, 7);
+
+            try {
+                int cantidad = Integer.parseInt(txtCantidad.getText());
+                precioTotal = cantidad * precioEntrada;
+            } catch (NumberFormatException e) {
+            }
+            
+            
         }
     }//GEN-LAST:event_jTFuncionMouseClicked
 
-    private double precioUnitario = 100.0;
     private double precioTotal;
-    
+
     private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
         // TODO add your handling code here:
         try {
-        int cantidad = Integer.parseInt(txtCantidad.getText());
-        precioTotal = cantidad * precioUnitario;
-        lblPrecio.setText("Precio Total: $" + precioTotal);
-
-        jBButaca.setEnabled(true);
-    } catch (NumberFormatException e) {
-        lblPrecio.setText("Precio Total:");
-    } catch (Exception a) {
-        JOptionPane.showMessageDialog(this, a.getMessage());
-    }
+            int cantidad = Integer.parseInt(txtCantidad.getText());
+            if (precioEntrada > 0) {
+                precioTotal = cantidad * precioEntrada;
+                lblPrecio.setText("Precio Total: $ " + precioTotal);
+                jBButaca.setEnabled(true);
+            } else {
+                lblPrecio.setText("Precio Total: Seleccione una función primero");
+                jBButaca.setEnabled(false);
+            }
+        } catch (NumberFormatException e) {
+            lblPrecio.setText("Precio Total:");
+            jBButaca.setEnabled(false);
+        } catch (Exception a) {
+            JOptionPane.showMessageDialog(this, a.getMessage());
+        }
     }//GEN-LAST:event_txtCantidadKeyReleased
 
     private void jBCancelarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarBActionPerformed
@@ -537,16 +551,16 @@ public class VentanaMainCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jBComprarActionPerformed
 
     private void lblProxEstrenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblProxEstrenosActionPerformed
-        
-        JFrame padre  = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+        JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
         DialogProxEstrenos ventanaEstrenos = new DialogProxEstrenos(padre, true);
         ventanaEstrenos.setVisible(true);
     }//GEN-LAST:event_lblProxEstrenosActionPerformed
 
-    
-    private void  limpiarCampos(){
+    private void limpiarCampos() {
         txtCantidad.setText("");
     }
+
     /**
      * @param args the command line arguments
      */
