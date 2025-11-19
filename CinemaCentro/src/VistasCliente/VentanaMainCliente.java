@@ -515,6 +515,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
     private void jBCancelarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarBActionPerformed
         // TODO add your handling code here:
+        listaAsi.clear();
         modeloAsi.clear();
         jListAsientos.setModel(modeloAsi);
 
