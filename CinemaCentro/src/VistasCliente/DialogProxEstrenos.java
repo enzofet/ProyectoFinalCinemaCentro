@@ -47,6 +47,8 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         panelDerecho = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
@@ -54,8 +56,6 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
         lblDirector = new javax.swing.JLabel();
         lblReparto = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
         lblPoster = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -64,17 +64,10 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("PROXIMOS ESTRENOS");
 
-        javax.swing.GroupLayout panelIzquierdoLayout = new javax.swing.GroupLayout(panelIzquierdo);
-        panelIzquierdo.setLayout(panelIzquierdoLayout);
-        panelIzquierdoLayout.setHorizontalGroup(
-            panelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelIzquierdoLayout.setVerticalGroup(
-            panelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        jSplitPane1.setDividerLocation(250);
+        jSplitPane1.setResizeWeight(0.7);
 
+        panelIzquierdo.setLayout(new java.awt.BorderLayout());
         jSplitPane1.setLeftComponent(panelIzquierdo);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -89,20 +82,35 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
 
         jSplitPane1.setLeftComponent(jScrollPane1);
 
+        panelDerecho.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        panelDerecho.setLayout(new java.awt.BorderLayout());
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("POSTER");
+        panelDerecho.add(jLabel7, java.awt.BorderLayout.PAGE_START);
+
+        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.Y_AXIS));
+
         lblTitulo.setText("Titulo:");
         lblTitulo.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        jPanel4.add(lblTitulo);
 
         lblFecha.setText("Fecha de Estreno:");
         lblFecha.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        jPanel4.add(lblFecha);
 
         lblGenero.setText("Genero:");
         lblGenero.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        jPanel4.add(lblGenero);
 
         lblDirector.setText("Director:");
         lblDirector.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        jPanel4.add(lblDirector);
 
         lblReparto.setText("Reparto:");
         lblReparto.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        jPanel4.add(lblReparto);
 
         jButton1.setText("Ver trailer");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -110,73 +118,24 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTitulo)
-            .addComponent(lblFecha)
-            .addComponent(lblGenero)
-            .addComponent(lblDirector)
-            .addComponent(lblReparto)
-            .addComponent(jButton1)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(lblTitulo)
-                .addGap(0, 0, 0)
-                .addComponent(lblFecha)
-                .addGap(0, 0, 0)
-                .addComponent(lblGenero)
-                .addGap(0, 0, 0)
-                .addComponent(lblDirector)
-                .addGap(0, 0, 0)
-                .addComponent(lblReparto)
-                .addGap(0, 0, 0)
-                .addComponent(jButton1))
-        );
-
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("POSTER");
-
-        lblPoster.setText("jLabel2");
-        lblPoster.setPreferredSize(new java.awt.Dimension(120, 160));
+        jPanel4.add(jButton1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(180, 180, 180)
-                .addComponent(lblPoster, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(lblPoster, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        javax.swing.GroupLayout panelDerechoLayout = new javax.swing.GroupLayout(panelDerecho);
-        panelDerecho.setLayout(panelDerechoLayout);
-        panelDerechoLayout.setHorizontalGroup(
-            panelDerechoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-        panelDerechoLayout.setVerticalGroup(
-            panelDerechoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDerechoLayout.createSequentialGroup()
-                .addComponent(jLabel7)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+
+        panelDerecho.add(jPanel3, java.awt.BorderLayout.PAGE_END);
+
+        lblPoster.setText("jLabel2");
+        lblPoster.setPreferredSize(new java.awt.Dimension(120, 160));
+        panelDerecho.add(lblPoster, java.awt.BorderLayout.CENTER);
 
         jSplitPane1.setRightComponent(panelDerecho);
 
@@ -184,15 +143,21 @@ public class DialogProxEstrenos extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSplitPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(0, 0, 0)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
