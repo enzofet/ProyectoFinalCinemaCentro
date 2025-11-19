@@ -70,6 +70,10 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         cmbMedioPago.addItem("Efectivo");
         cmbMedioPago.addItem("Debito");
         cmbMedioPago.setSelectedIndex(0);
+
+        cmbMedioPago.addActionListener(e -> {
+            String medio = mediodePago();
+        });
     }
 
     /**
@@ -247,6 +251,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         btnConfirmacion.setFont(new java.awt.Font("Roboto Black", 1, 13)); // NOI18N
         btnConfirmacion.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirmacion.setText("Seleccionar asientos");
+        btnConfirmacion.setEnabled(false);
         btnConfirmacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmacionActionPerformed(evt);
@@ -268,6 +273,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         btnRealizarCompra.setFont(new java.awt.Font("Roboto Black", 1, 13)); // NOI18N
         btnRealizarCompra.setForeground(new java.awt.Color(255, 255, 255));
         btnRealizarCompra.setText("Realizar Compra");
+        btnRealizarCompra.setEnabled(false);
         btnRealizarCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRealizarCompraActionPerformed(evt);
@@ -278,6 +284,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         btnCancelarAsientos.setFont(new java.awt.Font("Roboto Black", 1, 13)); // NOI18N
         btnCancelarAsientos.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelarAsientos.setText("Cancelar Asientos");
+        btnCancelarAsientos.setEnabled(false);
         btnCancelarAsientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarAsientosActionPerformed(evt);
@@ -295,6 +302,12 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         });
 
         cmbMedioPago.setForeground(new java.awt.Color(255, 255, 255));
+        cmbMedioPago.setEnabled(false);
+        cmbMedioPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbMedioPagoActionPerformed(evt);
+            }
+        });
 
         lblMedioPago.setFont(new java.awt.Font("Roboto Black", 1, 13)); // NOI18N
         lblMedioPago.setForeground(new java.awt.Color(255, 255, 255));
@@ -503,6 +516,10 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
 
         try {
             int cantidad = Integer.parseInt(txtCantidadBoletos.getText());
+            if (cantidad <= 0) {
+                JOptionPane.showMessageDialog(this, "Ingrese una cantidad mayor a 0.");
+                return;
+            }
             listaAsientos = new ArrayList<>();
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
             for (int i = 0; i < cantidad; i++) {
@@ -513,9 +530,18 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 if (asientoS != null) {
                     modeloLista.addElement(String.valueOf(asientoS.getFila_asiento()) + "-" + asientoS.getNumero_asiento());
                     listaAsientos.add(asientoS);
+
+                    listAsientosS.setOpaque(true);
+                    btnCancelarAsientos.setEnabled(true);
+                    cmbMedioPago.setEnabled(true);
+
                     System.out.println(asientoS.toString());
                 } else {
+
+                    btnConfirmacion.setEnabled(true);
+                    btnCancelarAsientos.setEnabled(false);
                     JOptionPane.showMessageDialog(this, "Cancelada selección de boletos");
+
                     for (Asiento a : listaAsientos) {
                         try {
                             maniAsi.darAlta(a.getId_asiento());
@@ -527,7 +553,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                     listaAsientos.clear();
                     break;
                 }
-
+                btnConfirmacion.setEnabled(false);
             }
 
         } catch (NumberFormatException e) {
@@ -547,6 +573,12 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
         }
+        txtCantidadBoletos.setText("");
+        btnConfirmacion.setEnabled(false);
+        btnCancelarAsientos.setEnabled(false);
+        btnRealizarCompra.setEnabled(false);
+        cmbMedioPago.setEnabled(false);
+        listAsientosS.setOpaque(false);
     }//GEN-LAST:event_btnCancelarAsientosActionPerformed
 
     private void txtCantidadBoletosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadBoletosKeyReleased
@@ -556,6 +588,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
             precioTotal = precioEntrada * cantidad;
             lblImporteTotal.setText(Double.toString(precioTotal));
 
+            btnConfirmacion.setEnabled(true);
         } catch (NumberFormatException e) {
             lblImporteTotal.setText("0");
         } catch (Exception a) {
@@ -565,20 +598,15 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
 
     private void btnRealizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarCompraActionPerformed
         Venta venta = new Venta();
-        venta.setMedio_Pago((String) cmbMedioPago.getSelectedItem());
+        venta.setMedio_Pago(mediodePago());
         venta.setCantidad_Entradas(Integer.parseInt(txtCantidadBoletos.getText()));
         venta.setImporte_Total(precioTotal);
         venta.setMedio_Compra("Taquilla");
         venta.setFecha_Venta(LocalDate.now());
 
         try {
-            if (listaAsientos.isEmpty() || cmbMedioPago.getSelectedIndex() == 0) {
-                JOptionPane.showMessageDialog(this, "No tiene seleccionados los asientos a comprar o no tiene seleccionado un medio de pago.");
-                return;
-            }
-
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsientos, venta, (String) cmbMedioPago.getSelectedItem(), id_funcion, "taquilla");
+            DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsientos, venta, mediodePago(), id_funcion, "taquilla");
             ventanaCompra.setVisible(true);
             estadoExito = ventanaCompra.isEstado();
 
@@ -602,14 +630,57 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             Logger.getLogger(TaquillaInternal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        limpiarCampos();
 
     }//GEN-LAST:event_btnRealizarCompraActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        if (listaAsientos.isEmpty()) {
+            this.dispose();
+        } else {
+            Object[] opciones = {"Si", "No"};
+            int eleccion = JOptionPane.showOptionDialog(
+                    null,
+                    "Selección de función en curso.\n¿Seguro que desea salir? ",
+                    "",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    opciones,
+                    null);
+            if(eleccion == 0){
+                modeloLista.clear();
+                for(Asiento a : listaAsientos){
+                    try{
+                        maniAsi.darAlta(a.getId_asiento());
+                    }catch(Exception e){
+                        JOptionPane.showMessageDialog(this, e.getMessage());
+                    }
+                }
+                this.dispose();
+            }
+        }
 
-        this.dispose();
 
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void cmbMedioPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMedioPagoActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cmbMedioPagoActionPerformed
+
+    public String mediodePago() {
+        if (cmbMedioPago.getSelectedIndex() == 0) {
+            return "";
+        } else if (cmbMedioPago.getSelectedIndex() == 1) {
+            btnRealizarCompra.setEnabled(true);
+            return "Efectivo";
+        } else if (cmbMedioPago.getSelectedIndex() == 2) {
+            btnRealizarCompra.setEnabled(true);
+            return "Debito";
+        }
+        return "";
+    }
 
     public void ocultarIDs() {
 
@@ -719,6 +790,22 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                 }
             }
         });
+    }
+
+    private void limpiarCampos() {
+        txtCantidadBoletos.setText("");
+        btnConfirmacion.setEnabled(false);
+        listAsientosS.setOpaque(false);
+        btnRealizarCompra.setEnabled(false);
+        btnCancelarAsientos.setEnabled(false);
+        cmbMedioPago.setEnabled(false);
+        id_peliculaS = -1;
+        id_funcion = -1;
+        nro_sala = -1;
+        modeloLista.clear();
+        listAsientosS.setModel(modeloLista);
+        rellenarTablaFunciones(id_peliculaS);
+
     }
 
     public String parsearBoolean(boolean estado) {
