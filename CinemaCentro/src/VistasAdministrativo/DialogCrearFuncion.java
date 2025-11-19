@@ -350,6 +350,7 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
 
         btnConfirmar.setBackground(new java.awt.Color(70, 73, 75));
         btnConfirmar.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        btnConfirmar.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -359,6 +360,7 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
 
         btnCancelar.setBackground(new java.awt.Color(70, 73, 75));
         btnCancelar.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

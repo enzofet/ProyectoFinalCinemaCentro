@@ -132,10 +132,12 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="lblReporte" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblPorPelicula" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblPorSala" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblPorFecha" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblPorPelicula" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblPorSala" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
