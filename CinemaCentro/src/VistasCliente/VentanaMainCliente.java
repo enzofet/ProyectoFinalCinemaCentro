@@ -183,11 +183,11 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("TAQUILLA ONLINE");
 
-        jbPelicula.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        jbPelicula.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jbPelicula.setForeground(new java.awt.Color(255, 255, 255));
         jbPelicula.setText("Cartelera:");
 
-        jbFuncion.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        jbFuncion.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jbFuncion.setForeground(new java.awt.Color(255, 255, 255));
         jbFuncion.setText("Función:");
 
@@ -233,7 +233,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
             }
         });
 
-        jbCantidad.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        jbCantidad.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jbCantidad.setForeground(new java.awt.Color(255, 255, 255));
         jbCantidad.setText("Cantidad de boletos:");
 
@@ -273,7 +273,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         jListAsientos.setOpaque(false);
         jScrollPane3.setViewportView(jListAsientos);
 
-        lblPrecio.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 18)); // NOI18N
+        lblPrecio.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         lblPrecio.setForeground(new java.awt.Color(255, 255, 255));
         lblPrecio.setText("Precio Total:");
 
@@ -317,12 +317,11 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCinemaCentro))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pnlLoginLayout.createSequentialGroup()
-                                .addComponent(jbPelicula)
-                                .addGap(495, 495, 495)
-                                .addComponent(lblProxEstrenos))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 757, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnlLoginLayout.createSequentialGroup()
+                            .addComponent(jbPelicula)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblProxEstrenos))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 757, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlLoginLayout.createSequentialGroup()
                             .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,35 +351,34 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(lblCinemaCentro))
                 .addGap(24, 24, 24)
+                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblProxEstrenos)
+                    .addComponent(jbPelicula))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbFuncion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
                 .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlLoginLayout.createSequentialGroup()
-                        .addComponent(lblProxEstrenos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbFuncion)
+                        .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbCantidad)
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlLoginLayout.createSequentialGroup()
-                                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jbCantidad)
-                                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblPrecio))
-                            .addGroup(pnlLoginLayout.createSequentialGroup()
-                                .addComponent(jBComprar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbSalir))
-                            .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlLoginLayout.createSequentialGroup()
-                                    .addComponent(jBButaca)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jBCancelarB)))))
-                    .addComponent(jbPelicula))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addComponent(lblPrecio))
+                    .addGroup(pnlLoginLayout.createSequentialGroup()
+                        .addComponent(jBComprar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbSalir))
+                    .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlLoginLayout.createSequentialGroup()
+                            .addComponent(jBButaca)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jBCancelarB))))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

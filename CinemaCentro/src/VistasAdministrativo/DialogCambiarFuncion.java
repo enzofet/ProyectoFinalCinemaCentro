@@ -33,8 +33,8 @@ public class DialogCambiarFuncion extends javax.swing.JDialog {
     List<Pelicula> listaCartelera = maniPeli.listarPeliculasEnCartelera();
     List<Funcion> listaFuncionPorPelicula;
     
-    String[] cabeceraCartelera = {"id_pelicula", "Titulo", "Director", "Reparto", "Pais de origen", "Genero/s"};
-    String[] cabeceraFunciones = {"id_funcion", "Número de sala", "Idioma", "3D", "Hora de inicio", "Hora finalización", "Precio de entrada",
+    String[] cabeceraCartelera = {"ID","Titulo", "Director", "Reparto", "Pais de origen", "Genero/s"};
+    String[] cabeceraFunciones = {"ID","Número de sala", "Idioma", "3D", "Hora de inicio", "Hora finalización", "Precio de entrada",
         "Fecha de función", "Subtitulada"};
     
     int id_peliculaS = -1;
@@ -70,8 +70,14 @@ public class DialogCambiarFuncion extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCartelera = new javax.swing.JTable();
+        lblTitulo = new javax.swing.JLabel();
+        lblCinemaCentro = new javax.swing.JLabel();
+        lblPelicula = new javax.swing.JLabel();
+        lblFuncion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        pnlCambiarFuncion.setBackground(new java.awt.Color(102, 0, 0));
 
         tblFunciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -86,6 +92,9 @@ public class DialogCambiarFuncion extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tblFunciones);
 
+        btnConfirmar.setBackground(new java.awt.Color(70, 73, 75));
+        btnConfirmar.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        btnConfirmar.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirmar.setText("Confirmar cambio");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,7 +102,10 @@ public class DialogCambiarFuncion extends javax.swing.JDialog {
             }
         });
 
-        btnCancelar.setText("Cancelar cambio de función");
+        btnCancelar.setBackground(new java.awt.Color(70, 73, 75));
+        btnCancelar.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setText("Cancelar cambio");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -113,37 +125,80 @@ public class DialogCambiarFuncion extends javax.swing.JDialog {
         ));
         jScrollPane2.setViewportView(tblCartelera);
 
+        lblTitulo.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setText("CAMBIAR FUNCION");
+
+        lblCinemaCentro.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
+        lblCinemaCentro.setForeground(new java.awt.Color(255, 255, 255));
+        lblCinemaCentro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCinemaCentro.setText("CinemaCentro");
+
+        lblPelicula.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        lblPelicula.setForeground(new java.awt.Color(255, 255, 255));
+        lblPelicula.setText("Pelicula:");
+
+        lblFuncion.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        lblFuncion.setForeground(new java.awt.Color(255, 255, 255));
+        lblFuncion.setText("Funcion:");
+
         javax.swing.GroupLayout pnlCambiarFuncionLayout = new javax.swing.GroupLayout(pnlCambiarFuncion);
         pnlCambiarFuncion.setLayout(pnlCambiarFuncionLayout);
         pnlCambiarFuncionLayout.setHorizontalGroup(
             pnlCambiarFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCambiarFuncionLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
                 .addGroup(pnlCambiarFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlCambiarFuncionLayout.createSequentialGroup()
-                        .addGroup(pnlCambiarFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 932, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2))
+                        .addGroup(pnlCambiarFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 806, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 806, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCambiarFuncionLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnConfirmar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelar)
+                        .addGap(291, 291, 291))
                     .addGroup(pnlCambiarFuncionLayout.createSequentialGroup()
-                        .addGap(177, 177, 177)
-                        .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(184, 184, 184))))
+                        .addComponent(lblFuncion)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlCambiarFuncionLayout.createSequentialGroup()
+                        .addGroup(pnlCambiarFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlCambiarFuncionLayout.createSequentialGroup()
+                                .addComponent(lblPelicula)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(pnlCambiarFuncionLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblTitulo)
+                                .addGap(57, 57, 57)))
+                        .addComponent(lblCinemaCentro)
+                        .addContainerGap())))
         );
         pnlCambiarFuncionLayout.setVerticalGroup(
             pnlCambiarFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCambiarFuncionLayout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGroup(pnlCambiarFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlCambiarFuncionLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(pnlCambiarFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblTitulo)
+                            .addComponent(lblCinemaCentro))
+                        .addGap(29, 29, 29))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCambiarFuncionLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblPelicula)
+                        .addGap(8, 8, 8)))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblFuncion)
+                .addGap(5, 5, 5)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pnlCambiarFuncionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnConfirmar))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -326,6 +381,10 @@ public class DialogCambiarFuncion extends javax.swing.JDialog {
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblCinemaCentro;
+    private javax.swing.JLabel lblFuncion;
+    private javax.swing.JLabel lblPelicula;
+    private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlCambiarFuncion;
     private javax.swing.JTable tblCartelera;
     private javax.swing.JTable tblFunciones;
