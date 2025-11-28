@@ -716,7 +716,7 @@ public class ClienteInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnDarAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarAltaActionPerformed
-        try {
+         try {
             Cliente cliente = maniCliente.buscarClientePorId(selecId);
 
             cliente.setEstado(true);

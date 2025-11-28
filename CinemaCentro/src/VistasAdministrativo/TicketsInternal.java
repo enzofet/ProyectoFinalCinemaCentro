@@ -5,7 +5,6 @@
  */
 package VistasAdministrativo;
 
-import Controlador.AsientoDAO;
 import Controlador.ClienteDAO;
 import Controlador.DetalleTicketDAO;
 import Controlador.FuncionDAO;
@@ -16,6 +15,7 @@ import Modelo.Funcion;
 import Modelo.TicketDato;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -44,7 +44,6 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     DetalleTicketDAO maniTickets = new DetalleTicketDAO();
     FuncionDAO maniFuncion = new FuncionDAO();
     ClienteDAO maniCliente = new ClienteDAO();
-    AsientoDAO maniAsiento = new AsientoDAO();
 
     int idTicket = -1;
 
@@ -55,7 +54,6 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
 
         try {
             listaDatosTickets = maniTickets.listarDatosTickets();
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -585,19 +583,17 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
             boolean estadoAccion = ventanaFuncion.isEstadoExito();
 
             if (estadoAccion) {
-
                 int idFuncionCambiada = ventanaFuncion.getIdFuncion();
                 Funcion fun = maniFuncion.buscarFuncionPorId(idFuncionCambiada);
-                DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, fun.getNro_Sala());
+                List<Asiento> lista = new ArrayList<>();
+                DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, fun.getSala().getNro_Sala(), fun.getId_Funcion(), lista);
                 ventanaAsientos.setVisible(true);
                 Asiento asientoNuevo = ventanaAsientos.getAsientoSeleccionado();
 
-                if (asientoNuevo != null) {
-                    Asiento asientoAntiguo = maniAsiento.buscarPorId(ticket.getId_asiento());
-                    maniAsiento.darAlta(asientoAntiguo.getId_asiento());
+                if (asientoNuevo != null) {  
                     DetalleTicket ticketCambiado = ticket;
-                    ticketCambiado.setId_asiento(asientoNuevo.getId_asiento());
-                    ticketCambiado.setId_funcion(fun.getId_Funcion());
+                    ticketCambiado.setAsiento(asientoNuevo.getAsiento());
+                    ticketCambiado.setFuncion(fun);
 
                     maniTickets.modificarTicket(idTicket, ticketCambiado);
                 } else {
@@ -627,7 +623,7 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void txtDNIClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNIClienteKeyReleased
@@ -864,8 +860,8 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
                         if (tblTickets.getValueAt(filaS, 3).toString().equalsIgnoreCase("Pelicula o función eliminada.")) {
                             lblPelicula.setText("Pelicula: Eliminada la función o pelicula");
                         } else {
-                            Funcion fun = maniFuncion.buscarFuncionPorId(ticket.getId_funcion());
-                            lblSala.setText("Sala: " + Integer.toString(fun.getNro_Sala()));
+                            Funcion fun = maniFuncion.buscarFuncionPorId(ticket.getFuncion().getId_Funcion());
+                            lblSala.setText("Sala: " + Integer.toString(fun.getSala().getNro_Sala()));
                             lblPelicula.setText("Pelicula: " + (String) tblTickets.getValueAt(filaS, 3));
                             lblSubtitulada.setText("Subtitulada: " + parsearBooleanASINO(fun.isSubtitulada()));
                             lblFechaFuncion.setText("Fecha funcion: " + (String) tblTickets.getValueAt(filaS, 4));

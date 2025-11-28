@@ -5,11 +5,10 @@
  */
 package VistasAdministrativo;
 
-import Controlador.AsientoDAO;
 import Controlador.SalaDAO;
-import Modelo.Asiento;
+
 import Modelo.Sala;
-import java.util.ArrayList;
+
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -24,7 +23,6 @@ public class DialogCrearSala extends javax.swing.JDialog {
      */
     boolean estado = false;
     SalaDAO maniSalas = new SalaDAO();
-    AsientoDAO maniAsiento = new AsientoDAO();
 
     public DialogCrearSala(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -225,7 +223,6 @@ public class DialogCrearSala extends javax.swing.JDialog {
                 return;
             }
             maniSalas.agregarSala(sala);
-            crearAsientosPorCapacidad(num, cap);
             
             JOptionPane.showMessageDialog(this, "Sala creada exitosamente.");
             limpiarCampos();
@@ -239,30 +236,6 @@ public class DialogCrearSala extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_checkApta3DActionPerformed
 
-    public void crearAsientosPorCapacidad(int numeroSala, int capacidad) {
-        int contadorTotal = 0;
-        int contadorNumeroAsiento = 1;
-        int contadorFila = 0;
-        boolean condicion = true;
-        char[] filasPosibles = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
-        List<Asiento> listaAsientos = new ArrayList<>();
-        while (condicion) {
-            while (contadorNumeroAsiento != 24) {
-                Asiento asiento = new Asiento(contadorNumeroAsiento, numeroSala, filasPosibles[contadorFila], true);
-                listaAsientos.add(asiento);
-                contadorNumeroAsiento++;
-                contadorTotal++;
-                if (contadorTotal == capacidad) {
-                    condicion = false;
-                    break;
-                }
-            }
-            contadorFila++;
-            contadorNumeroAsiento = 1;
-        }
-        maniAsiento.agregarListaAsientos(listaAsientos);
-        
-    }
 
     public String parsearBoolean(boolean estado) {
         if (estado) {

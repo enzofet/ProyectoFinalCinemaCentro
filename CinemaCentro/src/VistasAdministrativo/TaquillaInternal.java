@@ -5,7 +5,6 @@
  */
 package VistasAdministrativo;
 
-import Controlador.AsientoDAO;
 import Controlador.FuncionDAO;
 import Controlador.PeliculaDAO;
 import Modelo.Asiento;
@@ -14,6 +13,9 @@ import Modelo.Pelicula;
 import Modelo.Venta;
 import VistasCliente.DialogCompra;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,7 +42,6 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
      */
     PeliculaDAO maniPeli = new PeliculaDAO();
     FuncionDAO maniFuncion = new FuncionDAO();
-    AsientoDAO maniAsi = new AsientoDAO();
     String[] cabeceraCartelera = {"id_pelicula", "Titulo", "Director", "Reparto", "Pais de origen", "Genero/s"};
     String[] cabeceraFunciones = {"id_funcion", "Número de sala", "Idioma", "3D", "Hora de inicio", "Hora finalización", "Precio de entrada",
         "Fecha de función", "Subtitulada"};
@@ -546,12 +547,12 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
             listaAsientos = new ArrayList<>();
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
             for (int i = 0; i < cantidad; i++) {
-                DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, nro_sala);
+                DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, nro_sala, id_funcion, listaAsientos);
                 ventanaAsientos.setVisible(true);
                 Asiento asientoS = ventanaAsientos.getAsientoSeleccionado();
 
                 if (asientoS != null) {
-                    modeloLista.addElement(String.valueOf(asientoS.getFila_asiento()) + "-" + asientoS.getNumero_asiento());
+                    modeloLista.addElement(String.valueOf(asientoS.getAsiento()));
                     listaAsientos.add(asientoS);
 
                     listAsientosS.setOpaque(true);
@@ -564,14 +565,6 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
                     btnConfirmacion.setEnabled(true);
                     btnCancelarAsientos.setEnabled(false);
                     JOptionPane.showMessageDialog(this, "Cancelada selección de boletos");
-
-                    for (Asiento a : listaAsientos) {
-                        try {
-                            maniAsi.darAlta(a.getId_asiento());
-                        } catch (Exception e) {
-                            System.out.println("Error al dar de alta nuevamente.");
-                        }
-                    }
                     modeloLista.clear();
                     listaAsientos.clear();
                     break;
@@ -589,13 +582,6 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
 
     private void btnCancelarAsientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarAsientosActionPerformed
         modeloLista.clear();
-        for (Asiento a : listaAsientos) {
-            try {
-                maniAsi.darAlta(a.getId_asiento());
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-            }
-        }
         cmbMedioPago.setSelectedIndex(0);
         txtCantidadBoletos.setText("");
         btnConfirmacion.setEnabled(false);
@@ -603,6 +589,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
         btnRealizarCompra.setEnabled(false);
         cmbMedioPago.setEnabled(false);
         listAsientosS.setOpaque(false);
+        tblFunciones.clearSelection();
     }//GEN-LAST:event_btnCancelarAsientosActionPerformed
 
     private void txtCantidadBoletosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadBoletosKeyReleased
@@ -622,11 +609,11 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
 
     private void btnRealizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarCompraActionPerformed
         Venta venta = new Venta();
-        venta.setMedio_Pago(mediodePago());
-        venta.setCantidad_Entradas(Integer.parseInt(txtCantidadBoletos.getText()));
-        venta.setImporte_Total(precioTotal);
-        venta.setMedio_Compra("Taquilla");
-        venta.setFecha_Venta(LocalDate.now());
+        venta.setMedio_pago(mediodePago());
+        venta.setCantidad_entradas(Integer.parseInt(txtCantidadBoletos.getText()));
+        venta.setImporte_total(precioTotal);
+        venta.setMedio_compra("Taquilla");
+        venta.setFecha_venta(LocalDate.now());
 
         try {
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -635,13 +622,6 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
             estadoExito = ventanaCompra.isEstado();
 
             if (!estadoExito) {
-                for (Asiento a : listaAsientos) {
-                    try {
-                        maniAsi.darBaja(a.getId_asiento());
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(this, e.getMessage());
-                    }
-                }
                 tblCartelera.clearSelection();
                 tblFunciones.clearSelection();
                 listaAsientos.clear();
@@ -655,22 +635,16 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
             Logger.getLogger(TaquillaInternal.class.getName()).log(Level.SEVERE, null, ex);
         }
         limpiarCampos();
+            
     }//GEN-LAST:event_btnRealizarCompraActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         if (listaAsientos.isEmpty() || listaAsientos == null) {
             this.dispose();
         } else {
-            int eleccion = JOptionPane.showConfirmDialog(this, "Selección de butacas en curso. ¿Esta seguro que desea salir? Se perderan los datos ingresados.","Error", YES_NO_OPTION);
-            if(eleccion == 0){
+            int eleccion = JOptionPane.showConfirmDialog(this, "Selección de butacas en curso. ¿Esta seguro que desea salir? Se perderan los datos ingresados.", "Error", YES_NO_OPTION);
+            if (eleccion == 0) {
                 modeloLista.clear();
-                for(Asiento a : listaAsientos){
-                    try{
-                        maniAsi.darAlta(a.getId_asiento());
-                    }catch(Exception e){
-                        JOptionPane.showMessageDialog(this, e.getMessage());
-                    }
-                }
                 this.dispose();
             }
         }
@@ -683,7 +657,7 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
             return "";
         } else if (cmbMedioPago.getSelectedIndex() == 1) {
             btnRealizarCompra.setEnabled(true);
-            
+
             return "Efectivo";
         } else if (cmbMedioPago.getSelectedIndex() == 2) {
             btnRealizarCompra.setEnabled(true);
@@ -724,22 +698,40 @@ public class TaquillaInternal extends javax.swing.JInternalFrame {
     }
 
     public void rellenarTablaFunciones(int id_pelicula) {
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
         DefaultTableModel modelo = (DefaultTableModel) tblFunciones.getModel();
         modelo.setRowCount(0);
+
+        LocalDate hoy = LocalDate.now();
+        LocalDateTime ahora = LocalDateTime.now();
+
+        LocalDate fechaFun;
+        LocalTime horaFun;
+        LocalDateTime inicioFuncion;
+        LocalDateTime limiteCompra;
+
         try {
             listaFuncionPorPelicula = maniFuncion.listadoPorId(id_pelicula);
 
             for (Funcion f : listaFuncionPorPelicula) {
-                modelo.addRow(new Object[]{f.getId_Funcion(),
-                    f.getNro_Sala(),
-                    f.getIdioma(),
-                    parsearBoolean(f.isEs3D()),
-                    f.getHora_Inicio(),
-                    f.getHora_Fin(),
-                    f.getPrecio_Entrada(),
-                    f.getFecha_Funcion(),
-                    parsearBoolean(f.isSubtitulada())
-                });
+                fechaFun = f.getFecha_Funcion();
+                horaFun = (f.getHora_Inicio()).toLocalTime();
+                inicioFuncion = LocalDateTime.of(fechaFun, horaFun);
+                limiteCompra = inicioFuncion.minusMinutes(10);
+                if (!(fechaFun.isBefore(hoy)) && !(ahora.isAfter(limiteCompra))) {
+                    modelo.addRow(new Object[]{f.getId_Funcion(),
+                        f.getSala().getNro_Sala(),
+                        f.getIdioma(),
+                        parsearBoolean(f.isEs3D()),
+                        f.getHora_Inicio(),
+                        f.getHora_Fin(),
+                        f.getPrecio_Entrada(),
+                        fechaFun.format(dtf),
+                        parsearBoolean(f.isSubtitulada())
+                    });
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

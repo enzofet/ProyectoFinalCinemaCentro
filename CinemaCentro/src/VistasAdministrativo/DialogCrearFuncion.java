@@ -5,6 +5,7 @@ import Controlador.PeliculaDAO;
 import Controlador.SalaDAO;
 import Modelo.Funcion;
 import Modelo.Pelicula;
+import Modelo.Sala;
 import java.awt.Frame;
 import java.sql.Time;
 import java.time.LocalDate;
@@ -46,8 +47,40 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
         this.modoEdicion = true;
         initComponents();
         configurarDialogo();
+        validarCompatibilidad3D();
         cargarDatosFuncion();
         setLocationRelativeTo(parent);
+    }
+
+    private void validarCompatibilidad3D() {
+        try {
+            boolean salaEsApta3D = salaDAO.salaEsApta3D(nroSalaSeleccionada);
+
+            if (!salaEsApta3D) {
+                // si la sala no es apta para 3D, fuerza el 2D y deshabilita la opción 3D
+                rbtn2D.setSelected(true);
+                rbtn3D.setEnabled(false);
+
+                // muestra mensaje de advertencia
+                rbtn3D.setToolTipText("Esta sala no es apta para proyecciones 3D");
+                if (modoEdicion && funcionSeleccionada != null && funcionSeleccionada.isEs3D()) {
+                    JOptionPane.showMessageDialog(this,
+                            "⚠️ ADVERTENCIA: Esta sala no es apta para 3D.\n"
+                            + "La función será convertida a 2D automáticamente.",
+                            "Sala no compatible con 3D",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                // si la sala si es apta para 3D, habilitar ambas opciones
+                rbtn3D.setEnabled(true);
+                rbtn3D.setToolTipText("Proyección en 3D disponible");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error al verificar compatibilidad 3D: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void configurarDialogo() {
@@ -67,12 +100,14 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
     private void cargarDatosPeliculaYSala() {
         try {
             if (modoEdicion && funcionSeleccionada != null) {
-                peliculaSeleccionada = obtenerNombrePelicula(funcionSeleccionada.getId_pelicula());
-                idPeliculaSeleccionada = funcionSeleccionada.getId_pelicula();
+                // usa getPelicula().getId_Pelicula() en lugar de getId_pelicula()
+                peliculaSeleccionada = obtenerNombrePelicula(funcionSeleccionada.getPelicula().getId_Pelicula());
+                idPeliculaSeleccionada = funcionSeleccionada.getPelicula().getId_Pelicula();
                 lblPeliculaSeleccionada.setText(peliculaSeleccionada);
 
-                salaSeleccionada = String.valueOf(funcionSeleccionada.getNro_Sala());
-                nroSalaSeleccionada = funcionSeleccionada.getNro_Sala();
+                // usa getSala().getNro_Sala() en lugar de getNro_Sala()
+                salaSeleccionada = String.valueOf(funcionSeleccionada.getSala().getNro_Sala());
+                nroSalaSeleccionada = funcionSeleccionada.getSala().getNro_Sala();
                 lblSalaSeleccionada.setText("Sala: " + salaSeleccionada);
             }
         } catch (Exception e) {
@@ -83,12 +118,14 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
     private void cargarDatosFuncion() {
         if (funcionSeleccionada != null) {
             try {
-                peliculaSeleccionada = obtenerNombrePelicula(funcionSeleccionada.getId_pelicula());
-                idPeliculaSeleccionada = funcionSeleccionada.getId_pelicula();
+                // usa getPelicula().getId_Pelicula()
+                peliculaSeleccionada = obtenerNombrePelicula(funcionSeleccionada.getPelicula().getId_Pelicula());
+                idPeliculaSeleccionada = funcionSeleccionada.getPelicula().getId_Pelicula();
                 lblPeliculaSeleccionada.setText(peliculaSeleccionada);
 
-                salaSeleccionada = String.valueOf(funcionSeleccionada.getNro_Sala());
-                nroSalaSeleccionada = funcionSeleccionada.getNro_Sala();
+                // usa getSala().getNro_Sala()
+                salaSeleccionada = String.valueOf(funcionSeleccionada.getSala().getNro_Sala());
+                nroSalaSeleccionada = funcionSeleccionada.getSala().getNro_Sala();
                 lblSalaSeleccionada.setText("Sala: " + salaSeleccionada);
 
                 jComboBoxIdioma.setSelectedItem(funcionSeleccionada.getIdioma());
@@ -128,6 +165,7 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
                 return;
             }
 
+            // obtengo y valido los datos
             String idioma = (String) jComboBoxIdioma.getSelectedItem();
             String subtituladaStr = (String) jComboBoxSubtitulada.getSelectedItem();
             String tipo = rbtn2D.isSelected() ? "2D" : rbtn3D.isSelected() ? "3D" : null;
@@ -136,28 +174,14 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
             String fecha = txtFechaFuncion.getText().trim();
             String valorStr = txtFValorEntrada.getText().trim();
 
+            // valido campos vacíos
             if (idioma == null || subtituladaStr == null || tipo == null
                     || horaInicio.isEmpty() || horaFin.isEmpty() || fecha.isEmpty() || valorStr.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe completar todos los campos.");
                 return;
             }
 
-            double valorEntrada;
-            try {
-                valorEntrada = Double.parseDouble(valorStr);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Formato inválido en valor de entrada.");
-                return;
-            }
-
-            LocalDate fechaFuncion;
-            try {
-                fechaFuncion = LocalDate.parse(fecha);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Formato de fecha inválido. Use yyyy-MM-dd.");
-                return;
-            }
-
+            // valido el formato de horas
             Time horaInicioTime, horaFinTime;
             try {
                 if (!horaInicio.contains(":")) {
@@ -173,12 +197,92 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
                 return;
             }
 
+            // valido que hora fin sea mayor que hora inicio
+            if (!horaFinTime.after(horaInicioTime)) {
+                JOptionPane.showMessageDialog(this, "La hora de fin debe ser posterior a la hora de inicio.");
+                return;
+            }
+
+            // valido la fecha
+            LocalDate fechaFuncion;
+            try {
+                fechaFuncion = LocalDate.parse(fecha);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Formato de fecha inválido. Use yyyy-MM-dd.");
+                return;
+            }
+
+            // valido que la fecha no sea en el pasado
+            if (fechaFuncion.isBefore(LocalDate.now())) {
+                JOptionPane.showMessageDialog(this, "No se pueden crear funciones en fechas pasadas.");
+                return;
+            }
+
+            // valido el valor de entrada
+            double valorEntrada;
+            try {
+                valorEntrada = Double.parseDouble(valorStr);
+                if (valorEntrada <= 0) {
+                    throw new NumberFormatException("Valor debe ser positivo");
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "El valor de entrada debe ser un número positivo.");
+                return;
+            }
+
             boolean es3D = tipo.equals("3D");
+            boolean salaEsApta3D = salaDAO.salaEsApta3D(nroSalaSeleccionada);
+
+            if (es3D && !salaEsApta3D) {
+                JOptionPane.showMessageDialog(this,
+                        "❌ NO SE PUEDE CREAR FUNCIÓN 3D\n\n"
+                        + "La sala " + nroSalaSeleccionada + " no es apta para proyecciones 3D.\n"
+                        + "Por favor, seleccione:\n"
+                        + "• Otra sala que soporte 3D, o\n"
+                        + "• Cambie el tipo a 2D",
+                        "Sala no compatible con 3D",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             boolean subtitulada = !subtituladaStr.equals("No");
 
+            // ✅ validacion para el conflicto de los horarios
+            Integer idFuncionExcluir = modoEdicion ? funcionSeleccionada.getId_Funcion() : null;
+
+            if (funcionDAO.existeConflictoHorario(nroSalaSeleccionada, fechaFuncion, horaInicioTime, horaFinTime, idFuncionExcluir)) {
+                List<Funcion> funcionesConflictivas = funcionDAO.obtenerFuncionesConflictivas(
+                        nroSalaSeleccionada, fechaFuncion, horaInicioTime, horaFinTime, idFuncionExcluir
+                );
+
+                StringBuilder mensajeError = new StringBuilder();
+                mensajeError.append("❌CONFLICTO DE HORARIO\n\n");
+                mensajeError.append("La sala ").append(nroSalaSeleccionada).append(" ya tiene funciones programadas:\n\n");
+
+                for (Funcion conflicto : funcionesConflictivas) {
+                    String pelicula = obtenerNombrePelicula(conflicto.getPelicula().getId_Pelicula());
+                    mensajeError.append("• ").append(pelicula)
+                            .append(" - ").append(conflicto.getHora_Inicio().toString().substring(0, 5))
+                            .append(" a ").append(conflicto.getHora_Fin().toString().substring(0, 5))
+                            .append("\n");
+                }
+
+                mensajeError.append("\nPor favor, elija otro horario o sala.");
+                JOptionPane.showMessageDialog(this, mensajeError.toString(), "Conflicto de Horario", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            //esto es paara la modificación, actualizar los objetos Pelicula y Sala
             if (modoEdicion) {
-                funcionSeleccionada.setId_pelicula(idPeliculaSeleccionada);
-                funcionSeleccionada.setNro_Sala(nroSalaSeleccionada);
+                // crea nuevos objetos de Pelicula y Sala con los ids seleccionados
+                Pelicula pelicula = new Pelicula();
+                pelicula.setId_Pelicula(idPeliculaSeleccionada);
+
+                Sala sala = new Sala();
+                sala.setNro_Sala(nroSalaSeleccionada);
+
+                funcionSeleccionada.setPelicula(pelicula);
+                funcionSeleccionada.setSala(sala);
                 funcionSeleccionada.setIdioma(idioma);
                 funcionSeleccionada.setEs3D(es3D);
                 funcionSeleccionada.setHora_Inicio(horaInicioTime);
@@ -190,9 +294,18 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
                 funcionDAO.actualizarFuncion(funcionSeleccionada.getId_Funcion(), funcionSeleccionada);
                 JOptionPane.showMessageDialog(this, "Función modificada correctamente.");
             } else {
+                // para nueva función
                 Funcion funcion = new Funcion();
-                funcion.setId_pelicula(idPeliculaSeleccionada);
-                funcion.setNro_Sala(nroSalaSeleccionada);
+
+                // crear los objetos Pelicula y Sala
+                Pelicula pelicula = new Pelicula();
+                pelicula.setId_Pelicula(idPeliculaSeleccionada);
+
+                Sala sala = new Sala();
+                sala.setNro_Sala(nroSalaSeleccionada);
+
+                funcion.setPelicula(pelicula);
+                funcion.setSala(sala);
                 funcion.setIdioma(idioma);
                 funcion.setEs3D(es3D);
                 funcion.setHora_Inicio(horaInicioTime);
@@ -240,6 +353,8 @@ public class DialogCrearFuncion extends javax.swing.JDialog {
         this.salaSeleccionada = sala;
         this.nroSalaSeleccionada = nroSala;
         lblSalaSeleccionada.setText("Sala: " + sala);
+        
+        validarCompatibilidad3D();
     }
 
     /**

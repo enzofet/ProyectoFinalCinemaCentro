@@ -5,7 +5,6 @@
  */
 package VistasCliente;
 
-import Controlador.AsientoDAO;
 import Controlador.ClienteDAO;
 import Controlador.DetalleTicketDAO;
 import Controlador.FuncionDAO;
@@ -31,8 +30,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -73,12 +70,12 @@ public class DialogCompra extends javax.swing.JDialog {
         this.listaAsientos = listaAsientos;
         this.venta = venta;
         this.token = maniTicket.generarToken();
-
+        venta.setMedio_compra(medio_compra);
         //cambio Ema
         this.venta.setToken(this.token);
 
         this.funcion = maniFuncion.buscarFuncionPorId(id_funcion);
-        this.peli = maniPeli.buscarPorId(funcion.getId_pelicula());
+        this.peli = maniPeli.buscarPorId(funcion.getPelicula().getId_Pelicula());
         this.medioPago = medio_pago;
         this.medioCompra = medio_compra;
         rellenarTablaEntradas();
@@ -716,10 +713,10 @@ public class DialogCompra extends javax.swing.JDialog {
         String efectivoString = txtEfectivo.getText();
         try {
             double pago = Double.parseDouble(efectivoString);
-            if (pago < venta.getImporte_Total()) {
+            if (pago < venta.getImporte_total()) {
                 lblVuelto.setText("0");
             } else {
-                double vuelto = pago - venta.getImporte_Total();
+                double vuelto = pago - venta.getImporte_total();
                 lblVuelto.setText(Double.toString(vuelto));
             }
 
@@ -764,16 +761,16 @@ public class DialogCompra extends javax.swing.JDialog {
 
             if (medioCompra.equalsIgnoreCase("online")) {
                 try {
-                    if (venta.getId_Cliente() == -1) {
+                    if (venta.getCliente().getId_cliente() == -1) {
                         // se inserta como null en la bd
                     }
                     int idVenta = maniVenta.registrarVentaOnline(venta);
-
+                    venta.setId_venta(idVenta);
                     for (Asiento asiento : listaAsientos) {
                         DetalleTicket ticket = new DetalleTicket(
-                                funcion.getId_Funcion(),
-                                asiento.getId_asiento(),
-                                idVenta,
+                                funcion,
+                                asiento.getAsiento(),
+                                venta,
                                 LocalDate.now(),
                                 true
                         );
@@ -788,35 +785,29 @@ public class DialogCompra extends javax.swing.JDialog {
                     e.printStackTrace();
                 }
             } else if (medioCompra.equalsIgnoreCase("taquilla")) {
-                registrarVentaTaquilla();
-                this.dispose();
+                if (registrarVentaTaquilla()) {
+                    this.dispose();
+                }
             }
         }
         if (medioPago.equalsIgnoreCase("efectivo")) {
 
-            registrarVentaTaquilla();
-            this.dispose();
+            if (registrarVentaTaquilla()) {
+                this.dispose();
+            }
         }
 
 
     }//GEN-LAST:event_btnConfirmarCompraActionPerformed
 
     private void btnCancelarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCompraActionPerformed
-        try {
-            if (listaAsientos != null && !listaAsientos.isEmpty()) {
-                AsientoDAO asientoDAO = new AsientoDAO();
-                asientoDAO.liberarAsientos(listaAsientos);
-
-                JOptionPane.showMessageDialog(this,
-                        "Compra cancelada. " + listaAsientos.size() + " asiento(s) han sido liberados.",
-                        "Compra Cancelada",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (Exception e) {
+        //Consultar con enzo
+        if (listaAsientos != null && !listaAsientos.isEmpty()) {
             JOptionPane.showMessageDialog(this,
-                    "Error al liberar los asientos: " + e.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+                    "Compra cancelada. " + listaAsientos.size() + " asiento(s) han sido liberados.",
+                    "Compra Cancelada",
+                    JOptionPane.INFORMATION_MESSAGE);
+            listaAsientos.clear();
         }
 
         estado = false;
@@ -868,11 +859,11 @@ public class DialogCompra extends javax.swing.JDialog {
     }
 
     public void setearDetalleVenta(Venta venta) {
-        lblImporteTotal.setText(Double.toString(venta.getImporte_Total()));
-        lblCantEntradas.setText(Integer.toString(venta.getCantidad_Entradas()));
-        lblFechaVenta.setText(venta.getFecha_Venta().toString());
-        lblMedioPago.setText((String) venta.getMedio_Pago());
-        if (venta.getMedio_Compra().equalsIgnoreCase("online")) {
+        lblImporteTotal.setText(Double.toString(venta.getImporte_total()));
+        lblCantEntradas.setText(Integer.toString(venta.getCantidad_entradas()));
+        lblFechaVenta.setText(venta.getFecha_venta().toString());
+        lblMedioPago.setText((String) venta.getMedio_pago());
+        if (venta.getMedio_compra().equalsIgnoreCase("online")) {
             lblToken.setText(Integer.toString(token));
         } else {
             lblToken.setText("---------------");
@@ -890,8 +881,7 @@ public class DialogCompra extends javax.swing.JDialog {
         modelo.addColumn("Numero asiento");
         for (Asiento a : listaAsientos) {
             modelo.addRow(new Object[]{
-                a.getFila_asiento(),
-                a.getNumero_asiento()
+                a.getAsiento()
             });
         }
         tblEntradas.setModel(modelo);
@@ -909,13 +899,13 @@ public class DialogCompra extends javax.swing.JDialog {
                 if (filaS != -1) {
                     lblAsiento.setText(tblEntradas.getValueAt(filaS, 0) + " - " + tblEntradas.getValueAt(filaS, 1));
                     lblPelicula.setText(peli.getTitulo());
-                    lblNumeroSala.setText(Integer.toString(funcion.getNro_Sala()));
+                    lblNumeroSala.setText(Integer.toString(funcion.getSala().getNro_Sala()));
                     lblSubtitulada.setText(parsearBoolean(funcion.isSubtitulada()));
                     lbl3D.setText(parsearBoolean(funcion.isEs3D()));
                     lblFechaFuncion.setText(funcion.getFecha_Funcion().toString());
                     lblPrecioEntrada.setText(Double.toString(funcion.getPrecio_Entrada()));
                     lblHorario.setText(funcion.getHora_Inicio().toString().substring(0, 5) + " - " + funcion.getHora_Fin().toString().substring(0, 5));
-                    lblFechaEmision.setText(venta.getFecha_Venta().toString());
+                    lblFechaEmision.setText(venta.getFecha_venta().toString());
                     lblIdioma.setText(funcion.getIdioma().toString());
 
                 }
@@ -929,65 +919,116 @@ public class DialogCompra extends javax.swing.JDialog {
         venta.setToken(null);
 
         int idVenta = maniVenta.registrarVentaTaquilla(venta);
+        Venta ventaBuscada = maniVenta.buscarPorId(idVenta);
+        venta.setId_venta(idVenta);
 
         for (Asiento asiento : listaAsientos) {
-            DetalleTicket ticket = new DetalleTicket(funcion.getId_Funcion(), asiento.getId_asiento(), idVenta, LocalDate.now(), true);
+            DetalleTicket ticket = new DetalleTicket(funcion, asiento.getAsiento(), venta, LocalDate.now(), true);
             maniTicket.generarTicket(ticket);
         }
+
         estado = true;
     }
 
-    private void registrarVentaTaquilla() {
-        int sel = JOptionPane.showConfirmDialog(this,
+    private boolean registrarVentaTaquilla() {
+
+        int sel = JOptionPane.showConfirmDialog(
+                this,
                 "¿Es cliente?",
                 "",
-                YES_NO_OPTION);
-        try {
-            if (sel == 0) {
-                String txtdni = JOptionPane.showInputDialog("Ingrese DNI");
-                System.out.println("......");
+                JOptionPane.YES_NO_OPTION
+        );
 
-                if (!txtdni.matches("\\d{8}") || txtdni == null) {
-                    JOptionPane.showMessageDialog(this,
-                            "Debe ingresar un DNI válido de 8 dígitos sin puntos ni espacios.");
-                    return;
+        try {
+            if (sel == JOptionPane.YES_OPTION) {
+
+                String txtdni = JOptionPane.showInputDialog("Ingrese DNI");
+
+                if (txtdni == null) {
+                    return false;
                 }
+
                 txtdni = txtdni.trim();
 
+                if (!txtdni.matches("\\d{8}")) {
+                    JOptionPane.showMessageDialog(this,
+                            "Debe ingresar un DNI válido de 8 dígitos sin puntos ni espacios.");
+                    return false;
+                }
+
                 int dni = Integer.parseInt(txtdni);
+
                 cliente = maniCliente.buscarClientePorDNI(dni);
-                id_cliente = cliente.getId_cliente();
-                venta.setId_Cliente(id_cliente);
-                System.out.println(cliente.getId_cliente() + id_cliente + venta.getId_Cliente());
-                if (cliente != null) {
-                    ventayticketTaquilla();
-                    JOptionPane.showMessageDialog(this, "Venta y tickets generados correctamente.");
-                    return;
+
+                if (cliente == null) {
+
+                    int crear = JOptionPane.showConfirmDialog(
+                            this,
+                            "No existe un cliente con ese DNI. ¿Desea crear una cuenta ahora?",
+                            "",
+                            JOptionPane.YES_NO_OPTION
+                    );
+
+                    if (crear == JOptionPane.YES_OPTION) {
+
+                        JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+                        DialogAgregarCliente ventanaAgregarCliente
+                                = new DialogAgregarCliente(padre, true, true, venta);
+
+                        ventanaAgregarCliente.setVisible(true);
+
+                        ventayticketTaquilla();
+                        JOptionPane.showMessageDialog(this,
+                                "Venta registrada y asociada al cliente correctamente.");
+
+                    } else {
+                        ventayticketTaquilla();
+                        JOptionPane.showMessageDialog(this,
+                                "Venta registrada correctamente.");
+                    }
+
+                    return true;
                 }
+                venta.setCliente(cliente);
+                ventayticketTaquilla();
 
-            } else if (sel == 1 || cliente == null) {
-                int selec = JOptionPane.showConfirmDialog(this,
-                        "¿Desea crear una cuenta ahora?.",
-                        "",
-                        YES_NO_OPTION);
-
-                if (selec == 0) {
-                    JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
-                    DialogAgregarCliente ventanaAgregarCliente = new DialogAgregarCliente(padre, true, true, venta);
-                    ventanaAgregarCliente.setVisible(true);
-
-                    ventayticketTaquilla();
-                    JOptionPane.showMessageDialog(this, "Venta registrada y asociada al cliente correctamente.");
-
-                } else {
-                    ventayticketTaquilla();
-                    JOptionPane.showMessageDialog(this, "Venta registrada correctamente.");
-                }
+                JOptionPane.showMessageDialog(this,
+                        "Venta y tickets generados correctamente.");
+                return true;
             }
+            int selec = JOptionPane.showConfirmDialog(
+                    this,
+                    "¿Desea crear una cuenta ahora?",
+                    "",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (selec == JOptionPane.YES_OPTION) {
+
+                JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+                DialogAgregarCliente ventanaAgregarCliente
+                        = new DialogAgregarCliente(padre, true, true, venta);
+
+                ventanaAgregarCliente.setVisible(true);
+
+                ventayticketTaquilla();
+                JOptionPane.showMessageDialog(this,
+                        "Venta registrada y asociada al cliente correctamente.");
+            } else {
+                ventayticketTaquilla();
+                JOptionPane.showMessageDialog(this,
+                        "Venta registrada correctamente.");
+            }
+
+            return true;
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
+
+        return false;
     }
 
     private void placeholderFecha() {

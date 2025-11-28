@@ -5,7 +5,6 @@
  */
 package VistasCliente;
 
-import Controlador.AsientoDAO;
 import Controlador.FuncionDAO;
 import Controlador.PeliculaDAO;
 import Modelo.Asiento;
@@ -15,10 +14,11 @@ import Modelo.Pelicula;
 import Modelo.Venta;
 import VistasAdministrativo.DialogAsientos;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -35,12 +35,11 @@ import javax.swing.table.TableColumnModel;
 public class VentanaMainCliente extends javax.swing.JFrame {
     
     Cliente cliente;
-    
+
     int idSala = 0;
     double precioEntrada = 0;
     boolean estadoExito;
     ArrayList<Asiento> listaAsi = new ArrayList<>();
-    AsientoDAO maniAsi = new AsientoDAO();
     DefaultListModel<String> modeloAsi = new DefaultListModel<>();
 
     int idFun = 0;
@@ -76,13 +75,15 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         try {
             lista = maniPeli.listarTodasPeliculas();
             for (Pelicula peli : lista) {
-                modeloPeli.addRow(new Object[]{
-                    peli.getId_Pelicula(),
-                    peli.getTitulo(),
-                    peli.getDirector(),
-                    peli.getReparto(),
-                    peli.getGenero()
-                });
+                if (peli.isEnCartelera()) {
+                    modeloPeli.addRow(new Object[]{
+                        peli.getId_Pelicula(),
+                        peli.getTitulo(),
+                        peli.getDirector(),
+                        peli.getReparto(),
+                        peli.getGenero()
+                    });
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,22 +98,38 @@ public class VentanaMainCliente extends javax.swing.JFrame {
     }
 
     private void tablaFun() {
+        
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         ArrayList<Funcion> listaFun;
         modeloFun.setRowCount(0);
+        LocalDate hoy = LocalDate.now();
+        LocalDateTime ahora = LocalDateTime.now();
+
+        LocalDate fechaFun;
+        LocalTime horaFun;
+        LocalDateTime inicioFuncion;
+        LocalDateTime limiteCompra;
+
         try {
             listaFun = maniFun.listadoPorId(idPeli);
             for (Funcion fun : listaFun) {
-                modeloFun.addRow(new Object[]{
-                    fun.getId_Funcion(),
-                    fun.getFecha_Funcion(),
-                    "Inicio: " + fun.getHora_Inicio() + " / Fin: " + fun.getHora_Fin(),
-                    fun.getNro_Sala(),
-                    parsearBooleann(fun.isEs3D()),
-                    fun.getIdioma(),
-                    parsearBooleann(fun.isSubtitulada()),
-                    fun.getPrecio_Entrada()
-                });
+                fechaFun = fun.getFecha_Funcion();
+                horaFun = (fun.getHora_Inicio()).toLocalTime();
+                inicioFuncion = LocalDateTime.of(fechaFun, horaFun);
+                limiteCompra = inicioFuncion.minusMinutes(10);
+                if (!(fechaFun.isBefore(hoy)) && !(ahora.isAfter(limiteCompra))) {
+                    modeloFun.addRow(new Object[]{
+                        fun.getId_Funcion(),
+                        fechaFun.format(dtf),
+                        "Inicio: " + fun.getHora_Inicio() + " / Fin: " + fun.getHora_Fin(),
+                        fun.getSala().getNro_Sala(),
+                        parsearBooleann(fun.isEs3D()),
+                        fun.getIdioma(),
+                        parsearBooleann(fun.isSubtitulada()),
+                        fun.getPrecio_Entrada()
+                    });
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -410,12 +427,12 @@ public class VentanaMainCliente extends javax.swing.JFrame {
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
 
             for (int i = 0; i < cant; i++) {
-                DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, idSala);
+                DialogAsientos ventanaAsientos = new DialogAsientos(padre, true, idSala, idFun, listaAsi);
                 ventanaAsientos.setVisible(true);
                 Asiento asientoSelec = ventanaAsientos.getAsientoSeleccionado();
 
                 if (asientoSelec != null) {
-                    modeloAsi.addElement(String.valueOf(asientoSelec.getFila_asiento()) + "-" + asientoSelec.getNumero_asiento());
+                    modeloAsi.addElement(asientoSelec.getAsiento());
                     listaAsi.add(asientoSelec);
 
                     jListAsientos.setOpaque(true);
@@ -427,15 +444,6 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                     jBButaca.setEnabled(true);
                     jBCancelarB.setEnabled(false);
                     JOptionPane.showMessageDialog(this, "Selección de boletos cancelada.");
-
-                    for (Asiento a : listaAsi) {
-                        try {
-                            maniAsi.darAlta(a.getId_asiento());
-                        } catch (Exception ex) {
-                            System.out.println("Error al dar de alta nuevamente.");
-                        }
-                    }
-
                     modeloAsi.clear();
                     listaAsi.clear();
                     break;
@@ -458,7 +466,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
             Object[] opciones = {"Si", "No"};
             int eleccion = JOptionPane.showOptionDialog(
                     null,
-                    "Selección de función en curso.\n¿Seguro que desea salir? ",
+                    "Selección de función en curso.\n¿Seguro que desea salir? Se perderan los datos cargados ",
                     "",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
@@ -468,13 +476,6 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
             if (eleccion == 0) {
                 modeloAsi.clear();
-                for (Asiento a : listaAsi) {
-                    try {
-                        maniAsi.darAlta(a.getId_asiento());
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(this, e.getMessage());
-                    }
-                }
                 this.dispose();
             }
         }
@@ -509,8 +510,7 @@ public class VentanaMainCliente extends javax.swing.JFrame {
                 precioTotal = cantidad * precioEntrada;
             } catch (NumberFormatException e) {
             }
-            
-            
+
         }
     }//GEN-LAST:event_jTFuncionMouseClicked
 
@@ -541,55 +541,40 @@ public class VentanaMainCliente extends javax.swing.JFrame {
         listaAsi.clear();
         modeloAsi.clear();
         jListAsientos.setModel(modeloAsi);
-
-        for (Asiento a : listaAsi) {
-            try {
-                maniAsi.darAlta(a.getId_asiento());
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-            }
-        }
         txtCantidad.setText("");
         jBButaca.setEnabled(false);
         jBCancelarB.setEnabled(false);
         jBComprar.setEnabled(false);
         jListAsientos.setOpaque(false);
+        jTFuncion.clearSelection();
     }//GEN-LAST:event_jBCancelarBActionPerformed
 
     private void jBComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBComprarActionPerformed
         // TODO add your handling code here:
         
-        int id_cliente = cliente.getId_cliente();
         Venta ventaOnline = new Venta();
-        ventaOnline.setId_Cliente(id_cliente);
-        ventaOnline.setMedio_Pago("debito");
-        ventaOnline.setCantidad_Entradas(Integer.parseInt(txtCantidad.getText()));
-        ventaOnline.setImporte_Total(precioEntrada);
-        ventaOnline.setMedio_Compra("Online");
-        ventaOnline.setFecha_Venta(LocalDate.now());
+        ventaOnline.setCliente(cliente);
+        ventaOnline.setMedio_pago("debito");
+        ventaOnline.setCantidad_entradas(Integer.parseInt(txtCantidad.getText()));
+        ventaOnline.setImporte_total(precioEntrada);
+        ventaOnline.setMedio_compra("Online");
+        ventaOnline.setFecha_venta(LocalDate.now());
 
         try {
             JFrame padre = (JFrame) SwingUtilities.getWindowAncestor(this);
             DialogCompra ventanaCompra = new DialogCompra(padre, true, listaAsi, ventaOnline, "debito", idFun, "online");
             ventanaCompra.setVisible(true);
-            
+
             estadoExito = ventanaCompra.isEstado();
-            
-            if(!estadoExito){
-                for(Asiento a : listaAsi){
-                    try {
-                        maniAsi.darAlta(a.getId_asiento());
-                    } catch(Exception e){
-                        JOptionPane.showMessageDialog(this, e.getMessage());
-                    }
-                }
+
+            if (!estadoExito) {
                 listaAsi.clear();
                 jTFuncion.clearSelection();
                 jTPeli.clearSelection();
             }
-            
+
         } catch (Exception ex) {
-            Logger.getLogger(VentanaMainCliente.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         limpiarCampos();
     }//GEN-LAST:event_jBComprarActionPerformed
@@ -603,22 +588,22 @@ public class VentanaMainCliente extends javax.swing.JFrame {
 
     private void limpiarCampos() {
         txtCantidad.setText("");
-    lblPrecio.setText("Precio Total:");
-    jTPeli.clearSelection();
-    jTFuncion.clearSelection();
-    modeloAsi.clear();
-    jListAsientos.setModel(modeloAsi);
-    jListAsientos.setOpaque(false);
-    listaAsi.clear();
-    precioTotal = 0;
-    precioEntrada = 0;
-    idPeli = 0;
-    idSala = 0;
-    idFun = 0;
-    jBButaca.setEnabled(false);
-    jBCancelarB.setEnabled(false);
-    jBComprar.setEnabled(false);
-    tablaFun();
+        lblPrecio.setText("Precio Total:");
+        jTPeli.clearSelection();
+        jTFuncion.clearSelection();
+        modeloAsi.clear();
+        jListAsientos.setModel(modeloAsi);
+        jListAsientos.setOpaque(false);
+        listaAsi.clear();
+        precioTotal = 0;
+        precioEntrada = 0;
+        idPeli = 0;
+        idSala = 0;
+        idFun = 0;
+        jBButaca.setEnabled(false);
+        jBCancelarB.setEnabled(false);
+        jBComprar.setEnabled(false);
+        tablaFun();
     }
 
     /**

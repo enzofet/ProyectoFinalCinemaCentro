@@ -22,16 +22,20 @@ import java.util.List;
  */
 public class DetalleTicketDAO {
 
+    FuncionDAO maniFuncion = new FuncionDAO();
+    VentaDAO maniVenta = new VentaDAO();
+    
+
     public void generarTicket(DetalleTicket ticket) throws Exception {
-        String sql = "INSERT INTO detalleticket(id_funcion, id_asiento, id_venta, fecha_emision, estado)"
+        String sql = "INSERT INTO detalleticket(id_funcion, asiento, id_venta, fecha_emision, estado)"
                 + " VALUES (?, ?, ?, ?, ?)";
 
         Connection con = ConexionBD.getConnection();
 
         try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setInt(1, ticket.getId_funcion());
-            ps.setInt(2, ticket.getId_asiento());
-            ps.setInt(3, ticket.getId_venta());
+            ps.setInt(1, ticket.getFuncion().getId_Funcion());
+            ps.setString(2, ticket.getAsiento());
+            ps.setInt(3, ticket.getVenta().getId_venta());
             ps.setDate(4, Date.valueOf(ticket.getFecha_emision()));
             ps.setBoolean(5, ticket.isEstado());
 
@@ -80,9 +84,9 @@ public class DetalleTicketDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     ticket.setId_ticket(rs.getInt("id_ticket"));
-                    ticket.setId_funcion(rs.getInt("id_funcion"));
-                    ticket.setId_asiento(rs.getInt("id_asiento"));
-                    ticket.setId_venta(rs.getInt("id_venta"));
+                    ticket.setFuncion(maniFuncion.buscarFuncionPorId(rs.getInt("id_funcion")));
+                    ticket.setAsiento(rs.getString("asiento"));
+                    ticket.setVenta(maniVenta.buscarPorId(rs.getInt("id_venta")));
                     ticket.setFecha_emision(rs.getDate("fecha_emision").toLocalDate());
                     ticket.setEstado(rs.getBoolean("estado"));
                 } else {
@@ -100,16 +104,16 @@ public class DetalleTicketDAO {
     public ArrayList<DetalleTicket> listarTicketsPorVenta(int id_venta) throws Exception {
         String sql = "SELECT * FROM detalleticket WHERE id_venta = ?";
         Connection con = ConexionBD.getConnection();
-        ArrayList<DetalleTicket> listaTickets = null;
+        ArrayList<DetalleTicket> listaTickets = new ArrayList<>();
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id_venta);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     DetalleTicket ticket = new DetalleTicket();
                     ticket.setId_ticket(rs.getInt("id_ticket"));
-                    ticket.setId_funcion(rs.getInt("id_funcion"));
-                    ticket.setId_asiento(rs.getInt("id_asiento"));
-                    ticket.setId_venta(rs.getInt("id_venta"));
+                    ticket.setFuncion(maniFuncion.buscarFuncionPorId(rs.getInt("id_funcion")));
+                    ticket.setAsiento(rs.getString("asiento"));
+                    ticket.setVenta(maniVenta.buscarPorId(rs.getInt("id_venta")));
                     ticket.setFecha_emision(rs.getDate("fecha_emision").toLocalDate());
                     ticket.setEstado(rs.getBoolean("estado"));
                     listaTickets.add(ticket);
@@ -121,15 +125,41 @@ public class DetalleTicketDAO {
         }
         return listaTickets;
     }
+    
+    public List<DetalleTicket> listarTicketsPorFuncion(int id_funcion) throws Exception{
+        String sql = "SELECT * FROM detalleticket WHERE id_funcion = ?";
+        Connection con = ConexionBD.getConnection();
+        ArrayList<DetalleTicket> listaTickets = new ArrayList<>();
+        try(PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, id_funcion);
+            try(ResultSet rs = ps.executeQuery()){
+                while(rs.next()){
+                    DetalleTicket ticket = new DetalleTicket();
+                    ticket.setId_ticket(rs.getInt("id_ticket"));
+                    ticket.setFuncion(maniFuncion.buscarFuncionPorId(rs.getInt("id_funcion")));
+                    ticket.setAsiento(rs.getString("asiento"));
+                    ticket.setVenta(maniVenta.buscarPorId(rs.getInt("id_venta")));
+                    ticket.setFecha_emision(rs.getDate("fecha_emision").toLocalDate());
+                    ticket.setEstado(rs.getBoolean("estado"));
+                    listaTickets.add(ticket);
+                    }
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+            throw new Exception("Error relacionado a la base de datos.");
+        }
+        
+        return listaTickets;
+    }
 
     public void modificarTicket(int id_ticket, DetalleTicket ticket) throws Exception {
-        String sql = "UPDATE detalleticket SET id_funcion = ?, id_asiento = ?, id_venta = ? WHERE id_ticket = ?";
+        String sql = "UPDATE detalleticket SET id_funcion = ?, asiento = ?, id_venta = ? WHERE id_ticket = ?";
         Connection con = ConexionBD.getConnection();
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, ticket.getId_funcion());
-            ps.setInt(2, ticket.getId_asiento());
-            ps.setInt(3, ticket.getId_venta());
+            ps.setInt(1, ticket.getFuncion().getId_Funcion());
+            ps.setString(2, ticket.getAsiento());
+            ps.setInt(3, ticket.getVenta().getId_venta());
             ps.setInt(4, id_ticket);
             int fila = ps.executeUpdate();
             if (fila == 0) {
@@ -202,9 +232,9 @@ public class DetalleTicketDAO {
                 while (rs.next()) {
                     DetalleTicket ticket = new DetalleTicket();
                     ticket.setId_ticket(rs.getInt("id_ticket"));
-                    ticket.setId_funcion(rs.getInt("id_funcion"));
-                    ticket.setId_asiento(rs.getInt("id_asiento"));
-                    ticket.setId_venta(rs.getInt("id_venta"));
+                    ticket.setFuncion(maniFuncion.buscarFuncionPorId(rs.getInt("id_funcion")));
+                    ticket.setAsiento(rs.getString("asiento"));
+                    ticket.setVenta(maniVenta.buscarPorId(rs.getInt("id_venta")));
                     ticket.setFecha_emision(rs.getDate("fecha_emision").toLocalDate());
                     ticket.setEstado(rs.getBoolean("estado"));
                     listaTickets.add(ticket);
@@ -219,13 +249,12 @@ public class DetalleTicketDAO {
 
     public List<TicketDato> listarDatosTickets() throws Exception {
         String sql = "SELECT dt.id_ticket id_ticket, p.titulo tituloPelicula, s.nro_sala nroSala, f.fecha_funcion fechaFuncion, "
-                + "f.hora_inicio horaInicio, f.hora_fin horaFin, a.numero_asiento numeroAsiento, a.fila_asiento filaAsiento, "
+                + "f.hora_inicio horaInicio, f.hora_fin horaFin, dt.asiento asiento, "
                 + "c.dni DNI, c.nombre nombre, c.apellido apellido, v.medio_compra medioCompra, dt.fecha_emision fechaEmision, "
                 + "dt.estado estado FROM detalleticket dt\n"
                 + "LEFT JOIN funcion f ON dt.id_funcion = f.id_funcion\n"
                 + "LEFT JOIN pelicula p ON f.id_pelicula = p.id_pelicula\n"
                 + "LEFT JOIN sala s ON f.nro_sala = s.nro_sala\n"
-                + "LEFT JOIN asiento a ON a.id_asiento = dt.id_asiento\n"
                 + "LEFT JOIN venta v ON dt.id_venta = v.id_venta\n"
                 + "LEFT JOIN cliente c ON v.id_cliente = c.id_cliente WHERE 1=1\n"
                 + "ORDER BY dt.fecha_emision";
@@ -247,7 +276,7 @@ public class DetalleTicketDAO {
                         datoTicket.setFechaFuncion(rs.getString("fechaFuncion"));
                         datoTicket.setHoraInicio(rs.getString("horaInicio"));
                         datoTicket.setHoraFin(rs.getString("horaFin"));
-                        datoTicket.setAsiento(rs.getString("numeroAsiento") + " - " + rs.getString("filaAsiento"));
+                        datoTicket.setAsiento(rs.getString("asiento"));
                     } else {
                         datoTicket.setPeliculaTitulo("Pelicula o función eliminada.");
                         datoTicket.setNroSala(0);

@@ -16,8 +16,8 @@ import java.util.Objects;
 public class Funcion {
 
     private int id_Funcion;
-    private int id_pelicula;
-    private int nro_Sala;
+    private Pelicula pelicula;
+    private Sala sala;
     private String idioma;
     private boolean es3D;
     private Time Hora_Inicio;
@@ -26,30 +26,15 @@ public class Funcion {
     private LocalDate Fecha_Funcion;
     private boolean Subtitulada;
     private boolean Estado;
-    private String descripcion;
 
     public Funcion() {
         this.id_Funcion = -1;
-        this.id_pelicula = -1;
     }
 
-    public Funcion(int nro_Sala, String idioma, boolean es3D, Time Hora_Inicio, Time Hora_Fin, double Precio_Entrada, LocalDate Fecha_Funcion, boolean Subtitulada, boolean Estado) {
-        this.nro_Sala = nro_Sala;
-        this.idioma = idioma;
-        this.es3D = es3D;
-        this.Hora_Inicio = Hora_Inicio;
-        this.Hora_Fin = Hora_Fin;
-        this.Precio_Entrada = Precio_Entrada;
-        this.Fecha_Funcion = Fecha_Funcion;
-        this.Subtitulada = Subtitulada;
-        this.Estado = Estado;
-        this.descripcion = descripcion;
-    }
-
-    public Funcion(int id_Funcion, int id_pelicula, int nro_Sala, String idioma, boolean es3D, Time Hora_Inicio, Time Hora_Fin, Double Precio_Entrada, LocalDate Fecha_Funcion, boolean Subtitulada, boolean Estado) {
+    public Funcion(int id_Funcion, Pelicula pelicula, Sala sala, String idioma, boolean es3D, Time Hora_Inicio, Time Hora_Fin, double Precio_Entrada, LocalDate Fecha_Funcion, boolean Subtitulada, boolean Estado) {
         this.id_Funcion = id_Funcion;
-        this.id_pelicula = id_pelicula;
-        this.nro_Sala = nro_Sala;
+        this.pelicula = pelicula;
+        this.sala = sala;
         this.idioma = idioma;
         this.es3D = es3D;
         this.Hora_Inicio = Hora_Inicio;
@@ -58,15 +43,20 @@ public class Funcion {
         this.Fecha_Funcion = Fecha_Funcion;
         this.Subtitulada = Subtitulada;
         this.Estado = Estado;
-        this.descripcion = descripcion;
+        //aca borré lo de descripcion que estaba al pedo.
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public Funcion(Pelicula pelicula, Sala sala, String idioma, boolean es3D, Time Hora_Inicio, Time Hora_Fin, double Precio_Entrada, LocalDate Fecha_Funcion, boolean Subtitulada, boolean Estado, String descripcion) {
+        this.pelicula = pelicula;
+        this.sala = sala;
+        this.idioma = idioma;
+        this.es3D = es3D;
+        this.Hora_Inicio = Hora_Inicio;
+        this.Hora_Fin = Hora_Fin;
+        this.Precio_Entrada = Precio_Entrada;
+        this.Fecha_Funcion = Fecha_Funcion;
+        this.Subtitulada = Subtitulada;
+        this.Estado = Estado;
     }
 
     public int getId_Funcion() {
@@ -77,20 +67,20 @@ public class Funcion {
         this.id_Funcion = id_Funcion;
     }
 
-    public int getId_pelicula() {
-        return id_pelicula;
+    public Pelicula getPelicula() {
+        return pelicula;
     }
 
-    public void setId_pelicula(int id_pelicula) {
-        this.id_pelicula = id_pelicula;
+    public void setPelicula(Pelicula pelicula) {
+        this.pelicula = pelicula;
     }
 
-    public int getNro_Sala() {
-        return nro_Sala;
+    public Sala getSala() {
+        return sala;
     }
 
-    public void setNro_Sala(int nro_Sala) {
-        this.nro_Sala = nro_Sala;
+    public void setSala(Sala sala) {
+        this.sala = sala;
     }
 
     public String getIdioma() {
@@ -125,11 +115,11 @@ public class Funcion {
         this.Hora_Fin = Hora_Fin;
     }
 
-    public Double getPrecio_Entrada() {
+    public double getPrecio_Entrada() {
         return Precio_Entrada;
     }
 
-    public void setPrecio_Entrada(Double Precio_Entrada) {
+    public void setPrecio_Entrada(double Precio_Entrada) {
         this.Precio_Entrada = Precio_Entrada;
     }
 
@@ -176,7 +166,7 @@ public class Funcion {
 
     @Override
     public String toString() {
-        return "Funcion{" + "id_Funcion=" + id_Funcion + ", id_pelicula=" + id_pelicula + ", nro_Sala=" + nro_Sala + ", idioma=" + idioma + ", es3D=" + es3D + ", Hora_Inicio=" + Hora_Inicio + ", Hora_Fin=" + Hora_Fin + ", Precio_Entrada=" + Precio_Entrada + ", Fecha_Funcion=" + Fecha_Funcion + ", Subtitulada=" + Subtitulada + ", Estado=" + Estado +  ", descripcion=" + descripcion + '}';
+        return "Funcion{" + "id_Funcion=" + id_Funcion + ", id_pelicula=" + pelicula + ", nro_Sala=" + sala + ", idioma=" + idioma + ", es3D=" + es3D + ", Hora_Inicio=" + Hora_Inicio + ", Hora_Fin=" + Hora_Fin + ", Precio_Entrada=" + Precio_Entrada + ", Fecha_Funcion=" + Fecha_Funcion + ", Subtitulada=" + Subtitulada + ", Estado=" + Estado + '}';
     }
 
 }

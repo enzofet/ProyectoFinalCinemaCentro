@@ -89,12 +89,10 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="asientoseleccionado" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="19" pref="19" max="-2" attributes="0"/>
                   <Component id="lblFilaS" min="-2" pref="30" max="-2" attributes="0"/>
-                  <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="31" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="275" max="-2" attributes="0"/>
                   <Component id="lblNumeroS" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="212" max="-2" attributes="0"/>
                   <Component id="btnConfirmar" min="-2" max="-2" attributes="0"/>
@@ -139,9 +137,8 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="asientoseleccionado" min="-2" max="-2" attributes="0"/>
                               <Component id="lblFilaS" min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <Component id="lblNumeroS" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -397,7 +394,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalirActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="asientoseleccionado">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Roboto Black" size="12" style="1"/>
@@ -405,7 +402,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Fila seleccionada:"/>
+            <Property name="text" type="java.lang.String" value="Asiento seleccionado:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblFilaS">
@@ -416,17 +413,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Roboto Black" size="12" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Numero de asiento seleccionado:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblNumeroS">

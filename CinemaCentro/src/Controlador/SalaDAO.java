@@ -30,10 +30,10 @@ public class SalaDAO {
             ps.setBoolean(4, sala.isApta3D());
 
             int filas = ps.executeUpdate();
-             if (filas == 0) {
+            if (filas == 0) {
                 throw new Exception("No se pudo agregar la sala");
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
@@ -162,6 +162,25 @@ public class SalaDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Error relacionado a la base de datos.");
+        }
+    }
+
+    public boolean salaEsApta3D(int nroSala) throws Exception {
+        String sql = "SELECT apta3D FROM sala WHERE nro_sala = ? AND estado = true";
+        Connection conn = ConexionBD.getConnection();
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, nroSala);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getBoolean("apta3D");
+                } else {
+                    throw new Exception("Sala no encontrada o inactiva");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Error al verificar sala 3D");
         }
     }
 

@@ -5,7 +5,7 @@
  */
 package VistasAdministrativo;
 
-import Controlador.AsientoDAO;
+
 import Controlador.SalaDAO;
 import Modelo.Sala;
 import java.util.List;
@@ -28,10 +28,10 @@ public class SalasInternal extends javax.swing.JInternalFrame {
      * Creates new form SalasInternal
      */
     SalaDAO maniSalas = new SalaDAO();
-    AsientoDAO maniAsi = new AsientoDAO();
+
     private int nro_sala = -1;
     public SalasInternal() {
-        initComponents();
+         initComponents();
         rellenarCabeceras();
         deshabilitarBotones();
         rellenarTabla();
@@ -67,7 +67,6 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         btnSalir = new javax.swing.JButton();
         lblSalasActuales = new javax.swing.JLabel();
         txtEstado = new javax.swing.JTextField();
-        btnLiberarAsientos = new javax.swing.JButton();
         lblCinemaCentro = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
 
@@ -186,16 +185,6 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         lblSalasActuales.setForeground(new java.awt.Color(255, 255, 255));
         lblSalasActuales.setText("Salas actuales:");
 
-        btnLiberarAsientos.setBackground(new java.awt.Color(70, 73, 75));
-        btnLiberarAsientos.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        btnLiberarAsientos.setForeground(new java.awt.Color(255, 255, 255));
-        btnLiberarAsientos.setText("Liberar asientos");
-        btnLiberarAsientos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLiberarAsientosActionPerformed(evt);
-            }
-        });
-
         lblCinemaCentro.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         lblCinemaCentro.setForeground(new java.awt.Color(255, 255, 255));
         lblCinemaCentro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -253,8 +242,7 @@ public class SalasInternal extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblCinemaCentro))
                             .addGroup(pnlSalasLayout.createSequentialGroup()
-                                .addComponent(btnLiberarAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSalasLayout.createSequentialGroup()
@@ -275,9 +263,7 @@ public class SalasInternal extends javax.swing.JInternalFrame {
                         .addGap(5, 5, 5)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlSalasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnLiberarAsientos)
-                            .addComponent(btnSalir))
+                        .addComponent(btnSalir)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlSalasLayout.createSequentialGroup()
                         .addGap(65, 65, 65)
@@ -330,7 +316,6 @@ public class SalasInternal extends javax.swing.JInternalFrame {
             habilitarBotones();
             btnAgregar.setEnabled(false);
         btnEliminar.setEnabled(false);
-        btnLiberarAsientos.setEnabled(false);
         btnAlta.setEnabled(false);
         btnBaja.setEnabled(false);
         } else {
@@ -359,7 +344,7 @@ public class SalasInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
-        try {
+         try {
             maniSalas.darAltaSala(nro_sala);
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", WIDTH);
@@ -413,17 +398,6 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         rellenarTabla();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void btnLiberarAsientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarAsientosActionPerformed
-        // TODO add your handling code here:
-        try{
-            maniAsi.liberarAsientosPorSala(nro_sala);
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        } finally {
-            rellenarTabla();
-        }
-    }//GEN-LAST:event_btnLiberarAsientosActionPerformed
-
     public void rellenarCabeceras() {
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
@@ -433,7 +407,6 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         };
         modelo.addColumn("Numero sala");
         modelo.addColumn("Capacidad");
-        modelo.addColumn("Asientos libres");
         modelo.addColumn("Estado");
         modelo.addColumn("Apta 3D");
         tblSalas.setModel(modelo);
@@ -447,7 +420,6 @@ public class SalasInternal extends javax.swing.JInternalFrame {
             for (Sala s : listaSalas) {
                 modelo.addRow(new Object[] {s.getNro_Sala(), 
                     s.getCapacidad(),
-                    maniAsi.cantidadAsientosLibres(s.getNro_Sala()),
                     parsearBoolean(s.isEstado()),
                     parsearBoolean(s.isApta3D()),
                     
@@ -476,7 +448,6 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         checkApta3D.setEnabled(false);
         btnAgregar.setEnabled(true);
         btnEliminar.setEnabled(true);
-        btnLiberarAsientos.setEnabled(true);
         btnAlta.setEnabled(true);
         btnBaja.setEnabled(true);
     }
@@ -487,7 +458,6 @@ public class SalasInternal extends javax.swing.JInternalFrame {
         checkApta3D.setEnabled(true);
         btnAgregar.setEnabled(false);
         btnEliminar.setEnabled(false);
-        btnLiberarAsientos.setEnabled(false);
         btnAlta.setEnabled(false);
         btnBaja.setEnabled(false);
     }
@@ -505,8 +475,8 @@ public class SalasInternal extends javax.swing.JInternalFrame {
                     nro_sala = (int) tabla.getValueAt(filaS, 0);
                     txtNumero.setText(Integer.toString((int) tabla.getValueAt(filaS, 0)));
                     txtCapacidad.setText(Integer.toString((int) tabla.getValueAt(filaS, 1)));
-                    txtEstado.setText((String) tabla.getValueAt(filaS, 3));
-                    if(parsearString((String)tabla.getValueAt(filaS, 4))){
+                    txtEstado.setText((String) tabla.getValueAt(filaS, 2));
+                    if(parsearString((String)tabla.getValueAt(filaS, 3))){
                         checkApta3D.setSelected(true);
                     } else {
                         checkApta3D.setSelected(false);
@@ -520,7 +490,6 @@ public class SalasInternal extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAlta;
     private javax.swing.JButton btnBaja;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnLiberarAsientos;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JCheckBox checkApta3D;

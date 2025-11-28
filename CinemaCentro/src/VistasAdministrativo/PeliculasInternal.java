@@ -639,7 +639,7 @@ public class PeliculasInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int fila = tblPeliculas.getSelectedRow();
+       int fila = tblPeliculas.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "Seleccione una película para eliminar.");
             return;

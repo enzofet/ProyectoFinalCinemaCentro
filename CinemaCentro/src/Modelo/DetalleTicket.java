@@ -15,9 +15,9 @@ import java.util.Objects;
 public class DetalleTicket {
     
     private int id_ticket;
-    private int id_funcion;
-    private int id_asiento;
-    private int id_venta;
+    private Funcion funcion;
+    private String asiento;
+    private Venta venta;
     private LocalDate fecha_emision;
     private boolean estado;
 
@@ -25,48 +25,22 @@ public class DetalleTicket {
         this.id_ticket = -1;
     }
 
-    public DetalleTicket(int id_ticket, int id_funcion, int id_asiento, int id_venta, LocalDate fecha_emision, boolean estado) {
+    public DetalleTicket(int id_ticket, Funcion funcion, String asiento, Venta venta, LocalDate fecha_emision, boolean estado) {
         this.id_ticket = id_ticket;
-        this.id_funcion = id_funcion;
-        this.id_asiento = id_asiento;
-        this.id_venta = id_venta;
+        this.funcion = funcion;
+        this.asiento = asiento;
+        this.venta = venta;
         this.fecha_emision = fecha_emision;
         this.estado = estado;
     }
 
-    public DetalleTicket(int id_funcion, int id_asiento, int id_venta, LocalDate fecha_emision, boolean estado) {
-        this.id_funcion = id_funcion;
-        this.id_asiento = id_asiento;
-        this.id_venta = id_venta;
+    public DetalleTicket(Funcion funcion, String asiento, Venta venta, LocalDate fecha_emision, boolean estado) {
+        this.funcion = funcion;
+        this.asiento = asiento;
+        this.venta = venta;
         this.fecha_emision = fecha_emision;
         this.estado = estado;
     }
-
-    public int getId_funcion() {
-        return id_funcion;
-    }
-
-    public void setId_funcion(int id_funcion) {
-        this.id_funcion = id_funcion;
-    }
-
-    public int getId_asiento() {
-        return id_asiento;
-    }
-
-    public void setId_asiento(int id_asiento) {
-        this.id_asiento = id_asiento;
-    }
-
-    public int getId_venta() {
-        return id_venta;
-    }
-
-    public void setId_venta(int id_venta) {
-        this.id_venta = id_venta;
-    }
-
-    
 
     public int getId_ticket() {
         return id_ticket;
@@ -74,6 +48,32 @@ public class DetalleTicket {
 
     public void setId_ticket(int id_ticket) {
         this.id_ticket = id_ticket;
+    }
+
+    public Funcion getFuncion() {
+        return funcion;
+    }
+
+    public void setFuncion(Funcion funcion) {
+        this.funcion = funcion;
+    }
+
+    public String getAsiento() {
+        return asiento;
+    }
+
+    public void setAsiento(String asiento) {
+        this.asiento = asiento;
+    }
+
+   
+    
+    public Venta getVenta() {
+        return venta;
+    }
+
+    public void setVenta(Venta venta) {
+        this.venta = venta;
     }
 
     public LocalDate getFecha_emision() {
@@ -91,6 +91,9 @@ public class DetalleTicket {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    
+    
     
     @Override
     public boolean equals(Object a) {
@@ -113,6 +116,5 @@ public class DetalleTicket {
     public String toString() {
         return "DetalleTicket: \n" + "\tid_ticket: " + id_ticket + "\n \tFecha de emisión: " + fecha_emision + "\n \tEstado: " + estado;
     }
-    
     
 }

@@ -11,12 +11,10 @@ import Modelo.Cliente;
 import Modelo.Venta;
 import java.awt.Color;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  *
@@ -141,11 +139,6 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
         txtFechaNac.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtFechaNac.setText("dd-MM-yyyy");
         txtFechaNac.setEnabled(true);
-        txtFechaNac.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaNacActionPerformed(evt);
-            }
-        });
 
         txtPassword.setEditable(true);
         txtPassword.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
@@ -272,10 +265,6 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFechaNacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaNacActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaNacActionPerformed
-
     private void jbtAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAgregarActionPerformed
         // TODO add your handling code here:
 
@@ -334,8 +323,7 @@ public class DialogAgregarCliente extends javax.swing.JDialog {
                 clear();
 
                 if (estadoCompra) {
-                    int id_cliente = cliente.getId_cliente();
-                    venta.setId_Cliente(id_cliente);
+                    venta.setCliente(cliente);
                     JOptionPane.showMessageDialog(this, "Cliente agregado exitosamente.");
                     this.dispose();
 

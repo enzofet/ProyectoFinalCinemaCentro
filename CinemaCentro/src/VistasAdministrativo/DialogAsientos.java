@@ -5,12 +5,18 @@
  */
 package VistasAdministrativo;
 
-import Controlador.AsientoDAO;
+import Controlador.DetalleTicketDAO;
 import Controlador.SalaDAO;
 import Modelo.Asiento;
+import Modelo.DetalleTicket;
 import Modelo.Sala;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -28,20 +34,33 @@ public class DialogAsientos extends javax.swing.JDialog {
      * Creates new form DialogAsientos
      */
     SalaDAO maniSala = new SalaDAO();
-    AsientoDAO maniAsi = new AsientoDAO();
+    DetalleTicketDAO maniTicket = new DetalleTicketDAO();
     List<Asiento> listaAsientos;
-    
-    int nro_sala;
-    char fila = '\u0000';
-    int numero = 0;
-    Asiento asientoS = null;
+    List<DetalleTicket> tickets;
 
-    public DialogAsientos(java.awt.Frame parent, boolean modal, int nro_sala) {
+    int nro_sala;
+    int id_funcion;
+    char fila = '\u0000';
+    String asiento;
+    Asiento asientoS = null;
+    List<Asiento> listaAsientosS;
+
+    public DialogAsientos(java.awt.Frame parent, boolean modal, int nro_sala, int id_funcion, List<Asiento> listaAsientosS) {
         super(parent, modal);
         initComponents();
         this.nro_sala = nro_sala;
-        listaAsientos = maniAsi.listarAsientosPorSala(nro_sala);
-        rellenarTabla();
+        this.id_funcion = id_funcion;
+        this.listaAsientos = new ArrayList<>();
+        this.tickets = new ArrayList<>();
+        try {
+            this.listaAsientos = armarSala(nro_sala);
+            this.tickets = maniTicket.listarTicketsPorFuncion(id_funcion);
+            this.listaAsientosS = listaAsientosS;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+        rellenarTabla(listaAsientos, tickets, listaAsientosS);
         tblAsientos.setCellSelectionEnabled(true);
         tblAsientos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         agregarListener(tblAsientos);
@@ -70,9 +89,8 @@ public class DialogAsientos extends javax.swing.JDialog {
         pnlEntrada = new javax.swing.JPanel();
         lblEntrada = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        asientoseleccionado = new javax.swing.JLabel();
         lblFilaS = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         lblNumeroS = new javax.swing.JLabel();
         btnConfirmar = new javax.swing.JButton();
         lblEstadoSub1 = new javax.swing.JLabel();
@@ -191,16 +209,12 @@ public class DialogAsientos extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Fila seleccionada:");
+        asientoseleccionado.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
+        asientoseleccionado.setForeground(new java.awt.Color(255, 255, 255));
+        asientoseleccionado.setText("Asiento seleccionado:");
 
         lblFilaS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblFilaS.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel4.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Numero de asiento seleccionado:");
 
         lblNumeroS.setFont(new java.awt.Font("Roboto Black", 1, 12)); // NOI18N
         lblNumeroS.setForeground(new java.awt.Color(255, 255, 255));
@@ -248,12 +262,10 @@ public class DialogAsientos extends javax.swing.JDialog {
                 .addGap(6, 10, Short.MAX_VALUE))
             .addGroup(pnlAsientosLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jLabel1)
+                .addComponent(asientoseleccionado)
                 .addGap(19, 19, 19)
                 .addComponent(lblFilaS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jLabel4)
-                .addGap(31, 31, 31)
+                .addGap(275, 275, 275)
                 .addComponent(lblNumeroS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(212, 212, 212)
                 .addComponent(btnConfirmar)
@@ -289,9 +301,8 @@ public class DialogAsientos extends javax.swing.JDialog {
                     .addGroup(pnlAsientosLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(pnlAsientosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
+                            .addComponent(asientoseleccionado)
                             .addComponent(lblFilaS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
                             .addComponent(lblNumeroS, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlAsientosLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -321,9 +332,8 @@ public class DialogAsientos extends javax.swing.JDialog {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         try {
-            this.asientoS = maniAsi.buscarPorFilaAsiento(numero, nro_sala, fila);
-            if(asientoS.isEstado()){
-                maniAsi.darBaja(asientoS.getId_asiento());
+            this.asientoS = new Asiento(asiento);
+            if(!asientoS.getAsiento().contains("Ocupado")){
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Asiento ocupado.");
@@ -346,32 +356,78 @@ public class DialogAsientos extends javax.swing.JDialog {
 
         try {
             Sala sala = maniSala.buscarSala(nro_sala);
-            
+
             lblNroSala.setText(Integer.toString(nroSala));
             lblEstadoSub1.setText(parsearBooleann(sala.isApta3D()));
-            
-        }catch (SQLException e) {
+
+        } catch (SQLException e) {
             e.printStackTrace();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
-        } 
+        }
     }
 
-    public void rellenarTabla() {
+    public void rellenarTabla(List<Asiento> lista, List<DetalleTicket> listaT, List<Asiento> seleccionados) {
         DefaultTableModel modelo = (DefaultTableModel) tblAsientos.getModel();
+        try {
+            Set<String> asientosOcup = new HashSet<>();
+            for (DetalleTicket dt : listaT) {
+                if(dt.isEstado()==true){
+                    asientosOcup.add(dt.getAsiento());
+                } 
+            }
+            for(Asiento a : seleccionados){
+                asientosOcup.add(a.getAsiento());
+            }
 
-        int columnas = modelo.getColumnCount();
-        char fila = '\u0000';
-        for (int i = 0; i < columnas; i++) {
-            fila = modelo.getColumnName(i).charAt(0);
             int contador = 0;
-            for (Asiento a : listaAsientos) {
-                if (a.getFila_asiento() == fila) {
-                    modelo.setValueAt(a.getNumero_asiento() + " " + parsearBoolean(a.isEstado()), contador, i);
-                    contador++;
+            int filas = 0;
+            for (Asiento a : lista) {
+                    if (asientosOcup.contains(a.getAsiento())) {
+                        modelo.setValueAt(a.getAsiento() + " Ocupado", contador, filas);
+                        contador++;
+                    } else {
+                        modelo.setValueAt(a.getAsiento() + " Libre", contador, filas);
+                        contador++;
+                    }
+                if (contador == 23) {
+                    contador = 0;
+                    filas++;
+
                 }
             }
+        } catch (Exception e) {
         }
+
+    }
+
+    public List<Asiento> armarSala(int nro_sala) throws Exception {
+
+        Sala salaSeleccionada = maniSala.buscarSala(nro_sala);
+        List<Asiento> listaAsientos = new ArrayList<>();
+        String[] listaFila = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+        int asientosCreados = 0;
+        int asientosPorFila = 23;
+
+        for (int i = 0; i < listaFila.length; i++) {
+            if (asientosCreados >= salaSeleccionada.getCapacidad()) {
+                break;
+            }
+            String fila = listaFila[i];
+            for (int j = 1; j <= asientosPorFila; j++) {
+                if (asientosCreados >= salaSeleccionada.getCapacidad()) {
+                    break;
+                }
+                Asiento asi = new Asiento();
+                String lugarAsiento = fila + "-" + j;
+                asi.setAsiento(lugarAsiento);
+                listaAsientos.add(asi);
+                asientosCreados++;
+            }
+
+        }
+
+        return listaAsientos;
     }
 
     public String parsearBoolean(boolean estado) {
@@ -404,9 +460,8 @@ public class DialogAsientos extends javax.swing.JDialog {
                     String valores = (String) tabla.getValueAt(filaS, columnaS);
                     fila = ((String) tabla.getColumnName(columnaS)).charAt(0);
                     String[] valoresCortados = valores.split(" ");
-                    numero = Integer.parseInt(valoresCortados[0]);
-                    lblFilaS.setText(String.valueOf(fila));
-                    lblNumeroS.setText(Integer.toString(numero));
+                    asiento = valoresCortados[0];
+                    asientoseleccionado.setText(asiento);
                 }
             }
         });
@@ -447,7 +502,14 @@ public class DialogAsientos extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 int nro = 0;
-                DialogAsientos dialog = new DialogAsientos(new javax.swing.JFrame(), true, nro);
+                int nro1 = 0;
+                DialogAsientos dialog = null;
+                List<Asiento> lista = null;
+                try {
+                    dialog = new DialogAsientos(new javax.swing.JFrame(), true, nro, nro1, lista);
+                } catch (Exception ex) {
+                    Logger.getLogger(DialogAsientos.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -460,11 +522,10 @@ public class DialogAsientos extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel asientoseleccionado;
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnSalir;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCinema;
     private javax.swing.JLabel lblEntrada;

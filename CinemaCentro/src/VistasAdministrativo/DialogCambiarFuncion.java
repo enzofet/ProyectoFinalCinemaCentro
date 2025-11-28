@@ -271,7 +271,7 @@ public class DialogCambiarFuncion extends javax.swing.JDialog {
 
             for (Funcion f : listaFuncionPorPelicula) {
                 modelo.addRow(new Object[]{f.getId_Funcion(),
-                    f.getNro_Sala(),
+                    f.getSala().getNro_Sala(),
                     f.getIdioma(),
                     parsearBoolean(f.isEs3D()),
                     f.getHora_Inicio(),
