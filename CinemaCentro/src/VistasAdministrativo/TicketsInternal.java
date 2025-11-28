@@ -627,40 +627,45 @@ public class TicketsInternal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void txtDNIClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNIClienteKeyReleased
-        String dniText = txtDNICliente.getText();
+        String dniText = txtDNICliente.getText().trim();
         if (dniText.isEmpty()) {
             rellenarTablaTickets();
             return;
         }
         try {
 
-            int dni = Integer.parseInt(dniText);
 
             DefaultTableModel modelo = (DefaultTableModel) tblTickets.getModel();
             modelo.setRowCount(0);
-
+            boolean soloLetras = dniText.matches("[a-zA-Z]*");
+            
             for (TicketDato dt : listaDatosTickets) {
-                if (dt.getDNI().toString().startsWith(Integer.toString(dni))) {
-                    Object dniMostrado;
-                    if (dt.getDNI() == 0) {
-                        dniMostrado = "Eliminado o anonimo.";
-                    } else {
-                        dniMostrado = dt.getDNI();
-                    }
-                    modelo.addRow(new Object[]{
-                        dt.getIdTicket(),
-                        dniMostrado,
-                        dt.getNombreApellidoCliente(),
-                        dt.getPeliculaTitulo(),
-                        dt.getFechaFuncion(),
-                        dt.getHoraInicio(),
-                        dt.getHoraFin(),
-                        dt.getNroSala(),
-                        dt.getAsiento(),
-                        dt.getMedioCompra(),
-                        dt.getFechaEmision(),
-                        parsearBooleanAACTIVAINACTIVA(dt.isEstado())
-                    });
+                String dni = Integer.toString(dt.getDNI());
+                if(soloLetras){
+                    dniText = "0";
+                }              
+                if(dni.toLowerCase().startsWith(dniText)){
+                Object dniMostrado;
+                if (dt.getDNI() == 0) {
+                    dniMostrado = "Eliminado o anonimo.";
+                } else {
+                    dniMostrado = dt.getDNI();
+                }
+
+                modelo.addRow(new Object[]{
+                    dt.getIdTicket(),
+                    dniMostrado,
+                    dt.getNombreApellidoCliente(),
+                    dt.getPeliculaTitulo(),
+                    dt.getFechaFuncion(),
+                    dt.getHoraInicio(),
+                    dt.getHoraFin(),
+                    dt.getNroSala(),
+                    dt.getAsiento(),
+                    dt.getMedioCompra(),
+                    dt.getFechaEmision(),
+                    parsearBooleanAACTIVAINACTIVA(dt.isEstado())
+                });
                 }
             }
         } catch (Exception e) {
