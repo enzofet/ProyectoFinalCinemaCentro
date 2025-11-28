@@ -17,8 +17,7 @@ Este es el Proyecto Final para el Sistema de CinemaCentro. El objetivo de este p
 - Gonzalo Achucarro
 - Jesús Emanuel García
 
-## Funcionalidades ⚙️
-- [Proximamente.]
+## Vista Diseñador ⚙️
 
 ![Vista Diseñador](https://github.com/enzofet/ProyectoFinalCinemaCentro/blob/main/vistaDiseñador.png)
 
